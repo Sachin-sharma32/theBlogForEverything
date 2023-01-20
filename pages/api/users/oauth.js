@@ -13,7 +13,7 @@ export default async function oauth(req, res) {
             }
         );
         if (exists) {
-            const accessToken = jwt.sign({ id: exists._id }, "sachin1234", {
+            const accessToken = jwt.sign({ id: exists._id }, process.env.JWT_SECRET, {
                 expiresIn: "30d",
             });
             return res.status(200).json({ data: exists, token: accessToken });
@@ -23,7 +23,7 @@ export default async function oauth(req, res) {
                 name,
                 email,
             });
-            const accessToken = jwt.sign({ id: data._id }, "sachin1234", {
+            const accessToken = jwt.sign({ id: data._id }, process.env.JWT_SECRET, {
                 expiresIn: "30d",
             });
             return res.status(200).json({ data, token: accessToken });

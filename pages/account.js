@@ -15,7 +15,7 @@ import SuccessModel from "../utils/SuccessModel";
 import ErrorModel from "../utils/ErrorModel";
 import Alert from "@mui/material/Alert";
 
-const account = () => {
+const Account = () => {
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
     console.log(user);
@@ -299,4 +299,4 @@ const account = () => {
     );
 };
 
-export default account;
+export default Account;

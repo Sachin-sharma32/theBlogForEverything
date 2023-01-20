@@ -4,7 +4,7 @@ import { client } from "../../../sanity";
 export default async function getMe(req, res) {
     const token = req.headers.authorization.split(" ")[1];
     if (token) {
-        const user = jwt.verify(token, "sachin1234");
+        const user = jwt.verify(token, process.env.JWT_SECRET);
         const existUser = await client.fetch(
             `*[_type == "user" && _id == $id][0]`,
             {

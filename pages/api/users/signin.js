@@ -27,9 +27,13 @@ export default async function signin(req, res) {
                 .status(400)
                 .json({ status: "error", message: "password is incorrect" });
         }
-        const accessToken = jwt.sign({ id: exists._id }, "sachin1234", {
-            expiresIn: "30d",
-        });
+        const accessToken = jwt.sign(
+            { id: exists._id },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "30d",
+            }
+        );
         return res.status(200).json({
             status: "success",
             data: exists,

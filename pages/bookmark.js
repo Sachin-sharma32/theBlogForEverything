@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Post from "../components/Post";
 import Smooth from "../utils/Smooth";
 
-const bookmark = () => {
+const Bookmark = () => {
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
     const posts = useSelector((state) => state.base.posts);
@@ -35,4 +35,4 @@ const bookmark = () => {
     );
 };
 
-export default bookmark;
+export default Bookmark;

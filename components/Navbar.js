@@ -317,11 +317,13 @@ const Navbar = () => {
                                         Liked Posts
                                     </li>
                                 </Link>
-                                <Link href="http://localhost:3333">
-                                    <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
-                                        Dashboard
-                                    </li>
-                                </Link>
+                                {siteUser?.isAdmin && (
+                                    <Link href="http://localhost:3333">
+                                        <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
+                                            Dashboard
+                                        </li>
+                                    </Link>
+                                )}
                                 <li
                                     className=" hover:bg-gray-200 hover:text-black w-96 p-4 flex flex-col text-center cursor-pointer"
                                     onClick={() => {

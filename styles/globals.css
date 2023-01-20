@@ -1,9 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  contain: paint;
 }
 
 a {
@@ -20,7 +25,106 @@ a {
     color-scheme: dark;
   }
   body {
-    color: white;
-    background: black;
+    color: black;
+    background: #262626;
   }
+}
+
+.header-card-dark{
+  background-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,.5) 25%, rgba(0, 0, 0, .7) 50%, rgb(0, 0, 0) 100%),url(/sample-1.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.header-card-light{
+  background-image: linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.5) 25%, rgba(255, 255, 255, 0.9) 50%, rgb(255, 255, 255) 100%),url(/sample-1.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.header-card-dark-sm{
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.829) 02%, rgba(0, 0, 0, 0.82) 50%, rgba(0, 0, 0, 0.829) 100%),url(/sample-1.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.header-card-light-sm{
+  background-image: linear-gradient(90deg,rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.897) 50%, rgba(255, 255, 255, 0.831) 100%),url(/sample-1.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track{
+  background-color: #262626;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: rgb(73, 73, 73);
+  border-radius: 50px;
+}
+
+
+
+@media only screen and (min-width: 601px) {
+  .profile-icon:hover .drop-down{
+    display: flex;
+  }
+}
+@media only screen and (min-width: 768px){
+  .top-card{
+    box-shadow: -1rem 0 3rem -1rem black;
+    transition: all;
+    transition-duration: 0.5s;
+  }
+  .top-card:hover~.top-card{
+    transform: translateX(100px);
+  }
+}
+
+.post-page{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7) 0%, rgb(0, 0, 0,.8) 50%, rgba(0, 0, 0, 0.9) 90%, rgb(0, 0, 0) 100%),url(/sample-3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.post-page-light{
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.9) 90%, rgb(255, 255, 255) 100%),url(/sample-3.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.mail-btn:hover .mail-title{
+  transform: translateY(100px);
+}
+.mail-btn:hover .mail-address{
+  transform: translateY(-15px);
+}
+
+.signin-form{
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.739) 0%, rgba(0, 0, 0, 0.772) 50%, rgba(0, 0, 0, 0.739) 100%),url(/sample-3.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.signin-form-light{
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.739) 0%,rgba(255, 255, 255, 0.772) 50%, rgba(255, 255, 255, 0.739) 100%),url(/sample-3.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.comment-chat-btn:hover .sub-comments{
+  color:white;
 }

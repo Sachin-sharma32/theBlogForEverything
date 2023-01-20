@@ -12,7 +12,7 @@ import Error from "../utils/Error";
 import { PropaneSharp } from "@mui/icons-material";
 import ErrorModel from "../utils/ErrorModel";
 
-const register = () => {
+const Register = () => {
     const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
 
@@ -235,4 +235,4 @@ const register = () => {
     );
 };
 
-export default register;
+export default Register;

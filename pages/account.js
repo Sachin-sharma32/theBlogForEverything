@@ -6,13 +6,8 @@ import Smooth from "../utils/Smooth";
 import * as yup from "yup";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import Error from "../utils/Error";
-import axios from "axios";
-import user from "../../sanity/schemas/user";
-import { setUser } from "../redux/slices";
 import { client } from "../sanity";
 import { useUpdateAccount } from "../hooks/content";
-import SuccessModel from "../utils/SuccessModel";
-import ErrorModel from "../utils/ErrorModel";
 import Alert from "@mui/material/Alert";
 
 const Account = () => {

@@ -6,7 +6,7 @@ import Post from "../components/Post";
 import Smooth from "../utils/Smooth";
 import WestIcon from "@mui/icons-material/West";
 
-const search = () => {
+const Search = () => {
     const router = useRouter();
     const { search } = router.query;
     const mode = useSelector((state) => state.base.mode);
@@ -58,4 +58,4 @@ const search = () => {
     );
 };
 
-export default search;
+export default Search;

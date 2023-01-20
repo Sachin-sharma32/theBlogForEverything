@@ -11,7 +11,7 @@ import { RouterRounded } from "@mui/icons-material";
 import SuccessModel from "../utils/SuccessModel";
 import { Alert } from "@mui/material";
 
-const signin = () => {
+const SignIn = () => {
     const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
     const [password, setPassword] = useState("");
@@ -170,4 +170,4 @@ const signin = () => {
     );
 };
 
-export default signin;
+export default SignIn;

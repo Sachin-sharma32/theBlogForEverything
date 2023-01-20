@@ -20,7 +20,7 @@ import Error from "../../utils/Error";
 import axios from "axios";
 import LikeCommentIcon from "../../utils/LikeCommentIcon";
 
-const post = () => {
+const Post = () => {
     const mode = useSelector((state) => state.base.mode);
     const router = useRouter();
     const posts = useSelector((state) => state.base.posts);
@@ -282,4 +282,4 @@ const post = () => {
     }
 };
 
-export default post;
+export default Post;

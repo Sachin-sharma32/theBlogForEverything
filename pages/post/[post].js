@@ -1,16 +1,11 @@
 import { Avatar, Tooltip } from "@mui/material";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import ReplyIcon from "@mui/icons-material/Reply";
 import RelatedPosts from "../../components/RelatedPosts";
 import Author from "../../components/Author";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import Smooth from "../../utils/Smooth";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import serializerFn from "../../utils/serializer";
-import comment from "../../../sanity/schemas/comment";
 const BlockContent = require("@sanity/block-content-to-react");
 import moment from "moment/moment";
 import Link from "next/link";

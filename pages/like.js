@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Post from "../components/Post";
 import Smooth from "../utils/Smooth";
 
-const bookmark = () => {
+const Like = () => {
     const mode = useSelector((state) => state.base.mode);
     const liked = useSelector((state) => state.base.likes);
     return (
@@ -26,4 +26,4 @@ const bookmark = () => {
     );
 };
 
-export default bookmark;
+export default Like;

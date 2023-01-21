@@ -55,8 +55,9 @@ const Footer = () => {
                 <div className="  flex flex-col gap-2 items-center border200 text-left p-4 min-w-[300px] h-full">
                     <div className="flex gap-8  w-full sm:justify-end justify-center">
                         <div className="flex flex-col gap-2">
-                            {categories?.map((category) => (
+                            {categories?.map((category, i) => (
                                 <Link
+                                    key={i}
                                     href={`/${category.title}`}
                                     className=" hover:scale-125 transition-all duration-200"
                                 >
@@ -65,8 +66,9 @@ const Footer = () => {
                             ))}
                         </div>
                         <div className="flex flex-col gap-2">
-                            {tags?.map((tag) => (
+                            {tags?.map((tag, i) => (
                                 <Link
+                                    key={i}
                                     href={`/${tag.title}`}
                                     className=" hover:scale-125 transition-all duration-200"
                                 >

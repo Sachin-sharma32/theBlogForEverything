@@ -42,12 +42,12 @@ const Like = ({ post, setPostDetails, postDetails }) => {
             <Tooltip title="Like" placement="bottom">
                 {like ? (
                     <FavoriteBorderIcon
-                        className=" hover:scale-125 transition-all duration-200 cursor-pointer"
+                        className=" hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                         onClick={handleLike}
                     />
                 ) : (
                     <FavoriteIcon
-                        className=" hover:scale-125 transition-all duration-200 cursor-pointer"
+                        className=" hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                         onClick={handleLike}
                     />
                 )}

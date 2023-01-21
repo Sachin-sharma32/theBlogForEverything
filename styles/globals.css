@@ -31,6 +31,8 @@ a {
   }
 }
 
+
+
 @media only screen and (min-width: 768px)
 {
   .header-card-dark{
@@ -132,4 +134,9 @@ a {
 
 .comment-chat-btn:hover .sub-comments{
   color:white;
+}
+
+.animation-effect{
+  transition: all;
+  transition-duration: .2s;
 }

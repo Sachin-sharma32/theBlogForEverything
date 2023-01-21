@@ -43,15 +43,13 @@ const BookmarkBtn = ({ post }) => {
         <div className={`${mode == "dark" ? "text-white" : "text-black"}`}>
             <Tooltip title="Bookmark" placement="bottom">
                 {bookmark ? (
-                    <BookmarkBorderIcon
-                        className=" hover:scale-125 transition-all duration-200 cursor-pointer"
-                        onClick={handleBookmark}
-                    />
+                    <a onClick={handleBookmark}>
+                        <BookmarkBorderIcon className=" hover:scale-125 transition-all duration-200 cursor-pointer animation-effect" />
+                    </a>
                 ) : (
-                    <BookmarkIcon
-                        className=" hover:scale-125 transition-all duration-200 cursor-pointer"
-                        onClick={handleBookmark}
-                    />
+                    <a onClick={handleBookmark}>
+                        <BookmarkIcon className=" hover:scale-125 transition-all duration-200 cursor-pointer animation-effect" />
+                    </a>
                 )}
             </Tooltip>
         </div>

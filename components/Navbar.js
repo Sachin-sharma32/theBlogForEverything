@@ -161,9 +161,9 @@ const Navbar = () => {
                         >
                             <CategoryIcon className="text-lg sm:text-2xl" />
                             {toggleCategories ? (
-                                <ArrowDropUpIcon className="hidden sm:flex" />
+                                <ArrowDropUpIcon className="hidden sm:flex animation-effect" />
                             ) : (
-                                <ArrowDropDownIcon className="hidden sm:flex" />
+                                <ArrowDropDownIcon className="hidden sm:flex animation-effect" />
                             )}
                         </button>
                         {toggleCategories && (
@@ -260,7 +260,7 @@ const Navbar = () => {
                                     mode == "light"
                                         ? "text-black"
                                         : "text-white"
-                                } cursor-pointer hover:scale-125 transition-all duration-200`}
+                                } cursor-pointer hover:scale-125 transition-all duration-200 animation-effect`}
                             />
                             <p
                                 className={`${
@@ -278,7 +278,7 @@ const Navbar = () => {
                                     mode == "light"
                                         ? "text-black"
                                         : "text-white"
-                                } cursor-pointer hover:scale-125 transition-all duration-200`}
+                                } cursor-pointer hover:scale-125 animation-effect`}
                             />
                             <p
                                 className={`${
@@ -302,7 +302,7 @@ const Navbar = () => {
                                     mode == "light"
                                         ? "text-black"
                                         : "text-white"
-                                } cursor-pointer hover:scale-125 transition-all duration-200 text-lg sm:text-2xl`}
+                                } cursor-pointer hover:scale-125 text-lg sm:text-2xl animation-effect`}
                             />
                         </button>
                         <div className=" relative profile-icon">
@@ -383,7 +383,7 @@ const Navbar = () => {
                         <Brightness4Icon
                             className={` ${
                                 mode == "light" ? "text-black" : "text-white"
-                            } cursor-pointer hover:scale-125 transition-all duration-200 text-lg sm:text-2xl`}
+                            } cursor-pointer hover:scale-125 animation-effect transition-all duration-200 text-lg sm:text-2xl`}
                         />
                     </button>
                     <div className="hidden md:flex gap-4">

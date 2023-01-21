@@ -7,6 +7,8 @@ const initialState = {
     user: "",
     bookmarks: [],
     likes: [],
+    categories: [],
+    tags: [],
 };
 
 const baseSlice = createSlice({
@@ -35,6 +37,14 @@ const baseSlice = createSlice({
             state.likes = action.payload;
             console.log(state.likes);
         },
+        setCategories: (state, action) => {
+            state.categories = action.payload;
+            console.log(state.categories);
+        },
+        setTags: (state, action) => {
+            state.tags = action.payload;
+            console.log(state.tags);
+        },
     },
 });
 
@@ -45,5 +55,7 @@ export const {
     setUser,
     setBookmarks,
     setLiked,
+    setCategories,
+    setTags,
 } = baseSlice.actions;
 export default baseSlice.reducer;

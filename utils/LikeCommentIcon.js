@@ -44,17 +44,17 @@ const LikeCommentIcon = ({ comment }) => {
             <Tooltip title="Like" placement="bottom">
                 {like ? (
                     <FavoriteBorderIcon
-                        className=" hover:scale-125 transition-all duration-200 cursor-pointer"
+                        className=" text-lg sm:text-2xl hover:scale-125 transition-all duration-200 cursor-pointer"
                         onClick={handleLike}
                     />
                 ) : (
                     <FavoriteIcon
-                        className=" hover:scale-125 transition-all duration-200 cursor-pointer"
+                        className=" text-lg sm:text-2xl hover:scale-125 transition-all duration-200 cursor-pointer"
                         onClick={handleLike}
                     />
                 )}
             </Tooltip>
-            <p className=" bg-gray-500 text-white absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 white w-5 h-5 rounded-full text-xs flex items-center justify-center">
+            <p className=" bg-gray-500 text-white absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 white w-4 sm:w-5 h-4 sm:h-5 rounded-full text-xs flex items-center justify-center">
                 {likes.length}
             </p>
         </div>

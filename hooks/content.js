@@ -5,7 +5,9 @@ import {
     addToBookmark,
     setBookmark,
     setBookmarks,
+    setCategories,
     setPosts,
+    setTags,
     setUser,
 } from "../redux/slices";
 import { client } from "../sanity";
@@ -59,9 +61,7 @@ export const useGetPosts = () => {
 
 export const useSignin = (onSuccess, onError) => {
     const session = useSelector((state) => state.base.session);
-    const dispatch = useDispatch();
     const queryClient = useQueryClient();
-    const router = useRouter();
     const [cookie, setCookie] = useCookies(["user"]);
     return useMutation(
         "userSignIn",
@@ -162,6 +162,37 @@ export const useOauth = () => {
                         sameSite: true,
                     });
                 }
+            },
+        }
+    );
+};
+
+export const useGetCategories = () => {
+    const dispatch = useDispatch();
+    return useQuery(
+        "getCategories",
+        () => {
+            return axios.post("/api/users/categories");
+        },
+        {
+            onSuccess: (data) => {
+                console.log(data);
+                dispatch(setCategories(data.data));
+            },
+        }
+    );
+};
+export const useGetTags = () => {
+    const dispatch = useDispatch();
+    return useQuery(
+        "getTags",
+        () => {
+            return axios.post("/api/users/tags");
+        },
+        {
+            onSuccess: (data) => {
+                console.log(data);
+                dispatch(setTags(data.data));
             },
         }
     );

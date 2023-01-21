@@ -26,44 +26,48 @@ const Header = () => {
                 whileInView={{ y: [100, 0], opacity: 1 }}
                 transition={{ duration: 1 }}
                 className={` ${
-                    mode == "light" ? "md:header-card-light header-card-light-sm" : "md:header-card-dark header-card-dark-sm"
-                } bg-white w-[80vw] h-[80vh] flex justify-end items-center shadow-2xl rounded-sm cursor-pointer"`}
+                    mode == "light"
+                        ? "header-card-light"
+                        : "header-card-dark"
+                } bg-white w-[80vw] h-[60vh] sm:h-[80vh] flex justify-end items-center shadow-2xl rounded-sm cursor-pointer"`}
             >
                 {post && (
-                    <Link href={`/post/${post._id}`}>
-                        <div className=" w-80 flex flex-col gap-10 mr-10 cursor-pointer">
-                            <h1 className=" text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
-                                {post.title}
-                            </h1>
-                            <p
-                                className={`${
-                                    mode == "light"
-                                        ? "text-black"
-                                        : "text-white"
-                                }`}
-                            >
-                                {post.summery[0].children[0].text}
-                            </p>
-                            <div className="flex gap-4 items-center">
-                                <Avatar
-                                    src={imageBuilder(post.author[0].image)}
-                                    className=" w-14 h-14"
-                                />
-                                <div>
-                                    <p
-                                        className={`${
-                                            mode == "light"
-                                                ? "text-black"
-                                                : "text-white"
-                                        }`}
-                                    >
-                                        {post.author[0].name}
-                                    </p>
-                                    <p className=" text-xs">
-                                        {post.author[0].work}
-                                    </p>
+                    <div>
+                        <div className=" sm:w-80 p-4 sm:p-0 w-50 flex flex-col gap-4 sm:gap-10 mr-0 sm:mr-10 cursor-pointer">
+                            <Link href={`/post/${post._id}`} className="flex flex-col gap-4 sm:gap-10">
+                                <h1 className=" text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
+                                    {post.title}
+                                </h1>
+                                <p
+                                    className={`${
+                                        mode == "light"
+                                            ? "text-black"
+                                            : "text-white"
+                                    }`}
+                                >
+                                    {post.summery[0].children[0].text}
+                                </p>
+                                <div className="flex gap-4 items-center">
+                                    <Avatar
+                                        src={imageBuilder(post.author[0].image)}
+                                        className=" w-14 h-14"
+                                    />
+                                    <div>
+                                        <p
+                                            className={`${
+                                                mode == "light"
+                                                    ? "text-black"
+                                                    : "text-white"
+                                            }`}
+                                        >
+                                            {post.author[0].name}
+                                        </p>
+                                        <p className=" text-xs">
+                                            {post.author[0].work}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                             <div
                                 className={`${
                                     mode == "light"
@@ -74,7 +78,7 @@ const Header = () => {
                                 <BookmarkBtn post={post} />
                             </div>
                         </div>
-                    </Link>
+                    </div>
                 )}
             </motion.div>
         </div>

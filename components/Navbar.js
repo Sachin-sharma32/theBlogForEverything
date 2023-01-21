@@ -13,7 +13,12 @@ import {
     setSession,
     setUser,
 } from "../redux/slices";
-import { useGetMe, useGetPosts } from "../hooks/content";
+import {
+    useGetCategories,
+    useGetMe,
+    useGetPosts,
+    useGetTags,
+} from "../hooks/content";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
@@ -21,6 +26,11 @@ import Smooth from "../utils/Smooth";
 import { signOut } from "next-auth/react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import CategoryIcon from "@mui/icons-material/Category";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import CategoryBox from "./CategoryBox";
+import LoginIcon from "@mui/icons-material/Login";
 
 const Navbar = () => {
     const [hasSession, setHasSession] = useState(false);
@@ -29,6 +39,11 @@ const Navbar = () => {
     const { data } = useGetPosts();
     const [likes, setLikes] = useState(0);
     const [shown, setShown] = useState(false);
+
+    const [toggleCategories, setToggleCategories] = useState(false);
+
+    useGetTags();
+    useGetCategories();
 
     const sideRef = useRef();
 
@@ -81,9 +96,11 @@ const Navbar = () => {
     useEffect(() => {
         dispatch(setMode(localStorage.getItem("mode")));
     }, []);
+    console.log(user);
+    console.log(user?.data?.user.name);
     return (
         <Smooth
-            className={` px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${
+            className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${
                 mode == "light" ? "bg-white" : "bg-[#262626]"
             } z-50`}
         >
@@ -91,36 +108,69 @@ const Navbar = () => {
                 <h2
                     className={`${
                         mode == "light" ? "text-black" : "text-white"
-                    } font-bold text-xl`}
+                    } font-bold text-xl hidden lg:flex`}
                 >
-                    BLOG
+                    THE BLOG FOR EVERYTHING
+                </h2>
+                <h2
+                    className={`${
+                        mode == "light" ? "text-black" : "text-white"
+                    } font-bold text-xl lg:hidden`}
+                >
+                    TBFE
                 </h2>
             </Link>
-            <form
-                onSubmit={submitHandler}
-                className={`${
-                    mode == "dark"
-                        ? "bg-gray-500 focus-within:bg-white focus-within:shadow-gray-900"
-                        : "bg-white border focus-within:bg-gray-200"
-                } rounded-sm flex justify-between items-center h-7 px-2 w-60 md:w-80 md:focus-within:w-96 transition-all duration-200 focus-within:shadow-lg`}
-            >
-                <input
-                    type="text"
-                    name=""
-                    id=""
+            <div className="flex items-center justify-between gap-4">
+                <form
+                    onSubmit={submitHandler}
                     className={`${
                         mode == "dark"
-                            ? "bg-gray-500 focus-within:bg-white"
-                            : " bg-white focus-within:bg-gray-200"
-                    } rounded-sm h-fit outline-none w-full transition-all duration-200`}
-                    onChange={(e) => {
-                        setSearch(e.target.value);
-                    }}
-                />
-                <button type="submit">
-                    <SearchIcon className=" text-black" />
-                </button>
-            </form>
+                            ? "bg-gray-500 focus-within:bg-white focus-within:shadow-gray-900"
+                            : "bg-white border focus-within:bg-gray-200"
+                    } rounded-sm flex justify-between items-center h-7 px-1 md:px-2 w-52 sm:w-60 md:w-80 md:focus-within:w-96 transition-all duration-200 focus-within:shadow-lg`}
+                >
+                    <input
+                        type="text"
+                        name=""
+                        id=""
+                        className={`${
+                            mode == "dark"
+                                ? "bg-gray-500 focus-within:bg-white"
+                                : " bg-white focus-within:bg-gray-200"
+                        } rounded-sm h-fit outline-none w-full transition-all duration-200`}
+                        onChange={(e) => {
+                            setSearch(e.target.value);
+                        }}
+                    />
+                    <button type="submit">
+                        <SearchIcon className=" text-black text-lg sm:text-2xl" />
+                    </button>
+                </form>
+                <div
+                    className={`${
+                        mode == "dark" ? "text-white" : "text-black"
+                    } relative hidden sm:flex`}
+                >
+                    <button
+                        className="flex items-center cursor-pointer"
+                        onClick={() => {
+                            setToggleCategories((current) => !current);
+                        }}
+                    >
+                        <CategoryIcon />
+                        {toggleCategories ? (
+                            <ArrowDropUpIcon />
+                        ) : (
+                            <ArrowDropDownIcon />
+                        )}
+                    </button>
+                    {toggleCategories && (
+                        <CategoryBox
+                            setToggleCategories={setToggleCategories}
+                        />
+                    )}
+                </div>
+            </div>
             {hasSession ? (
                 <div className=" relative">
                     <div>
@@ -128,11 +178,11 @@ const Navbar = () => {
                             className=" cursor-pointer bg-black flex md:hidden"
                             onClick={showSideBar}
                         >
-                            <MenuIcon className=" mt-[4rem] absolute w-10 text-transparent h-10 -top-16 right-0 z-50" />
+                            <MenuIcon className="mt-[4rem] absolute w-5 text-transparent h-5 -top-16 right-0 z-50" />
                         </button>
                         <div
                             ref={sideRef}
-                            className=" transition-all duration-200 absolute top-0 right-0 min-h-screen mt-[4rem] w-[200px] translate-x-[500px] p-4 flex flex-col gap-4 z-50"
+                            className=" transition-all duration-200 absolute -top-12 -right-4 min-h-screen mt-[4rem] w-[200px] translate-x-[500px] p-4 flex flex-col gap-4 z-50"
                         >
                             <ul
                                 className={`${
@@ -142,24 +192,27 @@ const Navbar = () => {
                                 } shadow-2xl shadow-black flex-col text-sm user-links font-normal  z-50`}
                             >
                                 <li className="bg-gradient-to-r from-pink-500 to-orange-500 p-4">
-                                    Hi, {user?.data.user.name.toUpperCase()}
+                                    Hi, {user?.data?.user?.name}
                                 </li>
-                                <Link href="/account">
+                                <Link href="/account" onClick={hideSideBar}>
                                     <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
                                         My Account
                                     </li>
                                 </Link>
-                                <Link href="/bookmark">
+                                <Link href="/bookmark" onClick={hideSideBar}>
                                     <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
                                         My Bookmarks
                                     </li>
                                 </Link>
-                                <Link href="/like">
+                                <Link href="/like" onClick={hideSideBar}>
                                     <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
                                         Liked Posts
                                     </li>
                                 </Link>
-                                <Link href="http://localhost:3333">
+                                <Link
+                                    href="http://localhost:3333"
+                                    onClick={hideSideBar}
+                                >
                                     <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
                                         Dashboard
                                     </li>
@@ -181,49 +234,8 @@ const Navbar = () => {
                                     <p>LOGOUT</p>
                                 </li>
                             </ul>
-                            {/* {!user?.isAdmin && (
-                                <ul className=" absolute top-10 -left-36 -translate-x-1/2 bg-[#262626] shadow-2xl shadow-black flex-col text-sm user-links font-normal text-white z-50 hidden drop-down">
-                                    <li className="bg-gradient-to-r from-pink-500 to-orange-500 p-4">
-                                        Hi, {user?.data.user.name.toUpperCase()}
-                                    </li>
-                                    <Link href="/account">
-                                        <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
-                                            My Account
-                                        </li>
-                                    </Link>
-                                    <Link href="/bookmark">
-                                        <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
-                                            My Bookmarks
-                                        </li>
-                                    </Link>
-                                    <Link href="/like">
-                                        <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
-                                            Liked Posts
-                                        </li>
-                                    </Link>
-                                    <li
-                                        className=" hover:bg-gray-200 hover:text-black w-96 p-4 flex flex-col text-center cursor-pointer"
-                                        onClick={() => {
-                                            setCookie("user", "logout", {
-                                                path: "/",
-                                                maxAge: 0,
-                                                sameSite: true,
-                                            });
-                                            setHasSession(false);
-                                            dispatch(setUser(null));
-                                            dispatch(setSession(null));
-                                            signOut();
-                                        }}
-                                    >
-                                        <p>LOGOUT</p>
-                                        <p className=" text-xs">
-                                            {user?.data.user.email}
-                                        </p>
-                                    </li>
-                                </ul>
-                            )} */}
                             <button
-                                className=" mt-[4rem] absolute w-10 text-transparent h-10 -top-32 right-0 z-50"
+                                className=" mt-[4rem] absolute w-5 text-transparent h-5 -top-20 right-4 z-50"
                                 onClick={hideSideBar}
                             >
                                 <MenuIcon className="" />
@@ -282,20 +294,20 @@ const Navbar = () => {
                                     mode == "light"
                                         ? "text-black"
                                         : "text-white"
-                                } cursor-pointer hover:scale-125 transition-all duration-200`}
+                                } cursor-pointer hover:scale-125 transition-all duration-200 text-lg sm:text-2xl`}
                             />
                         </button>
                         <div className=" relative profile-icon">
                             {siteUser?.image?.length > 0 && (
                                 <img
                                     src={`${siteUser?.image}`}
-                                    className=" cursor-pointer w-10 rounded-full h-10"
+                                    className=" cursor-pointer w-5 rounded-full h-5 sm:w-10 sm:h-10"
                                 />
                             )}
                             {!siteUser?.image && (
                                 <Avatar
                                     src="/person.webp"
-                                    className=" cursor-pointer"
+                                    className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
                                 />
                             )}
                             <ul className=" absolute top-10 -left-36 -translate-x-1/2 bg-[#262626] shadow-2xl shadow-black flex-col text-sm user-links font-normal text-white z-50 hidden drop-down">
@@ -363,20 +375,29 @@ const Navbar = () => {
                         <Brightness4Icon
                             className={` ${
                                 mode == "light" ? "text-black" : "text-white"
-                            } cursor-pointer hover:scale-125 transition-all duration-200`}
+                            } cursor-pointer hover:scale-125 transition-all duration-200 text-lg sm:text-2xl`}
                         />
                     </button>
-                    <Link
-                        href="/signin"
-                        className=" hover:scale-110 active:scale-100 transition-all duration-200"
-                    >
-                        SIGN IN
-                    </Link>
-                    <Link
-                        href="/register"
-                        className=" hover:scale-110 active:scale-100 transition-all duration-200"
-                    >
-                        REGISTER
+                    <div className="hidden md:flex gap-4">
+                        <Link
+                            href="/signin"
+                            className=" hover:scale-110 active:scale-100 transition-all duration-200"
+                        >
+                            SIGN IN
+                        </Link>
+                        <Link
+                            href="/register"
+                            className=" hover:scale-110 active:scale-100 transition-all duration-200"
+                        >
+                            REGISTER
+                        </Link>
+                    </div>
+                    <Link href="/signin" className="md:hidden">
+                        <LoginIcon
+                            className={` ${
+                                mode == "light" ? "text-black" : "text-white"
+                            } cursor-pointer hover:scale-125 transition-all duration-200`}
+                        />
                     </Link>
                 </div>
             )}

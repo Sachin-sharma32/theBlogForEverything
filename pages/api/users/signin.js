@@ -3,6 +3,7 @@ import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
 
 export default async function signin(req, res) {
+    console.log(req.body);
     const email = req.body.email;
     const password = req.body.password;
     const exists = await client.fetch(
@@ -40,6 +41,7 @@ export default async function signin(req, res) {
             cookie: accessToken,
         });
     } else {
+        console.log("error");
         return res.status(404).json({
             message: "user with this email does not exist",
         });

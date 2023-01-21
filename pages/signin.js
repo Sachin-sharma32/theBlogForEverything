@@ -10,6 +10,8 @@ import ErrorModel from "../utils/ErrorModel";
 import { RouterRounded } from "@mui/icons-material";
 import SuccessModel from "../utils/SuccessModel";
 import { Alert } from "@mui/material";
+import EastIcon from "@mui/icons-material/East";
+import Link from "next/link";
 
 const SignIn = () => {
     const router = useRouter();
@@ -118,10 +120,27 @@ const SignIn = () => {
                                 >
                                     SIGN IN
                                 </button>
+                                <Link
+                                    href="/register"
+                                    className={`${
+                                        mode == "dark"
+                                            ? "text-white"
+                                            : "text-black"
+                                    } flex gap-2 hover:gap-4 justify-center items-center self-end`}
+                                >
+                                    <p>REGISTER</p>
+                                    <EastIcon />
+                                </Link>
                             </div>
                         </form>
                     </div>
-                    <div className="mt-5 text-center">OR</div>
+                    <div
+                        className={`${
+                            mode == "dark" ? "text-white" : "text-black"
+                        } mt-5 text-center`}
+                    >
+                        OR
+                    </div>
                     <div className=" mt-6 items-center grid grid-cols-1 justify-center justify-items-center gap-4">
                         <div
                             className="flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] md:w-[400px] items-center bg-white text-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"

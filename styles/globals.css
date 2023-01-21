@@ -30,31 +30,35 @@ a {
   }
 }
 
-.header-card-dark{
-  background-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,.5) 25%, rgba(0, 0, 0, .7) 50%, rgb(0, 0, 0) 100%),url(/sample-1.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+@media only screen and (min-width: 768px)
+{
+  .header-card-dark{
+    background-image: linear-gradient(90deg, transparent 0, rgba(0,0,0,.5) 25%, rgba(0, 0, 0, .7) 50%, rgb(0, 0, 0) 100%),url(/sample-1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .header-card-light{
+    background-image: linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.5) 25%, rgba(255, 255, 255, 0.9) 50%, rgb(255, 255, 255) 100%),url(/sample-1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
-
-.header-card-light{
-  background-image: linear-gradient(90deg, transparent 0, rgba(255, 255, 255, 0.5) 25%, rgba(255, 255, 255, 0.9) 50%, rgb(255, 255, 255) 100%),url(/sample-1.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.header-card-dark-sm{
-  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.829) 02%, rgba(0, 0, 0, 0.82) 50%, rgba(0, 0, 0, 0.829) 100%),url(/sample-1.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.header-card-light-sm{
-  background-image: linear-gradient(90deg,rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.897) 50%, rgba(255, 255, 255, 0.831) 100%),url(/sample-1.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+@media only screen and (max-width: 767px){
+  .header-card-dark{
+    background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.649) 25%, rgba(0, 0, 0, 0.641) 50%, rgba(0, 0, 0, 0.665) 100%),url(/sample-1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .header-card-light{
+    background-image: linear-gradient(90deg,rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.897) 50%, rgba(255, 255, 255, 0.831) 100%),url(/sample-1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 
 ::-webkit-scrollbar{

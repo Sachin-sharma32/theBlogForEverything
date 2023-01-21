@@ -140,10 +140,12 @@ const Account = () => {
                 >
                     {(props) => {
                         return (
-                            <Form className=" grid grid-col-1 md:grid-cols-2 gap-10 mt-10 ">
-                                <div className="flex flex-col gap-8">
+                            <Form className=" grid grid-col-1 md:grid-cols-2 gap-10 mt-10 w-[100%]">
+                                <div className="flex flex-col gap-8 w-[100%] items-center sm:items-stretch">
                                     <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px]">User Name</p>
+                                        <p className=" w-[100px] hidden sm:flex">
+                                            User Name
+                                        </p>
                                         <div className="w-[300px] md:w-[500px]">
                                             <Field
                                                 type="text"
@@ -160,7 +162,9 @@ const Account = () => {
                                         </div>
                                     </div>
                                     <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px]">Email</p>
+                                        <p className=" w-[100px] hidden sm:flex">
+                                            Email
+                                        </p>
                                         <input
                                             readOnly
                                             type="text"
@@ -171,7 +175,9 @@ const Account = () => {
                                         />
                                     </div>
                                     <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px]">Bio</p>
+                                        <p className=" w-[100px] hidden sm:flex">
+                                            Bio
+                                        </p>
                                         <div className="w-[300px] md:w-[500px]">
                                             <Field
                                                 as="textarea"
@@ -188,7 +194,7 @@ const Account = () => {
                                         </div>
                                     </div>
                                     <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px]">
+                                        <p className=" w-[100px] hidden sm:flex">
                                             Website URL
                                         </p>
                                         <div className="w-[300px] md:w-[500px]">
@@ -205,9 +211,11 @@ const Account = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex flex-col gap-8">
+                                <div className="flex flex-col gap-8 items-center sm:items-stretch">
                                     <div className="flex relative items-center">
-                                        <p className=" w-[100px]">Image</p>
+                                        <p className=" w-[100px] hidden sm:flex">
+                                            Image
+                                        </p>
                                         <input
                                             type="file"
                                             onChange={uploadImage}
@@ -229,7 +237,9 @@ const Account = () => {
                                     </div>
 
                                     <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px]">Location</p>
+                                        <p className=" w-[100px] hidden sm:flex">
+                                            Location
+                                        </p>
                                         <div className="w-[300px] md:w-[500px]">
                                             <Field
                                                 type="text"
@@ -244,7 +254,9 @@ const Account = () => {
                                         </div>
                                     </div>
                                     <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px]">Work</p>
+                                        <p className=" w-[100px] hidden sm:flex">
+                                            Work
+                                        </p>
                                         <div className="w-[300px] md:w-[500px]">
                                             <Field
                                                 type="text"
@@ -259,7 +271,9 @@ const Account = () => {
                                         </div>
                                     </div>
                                     <div className="flex gap-4 item-center">
-                                        <p className="w-[100px]">Education</p>
+                                        <p className="w-[100px] hidden sm:flex">
+                                            Education
+                                        </p>
                                         <div className="w-[300px]  md:w-[500px]">
                                             <Field
                                                 type="text"

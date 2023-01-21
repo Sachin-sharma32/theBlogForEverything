@@ -158,7 +158,7 @@ const Post = () => {
                                     {(props) => {
                                         return (
                                             <Form className="flex flex-col justify-center items-center gap-6  w-[100%]">
-                                                <div>
+                                                <div className="w-[100%] sm:w-fit">
                                                     <Field
                                                         as="textarea"
                                                         name="comment"
@@ -176,8 +176,8 @@ const Post = () => {
                                                     />
                                                 </div>
                                                 {!user && (
-                                                    <div className="flex flex-col gap-6">
-                                                        <div className=" relative">
+                                                    <div className="flex flex-col gap-6 w-[100%]">
+                                                        <div className="w-[100%] sm:w-fit relative">
                                                             <Field
                                                                 type="text"
                                                                 value={
@@ -195,7 +195,7 @@ const Post = () => {
                                                                 }
                                                             />
                                                         </div>
-                                                        <div className=" relative">
+                                                        <div className="w-[100%] sm:w-fit relative">
                                                             <Field
                                                                 type="text"
                                                                 value={
@@ -262,7 +262,7 @@ const Post = () => {
                                 )}
                             </div>
                         </div>
-                        <div className=" lg:w-[30%] mt-8 flex flex-col md:flex-row lg:flex-col gap-2 lg:gap-8">
+                        <div className=" lg:w-[30%] mt-8 flex flex-col justify-center items-center md:justify-start md:flex-row lg:flex-col gap-2 lg:gap-8">
                             <div className=" bg-white rounded-md overflow-hidden shadow-xl w-fit h-fit">
                                 <Author author={post.author[0]} />
                             </div>

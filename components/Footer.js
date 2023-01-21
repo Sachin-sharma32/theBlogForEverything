@@ -37,16 +37,28 @@ const Footer = () => {
                     something for everyone.
                 </p>
                 <div className=" cursor-pointer flex gap-2">
-                    <a href="https://www.facebook.com/profile.php?id=100026014650461">
+                    <a
+                        href="https://www.facebook.com/profile.php?id=100026014650461"
+                        className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                    >
                         <FacebookIcon />
                     </a>
-                    <a href="https://twitter.com/Sachins27374929">
+                    <a
+                        href="https://twitter.com/Sachins27374929"
+                        className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                    >
                         <TwitterIcon />
                     </a>
-                    <a href="https://www.instagram.com/sachinn._.sharmaa">
+                    <a
+                        href="https://www.instagram.com/sachinn._.sharmaa"
+                        className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                    >
                         <InstagramIcon />
                     </a>
-                    <a href="https://github.com/Sachin-sharma32">
+                    <a
+                        href="https://github.com/Sachin-sharma32"
+                        className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                    >
                         <GitHubIcon />
                     </a>
                 </div>
@@ -58,7 +70,7 @@ const Footer = () => {
                             {categories?.map((category, i) => (
                                 <Link
                                     key={i}
-                                    href={`/${category.title}`}
+                                    href={`/search/${category.title}`}
                                     className=" hover:scale-125 transition-all duration-200"
                                 >
                                     {category.title.toUpperCase()}
@@ -69,7 +81,7 @@ const Footer = () => {
                             {tags?.map((tag, i) => (
                                 <Link
                                     key={i}
-                                    href={`/${tag.title}`}
+                                    href={`/search/${tag.title}`}
                                     className=" hover:scale-125 transition-all duration-200"
                                 >
                                     {tag.title}
@@ -79,20 +91,20 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className=" flex flex-col gap-2 text-left sm:justify-center h-full p-4 min-w-[300px] items-center">
-                    <div className="flex gap-2 sm:w-full">
+                    <div className="flex gap-2 sm:w-full hover:scale-125 transition-all duration-200 cursor-pointer animation-effect">
                         <LocationOnIcon />
                         <p>A-24, Bal Nagar, Kartarpura</p>
                     </div>
                     <a
                         href="tel: +916367212438"
-                        className="flex gap-2 sm:w-full"
+                        className="flex gap-2 sm:w-full hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <PhoneIcon />
                         <p>91+ 6367212438</p>
                     </a>
                     <a
                         href="mailto: sachin2sharma001@gmail.com"
-                        className="flex gap-2 sm:w-full"
+                        className="flex gap-2 sm:w-full hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <MailIcon />
                         <p>sachin2sharma001@gmail</p>

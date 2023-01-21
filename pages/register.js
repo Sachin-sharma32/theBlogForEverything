@@ -127,7 +127,7 @@ const Register = () => {
                             {(props) => {
                                 return (
                                     <Form className="flex flex-col gap-2 items-center w-[100%]">
-                                    <div className="relative h-12  w-[100%]">
+                                        <div className="relative h-12  w-[100%]">
                                             <Field
                                                 type="text"
                                                 name="name"
@@ -184,7 +184,7 @@ const Register = () => {
                                                     : " border-black text-black hover:bg-black hover:text-white"
                                             }  border w-[100%] md:w-[400px] px-4 py-2 rounded-md  transition-all duration-200 valid:active:scale-90 disabled:bg-gray-500`}
                                         >
-                                            SIGN IN
+                                            REGISTER
                                         </button>
                                         <Link
                                             href="/signin"
@@ -192,7 +192,7 @@ const Register = () => {
                                                 mode == "dark"
                                                     ? "text-white"
                                                     : "text-black"
-                                            } flex gap-2 hover:gap-4 justify-center items-center self-end`}
+                                            } flex gap-2 hover:gap-4 justify-center items-center self-end duration-200 transition-all`}
                                         >
                                             <p>SIGN IN</p>
                                             <EastIcon />
@@ -209,7 +209,7 @@ const Register = () => {
                     >
                         OR
                     </div>
-                    <div className=" mt-6 items-center grid grid-cols-1 justify-center justify-items-center gap-4 w-[100%]">
+                    <div className=" mt-6 items-center grid grid-cols-1 sm:grid-cols-2 justify-center justify-items-center gap-4 w-[100%]">
                         <div
                             onClick={() => {
                                 oAuthSignIn("google");
@@ -232,7 +232,7 @@ const Register = () => {
                             onClick={() => {
                                 oAuthSignIn("github");
                             }}
-                            className="flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] sm:w-[150px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                            className=" border-2 border-gray-500 flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] sm:w-[150px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                         >
                             <Image
                                 src="/github-dark.png"

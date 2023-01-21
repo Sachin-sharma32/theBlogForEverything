@@ -40,21 +40,29 @@ const LikeCommentIcon = ({ comment }) => {
         }
     };
     return (
-        <div className={`${mode == "dark" ? "text-black" : "text-black"}`}>
+        <div
+            className={`${
+                mode == "dark" ? "text-black" : "text-black"
+            } hover:scale-125 duration-200`}
+        >
             <Tooltip title="Like" placement="bottom">
                 {like ? (
-                    <FavoriteBorderIcon
-                        className=" text-lg sm:text-2xl hover:scale-125 cursor-pointer animation-effect"
+                    <a
                         onClick={handleLike}
-                    />
+                        className=" text-lg sm:text-2xl hover:scale-125 cursor-pointer animation-effect"
+                    >
+                        <FavoriteBorderIcon />
+                    </a>
                 ) : (
-                    <FavoriteIcon
-                        className=" text-lg sm:text-2xl hover:scale-125 cursor-pointer animation-effect"
+                    <a
                         onClick={handleLike}
-                    />
+                        className=" text-lg sm:text-2xl cursor-pointer animation-effect"
+                    >
+                        <FavoriteIcon />
+                    </a>
                 )}
             </Tooltip>
-            <p className=" bg-gray-500 text-white absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 white w-5 h-5 rounded-full text-xs flex items-center justify-center">
+            <p className=" bg-gray-500 text-white absolute top-0 right-0 -translate-x-1/2 -translate-y-1/2 white w-5 h-5 rounded-full text-xs flex items-center justify-center">
                 {likes.length}
             </p>
         </div>

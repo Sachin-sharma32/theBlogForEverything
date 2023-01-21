@@ -94,7 +94,7 @@ const Post = () => {
                                 } flex gap-4 text-xs`}
                             >
                                 {post.tag.map((item, i) => (
-                                    <Link href={`/${item.title}`} key={i}>
+                                    <Link href={`/search/${item.title}`} key={i}>
                                         <p className=" hover:scale-125 transition-all duration-200 cursor-pointer">
                                             #{item.title}
                                         </p>

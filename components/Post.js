@@ -34,7 +34,7 @@ const Post = ({ post }) => {
                     <div className="flex items-center justify-between">
                         <div className=" text-orange-500 flex gap-4">
                             {postDetails?.tag?.map((tag, i) => (
-                                <Link href={`/${tag.title}`} key={i}>
+                                <Link href={`/search/${tag.title}`} key={i}>
                                     <p className=" cursor-pointer hover:scale-110 transition-all duration-200">
                                         #{tag.title}
                                     </p>

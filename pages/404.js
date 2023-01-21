@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import WestIcon from "@mui/icons-material/West";
 
 const PageNotFound = () => {
-    const router = useRouter;
+    const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
     return (
         <div
@@ -16,8 +16,9 @@ const PageNotFound = () => {
             <div className="-translate-y-10 flex flex-col items-center gap-4">
                 <h1 className=" text-5xl font-bold">404</h1>
                 <p>
-                    <span className=" text-orange-500">http://localhost:3000{router.pathname}</span> does not exist on
-                    this website
+                    <span className=" text-orange-500">
+                        This URL does not exist on this website
+                    </span>
                 </p>
                 <div className={`${mode == "light" ? "text-black" : ""}`}>
                     <Link href="/">

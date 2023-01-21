@@ -38,18 +38,26 @@ const Like = ({ post, setPostDetails, postDetails }) => {
         }
     };
     return (
-        <div className={`${mode == "dark" ? "text-white" : "text-black"}`}>
+        <div
+            className={`${
+                mode == "dark" ? "text-white" : "text-black"
+            } hover:scale-125 transition-all duration-200`}
+        >
             <Tooltip title="Like" placement="bottom">
                 {like ? (
-                    <FavoriteBorderIcon
-                        className=" hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                    <a
                         onClick={handleLike}
-                    />
+                        className="cursor-pointer"
+                    >
+                        <FavoriteBorderIcon />
+                    </a>
                 ) : (
-                    <FavoriteIcon
-                        className=" hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                    <div
                         onClick={handleLike}
-                    />
+                        className="cursor-pointer "
+                    >
+                        <FavoriteIcon />
+                    </div>
                 )}
             </Tooltip>
             {postDetails?.likes ? (

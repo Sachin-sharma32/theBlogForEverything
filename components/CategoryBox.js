@@ -17,7 +17,7 @@ const CategoryBox = ({ setToggleCategories }) => {
             {headerCategories.map((item, index) => {
                 return (
                     <Link
-                        href={`/${item.title}`}
+                        href={`/search/${item.title}`}
                         key={index}
                         onClick={() => {
                             setToggleCategories(false);

@@ -77,7 +77,7 @@ const Navbar = () => {
     const [search, setSearch] = useState("");
     const submitHandler = (e) => {
         e.preventDefault();
-        router.push(`/${search}`);
+        router.push(`/search/${search}`);
     };
 
     let liked = [];
@@ -255,13 +255,15 @@ const Navbar = () => {
                             href="/bookmark"
                             className="relative md:flex hidden"
                         >
-                            <BookmarkBorderIcon
+                            <a
                                 className={` ${
                                     mode == "light"
                                         ? "text-black"
                                         : "text-white"
                                 } cursor-pointer hover:scale-125 transition-all duration-200 animation-effect`}
-                            />
+                            >
+                                <BookmarkBorderIcon />
+                            </a>
                             <p
                                 className={`${
                                     mode == "dark"
@@ -273,13 +275,15 @@ const Navbar = () => {
                             </p>
                         </Link>
                         <Link href="/like" className="relative hidden md:flex">
-                            <FavoriteBorderIcon
+                            <a
                                 className={` ${
                                     mode == "light"
                                         ? "text-black"
                                         : "text-white"
                                 } cursor-pointer hover:scale-125 animation-effect`}
-                            />
+                            >
+                                <FavoriteBorderIcon />
+                            </a>
                             <p
                                 className={`${
                                     mode == "dark"
@@ -297,13 +301,15 @@ const Navbar = () => {
                                     : dispatch(setMode("dark"));
                             }}
                         >
-                            <Brightness4Icon
+                            <a
                                 className={` ${
                                     mode == "light"
                                         ? "text-black"
                                         : "text-white"
                                 } cursor-pointer hover:scale-125 text-lg sm:text-2xl animation-effect`}
-                            />
+                            >
+                                <Brightness4Icon />
+                            </a>
                         </button>
                         <div className=" relative profile-icon">
                             {siteUser?.image?.length > 0 && (
@@ -373,19 +379,18 @@ const Navbar = () => {
                         mode == "dark" ? "text-white" : "text-black "
                     } flex gap-2 sm:gap-4 text-xs items-center`}
                 >
-                    <button
+                    <a
                         onClick={() => {
                             mode == "dark"
                                 ? dispatch(setMode("light"))
                                 : dispatch(setMode("dark"));
                         }}
+                        className={` ${
+                            mode == "light" ? "text-black" : "text-white"
+                        } cursor-pointer hover:scale-125 animation-effect transition-all duration-200 text-lg sm:text-2xl`}
                     >
-                        <Brightness4Icon
-                            className={` ${
-                                mode == "light" ? "text-black" : "text-white"
-                            } cursor-pointer hover:scale-125 animation-effect transition-all duration-200 text-lg sm:text-2xl`}
-                        />
-                    </button>
+                        <Brightness4Icon />
+                    </a>
                     <div className="hidden md:flex gap-4">
                         <Link
                             href="/signin"
@@ -400,12 +405,13 @@ const Navbar = () => {
                             REGISTER
                         </Link>
                     </div>
-                    <Link href="/signin" className="md:hidden">
-                        <LoginIcon
-                            className={` ${
-                                mode == "light" ? "text-black" : "text-white"
-                            } cursor-pointer hover:scale-125 transition-all duration-200`}
-                        />
+                    <Link
+                        href="/signin"
+                        className={` ${
+                            mode == "light" ? "text-black" : "text-white"
+                        } cursor-pointer hover:scale-125 transition-all duration-200 md:hidden`}
+                    >
+                        <LoginIcon />
                     </Link>
                 </div>
             )}

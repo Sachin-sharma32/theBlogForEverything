@@ -81,11 +81,11 @@ const SignIn = () => {
                     mode == "dark" ? "signin-form" : "signin-form-light"
                 } -translate-y-6 bg-white w-[80%] h-[80vh] shadow-2xl px-10 text-white flex items-center justify-center`}
             >
-                <div className=" w-[100%] flex-col gap-4 mt-4">
-                    <div className="flex flex-col items-center">
+                <div className=" w-[100 flex-col gap-4 mt-4 items-center">
+                    <div className="flex flex-col w-fit items-center">
                         <div className=" mb-6">
                             <h1 className=" text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
-                                WELCOME TO BLOG
+                                WELCOME TO TBFE
                             </h1>
                         </div>
                         <form onSubmit={submitHandler} className=" w-[100%]">
@@ -126,7 +126,7 @@ const SignIn = () => {
                                         mode == "dark"
                                             ? "text-white"
                                             : "text-black"
-                                    } flex gap-2 hover:gap-4 justify-center items-center self-end`}
+                                    } flex gap-2 hover:gap-4 justify-center items-center self-end transition-all duration-200`}
                                 >
                                     <p>REGISTER</p>
                                     <EastIcon />
@@ -143,7 +143,7 @@ const SignIn = () => {
                     </div>
                     <div className=" mt-6 items-center grid grid-cols-1 justify-center justify-items-center gap-4">
                         <div
-                            className="flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] md:w-[400px] items-center bg-white text-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                            className="flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] md:w-[500px] items-center bg-white text-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                             onClick={() => {
                                 oAuthSignIn("google");
                             }}
@@ -152,7 +152,7 @@ const SignIn = () => {
                             <p>GOOGLE</p>
                         </div>
                         <div
-                            className="flex px-4 py-1 gap-2 rounded-md justify-center  w-[100%] md:w-[400px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                            className="flex px-4 py-1 gap-2 rounded-md justify-center  w-[100%] md:w-[500px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                             onClick={() => {
                                 oAuthSignIn("facebook");
                             }}
@@ -161,7 +161,7 @@ const SignIn = () => {
                             <p>FACEBOOK</p>
                         </div>
                         <div
-                            className="flex px-4 py-1 gap-2 rounded-md justify-center  w-[100%] md:w-[400px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                            className="flex px-4 py-1 gap-2 rounded-md justify-center  w-[100%] md:w-[500px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                             onClick={() => {
                                 oAuthSignIn("github");
                             }}
@@ -174,7 +174,7 @@ const SignIn = () => {
                             <p>GITHUB</p>
                         </div>
                         <div
-                            className="flex px-4 py-1 gap-2 rounded-md justify-center  w-[100%] md:w-[400px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                            className="flex px-4 py-1 gap-2 rounded-md justify-center  w-[100%] md:w-[500px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                             onClick={() => {
                                 oAuthSignIn("twitter");
                             }}

@@ -34,7 +34,7 @@ const TopCategories = () => {
             </h4>
             <div className=" flex flex-wrap gap-4 text-xs justify-center ">
                 {recommended.map((item, i) => (
-                    <Link href={`/${item}`} key={i}>
+                    <Link href={`/search/${item}`} key={i}>
                         <div
                             key={i}
                             className={`${

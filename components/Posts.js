@@ -70,16 +70,17 @@ const Posts = () => {
                 ))}
             </div>
             <div className="flex gap-2 mt-6 md:mt-0">
-                <WestIcon
-                    className=" cursor-pointer hover:-translate-x-2 transition-all duration-200"
-                    onClick={() => {
-                        if (page > 1) {
-                            setPage((cur) => cur - 1);
-                        } else {
-                            setPage(pages.length);
-                        }
-                    }}
-                />
+                <a className=" cursor-pointer hover:-translate-x-2 transition-all duration-200">
+                    <WestIcon
+                        onClick={() => {
+                            if (page > 1) {
+                                setPage((cur) => cur - 1);
+                            } else {
+                                setPage(pages.length);
+                            }
+                        }}
+                    />
+                </a>
                 {pages.map((item, i) => (
                     <div
                         key={i}
@@ -103,16 +104,17 @@ const Posts = () => {
                         {item}
                     </div>
                 ))}
-                <EastIcon
-                    className=" cursor-pointer hover:translate-x-2 transition-all duration-200"
-                    onClick={() => {
-                        if (page < pages.length) {
-                            setPage((cur) => cur + 1);
-                        } else {
-                            setPage(1);
-                        }
-                    }}
-                />
+                <a className=" cursor-pointer hover:translate-x-2 transition-all duration-200">
+                    <EastIcon
+                        onClick={() => {
+                            if (page < pages.length) {
+                                setPage((cur) => cur + 1);
+                            } else {
+                                setPage(1);
+                            }
+                        }}
+                    />
+                </a>
             </div>
         </div>
     );

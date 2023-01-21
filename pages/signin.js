@@ -55,7 +55,12 @@ const SignIn = () => {
     }, [session]);
 
     const oAuthSignIn = async (provider) => {
-        await signIn(provider).then((session) => {});
+        if (provider === "twitter") {
+            setError(true);
+            setErrorMsg("TWITTER IS NOT FUNCTIONAL CURRENTLY");
+        } else {
+            await signIn(provider).then((session) => {});
+        }
     };
 
     return (

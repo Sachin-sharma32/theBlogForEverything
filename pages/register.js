@@ -18,6 +18,7 @@ import { Alert } from "@mui/material";
 const Register = () => {
     const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
+    const [errorMsg, setErrorMsg] = useState("");
 
     const PASSWORD_REGEX =
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -62,8 +63,9 @@ const Register = () => {
             router.push("/signin");
         }, 2000);
     };
-    const onError = () => {
+    const onError = (err) => {
         setError(true);
+        setErrorMsg(err.response.data.message);
         setTimeout(() => {
             setError(false);
         }, 2000);
@@ -93,7 +95,12 @@ const Register = () => {
     }, [session]);
 
     const oAuthSignIn = async (provider) => {
-        await signIn(provider).then((session) => {});
+        if (provider === "twitter") {
+            setError(true);
+            setErrorMsg("TWITTER IS NOT FUNCTIONAL CURRENTLY");
+        } else {
+            await signIn(provider).then((session) => {});
+        }
     };
 
     return (
@@ -106,7 +113,7 @@ const Register = () => {
         >
             {error && (
                 <Alert severity="error" className=" fixed top-20 z-50">
-                    {err.response.data.message}
+                    {errorMsg}
                 </Alert>
             )}
             {success && (

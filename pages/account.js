@@ -1,4 +1,3 @@
-import { Avatar } from "@mui/material";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,12 +9,12 @@ import { client } from "../sanity";
 import { useUpdateAccount } from "../hooks/content";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
-import Backdrop from "@mui/material/Backdrop";
 
 const Account = () => {
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
     const [loading, setLoading] = useState(false);
+    const [btnLoading, setBtnLoading] = useState(false);
     console.log(user);
     const [image, setImage] = useState("");
     const URL_REGEX =
@@ -51,8 +50,8 @@ const Account = () => {
                     filename: file.name,
                 })
                 .then((data) => {
-                    setLoading(false);
                     setImage(data);
+                    setLoading(false);
                 });
         }
     };
@@ -67,6 +66,7 @@ const Account = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const onSuccess = () => {
+        setBtnLoading(false);
         setSuccess(true);
         setTimeout(() => {
             setSuccess(false);
@@ -83,6 +83,7 @@ const Account = () => {
         onError
     );
     const submitHandler = async (values) => {
+        setBtnLoading(true);
         let data;
         if (image) {
             data = {
@@ -122,22 +123,17 @@ const Account = () => {
                 }  p-10 flex flex-col items-center text-xs min-h-screen`}
             >
                 {error && (
-                    <div className=" sticky top-20 z-50">
+                    <div className=" absolute top-1/2 -translate-x-1/2 z-50">
                         <Alert severity="error">
                             {err.response.data.message}
                         </Alert>
                     </div>
                 )}
                 {success && (
-                    <div className="sticky top-20 z-50">
+                    <div className="absolute top-1/2 -translate-y-1/2 z-50">
                         <Alert severity="success">
                             Account Updated SuccessFully
                         </Alert>
-                    </div>
-                )}
-                {loading && (
-                    <div className="fixed top-1/2 -translate-x-1/2 z-50">
-                        <CircularProgress />
                     </div>
                 )}
                 <div
@@ -148,7 +144,7 @@ const Account = () => {
                     } shadow-lg  w-[90vw] md:w-fit h-fit rounded-sm p-4 sm:p-10 relative mt-10`}
                 >
                     <div className=" flex items-center justify-center w-20 h-20 overflow-hidden rounded-full absolute -top-10 shadow-md shadow-black left-1/2 -translate-x-1/2">
-                        <img src={`${img}`} />
+                        <img src={`${img}`} alt="user profile image" />
                     </div>
                     <Formik
                         initialValues={initialValues}
@@ -172,7 +168,6 @@ const Account = () => {
                                                     value={props.values.name}
                                                     placeholder="User Name"
                                                     className=" border-b bg-white w-full  h-10 rounded-md px-4 text-black shadow-md outline-none"
-                                                    readonly
                                                 />
                                                 <ErrorMessage
                                                     name="name"
@@ -241,8 +236,12 @@ const Account = () => {
                                                     onChange={uploadImage}
                                                     className=" absolute opacity-0 w-10 h-12 cursor-pointer"
                                                 />
-
-                                                {mode == "dark" ? (
+                                                {loading ? (
+                                                    <CircularProgress
+                                                        color="inherit"
+                                                        size="46px"
+                                                    />
+                                                ) : mode == "dark" ? (
                                                     <Image
                                                         src="/upload.png"
                                                         width="50"
@@ -314,11 +313,25 @@ const Account = () => {
                                                 mode == "light"
                                                     ? "text-white"
                                                     : "text-black"
-                                            } transition-all duration-200 bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-pink-500 to-orange-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                            } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-pink-500 to-orange-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
                                             type="submit"
-                                            disabled={!props.isValid}
+                                            disabled={
+                                                !props.isValid && !loading
+                                            }
                                         >
-                                            Save Changes
+                                            {btnLoading && (
+                                                <div className="flex gap-1 items-center justify-center">
+                                                    <CircularProgress
+                                                        size="1rem"
+                                                        color="inherit"
+                                                    />
+                                                    <p>Saving...</p>
+                                                </div>
+                                            )}
+                                            {success && <p>Saved</p>}
+                                            {!btnLoading && !success && (
+                                                <p>Save Changes</p>
+                                            )}
                                         </button>
                                     </div>
                                 </Form>

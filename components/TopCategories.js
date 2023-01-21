@@ -8,10 +8,10 @@ const TopCategories = () => {
     const posts = useSelector((state) => state.base.posts);
     let recommended = new Set();
     posts.forEach((post) => {
-        if (post.category[0].recommended) {
-            recommended.add(post.category[0].title);
+        if (post.category.recommended) {
+            recommended.add(post.category.title);
         }
-        post.tag.map((item) => {
+        post.tags.map((item) => {
             if (item.recommended) {
                 recommended.add(item.title);
             }
@@ -22,7 +22,7 @@ const TopCategories = () => {
     //? css -> "contain: paint" alternative of overflow-x-hidden, coz overflow-hidden doesn't allow sticky
 
     return (
-        <div
+        <section
             className={`${
                 mode == "dark"
                     ? "bg-[#262626] shadow-2xl shadow-black"
@@ -48,7 +48,7 @@ const TopCategories = () => {
                     </Link>
                 ))}
             </div>
-        </div>
+        </section>
     );
 };
 

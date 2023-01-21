@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useGetPosts } from "../hooks/content";
 import { setPosts } from "../redux/slices";
 import { Tooltip } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Like = ({ post, setPostDetails, postDetails }) => {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Like = ({ post, setPostDetails, postDetails }) => {
     const [like, setLike] = useState(true);
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
+    const [loading, setLoading] = useState(false);
     let filterLikes = [];
     if (user) {
         filterLikes = postDetails?.likes?.filter((item) => {
@@ -29,43 +31,53 @@ const Like = ({ post, setPostDetails, postDetails }) => {
     }, [filterLikes]);
     const handleLike = async () => {
         if (user) {
+            setLoading(true);
             const data = { postId: post._id, userId: user._id, like };
             const { data: response } = await axios.put("/api/users/like", data);
-            setPostDetails({ ...post, likes: response.data.likes });
-            dispatch(setPosts(response.posts));
+            if (response) {
+                setPostDetails({ ...post, likes: response.data.likes });
+                dispatch(setPosts(response.posts));
+                setLoading(false);
+            }
         } else {
             router.push("/signin");
         }
     };
+
     return (
         <div
             className={`${
                 mode == "dark" ? "text-white" : "text-black"
             } hover:scale-125 transition-all duration-200`}
         >
-            <Tooltip title="Like" placement="bottom">
-                {like ? (
-                    <a
-                        onClick={handleLike}
-                        className="cursor-pointer"
-                    >
-                        <FavoriteBorderIcon />
-                    </a>
-                ) : (
-                    <div
-                        onClick={handleLike}
-                        className="cursor-pointer "
-                    >
-                        <FavoriteIcon />
-                    </div>
-                )}
-            </Tooltip>
-            {postDetails?.likes ? (
-                <p className=" absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 bg-gray-500 w-5 h-5 rounded-full text-xs flex items-center justify-center">
-                    {postDetails.likes.length}
-                </p>
+            {loading ? (
+                <div className=" w-6 h-6 flex justify-center items-center">
+                    <CircularProgress size="1rem" color="inherit" />
+                </div>
             ) : (
-                ""
+                <div>
+                    <Tooltip title="Like" placement="bottom">
+                        {like ? (
+                            <a onClick={handleLike} className="cursor-pointer">
+                                <FavoriteBorderIcon />
+                            </a>
+                        ) : (
+                            <div
+                                onClick={handleLike}
+                                className="cursor-pointer "
+                            >
+                                <FavoriteIcon />
+                            </div>
+                        )}
+                    </Tooltip>
+                    {postDetails?.likes ? (
+                        <p className=" absolute top-0 -right-0 -translate-x-1/2 -translate-y-1/2 bg-gray-500 w-5 h-5 rounded-full text-xs flex items-center justify-center">
+                            {postDetails.likes.length}
+                        </p>
+                    ) : (
+                        ""
+                    )}
+                </div>
             )}
         </div>
     );

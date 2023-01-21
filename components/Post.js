@@ -30,10 +30,10 @@ const Post = ({ post }) => {
         >
             <Image src="/post-img.webp" width="400" height="10" alt="post" />
             {postDetails && (
-                <div className=" p-4">
+                <article className=" p-4">
                     <div className="flex items-center justify-between">
                         <div className=" text-orange-500 flex gap-4">
-                            {postDetails?.tag?.map((tag, i) => (
+                            {postDetails?.tags?.map((tag, i) => (
                                 <Link href={`/search/${tag.title}`} key={i}>
                                     <p className=" cursor-pointer hover:scale-110 transition-all duration-200">
                                         #{tag.title}
@@ -66,7 +66,7 @@ const Post = ({ post }) => {
                             {postDetails?.summery[0]?.children[0]?.text}
                         </p>
                     </Link>
-                    <div className="flex gap-4 items-start">
+                    <section className="flex gap-4 items-start">
                         <div className="flex gap-2 cursor-pointer">
                             <Avatar src="/person.webp" />
                             <div>
@@ -77,17 +77,17 @@ const Post = ({ post }) => {
                                             : "text-black"
                                     }`}
                                 >
-                                    {postDetails.author[0].name}
+                                    {postDetails.author.name}
                                 </p>
                                 <p className=" text-xs">
-                                    {postDetails.author[0].work}
+                                    {postDetails.author.work}
                                 </p>
                             </div>
                         </div>
                         <div className="">
                             {moment(postDetails.updatedAt).format("ll")}
                         </div>
-                    </div>
+                    </section>
                     <div
                         className={` absolute bottom-1 right-1 flex gap-2 ${
                             mode == "dark" ? "text-white" : "text-black"
@@ -102,7 +102,7 @@ const Post = ({ post }) => {
                             />
                         </div>
                     </div>
-                </div>
+                </article>
             )}
         </motion.div>
     );

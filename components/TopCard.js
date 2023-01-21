@@ -10,8 +10,9 @@ import BookmarkBtn from "../utils/BookmarkBtn";
 const TopCard = ({ num, post }) => {
     const mode = useSelector((state) => state.base.mode);
     const [postDetails, setPostDetails] = useState(post);
+    console.log(postDetails)
     return (
-        <div
+        <section
             className={` relative p-4 md:hover:rotate-[5deg] flex justify-center items-start min-w-[200px] md:min-w-[300px] h-80 shadow-xl  rounded-md border-gray-500 border md:border-transparent top-card ${
                 num != 0 && " md:-ml-[100px]"
             } ${mode == "light" ? " bg-white" : "bg-[#262626] shadow-black"}`}
@@ -30,7 +31,7 @@ const TopCard = ({ num, post }) => {
                         {post.title}
                     </h5>
                     <div className=" text-orange-500 flex gap-4">
-                        {post.tag.map((item, i) => (
+                        {post.tags.map((item, i) => (
                             <div key={i}>
                                 <p>#{item.title}</p>
                             </div>
@@ -40,8 +41,8 @@ const TopCard = ({ num, post }) => {
                 <div className=" flex gap-4">
                     <Avatar src="/person.webp" />
                     <div>
-                        <p>{post.author[0].name}</p>
-                        <p className=" text-xs">{post.author[0].work}</p>
+                        <p>{post.author.name}</p>
+                        <p className=" text-xs">{post.author.work}</p>
                     </div>
                 </div>
             </Link>
@@ -57,7 +58,7 @@ const TopCard = ({ num, post }) => {
                     postDetails={postDetails}
                 />
             </div>
-        </div>
+        </section>
     );
 };
 

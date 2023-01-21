@@ -10,13 +10,13 @@ const RelatedPosts = ({ post }) => {
     const relatedPosts = posts
         .filter((item) => {
             return (
-                item.category[0]._id == post.category[0]._id &&
+                item.category._id == post.category._id &&
                 item._id != post._id
             );
         })
         .splice(0, 2);
     return (
-        <div
+        <section
             className={`${
                 mode == "dark"
                     ? "bg-[#262626] text-white"
@@ -37,11 +37,11 @@ const RelatedPosts = ({ post }) => {
                             <div className="flex items-center gap-2 cursor-pointer">
                                 <Avatar src="/person.webp" />
                                 <p className=" text-xs font-semibold">
-                                    {post.author[0].name}
+                                    {post.author.name}
                                 </p>
                             </div>
                             <div className="text-xs text-orange-500 flex gap-2 mt-2">
-                                {post.tag.map((item, i) => (
+                                {post.tags.map((item, i) => (
                                     <div key={i}>
                                         <p>#{item.title}</p>
                                     </div>
@@ -54,7 +54,7 @@ const RelatedPosts = ({ post }) => {
                     </Link>
                 ))}
             </div>
-        </div>
+        </section>
     );
 };
 

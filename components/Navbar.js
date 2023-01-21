@@ -3,16 +3,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
-import { Avatar, Tooltip } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
-import {
-    setBookmarks,
-    setLiked,
-    setMode,
-    setSession,
-    setUser,
-} from "../redux/slices";
+import { setLiked, setMode, setSession, setUser } from "../redux/slices";
 import {
     useGetCategories,
     useGetMe,
@@ -22,10 +16,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
-import Smooth from "../utils/Smooth";
 import { signOut } from "next-auth/react";
 import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import CategoryIcon from "@mui/icons-material/Category";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
@@ -82,18 +74,20 @@ const Navbar = () => {
     };
 
     let liked = [];
+    console.log(posts);
+    console.log(siteUser);
     useEffect(() => {
-        liked = [];
         posts.map((post) => {
             post.likes?.map((item) => {
-                if (item._ref == user?.data.user._id) {
+                if (item._id === siteUser?._id) {
                     liked.push(post);
                 }
             });
         });
         dispatch(setLiked(liked));
         setLikes(liked.length);
-    }, [posts]);
+    }, [posts, siteUser]);
+    console.log(likes);
 
     useEffect(() => {
         const md = localStorage.getItem("mode");
@@ -106,7 +100,7 @@ const Navbar = () => {
     }, []);
     console.log(user);
     return (
-        <Smooth
+        <nav
             className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${
                 mode == "light" ? "bg-white" : "bg-[#262626]"
             } z-50`}
@@ -154,7 +148,7 @@ const Navbar = () => {
                     </button>
                 </form>
                 <CheckOutsideClick setToggleCategories={setToggleCategories}>
-                    <div
+                    <section
                         className={`${
                             mode == "dark" ? "text-white" : "text-black"
                         } relative`}
@@ -177,7 +171,7 @@ const Navbar = () => {
                                 setToggleCategories={setToggleCategories}
                             />
                         )}
-                    </div>
+                    </section>
                 </CheckOutsideClick>
             </div>
             {hasSession ? (
@@ -314,7 +308,7 @@ const Navbar = () => {
                                         : "text-white"
                                 } cursor-pointer hover:scale-125 text-lg sm:text-2xl animation-effect`}
                             >
-                                <Brightness4Icon />
+                                <Brightness4Icon className="text-lg sm:text-2xl"/>
                             </a>
                         </button>
                         <div className=" relative profile-icon">
@@ -322,6 +316,7 @@ const Navbar = () => {
                                 <img
                                     src={`${siteUser?.image}`}
                                     className=" cursor-pointer w-5 rounded-full h-5 sm:w-10 sm:h-10"
+                                    alt="user image"
                                 />
                             )}
                             {!siteUser?.image && (
@@ -421,7 +416,7 @@ const Navbar = () => {
                     </Link>
                 </div>
             )}
-        </Smooth>
+        </nav>
     );
 };
 

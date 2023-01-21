@@ -6,6 +6,7 @@ import Post from "../../components/Post";
 import Smooth from "../../utils/Smooth";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
+import Head from "next/head";
 
 const Search = () => {
     const router = useRouter();
@@ -16,10 +17,10 @@ const Search = () => {
         return (
             post.title.includes(search) ||
             post.content.includes(search) ||
-            post.tag.find((item) => {
+            post.tags.find((item) => {
                 return item.title.toLowerCase() == search.toLowerCase();
             }) ||
-            post.category[0].title.includes(search)
+            post.category.title.includes(search)
         );
     });
 
@@ -51,111 +52,172 @@ const Search = () => {
     }
 
     return (
-        <Smooth
-            className={`${
-                mode == "light" ? "bg-white" : ""
-            } p-10 flex flex-col justify-center items-center text-sm text-gray-500 min-h-screen`}
-        >
-            <div>
-                {selectedPosts.length > 0 ? (
-                    <h3 className=" flex flex-col sm:flex-none text-xl sm:text-3xl text-center mb-10 font-bold">
-                        SHOWING RESULTS FOR{" "}
-                        <span className=" bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
-                            {search?.toUpperCase()}
-                        </span>
-                    </h3>
-                ) : (
-                    <div className={`${mode == "light" ? "text-black" : ""}`}>
-                        <h3 className=" text-3xl text-center mb-10 font-bold text-red-500">
-                            NOT RESULT FOUND FOR {search?.toUpperCase()}
+        <>
+            <Head>
+                <title>TBFE - {search}</title>
+                <link rel="icon" type="image/png" href="/favicon.ico" />
+                <meta
+                    name="description"
+                    content='  A comprehensive blogging platform that provides readers with
+                    a wide range of information on a variety of topics. From the
+                    latest news and current events, to lifestyle and personal
+                    development, the platform aims to be a one-stop-shop for all
+                    things related to blogging. Whether you&apos;re looking to
+                    stay informed, learn something new, or simply be
+                    entertained, "The Blog for Everything" has
+                    something for everyone.'
+                />
+                <meta name="keywords" content="blog" />
+                <meta property="og:title" content={`TBFE - ${search}`} />
+                <meta
+                    property="og:description"
+                    content=" A comprehensive blogging platform that provides readers with
+                    a wide range of information on a variety of topics. From the
+                    latest news and current events, to lifestyle and personal
+                    development, the platform aims to be a one-stop-shop for all
+                    things related to blogging. Whether you're looking to
+                    stay informed, learn something new, or simply be
+                    entertained, 'The Blog for Everything' has
+                    something for everyone."
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="TheBlogForEverything" />
+                <meta property="og:image" content="/person.webp" />
+                <meta
+                    property="og:url"
+                    content={`https://theblogforeverything.com/search/${search}`}
+                />
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta
+                    property="twitter:site"
+                    content="TBFE - The Blog For Everything"
+                />
+                <meta property="twitter:title" content={`TBFE - ${search}`} />
+                <meta
+                    property="twitter:description"
+                    content="A comprehensive blogging platform that provides readers with
+                    a wide range of information on a variety of topics. From the
+                    latest news and current events, to lifestyle and personal
+                    development, the platform aims to be a one-stop-shop for all
+                    things related to blogging. Whether you're looking to
+                    stay informed, learn something new, or simply be
+                    entertained, 'The Blog for Everything' has
+                    something for everyone."
+                />
+                <meta property="twitter:image:src" content="/person.webp" />
+                <meta
+                    property="og:url"
+                    content={`https://theblogforeverything.com/search/${search}`}
+                />
+            </Head>
+            <Smooth
+                className={`${
+                    mode == "light" ? "bg-white" : ""
+                } p-10 flex flex-col justify-center items-center text-sm text-gray-500 min-h-screen`}
+            >
+                <div>
+                    {selectedPosts.length > 0 ? (
+                        <h3 className=" flex flex-col sm:flex-none text-xl sm:text-3xl text-center mb-10 font-bold">
+                            SHOWING RESULTS FOR{" "}
+                            <span className=" bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
+                                {search?.toUpperCase()}
+                            </span>
                         </h3>
-                        <Link href="/">
-                            <div className=" text-xl flex items-center gap-2 cursor-pointer hover:gap-3 transition-all duration-200 justify-center">
-                                <WestIcon className="" />
-                                <p>Home</p>
-                            </div>
-                        </Link>
+                    ) : (
+                        <div
+                            className={`${mode == "light" ? "text-black" : ""}`}
+                        >
+                            <h3 className=" text-3xl text-center mb-10 font-bold text-red-500">
+                                NOT RESULT FOUND FOR {search?.toUpperCase()}
+                            </h3>
+                            <Link href="/">
+                                <div className=" text-xl flex items-center gap-2 cursor-pointer hover:gap-3 transition-all duration-200 justify-center">
+                                    <WestIcon className="" />
+                                    <p>Home</p>
+                                </div>
+                            </Link>
+                        </div>
+                    )}
+                </div>
+                {selectedPosts.length > 0 && (
+                    <div className="flex gap-4 mb-4 justify-center">
+                        {filters.map((item, i) => (
+                            <p
+                                key={i}
+                                className={`${
+                                    filter == item
+                                        ? "border-b border-orange-500"
+                                        : ""
+                                }   cursor-pointer ${
+                                    mode == "dark"
+                                        ? "text-gray-200"
+                                        : "text-gray-800"
+                                }`}
+                                onClick={() => {
+                                    setFilter(item);
+                                }}
+                            >
+                                {item}
+                            </p>
+                        ))}
                     </div>
                 )}
-            </div>
-            {selectedPosts.length > 0 && (
-                <div className="flex gap-4 mb-4 justify-center">
-                    {filters.map((item, i) => (
-                        <p
-                            key={i}
-                            className={`${
-                                filter == item
-                                    ? "border-b border-orange-500"
-                                    : ""
-                            }   cursor-pointer ${
-                                mode == "dark"
-                                    ? "text-gray-200"
-                                    : "text-gray-800"
-                            }`}
-                            onClick={() => {
-                                setFilter(item);
-                            }}
-                        >
-                            {item}
-                        </p>
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
+                    {pagePosts.map((post, i) => (
+                        <Post key={i} post={post} />
                     ))}
                 </div>
-            )}
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
-                {pagePosts.map((post, i) => (
-                    <Post key={i} post={post} />
-                ))}
-            </div>
-            {selectedPosts.length > 0 && (
-                <div className="flex gap-2 mt-6 md:mt-10 w-full justify-center">
-                    <a className=" cursor-pointer hover:-translate-x-2 transition-all duration-200">
-                        <WestIcon
-                            onClick={() => {
-                                if (page > 1) {
-                                    setPage((cur) => cur - 1);
-                                } else {
-                                    setPage(pages.length);
-                                }
-                            }}
-                        />
-                    </a>
-                    {pages.map((item, i) => (
-                        <div
-                            key={i}
-                            className={`${
-                                page == item && mode == "dark"
-                                    ? "bg-white text-black"
-                                    : ""
-                            } ${
-                                page == item && mode == "light"
-                                    ? "bg-black text-white"
-                                    : ""
-                            } ${
-                                mode == "dark"
-                                    ? "border-white text-white"
-                                    : "border-black"
-                            } hover:scale-110 active:scale-100 transition-all duration-200 w-6 h-6 flex justify-center items-center rounded-sm cursor-pointer border`}
-                            onClick={() => {
-                                setPage(item);
-                            }}
-                        >
-                            {item}
-                        </div>
-                    ))}
-                    <a className=" cursor-pointer hover:translate-x-2 transition-all duration-200">
-                        <EastIcon
-                            onClick={() => {
-                                if (page < pages.length) {
-                                    setPage((cur) => cur + 1);
-                                } else {
-                                    setPage(1);
-                                }
-                            }}
-                        />
-                    </a>
-                </div>
-            )}
-        </Smooth>
+                {selectedPosts.length > 0 && (
+                    <div className="flex gap-2 mt-6 md:mt-10 w-full justify-center">
+                        <a className=" cursor-pointer hover:-translate-x-2 transition-all duration-200">
+                            <WestIcon
+                                onClick={() => {
+                                    if (page > 1) {
+                                        setPage((cur) => cur - 1);
+                                    } else {
+                                        setPage(pages.length);
+                                    }
+                                }}
+                            />
+                        </a>
+                        {pages.map((item, i) => (
+                            <div
+                                key={i}
+                                className={`${
+                                    page == item && mode == "dark"
+                                        ? "bg-white text-black"
+                                        : ""
+                                } ${
+                                    page == item && mode == "light"
+                                        ? "bg-black text-white"
+                                        : ""
+                                } ${
+                                    mode == "dark"
+                                        ? "border-white text-white"
+                                        : "border-black"
+                                } hover:scale-110 active:scale-100 transition-all duration-200 w-6 h-6 flex justify-center items-center rounded-sm cursor-pointer border`}
+                                onClick={() => {
+                                    setPage(item);
+                                }}
+                            >
+                                {item}
+                            </div>
+                        ))}
+                        <a className=" cursor-pointer hover:translate-x-2 transition-all duration-200">
+                            <EastIcon
+                                onClick={() => {
+                                    if (page < pages.length) {
+                                        setPage((cur) => cur + 1);
+                                    } else {
+                                        setPage(1);
+                                    }
+                                }}
+                            />
+                        </a>
+                    </div>
+                )}
+            </Smooth>
+        </>
     );
 };
 

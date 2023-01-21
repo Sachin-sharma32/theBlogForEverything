@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useGetPosts } from "../hooks/content";
 import { setPosts, setUser } from "../redux/slices";
 import { Tooltip } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const BookmarkBtn = ({ post }) => {
     const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const BookmarkBtn = ({ post }) => {
     const [bookmark, setBookmark] = useState(true);
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
+    const [loading, setLoading] = useState(false);
     let filterBookmark = [];
     if (user) {
         filterBookmark = user?.bookmarks?.filter((item) => {
@@ -29,35 +31,51 @@ const BookmarkBtn = ({ post }) => {
     }, [filterBookmark]);
     const handleBookmark = async () => {
         if (user) {
+            setLoading(true);
             const data = { postId: post._id, userId: user._id, bookmark };
             const { data: response } = await axios.put(
                 "/api/users/bookmark",
                 data
             );
-            dispatch(setUser({ ...user, bookmarks: response.bookmarks }));
+            if (response) {
+                dispatch(setUser({ ...user, bookmarks: response.bookmarks }));
+                setLoading(false);
+            }
         } else {
             router.push("/signin");
         }
     };
     return (
-        <div className={`${mode == "dark" ? "text-white" : "text-black"} hover:scale-125 duration-200`}>
-            <Tooltip title="Bookmark" placement="bottom">
-                {bookmark ? (
-                    <a
-                        onClick={handleBookmark}
-                        className=" hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
-                    >
-                        <BookmarkBorderIcon />
-                    </a>
-                ) : (
-                    <a
-                        onClick={handleBookmark}
-                        className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
-                    >
-                        <BookmarkIcon />
-                    </a>
-                )}
-            </Tooltip>
+        <div
+            className={`${
+                mode == "dark" ? "text-white" : "text-black"
+            } hover:scale-125 duration-200 flex justify-center items-center`}
+        >
+            {loading ? (
+                <div className=" w-5 h-5 flex justify-start items-center">
+                    <CircularProgress size="1rem" color="inherit" />
+                </div>
+            ) : (
+                <div>
+                    <Tooltip title="Bookmark" placement="bottom">
+                        {bookmark ? (
+                            <a
+                                onClick={handleBookmark}
+                                className=" hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                            >
+                                <BookmarkBorderIcon />
+                            </a>
+                        ) : (
+                            <a
+                                onClick={handleBookmark}
+                                className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                            >
+                                <BookmarkIcon />
+                            </a>
+                        )}
+                    </Tooltip>
+                </div>
+            )}
         </div>
     );
 };

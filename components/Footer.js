@@ -27,13 +27,14 @@ const Footer = () => {
                     </p>
                 </Link>
                 <p>
-                    a comprehensive blogging platform that provides readers with
+                    A comprehensive blogging platform that provides readers with
                     a wide range of information on a variety of topics. From the
                     latest news and current events, to lifestyle and personal
                     development, the platform aims to be a one-stop-shop for all
-                    things related to blogging. Whether you're looking to stay
-                    informed, learn something new, or simply be entertained,
-                    "The Blog for Everything" has something for everyone.
+                    things related to blogging. Whether you&apos;re looking to
+                    stay informed, learn something new, or simply be
+                    entertained, &quot;The Blog for Everything&quot; has
+                    something for everyone.
                 </p>
                 <div className=" cursor-pointer flex gap-2">
                     <a href="https://www.facebook.com/profile.php?id=100026014650461">
@@ -80,7 +81,10 @@ const Footer = () => {
                         <LocationOnIcon />
                         <p>A-24, Bal Nagar, Kartarpura</p>
                     </div>
-                    <a href="tel: +916367212438" className="flex gap-2 sm:w-full">
+                    <a
+                        href="tel: +916367212438"
+                        className="flex gap-2 sm:w-full"
+                    >
                         <PhoneIcon />
                         <p>91+ 6367212438</p>
                     </a>

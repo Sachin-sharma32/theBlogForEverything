@@ -20,6 +20,7 @@ const SignIn = () => {
     const [email, setEmail] = useState("");
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
     const onSuccess = () => {
         setSuccess(true);
         setTimeout(() => {
@@ -29,6 +30,7 @@ const SignIn = () => {
     };
     const onError = () => {
         setError(true);
+        setErrorMsg(err.response.data.message);
         setTimeout(() => {
             setError(false);
         }, 2000);

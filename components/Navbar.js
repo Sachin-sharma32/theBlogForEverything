@@ -153,7 +153,7 @@ const Navbar = () => {
                             mode == "dark" ? "text-white" : "text-black"
                         } relative`}
                     >
-                        <button
+                        <a
                             className="flex items-center cursor-pointer"
                             onClick={() => {
                                 setToggleCategories((current) => !current);
@@ -165,7 +165,7 @@ const Navbar = () => {
                             ) : (
                                 <ArrowDropDownIcon className="hidden sm:flex animation-effect" />
                             )}
-                        </button>
+                        </a>
                         {toggleCategories && (
                             <CategoryBox
                                 setToggleCategories={setToggleCategories}
@@ -255,7 +255,7 @@ const Navbar = () => {
                             href="/bookmark"
                             className="relative md:flex hidden"
                         >
-                            <a
+                            <button
                                 className={` ${
                                     mode == "light"
                                         ? "text-black"
@@ -263,7 +263,7 @@ const Navbar = () => {
                                 } cursor-pointer hover:scale-125 transition-all duration-200 animation-effect`}
                             >
                                 <BookmarkBorderIcon />
-                            </a>
+                            </button>
                             <p
                                 className={`${
                                     mode == "dark"
@@ -308,14 +308,14 @@ const Navbar = () => {
                                         : "text-white"
                                 } cursor-pointer hover:scale-125 text-lg sm:text-2xl animation-effect`}
                             >
-                                <Brightness4Icon className="text-lg sm:text-2xl"/>
+                                <Brightness4Icon className="text-lg sm:text-2xl" />
                             </a>
                         </button>
                         <div className=" relative profile-icon">
                             {siteUser?.image?.length > 0 && (
                                 <img
                                     src={`${siteUser?.image}`}
-                                    className=" cursor-pointer w-5 rounded-full h-5 sm:w-10 sm:h-10"
+                                    className=" cursor-pointer w-7 rounded-full h-7 sm:w-10 sm:h-10"
                                     alt="user image"
                                 />
                             )}

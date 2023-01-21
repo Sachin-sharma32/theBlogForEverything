@@ -1,4 +1,4 @@
-import { Avatar, Tooltip } from "@mui/material";
+import { Avatar, CircularProgress, Tooltip } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import RelatedPosts from "../../components/RelatedPosts";
 import Author from "../../components/Author";
@@ -16,12 +16,16 @@ import axios from "axios";
 import LikeCommentIcon from "../../utils/LikeCommentIcon";
 import Head from "next/head";
 import { imageBuilder } from "../../sanity";
+import BookmarkBtn from "../../utils/BookmarkBtn";
+import Like from "../../utils/LikeIcon";
 
 const Post = () => {
     const mode = useSelector((state) => state.base.mode);
     const router = useRouter();
     const posts = useSelector((state) => state.base.posts);
     const user = useSelector((state) => state.base.user);
+    const [comment, setComment] = useState("");
+
     const currentPost = posts.filter((item) => {
         return item._id == router.query.post;
     });
@@ -29,15 +33,22 @@ const Post = () => {
     console.log(post);
     const [comments, setComments] = useState([]);
     useEffect(() => {
-        if (post) {
-            setComments(post.comments);
+        if (post?.comments) {
+            console.log(post);
+            let sorted = [...post.comments];
+            sorted = sorted.sort(
+                (a, b) =>
+                    new Date(b.publishedAt).getTime() -
+                    new Date(a.publishedAt).getTime()
+            );
+            setComments(sorted);
         }
     }, [post]);
 
     const initialValues = {
-        name: user.name,
+        name: "",
         comment: "",
-        email: user.email,
+        email: "",
     };
 
     const EMAIL_REGEX =
@@ -49,35 +60,61 @@ const Post = () => {
             .required()
             .matches(EMAIL_REGEX, "Please provide a valid email address"),
     });
-    const submitHandler = async (values) => {
-        if (user) {
-            values = {
-                name: user.name,
-                email: user.email,
-                comment: values.comment,
-            };
-            const { data } = await axios.put("/api/users/comment", {
-                postId: post._id,
-                values,
-            });
-            setComments(data.comments);
-        } else {
-            values = {
-                name: values.name,
-                email: values.email,
-                comment: values.comment,
-            };
-            const { data } = await axios.put("/api/users/comment", {
-                postId: post._id,
-                values,
-            });
-            setActivePost(data);
+    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(false);
+    useEffect(() => {
+        if (success) {
+            setTimeout(() => {
+                setSuccess(false);
+            }, 2000);
         }
+    }, []);
+    const submitHandler = async (values, { resetForm }) => {
+        setLoading(true);
+        values = {
+            name: values.name,
+            email: values.email,
+            comment: values.comment,
+        };
+        const { data } = await axios.put("/api/users/comment", {
+            postId: post._id,
+            values,
+        });
+        let sorted = [...data.comments];
+        sorted = sorted.sort(
+            (a, b) =>
+                new Date(b.publishedAt).getTime() -
+                new Date(a.publishedAt).getTime()
+        );
+        setComments(sorted);
+        resetForm({ values: "" });
+        setLoading(false);
+        setSuccess(true);
+    };
+    const submitUserHandler = async (e) => {
+        setLoading(true);
+        e.preventDefault();
+        const values = {
+            name: user.name,
+            email: user.email,
+            comment,
+        };
+        const { data } = await axios.put("/api/users/comment", {
+            postId: post._id,
+            values,
+        });
+        let sorted = [...data.comments];
+        sorted = sorted.sort(
+            (a, b) =>
+                new Date(b.publishedAt).getTime() -
+                new Date(a.publishedAt).getTime()
+        );
+        setComments(sorted);
+        setComment("");
+        setLoading(false);
     };
 
-    if (!post) {
-        return <div className="min-h-screen"></div>;
-    } else {
+    if (post) {
         return (
             <>
                 <Head>
@@ -85,7 +122,7 @@ const Post = () => {
                     <link rel="icon" type="image/png" href="/favicon.ico" />
                     <meta
                         name="description"
-                        content={`${post.content[0].children[0].text}`}
+                        content={`${post.summery[0].children[0].text}`}
                     />
                     <meta
                         property="og:title"
@@ -167,6 +204,8 @@ const Post = () => {
                                         {post.author.name} on{" "}
                                         {moment(post.publishedAt).format("ll")}
                                     </figcaption>
+                                    <BookmarkBtn post={post} />
+                                    <Like post={post} />
                                 </figure>
                                 <main
                                     className={`${
@@ -181,6 +220,10 @@ const Post = () => {
                                         dataset="production"
                                         serializers={serializerFn()}
                                     />
+                                    <div className="flex justify-end gap-4">
+                                        <BookmarkBtn post={post} />
+                                        <Like post={post} />
+                                    </div>
                                 </main>
                                 <section
                                     className={`${
@@ -188,11 +231,11 @@ const Post = () => {
                                             ? "bg-gray-800"
                                             : "bg-gray-100 text-black"
                                     }  mt-10
-                                rounded-sm
-                                p-4
-                                flex
-                                flex-col
-                                items-center shadow-xl text-xs md:text-base`}
+                                    rounded-sm
+                                    p-4
+                                    flex
+                                    flex-col
+                                    items-center shadow-xl text-xs md:text-base`}
                                 >
                                     <div className=" pb-1 bg-gradient-to-r from-pink-500 to-orange-500 h-7">
                                         <h3
@@ -205,35 +248,40 @@ const Post = () => {
                                             COMMENT
                                         </h3>
                                     </div>
-                                    <Formik
-                                        initialValues={initialValues}
-                                        validateOnBlur={true}
-                                        validateOnChange={true}
-                                        validationSchema={validationObject}
-                                        onSubmit={submitHandler}
-                                    >
-                                        {(props) => {
-                                            return (
-                                                <Form className="flex flex-col justify-center items-center gap-6  w-[100%]">
-                                                    <div className="w-[100%] sm:w-fit">
-                                                        <Field
-                                                            as="textarea"
-                                                            name="comment"
-                                                            values={
-                                                                props.values
-                                                                    .comment
-                                                            }
-                                                            cols="30"
-                                                            rows="5"
-                                                            className=" bg-white  w-[100%] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-md outline-none"
-                                                            placeholder="Write a comment..."
-                                                        ></Field>
-                                                        <ErrorMessage
-                                                            name="comment"
-                                                            component={Error}
-                                                        />
-                                                    </div>
-                                                    {!user && (
+                                    {!user ? (
+                                        <Formik
+                                            initialValues={initialValues}
+                                            validateOnBlur={true}
+                                            validateOnChange={true}
+                                            validationSchema={validationObject}
+                                            onSubmit={submitHandler}
+                                        >
+                                            {(props) => {
+                                                {
+                                                    console.log(props);
+                                                }
+                                                return (
+                                                    <Form className="flex flex-col justify-center items-center gap-6  w-fit ">
+                                                        <div className="w-[100%] sm:w-fit">
+                                                            <Field
+                                                                as="textarea"
+                                                                name="comment"
+                                                                values={
+                                                                    props.values
+                                                                        .comment
+                                                                }
+                                                                cols="30"
+                                                                rows="5"
+                                                                className=" bg-white  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-md outline-none"
+                                                                placeholder="Write a comment..."
+                                                            ></Field>
+                                                            <ErrorMessage
+                                                                name="comment"
+                                                                component={
+                                                                    Error
+                                                                }
+                                                            />
+                                                        </div>
                                                         <div className="flex flex-col gap-6 w-[100%]">
                                                             <div className="w-[100%] sm:w-fit relative">
                                                                 <Field
@@ -245,7 +293,7 @@ const Post = () => {
                                                                     }
                                                                     name="name"
                                                                     placeholder="Name"
-                                                                    className=" bg-white w-[100%] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                                    className=" bg-white w-[350px] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
                                                                 />
                                                                 <ErrorMessage
                                                                     name="name"
@@ -264,7 +312,7 @@ const Post = () => {
                                                                     }
                                                                     name="email"
                                                                     placeholder="Email"
-                                                                    className=" bg-white w-[100%] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                                    className=" bg-white w-[350px] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
                                                                 />
                                                                 <ErrorMessage
                                                                     name="email"
@@ -274,20 +322,85 @@ const Post = () => {
                                                                 />
                                                             </div>
                                                         </div>
-                                                    )}
-                                                    <button
-                                                        disabled={
-                                                            !props.isValid
-                                                        }
-                                                        type="submit"
-                                                        className="  valid:bg-gradient-to-r from-pink-500 to-orange-500 p-2 rounded-md disabled:active:scale-100 self-end active:scale-90 disabled:bg-gray-500 transition-all duration-200"
-                                                    >
-                                                        POST COMMENT
-                                                    </button>
-                                                </Form>
-                                            );
-                                        }}
-                                    </Formik>
+                                                        <button
+                                                            className={`${
+                                                                mode == "light"
+                                                                    ? "text-white"
+                                                                    : "text-black"
+                                                            } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-pink-500 to-orange-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                                            type="submit"
+                                                            disabled={
+                                                                !props.isValid
+                                                            }
+                                                        >
+                                                            {loading && (
+                                                                <div className="flex gap-1 items-center justify-center">
+                                                                    <CircularProgress
+                                                                        size="1rem"
+                                                                        color="inherit"
+                                                                    />
+                                                                    <p>
+                                                                        Posting...
+                                                                    </p>
+                                                                </div>
+                                                            )}
+                                                            {success && (
+                                                                <p>Posted</p>
+                                                            )}
+                                                            {!loading &&
+                                                                !success && (
+                                                                    <p>
+                                                                        POST
+                                                                        COMMENT
+                                                                    </p>
+                                                                )}
+                                                        </button>
+                                                    </Form>
+                                                );
+                                            }}
+                                        </Formik>
+                                    ) : (
+                                        <form
+                                            className="flex flex-col justify-center items-center gap-6  w-fit"
+                                            onSubmit={submitUserHandler}
+                                        >
+                                            <textarea
+                                                minlength="5"
+                                                name=""
+                                                id=""
+                                                cols="30"
+                                                value={comment}
+                                                className=" bg-white  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-md outline-none"
+                                                rows="10"
+                                                onChange={(e) => {
+                                                    setComment(e.target.value);
+                                                }}
+                                                required
+                                            ></textarea>
+                                            <button
+                                                className={`${
+                                                    mode == "light"
+                                                        ? "text-white"
+                                                        : "text-black"
+                                                } transition-all duration-200 min-w-[120px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-pink-500 to-orange-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                                type="submit"
+                                            >
+                                                {loading && (
+                                                    <div className="flex gap-1 items-center justify-center">
+                                                        <CircularProgress
+                                                            size="1rem"
+                                                            color="inherit"
+                                                        />
+                                                        <p>Posting...</p>
+                                                    </div>
+                                                )}
+                                                {success && <p>Posted</p>}
+                                                {!loading && !success && (
+                                                    <p>POST COMMENT</p>
+                                                )}
+                                            </button>
+                                        </form>
+                                    )}
                                 </section>
                                 <section className=" mt-10 text-xs md:text-base">
                                     {comments?.length > 0 && (
@@ -297,7 +410,7 @@ const Post = () => {
                                                     className="border-t-[1px] border-white mt-4"
                                                     key={i}
                                                 >
-                                                    <dov>
+                                                    <div>
                                                         <h5 className=" text-2xl font-semibold">
                                                             {item.name}
                                                         </h5>
@@ -307,7 +420,7 @@ const Post = () => {
                                                                 item.publishedAt
                                                             ).format("ll")}
                                                         </p>
-                                                    </dov>
+                                                    </div>
                                                     <div className=" mt-2 bg-white p-4 pr-20 rounded-md text-black">
                                                         <div className="relative">
                                                             <p>
@@ -341,6 +454,8 @@ const Post = () => {
                 </Smooth>
             </>
         );
+    } else {
+        return <div className="min-h-screen"></div>;
     }
 };
 

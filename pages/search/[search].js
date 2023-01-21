@@ -15,12 +15,11 @@ const Search = () => {
     const posts = useSelector((state) => state.base.posts);
     let filterPosts = posts.filter((post) => {
         return (
-            post.title.includes(search) ||
-            post.content.includes(search) ||
+            post.title.toLowerCase().includes(search.toLowerCase()) ||
             post.tags.find((item) => {
                 return item.title.toLowerCase() == search.toLowerCase();
             }) ||
-            post.category.title.includes(search)
+            post.category.title.toLowerCase().includes(search.toLowerCase())
         );
     });
 

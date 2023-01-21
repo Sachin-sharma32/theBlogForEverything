@@ -9,8 +9,6 @@ import BookmarkBtn from "../utils/BookmarkBtn";
 
 const TopCard = ({ num, post }) => {
     const mode = useSelector((state) => state.base.mode);
-    const [postDetails, setPostDetails] = useState(post);
-    console.log(postDetails)
     return (
         <section
             className={` relative p-4 md:hover:rotate-[5deg] flex justify-center items-start min-w-[200px] md:min-w-[300px] h-80 shadow-xl  rounded-md border-gray-500 border md:border-transparent top-card ${
@@ -41,7 +39,7 @@ const TopCard = ({ num, post }) => {
                 <div className=" flex gap-4">
                     <Avatar src="/person.webp" />
                     <div>
-                        <p>{post.author.name}</p>
+                    <p>{post.author.name}</p>
                         <p className=" text-xs">{post.author.work}</p>
                     </div>
                 </div>
@@ -52,13 +50,9 @@ const TopCard = ({ num, post }) => {
                 }`}
             >
                 <BookmarkBtn post={post} />
-                <Like
-                    post={post}
-                    setPostDetails={setPostDetails}
-                    postDetails={postDetails}
-                />
+                <Like post={post} />
             </div>
-        </section>
+    </section>
     );
 };
 

@@ -12,7 +12,6 @@ import Like from "../utils/LikeIcon";
 import BookmarkBtn from "../utils/BookmarkBtn";
 
 const Post = ({ post }) => {
-    const [postDetails, setPostDetails] = useState(post);
     const mode = useSelector((state) => state.base.mode);
     return (
         <motion.div
@@ -29,11 +28,11 @@ const Post = ({ post }) => {
             } h-[500px] w-[350px] rounded-sm overflow-hidden relative`}
         >
             <Image src="/post-img.webp" width="400" height="10" alt="post" />
-            {postDetails && (
+            {post && (
                 <article className=" p-4">
                     <div className="flex items-center justify-between">
                         <div className=" text-orange-500 flex gap-4">
-                            {postDetails?.tags?.map((tag, i) => (
+                            {post?.tags?.map((tag, i) => (
                                 <Link href={`/search/${tag.title}`} key={i}>
                                     <p className=" cursor-pointer hover:scale-110 transition-all duration-200">
                                         #{tag.title}
@@ -48,11 +47,11 @@ const Post = ({ post }) => {
                                     : "text-gray-700"
                             }`}
                         >
-                            {postDetails.readTime} minutes
+                            {post.readTime} minutes
                         </p>
                     </div>
                     <Link
-                        href={`/post/${postDetails._id}`}
+                        href={`/post/${post._id}`}
                         className=" cursor-pointer"
                     >
                         <h5
@@ -60,10 +59,10 @@ const Post = ({ post }) => {
                                 mode == "dark" ? "text-white" : "text-black"
                             } mt-4 text-3xl font-bold mb-2`}
                         >
-                            {postDetails.title}
+                            {post.title}
                         </h5>
                         <p className=" mb-4">
-                            {postDetails?.summery[0]?.children[0]?.text}
+                            {post?.summery[0]?.children[0]?.text}
                         </p>
                     </Link>
                     <section className="flex gap-4 items-start">
@@ -77,15 +76,15 @@ const Post = ({ post }) => {
                                             : "text-black"
                                     }`}
                                 >
-                                    {postDetails.author.name}
+                                    {post.author.name}
                                 </p>
                                 <p className=" text-xs">
-                                    {postDetails.author.work}
+                                    {post.author.work}
                                 </p>
                             </div>
                         </div>
                         <div className="">
-                            {moment(postDetails.updatedAt).format("ll")}
+                            {moment(post.updatedAt).format("ll")}
                         </div>
                     </section>
                     <div
@@ -97,8 +96,6 @@ const Post = ({ post }) => {
                         <div className="text-black relative">
                             <Like
                                 post={post}
-                                setPostDetails={setPostDetails}
-                                postDetails={postDetails}
                             />
                         </div>
                     </div>

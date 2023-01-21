@@ -9,7 +9,8 @@ import { setPosts } from "../redux/slices";
 import { Tooltip } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Like = ({ post, setPostDetails, postDetails }) => {
+const Like = ({ post }) => {
+    const [postDetails, setPostDetails] = useState(post);
     const dispatch = useDispatch();
     const router = useRouter();
     const [like, setLike] = useState(true);

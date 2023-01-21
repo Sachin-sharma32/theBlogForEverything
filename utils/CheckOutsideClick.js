@@ -8,7 +8,7 @@ const CheckOutsideClick = ({ children, handleClose, setToggleCategories }) => {
     const handleOutsideClick = (event) => {
         if (boxRef.current && !boxRef.current.contains(event.target)) {
             handleClose && handleClose();
-            setToggleCategories && setToggleCategories((curr) => !curr);
+            setToggleCategories && setToggleCategories(false);
         }
     };
     useEffect(() => {

@@ -136,7 +136,7 @@ const Account = () => {
                     </div>
                 )}
                 {loading && (
-                    <div className="sticky top-1/2 -translate-x-1/2 z-50">
+                    <div className="fixed top-1/2 -translate-x-1/2 z-50">
                         <CircularProgress />
                     </div>
                 )}

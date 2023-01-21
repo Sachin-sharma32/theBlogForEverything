@@ -154,7 +154,7 @@ export const useOauth = () => {
         },
         {
             onSuccess: (data) => {
-                queryClient.invalidateQueries({ queryKey: ["getMe"] });
+                queryClient.invalidateQueries("getMe");
                 if (data.data.token) {
                     setCookie("user", JSON.stringify(data.data.token), {
                         path: "/",

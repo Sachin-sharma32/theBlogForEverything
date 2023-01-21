@@ -98,7 +98,6 @@ const Navbar = () => {
         dispatch(setMode(localStorage.getItem("mode")));
     }, []);
     console.log(user);
-    console.log(user?.data?.user.name);
     return (
         <Smooth
             className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${

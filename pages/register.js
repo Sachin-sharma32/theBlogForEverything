@@ -13,6 +13,7 @@ import { PropaneSharp } from "@mui/icons-material";
 import ErrorModel from "../utils/ErrorModel";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
+import { Alert } from "@mui/material";
 
 const Register = () => {
     const router = useRouter();
@@ -54,9 +55,11 @@ const Register = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const onSuccess = () => {
+        console.log("success");
         setSuccess(true);
         setTimeout(() => {
             setSuccess(false);
+            router.push("/signin");
         }, 2000);
     };
     const onError = () => {
@@ -67,14 +70,12 @@ const Register = () => {
     };
     const { mutate: register, error: err } = useRegister(onSuccess, onError);
     const submitHandler = async (values) => {
-        console.log(values);
-        signIn("email", { email: values.email });
-        // const user = {
-        //     name: values.name,
-        //     email: values.email,
-        //     password: values.password,
-        // };
-        // register(user);
+        const user = {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+        };
+        register(user);
     };
 
     const { data: session } = useSession();
@@ -86,7 +87,7 @@ const Register = () => {
                 name: session.user.name,
                 email: session.user.email,
             };
-            register(data);
+            oAuthLogIn(data);
             router.push("/");
         }
     }, [session]);
@@ -103,7 +104,16 @@ const Register = () => {
             text-xs
             min-h-screen`}
         >
-            {error && <ErrorModel>{err.response.data.message}</ErrorModel>}
+            {error && (
+                <Alert severity="error" className=" fixed top-20 z-50">
+                    {err.response.data.message}
+                </Alert>
+            )}
+            {success && (
+                <Alert severity="success" className=" fixed top-20 z-50">
+                    USER REGISTERED SUCCESSFULLY
+                </Alert>
+            )}
             <div
                 className={`${
                     mode == "dark" ? "signin-form" : "signin-form-light"

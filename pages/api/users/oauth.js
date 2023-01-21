@@ -13,9 +13,13 @@ export default async function oauth(req, res) {
             }
         );
         if (exists) {
-            const accessToken = jwt.sign({ id: exists._id }, process.env.JWT_SECRET, {
-                expiresIn: "30d",
-            });
+            const accessToken = jwt.sign(
+                { id: exists._id },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: "30d",
+                }
+            );
             return res.status(200).json({ data: exists, token: accessToken });
         } else {
             const data = await client.create({
@@ -23,9 +27,14 @@ export default async function oauth(req, res) {
                 name,
                 email,
             });
-            const accessToken = jwt.sign({ id: data._id }, process.env.JWT_SECRET, {
-                expiresIn: "30d",
-            });
+            const accessToken = jwt.sign(
+                { id: data._id },
+                process.env.JWT_SECRET,
+                {
+                    expiresIn: "30d",
+                }
+            );
+            console.log(data);
             return res.status(200).json({ data, token: accessToken });
         }
     }

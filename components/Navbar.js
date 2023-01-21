@@ -96,10 +96,12 @@ const Navbar = () => {
     }, [posts]);
 
     useEffect(() => {
-        if (localStorage.getItem("mode") == "light" || "dark") {
-            dispatch(setMode(localStorage.getItem("mode")));
-        } else {
+        const md = localStorage.getItem("mode");
+        console.log(md);
+        if (md === null) {
             dispatch(setMode("dark"));
+        } else {
+            dispatch(setMode(localStorage.getItem("mode")));
         }
     }, []);
     console.log(user);

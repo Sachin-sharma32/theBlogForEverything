@@ -31,6 +31,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CategoryBox from "./CategoryBox";
 import LoginIcon from "@mui/icons-material/Login";
+import CheckOutsideClick from "../utils/CheckOutsideClick";
 
 const Navbar = () => {
     const [hasSession, setHasSession] = useState(false);
@@ -149,7 +150,7 @@ const Navbar = () => {
                 <div
                     className={`${
                         mode == "dark" ? "text-white" : "text-black"
-                    } relative hidden sm:flex`}
+                    } relative`}
                 >
                     <button
                         className="flex items-center cursor-pointer"
@@ -157,11 +158,11 @@ const Navbar = () => {
                             setToggleCategories((current) => !current);
                         }}
                     >
-                        <CategoryIcon />
+                        <CategoryIcon className="text-lg sm:text-2xl" />
                         {toggleCategories ? (
-                            <ArrowDropUpIcon />
+                            <ArrowDropUpIcon className="hidden sm:flex" />
                         ) : (
-                            <ArrowDropDownIcon />
+                            <ArrowDropDownIcon className="hidden sm:flex" />
                         )}
                     </button>
                     {toggleCategories && (
@@ -180,67 +181,72 @@ const Navbar = () => {
                         >
                             <MenuIcon className="mt-[4rem] absolute w-5 text-transparent h-5 -top-16 right-0 z-50" />
                         </button>
-                        <div
-                            ref={sideRef}
-                            className=" transition-all duration-200 absolute -top-12 -right-4 min-h-screen mt-[4rem] w-[200px] translate-x-[500px] p-4 flex flex-col gap-4 z-50"
-                        >
-                            <ul
-                                className={`${
-                                    mode == "dark"
-                                        ? "bg-[#262626] text-white"
-                                        : " bg-white text-black"
-                                } shadow-2xl shadow-black flex-col text-sm user-links font-normal  z-50`}
+                        <CheckOutsideClick handleClose={hideSideBar}>
+                            <div
+                                ref={sideRef}
+                                className=" transition-all duration-200 absolute -top-12 -right-4 min-h-screen mt-[4rem] w-[200px] translate-x-[500px] p-4 flex flex-col gap-4 z-50"
                             >
-                                <li className="bg-gradient-to-r from-pink-500 to-orange-500 p-4">
-                                    Hi, {user?.data?.user?.name}
-                                </li>
-                                <Link href="/account" onClick={hideSideBar}>
-                                    <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
-                                        My Account
+                                <ul
+                                    className={`${
+                                        mode == "dark"
+                                            ? "bg-[#262626] text-white"
+                                            : " bg-white text-black"
+                                    } shadow-2xl shadow-black flex-col text-sm user-links font-normal  z-50`}
+                                >
+                                    <li className="bg-gradient-to-r from-pink-500 to-orange-500 p-4">
+                                        Hi, {user?.data?.user?.name}
                                     </li>
-                                </Link>
-                                <Link href="/bookmark" onClick={hideSideBar}>
-                                    <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
-                                        My Bookmarks
+                                    <Link href="/account" onClick={hideSideBar}>
+                                        <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
+                                            My Account
+                                        </li>
+                                    </Link>
+                                    <Link
+                                        href="/bookmark"
+                                        onClick={hideSideBar}
+                                    >
+                                        <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
+                                            My Bookmarks
+                                        </li>
+                                    </Link>
+                                    <Link href="/like" onClick={hideSideBar}>
+                                        <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
+                                            Liked Posts
+                                        </li>
+                                    </Link>
+                                    <Link
+                                        href="http://localhost:3333"
+                                        onClick={hideSideBar}
+                                    >
+                                        <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
+                                            Dashboard
+                                        </li>
+                                    </Link>
+                                    <li
+                                        className=" hover:bg-gray-200 hover:text-black w-full p-4 flex flex-col text-center cursor-pointer"
+                                        onClick={() => {
+                                            setCookie("user", "logout", {
+                                                path: "/",
+                                                maxAge: 0,
+                                                sameSite: true,
+                                            });
+                                            setHasSession(false);
+                                            dispatch(setUser({}));
+                                            dispatch(setSession(null));
+                                            signOut();
+                                        }}
+                                    >
+                                        <p>LOGOUT</p>
                                     </li>
-                                </Link>
-                                <Link href="/like" onClick={hideSideBar}>
-                                    <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
-                                        Liked Posts
-                                    </li>
-                                </Link>
-                                <Link
-                                    href="http://localhost:3333"
+                                </ul>
+                                <button
+                                    className=" mt-[4rem] absolute w-5 text-transparent h-5 -top-20 right-4 z-50"
                                     onClick={hideSideBar}
                                 >
-                                    <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
-                                        Dashboard
-                                    </li>
-                                </Link>
-                                <li
-                                    className=" hover:bg-gray-200 hover:text-black w-full p-4 flex flex-col text-center cursor-pointer"
-                                    onClick={() => {
-                                        setCookie("user", "logout", {
-                                            path: "/",
-                                            maxAge: 0,
-                                            sameSite: true,
-                                        });
-                                        setHasSession(false);
-                                        dispatch(setUser({}));
-                                        dispatch(setSession(null));
-                                        signOut();
-                                    }}
-                                >
-                                    <p>LOGOUT</p>
-                                </li>
-                            </ul>
-                            <button
-                                className=" mt-[4rem] absolute w-5 text-transparent h-5 -top-20 right-4 z-50"
-                                onClick={hideSideBar}
-                            >
-                                <MenuIcon className="" />
-                            </button>
-                        </div>
+                                    <MenuIcon className="" />
+                                </button>
+                            </div>
+                        </CheckOutsideClick>
                     </div>
                     <div className=" flex gap-2 sm:gap-4 items-center justify-center">
                         <Link

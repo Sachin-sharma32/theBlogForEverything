@@ -9,10 +9,13 @@ import Error from "../utils/Error";
 import { client } from "../sanity";
 import { useUpdateAccount } from "../hooks/content";
 import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
 
 const Account = () => {
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
+    const [loading, setLoading] = useState(false);
     console.log(user);
     const [image, setImage] = useState("");
     const URL_REGEX =
@@ -33,6 +36,7 @@ const Account = () => {
     });
     const dispatch = useDispatch();
     const uploadImage = (e) => {
+        setLoading(true);
         const file = e.target.files[0];
         const allowedTypes = [
             "image/png",
@@ -47,6 +51,7 @@ const Account = () => {
                     filename: file.name,
                 })
                 .then((data) => {
+                    setLoading(false);
                     setImage(data);
                 });
         }
@@ -100,7 +105,7 @@ const Account = () => {
         updateAccount(data);
     };
     const initialValues = {
-        name: user.name,
+        name: user?.name,
         email: user?.email,
         websiteURL: user?.websiteURL,
         location: user?.location,
@@ -109,203 +114,223 @@ const Account = () => {
         bio: user?.bio,
         bookmarks: user.bookmarks,
     };
-    return (
-        <Smooth
-            className={`${
-                mode == "dark" ? "text-white" : "text-black bg-white"
-            }  p-10 flex flex-col items-center text-xs min-h-screen`}
-        >
-            {error && (
-                <Alert severity="error">{err.response.data.message}</Alert>
-            )}
-            {success && (
-                <Alert severity="success" className=" absolute top-20 z-50">
-                    Account Updated SuccessFully
-                </Alert>
-            )}
-            <div
+    if (user) {
+        return (
+            <Smooth
                 className={`${
-                    mode == "dark" ? "bg-[#262626] shadow-black" : "bg-white"
-                } shadow-lg  w-[90vw] md:w-fit h-fit rounded-sm p-4 sm:p-10 relative mt-10`}
+                    mode == "dark" ? "text-white" : "text-black bg-white"
+                }  p-10 flex flex-col items-center text-xs min-h-screen`}
             >
-                <div className=" flex items-center justify-center w-20 h-20 overflow-hidden rounded-full absolute -top-10 shadow-md shadow-black left-1/2 -translate-x-1/2">
-                    <img src={`${img}`} />
-                </div>
-                <Formik
-                    initialValues={initialValues}
-                    onSubmit={submitHandler}
-                    validateOnBlur={true}
-                    validateOnChange={true}
-                    validationSchema={validationObject}
+                {error && (
+                    <div className=" sticky top-20 z-50">
+                        <Alert severity="error">
+                            {err.response.data.message}
+                        </Alert>
+                    </div>
+                )}
+                {success && (
+                    <div className="sticky top-20 z-50">
+                        <Alert severity="success">
+                            Account Updated SuccessFully
+                        </Alert>
+                    </div>
+                )}
+                {loading && (
+                    <div className="sticky top-1/2 -translate-x-1/2 z-50">
+                        <CircularProgress />
+                    </div>
+                )}
+                <div
+                    className={`${
+                        mode == "dark"
+                            ? "bg-[#262626] shadow-black"
+                            : "bg-white"
+                    } shadow-lg  w-[90vw] md:w-fit h-fit rounded-sm p-4 sm:p-10 relative mt-10`}
                 >
-                    {(props) => {
-                        return (
-                            <Form className=" grid grid-col-1 md:grid-cols-2 gap-10 mt-10 w-[100%]">
-                                <div className="flex flex-col gap-8 w-[100%] items-center sm:items-stretch">
-                                    <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px] hidden sm:flex">
-                                            User Name
-                                        </p>
-                                        <div className="w-[300px] md:w-[500px]">
-                                            <Field
+                    <div className=" flex items-center justify-center w-20 h-20 overflow-hidden rounded-full absolute -top-10 shadow-md shadow-black left-1/2 -translate-x-1/2">
+                        <img src={`${img}`} />
+                    </div>
+                    <Formik
+                        initialValues={initialValues}
+                        onSubmit={submitHandler}
+                        validateOnBlur={true}
+                        validateOnChange={true}
+                        validationSchema={validationObject}
+                    >
+                        {(props) => {
+                            return (
+                                <Form className=" grid grid-col-1 md:grid-cols-2 gap-10 mt-10 w-[100%]">
+                                    <div className="flex flex-col gap-8 w-[100%] items-center sm:items-stretch">
+                                        <div className="flex gap-4 items-center">
+                                            <p className=" w-[100px] hidden sm:flex">
+                                                User Name
+                                            </p>
+                                            <div className="w-[300px] md:w-[500px]">
+                                                <Field
+                                                    type="text"
+                                                    name="name"
+                                                    value={props.values.name}
+                                                    placeholder="User Name"
+                                                    className=" border-b bg-white w-full  h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                    readonly
+                                                />
+                                                <ErrorMessage
+                                                    name="name"
+                                                    component={Error}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-4 items-center">
+                                            <p className=" w-[100px] hidden sm:flex">
+                                                Email
+                                            </p>
+                                            <input
+                                                readOnly
                                                 type="text"
-                                                name="name"
-                                                value={props.values.name}
-                                                placeholder="User Name"
-                                                className=" border-b bg-white w-full  h-10 rounded-md px-4 text-black shadow-md outline-none"
-                                                readonly
-                                            />
-                                            <ErrorMessage
-                                                name="name"
-                                                component={Error}
+                                                name="email"
+                                                value={props.values.email}
+                                                placeholder="Email"
+                                                className=" bg-gray-200 w-[300px] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
                                             />
                                         </div>
-                                    </div>
-                                    <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px] hidden sm:flex">
-                                            Email
-                                        </p>
-                                        <input
-                                            readOnly
-                                            type="text"
-                                            name="email"
-                                            value={props.values.email}
-                                            placeholder="Email"
-                                            className=" bg-gray-200 w-[300px] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
-                                        />
-                                    </div>
-                                    <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px] hidden sm:flex">
-                                            Bio
-                                        </p>
-                                        <div className="w-[300px] md:w-[500px]">
-                                            <Field
-                                                as="textarea"
-                                                name="bio"
-                                                cols="30"
-                                                rows="5"
-                                                className=" bg-white w-full text-black p-4 mt-4 border-b-2 shadow-sm rounded-md outline-none"
-                                                placeholder="Tell us about yourself"
-                                            ></Field>
-                                            <ErrorMessage
-                                                name="bio"
-                                                component={Error}
-                                            />
+                                        <div className="flex gap-4 items-center">
+                                            <p className=" w-[100px] hidden sm:flex">
+                                                Bio
+                                            </p>
+                                            <div className="w-[300px] md:w-[500px]">
+                                                <Field
+                                                    as="textarea"
+                                                    name="bio"
+                                                    cols="30"
+                                                    rows="5"
+                                                    className=" bg-white w-full text-black p-4 mt-4 border-b-2 shadow-sm rounded-md outline-none"
+                                                    placeholder="Tell us about yourself"
+                                                ></Field>
+                                                <ErrorMessage
+                                                    name="bio"
+                                                    component={Error}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-4 items-center">
+                                            <p className=" w-[100px] hidden sm:flex">
+                                                Website URL
+                                            </p>
+                                            <div className="w-[300px] md:w-[500px]">
+                                                <Field
+                                                    type="text"
+                                                    name="websiteURL"
+                                                    placeholder="https://www.google.com"
+                                                    className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                />
+                                                <ErrorMessage
+                                                    name="websiteURL"
+                                                    component={Error}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px] hidden sm:flex">
-                                            Website URL
-                                        </p>
-                                        <div className="w-[300px] md:w-[500px]">
-                                            <Field
-                                                type="text"
-                                                name="websiteURL"
-                                                placeholder="https://www.google.com"
-                                                className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
-                                            />
-                                            <ErrorMessage
-                                                name="websiteURL"
-                                                component={Error}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col gap-8 items-center sm:items-stretch">
-                                    <div className="flex relative items-center">
-                                        <p className=" w-[100px] hidden sm:flex">
-                                            Image
-                                        </p>
-                                        <input
-                                            type="file"
-                                            onChange={uploadImage}
-                                            className=" absolute left-1/2 top-1/2 -translate-x-32 -translate-y-1/2 w-12 h-12 opacity-0 cursor-pointer"
-                                        />
-                                        {mode == "dark" ? (
-                                            <Image
-                                                src="/upload.png"
-                                                width="50"
-                                                height="50"
-                                            />
-                                        ) : (
-                                            <Image
-                                                src="/upload-dark.png"
-                                                width="50"
-                                                height="50"
-                                            />
-                                        )}
-                                    </div>
+                                    <div className="flex flex-col gap-8 items-center sm:items-stretch">
+                                        <div className="flex items-center">
+                                            <p className=" w-[100px] hidden sm:flex">
+                                                Image
+                                            </p>
+                                            <div className="relative w-fit">
+                                                <input
+                                                    type="file"
+                                                    onChange={uploadImage}
+                                                    className=" absolute opacity-0 w-10 h-12 cursor-pointer"
+                                                />
 
-                                    <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px] hidden sm:flex">
-                                            Location
-                                        </p>
-                                        <div className="w-[300px] md:w-[500px]">
-                                            <Field
-                                                type="text"
-                                                name="location"
-                                                placeholder="London,England"
-                                                className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
-                                            />
-                                            <ErrorMessage
-                                                name="location"
-                                                component={Error}
-                                            />
+                                                {mode == "dark" ? (
+                                                    <Image
+                                                        src="/upload.png"
+                                                        width="50"
+                                                        height="50"
+                                                    />
+                                                ) : (
+                                                    <Image
+                                                        src="/upload-dark.png"
+                                                        width="50"
+                                                        height="50"
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="flex gap-4 items-center">
-                                        <p className=" w-[100px] hidden sm:flex">
-                                            Work
-                                        </p>
-                                        <div className="w-[300px] md:w-[500px]">
-                                            <Field
-                                                type="text"
-                                                name="work"
-                                                placeholder="Senior Software Developer @Google"
-                                                className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
-                                            />
-                                            <ErrorMessage
-                                                name="work"
-                                                component={Error}
-                                            />
+
+                                        <div className="flex gap-4 items-center">
+                                            <p className=" w-[100px] hidden sm:flex">
+                                                Location
+                                            </p>
+                                            <div className="w-[300px] md:w-[500px]">
+                                                <Field
+                                                    type="text"
+                                                    name="location"
+                                                    placeholder="London,England"
+                                                    className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                />
+                                                <ErrorMessage
+                                                    name="location"
+                                                    component={Error}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="flex gap-4 item-center">
-                                        <p className="w-[100px] hidden sm:flex">
-                                            Education
-                                        </p>
-                                        <div className="w-[300px]  md:w-[500px]">
-                                            <Field
-                                                type="text"
-                                                name="education"
-                                                placeholder="Bachlors In Computer Science"
-                                                className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
-                                            />
-                                            <ErrorMessage
-                                                name="education"
-                                                component={Error}
-                                            />
+                                        <div className="flex gap-4 items-center">
+                                            <p className=" w-[100px] hidden sm:flex">
+                                                Work
+                                            </p>
+                                            <div className="w-[300px] md:w-[500px]">
+                                                <Field
+                                                    type="text"
+                                                    name="work"
+                                                    placeholder="Senior Software Developer @Google"
+                                                    className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                />
+                                                <ErrorMessage
+                                                    name="work"
+                                                    component={Error}
+                                                />
+                                            </div>
                                         </div>
+                                        <div className="flex gap-4 item-center">
+                                            <p className="w-[100px] hidden sm:flex">
+                                                Education
+                                            </p>
+                                            <div className="w-[300px]  md:w-[500px]">
+                                                <Field
+                                                    type="text"
+                                                    name="education"
+                                                    placeholder="Bachlors In Computer Science"
+                                                    className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                />
+                                                <ErrorMessage
+                                                    name="education"
+                                                    component={Error}
+                                                />
+                                            </div>
+                                        </div>
+                                        <button
+                                            className={`${
+                                                mode == "light"
+                                                    ? "text-white"
+                                                    : "text-black"
+                                            } transition-all duration-200 bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-pink-500 to-orange-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                            type="submit"
+                                            disabled={!props.isValid}
+                                        >
+                                            Save Changes
+                                        </button>
                                     </div>
-                                    <button
-                                        className={`${
-                                            mode == "light"
-                                                ? "text-white"
-                                                : "text-black"
-                                        } transition-all duration-200 bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-pink-500 to-orange-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
-                                        type="submit"
-                                        disabled={!props.isValid}
-                                    >
-                                        Save Changes
-                                    </button>
-                                </div>
-                            </Form>
-                        );
-                    }}
-                </Formik>
-            </div>
-        </Smooth>
-    );
+                                </Form>
+                            );
+                        }}
+                    </Formik>
+                </div>
+            </Smooth>
+        );
+    } else {
+        return <div className="min-h-screen"></div>;
+    }
 };
 
 export default Account;

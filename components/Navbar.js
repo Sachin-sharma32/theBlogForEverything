@@ -147,30 +147,32 @@ const Navbar = () => {
                         <SearchIcon className=" text-black text-lg sm:text-2xl" />
                     </button>
                 </form>
-                <div
-                    className={`${
-                        mode == "dark" ? "text-white" : "text-black"
-                    } relative`}
-                >
-                    <button
-                        className="flex items-center cursor-pointer"
-                        onClick={() => {
-                            setToggleCategories((current) => !current);
-                        }}
+                <CheckOutsideClick setToggleCategories={setToggleCategories}>
+                    <div
+                        className={`${
+                            mode == "dark" ? "text-white" : "text-black"
+                        } relative`}
                     >
-                        <CategoryIcon className="text-lg sm:text-2xl" />
-                        {toggleCategories ? (
-                            <ArrowDropUpIcon className="hidden sm:flex" />
-                        ) : (
-                            <ArrowDropDownIcon className="hidden sm:flex" />
+                        <button
+                            className="flex items-center cursor-pointer"
+                            onClick={() => {
+                                setToggleCategories((current) => !current);
+                            }}
+                        >
+                            <CategoryIcon className="text-lg sm:text-2xl" />
+                            {toggleCategories ? (
+                                <ArrowDropUpIcon className="hidden sm:flex" />
+                            ) : (
+                                <ArrowDropDownIcon className="hidden sm:flex" />
+                            )}
+                        </button>
+                        {toggleCategories && (
+                            <CategoryBox
+                                setToggleCategories={setToggleCategories}
+                            />
                         )}
-                    </button>
-                    {toggleCategories && (
-                        <CategoryBox
-                            setToggleCategories={setToggleCategories}
-                        />
-                    )}
-                </div>
+                    </div>
+                </CheckOutsideClick>
             </div>
             {hasSession ? (
                 <div className=" relative">

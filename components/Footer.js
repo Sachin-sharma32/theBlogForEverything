@@ -40,12 +40,14 @@ const Footer = () => {
                     <a
                         href="https://www.facebook.com/profile.php?id=100026014650461"
                         target="_blank"
+                        rel="noreferrer"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <FacebookIcon />
                     </a>
                     <a
                         target="_blank"
+                        rel="noreferrer"
                         href="https://twitter.com/Sachins27374929"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
@@ -53,6 +55,7 @@ const Footer = () => {
                     </a>
                     <a
                         target="_blank"
+                        rel="noreferrer"
                         href="https://www.instagram.com/sachinn._.sharmaa"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
@@ -61,6 +64,7 @@ const Footer = () => {
                     <a
                         href="https://github.com/Sachin-sharma32"
                         target="_blank"
+                        rel="noreferrer"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <GitHubIcon />

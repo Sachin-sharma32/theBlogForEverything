@@ -4,6 +4,9 @@ import GoogleProvider from "next-auth/providers/google";
 import TwitterProvider from "next-auth/providers/twitter";
 import FacebookProvider from "next-auth/providers/facebook";
 
+const id = process.env.GOOGLE_CLIENT_SECRET;
+console.log(id);
+
 export default NextAuth({
     providers: [
         GitHubProvider({
@@ -23,4 +26,5 @@ export default NextAuth({
             clientSecret: process.env.TWITTER_CLIENT_SECRET,
         }),
     ],
+    secret: process.env.JWT_SECRET,
 });

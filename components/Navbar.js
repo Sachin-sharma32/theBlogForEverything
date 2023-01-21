@@ -72,6 +72,7 @@ const Navbar = () => {
         dispatch(setSession(cookie.user));
     }
     const mode = useSelector((state) => state.base.mode);
+    console.log(mode);
     const router = useRouter();
 
     const [search, setSearch] = useState("");
@@ -95,7 +96,11 @@ const Navbar = () => {
     }, [posts]);
 
     useEffect(() => {
-        dispatch(setMode(localStorage.getItem("mode")));
+        if (localStorage.getItem("mode") == "light" || "dark") {
+            dispatch(setMode(localStorage.getItem("mode")));
+        } else {
+            dispatch(setMode("dark"));
+        }
     }, []);
     console.log(user);
     return (

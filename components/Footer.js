@@ -9,6 +9,8 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import MailIcon from "@mui/icons-material/Mail";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import { Avatar } from "@mui/material";
+import Image from "next/image";
 
 const Footer = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -21,10 +23,23 @@ const Footer = () => {
             } p-10  pb-10 text-xs border-t grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8`}
         >
             <section className=" flex flex-col gap-4 h-full border200 text-center items-center col-span-2 sm:col-span-3 lg:col-span-2">
-                <Link href="/" className=" text-xl font-semibold">
-                    <h5 className="bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
-                        THE BLOG FOR EVERYTHING
-                    </h5>
+                <Link
+                    href="/"
+                    className=" text-xl font-semibold flex flex-col justify-center items-center"
+                >
+                    {mode == "dark" ? (
+                        <Image
+                            src="/site-chopped-dark.jpg"
+                            width="100"
+                            height="20"
+                        />
+                    ) : (
+                        <Image
+                            src="/site-chopped-light.jpg"
+                            width="100"
+                            height="20"
+                        />
+                    )}
                 </Link>
                 <p>
                     A comprehensive blogging platform that provides readers with

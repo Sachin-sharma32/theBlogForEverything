@@ -14,8 +14,12 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>TBFE</title>
-                <link rel="icon" type="image/png" href="/favicon.ico" />
+                <title>TBFE - Home</title>
+                <link
+                    rel="icon"
+                    type="image/png"
+                    href="/site-light-chopped.jpg"
+                />
                 <meta
                     name="description"
                     content='  A comprehensive blogging platform that provides readers with
@@ -46,7 +50,7 @@ export default function Home() {
                 />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="TheBlogForEverything" />
-                <meta property="og:image" content="/person.webp" />
+                <meta property="og:image" content="/site-light-chopped.jpg" />
                 <meta
                     property="og:url"
                     content="https://theblogforeverything.com/"
@@ -71,7 +75,10 @@ export default function Home() {
                     entertained, 'The Blog for Everything' has
                     something for everyone."
                 />
-                <meta property="twitter:image:src" content="/person.webp" />
+                <meta
+                    property="twitter:image:src"
+                    content="/site-light-chopped.jpg"
+                />
                 <meta
                     property="og:url"
                     content="https://theblogforeverything.com/"

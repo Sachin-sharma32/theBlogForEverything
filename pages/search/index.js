@@ -43,7 +43,12 @@ const Search = () => {
     return (
         <>
             <Head>
-                <title>TBFE - ALL POSTS</title>
+                <title>TBFE - All posts</title>
+                <link
+                    rel="icon"
+                    type="image/png"
+                    href="/site-light-chopped.jpg"
+                />
             </Head>
             <Smooth
                 className={`${

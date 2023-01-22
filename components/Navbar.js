@@ -101,20 +101,19 @@ const Navbar = () => {
             } z-50`}
         >
             <Link href="/">
-                <h2
-                    className={`${
-                        mode == "light" ? "text-black" : "text-white"
-                    } font-bold text-xl hidden lg:flex`}
-                >
-                    THE BLOG FOR EVERYTHING
-                </h2>
-                <h2
-                    className={`${
-                        mode == "light" ? "text-black" : "text-white"
-                    } font-bold text-xl lg:hidden`}
-                >
-                    TBFE
-                </h2>
+                {mode == "dark" ? (
+                    <Image
+                        src="/site-chopped-dark.jpg"
+                        width="100"
+                        height="20"
+                    />
+                ) : (
+                    <Image
+                        src="/site-chopped-light.jpg"
+                        width="100"
+                        height="20"
+                    />
+                )}
             </Link>
             <div className="flex items-center justify-between gap-4">
                 <form
@@ -322,12 +321,18 @@ const Navbar = () => {
                                         alt="user image"
                                     />
                                 )}
-                                {!siteUser?.image && (
-                                    <Avatar
-                                        src="/user-lg.png"
-                                        className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
-                                    />
-                                )}
+                                {!siteUser?.image &&
+                                    (mode == "dark" ? (
+                                        <Avatar
+                                            src="/site-chopped-dark.png"
+                                            className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
+                                        />
+                                    ) : (
+                                        <Avatar
+                                            src="/site-chopped-light.png"
+                                            className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
+                                        />
+                                    ))}
                             </div>
                             <ul
                                 className={`${

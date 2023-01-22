@@ -150,8 +150,12 @@ const Post = () => {
         return (
             <>
                 <Head>
-                    <title>TBFE-{post.title}</title>
-                    <link rel="icon" type="image/png" href="/favicon.ico" />
+                    <title>TBFE - {post.title}</title>
+                    <link
+                        rel="icon"
+                        type="image/png"
+                        href="/site-light-chopped.jpg"
+                    />
                     <meta
                         name="description"
                         content={`${post.summery[0].children[0].text}`}

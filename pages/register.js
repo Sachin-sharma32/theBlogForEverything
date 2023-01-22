@@ -246,6 +246,7 @@ const Register = () => {
                                     src="/google.png"
                                     width="30"
                                     height="50"
+                                    alt="google icon"
                                 />
                                 <p>GOOGLE</p>
                             </div>
@@ -259,6 +260,7 @@ const Register = () => {
                                     src="/facebook.png"
                                     width="30"
                                     height="50"
+                                    alt="facebook icon"
                                 />
                                 <p>FACEBOOK</p>
                             </div>
@@ -272,6 +274,7 @@ const Register = () => {
                                     src="/github-dark.png"
                                     width="30"
                                     height="50"
+                                    alt="github icon"
                                 />
                                 <p>GITHUB</p>
                             </div>
@@ -285,6 +288,7 @@ const Register = () => {
                                     src="/twitter.png"
                                     width="30"
                                     height="50"
+                                    alt="twitter icon"
                                 />
                                 <p>TWITTER</p>
                             </div>

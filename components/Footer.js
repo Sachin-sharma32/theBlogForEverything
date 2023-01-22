@@ -32,12 +32,14 @@ const Footer = () => {
                             src="/site-chopped-dark.jpg"
                             width="100"
                             height="20"
+                            alt="Website Logo"
                         />
                     ) : (
                         <Image
                             src="/site-chopped-light.jpg"
                             width="100"
                             height="20"
+                            alt="Website Logo"
                         />
                     )}
                 </Link>

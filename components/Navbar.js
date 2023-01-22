@@ -106,16 +106,18 @@ const Navbar = () => {
                         src="/site-chopped-dark.jpg"
                         width="100"
                         height="20"
+                        alt="Website Logo"
                     />
                 ) : (
                     <Image
                         src="/site-chopped-light.jpg"
                         width="100"
                         height="20"
+                        alt="Website Logo"
                     />
                 )}
             </Link>
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center justify-between gap-2 sm:gap-4">
                 <form
                     onSubmit={submitHandler}
                     className={`${

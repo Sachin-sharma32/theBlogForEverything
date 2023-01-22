@@ -274,7 +274,7 @@ const Post = () => {
                                         mode == "dark"
                                             ? "bg-[#262626] text-white"
                                             : "bg-white text-[#262626]"
-                                    } mt-4 md:mt-10  p-4 rounded-sm shadow-xl text-xs sm:text-base relative`}
+                                    } mt-4 md:mt-10  p-4 rounded-sm shadow-xl text-xs sm:text-base relative py-4`}
                                 >
                                     <BlockContent
                                         blocks={post.content}
@@ -287,7 +287,7 @@ const Post = () => {
                                         )}
                                     />
 
-                                    <div className="flex justify-end gap-4 relative">
+                                    <div className="flex justify-end gap-3 relative mt-4">
                                         <BookmarkBtn
                                             post={post}
                                             setSuccess={setBookmarkSuccess}
@@ -299,7 +299,7 @@ const Post = () => {
                                         {likeSuccess && (
                                             <Alert
                                                 security="success"
-                                                className="absolute bottom-24 right-10 translate-x-1/2"
+                                                className="absolute bottom-24 right-14 translate-x-1/2"
                                             >
                                                 <Link href="/like">
                                                     MY LIKES
@@ -309,7 +309,7 @@ const Post = () => {
                                         {bookmarkSuccess && (
                                             <Alert
                                                 security="success"
-                                                className="absolute bottom-10 right-10 translate-x-1/2 z-50"
+                                                className="absolute bottom-10 right-14 translate-x-1/2 z-50"
                                             >
                                                 <Link href="/bookmark">
                                                     MY BOOKMARK

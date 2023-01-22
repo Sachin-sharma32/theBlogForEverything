@@ -257,12 +257,14 @@ const Account = () => {
                                                             src="/upload.png"
                                                             width="50"
                                                             height="50"
+                                                            alt="Image Upload Icon"
                                                         />
                                                     ) : (
                                                         <Image
                                                             src="/upload-dark.png"
                                                             width="50"
                                                             height="50"
+                                                            alt="Image Upload Icon"
                                                         />
                                                     )}
                                                 </div>

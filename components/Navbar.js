@@ -322,7 +322,7 @@ const Navbar = () => {
                             )}
                             {!siteUser?.image && (
                                 <Avatar
-                                    src="/person.webp"
+                                    src="/user-lg.png"
                                     className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
                                 />
                             )}

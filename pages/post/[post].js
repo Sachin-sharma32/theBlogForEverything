@@ -18,8 +18,7 @@ import Head from "next/head";
 import { imageBuilder } from "../../sanity";
 import BookmarkBtn from "../../utils/BookmarkBtn";
 import Like from "../../utils/LikeIcon";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import EastIcon from "@mui/icons-material/East";
 
 const Post = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -133,6 +132,20 @@ const Post = () => {
             }
         }
     }, [mode, post]);
+    const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
+    const [likeSuccess, setLikeSuccess] = useState(false);
+    useEffect(() => {
+        if (bookmarkSuccess) {
+            setTimeout(() => {
+                setBookmarkSuccess(false);
+            }, 5000);
+        }
+        if (likeSuccess) {
+            setTimeout(() => {
+                setLikeSuccess(false);
+            }, 5000);
+        }
+    }, [bookmarkSuccess, likeSuccess]);
     if (post) {
         return (
             <>
@@ -199,6 +212,14 @@ const Post = () => {
                         backgroundImage: `${effect}`,
                     }}
                 >
+                    {bookmarkSuccess && (
+                        <Alert
+                            security="success"
+                            className="absolute top-20 left-1/2 -translate-x-1/2"
+                        >
+                            <Link href="/bookmark">MY BOOKMARK</Link>
+                        </Alert>
+                    )}
                     {post && (
                         <article
                             className={`${
@@ -239,15 +260,17 @@ const Post = () => {
                                         {post.author.name} on{" "}
                                         {moment(post.publishedAt).format("ll")}
                                     </figcaption>
-                                    <BookmarkBtn post={post} />
-                                    <Like post={post} />
+                                    <BookmarkBtn
+                                        post={post}
+                                        setSuccess={setBookmarkSuccess}
+                                    />
                                 </div>
                                 <main
                                     className={`${
                                         mode == "dark"
                                             ? "bg-[#262626] text-white"
                                             : "bg-white text-[#262626]"
-                                    } mt-4 md:mt-10  p-4 rounded-sm shadow-xl text-xs sm:text-base`}
+                                    } mt-4 md:mt-10  p-4 rounded-sm shadow-xl text-xs sm:text-base relative`}
                                 >
                                     <BlockContent
                                         blocks={post.content}
@@ -259,9 +282,36 @@ const Post = () => {
                                             setCopy
                                         )}
                                     />
-                                    <div className="flex justify-end gap-4">
-                                        <BookmarkBtn post={post} />
-                                        <Like post={post} />
+
+                                    <div className="flex justify-end gap-4 relative">
+                                        <BookmarkBtn
+                                            post={post}
+                                            setSuccess={setBookmarkSuccess}
+                                        />
+                                        <Like
+                                            post={post}
+                                            setSuccess={setLikeSuccess}
+                                        />
+                                        {likeSuccess && (
+                                            <Alert
+                                                security="success"
+                                                className="absolute bottom-24 right-10 translate-x-1/2"
+                                            >
+                                                <Link href="/like">
+                                                    MY LIKES
+                                                </Link>
+                                            </Alert>
+                                        )}
+                                        {bookmarkSuccess && (
+                                            <Alert
+                                                security="success"
+                                                className="absolute bottom-10 right-10 translate-x-1/2 z-50"
+                                            >
+                                                <Link href="/bookmark">
+                                                    MY BOOKMARK
+                                                </Link>
+                                            </Alert>
+                                        )}
                                     </div>
                                 </main>
                                 <section
@@ -403,7 +453,7 @@ const Post = () => {
                                             onSubmit={submitUserHandler}
                                         >
                                             <textarea
-                                                minlength="5"
+                                                minLength="5"
                                                 name=""
                                                 id=""
                                                 cols="30"
@@ -451,38 +501,53 @@ const Post = () => {
                                 <section className=" mt-10 text-xs md:text-base">
                                     {comments?.length > 0 && (
                                         <article>
-                                            {comments.map((item, i) => (
-                                                <div
-                                                    className="border-t-[1px] border-white mt-4"
-                                                    key={i}
-                                                >
-                                                    <div>
-                                                        <h5 className=" text-2xl font-semibold">
-                                                            {item.name}
-                                                        </h5>
-                                                        <p className=" text-xs">
-                                                            #{" "}
-                                                            {moment(
-                                                                item.publishedAt
-                                                            ).format("ll")}
-                                                        </p>
-                                                    </div>
-                                                    <div className=" mt-2 bg-white p-4 pr-20 rounded-md text-black">
-                                                        <div className="relative">
-                                                            <p>
-                                                                {item.comment}
+                                            {comments
+                                                .slice(0, 3)
+                                                .map((item, i) => (
+                                                    <div
+                                                        className="border-t-[1px] border-white mt-4"
+                                                        key={i}
+                                                    >
+                                                        <div>
+                                                            <h5 className=" text-2xl font-semibold">
+                                                                {item.name}
+                                                            </h5>
+                                                            <p className=" text-xs">
+                                                                #{" "}
+                                                                {moment(
+                                                                    item.publishedAt
+                                                                ).format("ll")}
                                                             </p>
-                                                            <div className=" absolute -bottom-4 -right-16 flex gap-6">
-                                                                <LikeCommentIcon
-                                                                    comment={
-                                                                        item
+                                                        </div>
+                                                        <div className=" mt-2 bg-white p-4 pr-20 rounded-md text-black">
+                                                            <div className="relative">
+                                                                <p>
+                                                                    {
+                                                                        item.comment
                                                                     }
-                                                                />
+                                                                </p>
+                                                                <div className=" absolute -bottom-4 -right-16 flex gap-6">
+                                                                    <LikeCommentIcon
+                                                                        comment={
+                                                                            item
+                                                                        }
+                                                                    />
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                ))}
+                                            <Link
+                                                href={`/comments/${post._id}`}
+                                                className={`${
+                                                    mode == "dark"
+                                                        ? "text-white"
+                                                        : "text-black"
+                                                } flex gap-2 hover:gap-4 justify-center items-center self-end duration-200 transition-all mt-6`}
+                                            >
+                                                <p>SEE ALL REVIEWS</p>
+                                                <EastIcon />
+                                            </Link>
                                         </article>
                                     )}
                                 </section>

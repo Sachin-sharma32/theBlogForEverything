@@ -9,7 +9,7 @@ import { setPosts, setUser } from "../redux/slices";
 import { Tooltip } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const BookmarkBtn = ({ post }) => {
+const BookmarkBtn = ({ post, setSuccess }) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const [bookmark, setBookmark] = useState(true);
@@ -40,6 +40,7 @@ const BookmarkBtn = ({ post }) => {
             if (response) {
                 dispatch(setUser({ ...user, bookmarks: response.bookmarks }));
                 setLoading(false);
+                setSuccess(true);
             }
         } else {
             router.push("/signin");

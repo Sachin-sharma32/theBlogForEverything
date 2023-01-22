@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, IconButton, Tooltip } from "@mui/material";
+import { Alert, Avatar, IconButton, Tooltip } from "@mui/material";
 import { useSelector } from "react-redux";
 import { imageBuilder } from "../sanity";
 import Link from "next/link";
@@ -12,6 +12,14 @@ import { PropaneSharp } from "@mui/icons-material";
 const Header = () => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
+    const [success, setSuccess] = useState(false);
+    useEffect(() => {
+        if (success) {
+            setTimeout(() => {
+                setSuccess(false);
+            }, 5000);
+        }
+    }, [success]);
     let post = posts?.filter((item) => {
         return item.bestPost;
     });
@@ -69,7 +77,7 @@ const Header = () => {
             <header className="flex justify-center items-center mt-0 pt-8 ">
                 <motion.div
                     initial={{ opacity: 0 }}
-                    whileInView={{ y: [100, 0], opacity: 1 }}
+                    whileInView={{ x: [200, 0], opacity: 1 }}
                     transition={{ duration: 1 }}
                     className={` bg-white w-[80vw] h-[60vh] sm:h-[80vh] flex justify-end items-center shadow-2xl rounded-sm cursor-pointer"`}
                 >
@@ -123,13 +131,21 @@ const Header = () => {
                                                 : "text-white"
                                         } flex justify-end gap-4 text-lg h-7`}
                                     >
-                                        <BookmarkBtn post={post} />
+                                        <BookmarkBtn
+                                            post={post}
+                                            setSuccess={setSuccess}
+                                        />
                                     </div>
                                 </article>
                             </section>
                         )}
                     </StyledContainer>
                 </motion.div>
+                {success && (
+                    <Alert security="success" className="absolute top-24">
+                        <Link href="/bookmark">MY BOOKMARK</Link>
+                    </Alert>
+                )}
             </header>
         );
     } else {

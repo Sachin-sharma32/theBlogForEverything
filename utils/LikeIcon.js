@@ -5,41 +5,37 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useGetPosts } from "../hooks/content";
-import { setPosts } from "../redux/slices";
+import { setLiked, setPosts } from "../redux/slices";
 import { Tooltip } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Like = ({ post}) => {
-    const [postDetails, setPostDetails] = useState(post);
+const Like = ({ post, setSuccess }) => {
     const dispatch = useDispatch();
     const router = useRouter();
+    const likes = useSelector((state) => state.base.likes);
     const [like, setLike] = useState(true);
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
     const [loading, setLoading] = useState(false);
-    let filterLikes = [];
-    if (user) {
-        filterLikes = postDetails?.likes?.filter((item) => {
-            return item._ref === user._id;
-        });
-    }
     useEffect(() => {
-        if (filterLikes?.length > 0) {
-            setLike(false);
-        } else {
-            setLike(true);
+        if (user && post) {
+            post?.likes?.map((like) => {
+                if (like._id == user._id) {
+                    setLike(false);
+                }
+            });
         }
-    }, [filterLikes]);
+    }, [user, likes, post]);
     const handleLike = async () => {
         if (user) {
             setLoading(true);
             const data = { postId: post._id, userId: user._id, like };
             const { data: response } = await axios.put("/api/users/like", data);
-            console.log(response);
             if (response) {
-                setPostDetails({ ...post, likes: response.data.likes });
                 dispatch(setPosts(response.posts));
                 setLoading(false);
+                setLike((curr) => !curr);
+                setSuccess(true);
             }
         } else {
             router.push("/signin");
@@ -72,9 +68,9 @@ const Like = ({ post}) => {
                             </div>
                         )}
                     </Tooltip>
-                    {postDetails?.likes ? (
+                    {post?.likes ? (
                         <p className=" absolute top-0 -right-0 -translate-x-1/2 -translate-y-1/2 bg-gray-500 w-5 h-5 rounded-full text-xs flex items-center justify-center">
-                            {postDetails.likes.length}
+                            {post.likes.length}
                         </p>
                     ) : (
                         ""

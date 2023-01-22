@@ -1,4 +1,4 @@
-import { Avatar, Tooltip } from "@mui/material";
+import { Alert, Avatar, Tooltip } from "@mui/material";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -6,8 +6,9 @@ import moment from "moment/moment";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import Like from "../utils/LikeIcon";
 import BookmarkBtn from "../utils/BookmarkBtn";
+import { useEffect } from "react";
 
-const TopCard = ({ num, post }) => {
+const TopCard = ({ num, post, setLikeSuccess, setBookmarkSuccess }) => {
     const mode = useSelector((state) => state.base.mode);
     return (
         <section
@@ -39,7 +40,7 @@ const TopCard = ({ num, post }) => {
                 <div className=" flex gap-4">
                     <Avatar src="/person.webp" />
                     <div>
-                    <p>{post.author.name}</p>
+                        <p>{post.author.name}</p>
                         <p className=" text-xs">{post.author.work}</p>
                     </div>
                 </div>
@@ -49,10 +50,10 @@ const TopCard = ({ num, post }) => {
                     mode == "dark" ? "text-white" : "text-black"
                 }`}
             >
-                <BookmarkBtn post={post} />
-                <Like post={post} />
+                <BookmarkBtn post={post} setSuccess={setBookmarkSuccess} />
+                <Like post={post} setSuccess={setLikeSuccess} />
             </div>
-    </section>
+        </section>
     );
 };
 

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 const RelatedPosts = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);
@@ -10,13 +11,12 @@ const RelatedPosts = ({ post }) => {
     const relatedPosts = posts
         .filter((item) => {
             return (
-                item.category._id == post.category._id &&
-                item._id != post._id
+                item.category._id == post.category._id && item._id != post._id
             );
         })
         .splice(0, 2);
     return (
-        <section
+        <div
             className={`${
                 mode == "dark"
                     ? "bg-[#262626] text-white"
@@ -54,7 +54,7 @@ const RelatedPosts = ({ post }) => {
                     </Link>
                 ))}
             </div>
-        </section>
+        </div>
     );
 };
 

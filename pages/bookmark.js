@@ -31,6 +31,11 @@ const Bookmark = () => {
                     <Post key={i} post={post} />
                 ))}
             </div>
+            {bookmarks?.length === 0 && (
+                <div className="bg-red-500 text-black p-4 absolute top-40 font-bold">
+                    THERE ARE NO BOOKMARKS
+                </div>
+            )}
         </Smooth>
     );
 };

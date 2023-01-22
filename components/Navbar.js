@@ -30,7 +30,6 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const { data: user } = useGetMe();
     const { data } = useGetPosts();
-    const [likes, setLikes] = useState(0);
     const [shown, setShown] = useState(false);
 
     const [toggleCategories, setToggleCategories] = useState(false);
@@ -53,6 +52,7 @@ const Navbar = () => {
 
     const session = useSelector((state) => state.base.session);
     const posts = useSelector((state) => state.base.posts);
+    const likes = useSelector((state) => state.base.likes);
 
     useEffect(() => {
         if (session) {
@@ -74,15 +74,16 @@ const Navbar = () => {
 
     let liked = [];
     useEffect(() => {
-        posts.map((post) => {
-            post.likes?.map((item) => {
-                if (item._id === siteUser?._id) {
-                    liked.push(post);
-                }
+        if (siteUser) {
+            posts.map((post) => {
+                post.likes?.map((item) => {
+                    if (item._id === siteUser._id) {
+                        liked.push(post);
+                    }
+                });
             });
-        });
-        dispatch(setLiked(liked));
-        setLikes(liked.length);
+            dispatch(setLiked(liked));
+        }
     }, [posts, siteUser]);
 
     useEffect(() => {
@@ -122,7 +123,7 @@ const Navbar = () => {
                         mode == "dark"
                             ? "bg-gray-500 focus-within:bg-white focus-within:shadow-gray-900"
                             : "bg-white border focus-within:bg-gray-200"
-                    } rounded-sm flex justify-between items-center h-7 px-1 md:px-2 w-52 sm:w-60 md:w-80 md:focus-within:w-96 transition-all duration-200 focus-within:shadow-lg`}
+                    } rounded-sm flex justify-between items-center h-7 px-1 md:px-2 w-52 sm:w-60 md:w-80 md:focus-within:w-96 transition-scale duration-200 focus-within:shadow-lg`}
                 >
                     <input
                         type="text"
@@ -177,7 +178,7 @@ const Navbar = () => {
                 <div className=" relative">
                     <div>
                         <button
-                            className=" cursor-pointer bg- flex md:hidden"
+                            className=" cursor-pointer flex md:hidden"
                             onClick={showSideBar}
                         >
                             <MenuIcon className="mt-[4rem] absolute w-5 text-transparent h-5 -top-16 right-0 z-50" />
@@ -192,7 +193,7 @@ const Navbar = () => {
                                         mode == "dark"
                                             ? "bg-[#262626] text-white"
                                             : " bg-white text-black"
-                                    } shadow-2xl shadow-black flex-col text-sm user-links font-normal  z-50`}
+                                    } shadow-2xl shadow-black flex-col text-sm user-links font-normal z-50`}
                                 >
                                     <li className="bg-gradient-to-r from-pink-500 to-orange-500 p-4">
                                         Hi, {user?.data?.user?.name}
@@ -276,7 +277,7 @@ const Navbar = () => {
                             </p>
                         </Link>
                         <Link href="/like" className="relative hidden md:flex">
-                            <a
+                            <div
                                 className={` ${
                                     mode == "light"
                                         ? "text-black"
@@ -284,7 +285,7 @@ const Navbar = () => {
                                 } cursor-pointer hover:scale-125 animation-effect`}
                             >
                                 <FavoriteBorderIcon />
-                            </a>
+                            </div>
                             <p
                                 className={`${
                                     mode == "dark"
@@ -292,7 +293,7 @@ const Navbar = () => {
                                         : "bg-black text-white"
                                 } absolute -top-2 -right-2 w-5 h-5 rounded-full flex justify-center items-center`}
                             >
-                                {likes}
+                                {likes.length}
                             </p>
                         </Link>
                         <button
@@ -313,20 +314,28 @@ const Navbar = () => {
                             </a>
                         </button>
                         <div className=" relative profile-icon">
-                            {siteUser?.image?.length > 0 && (
-                                <img
-                                    src={`${siteUser?.image}`}
-                                    className=" cursor-pointer w-7 rounded-full h-7 sm:w-10 sm:h-10"
-                                    alt="user image"
-                                />
-                            )}
-                            {!siteUser?.image && (
-                                <Avatar
-                                    src="/user-lg.png"
-                                    className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
-                                />
-                            )}
-                            <ul className=" absolute top-10 -left-36 -translate-x-1/2 bg-[#262626] shadow-2xl shadow-black flex-col text-sm user-links font-normal text-white z-50 hidden drop-down">
+                            <div className="">
+                                {siteUser?.image?.length > 0 && (
+                                    <img
+                                        src={`${siteUser?.image}`}
+                                        className=" cursor-pointer w-7 rounded-full h-7 sm:w-10 sm:h-10 border border-inherit"
+                                        alt="user image"
+                                    />
+                                )}
+                                {!siteUser?.image && (
+                                    <Avatar
+                                        src="/user-lg.png"
+                                        className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
+                                    />
+                                )}
+                            </div>
+                            <ul
+                                className={`${
+                                    mode === "dark"
+                                        ? "bg-[#262626] text-white"
+                                        : "bg-white text-black"
+                                } absolute top-10 -left-36 -translate-x-1/2 shadow-2xl shadow-black flex-col text-sm user-links font-normal z-50 hidden drop-down`}
+                            >
                                 <li className="bg-gradient-to-r from-pink-500 to-orange-500 p-4">
                                     Hi, {user?.data.user.name.toUpperCase()}
                                 </li>

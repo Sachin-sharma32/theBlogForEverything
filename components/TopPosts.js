@@ -1,4 +1,8 @@
+import { Alert } from "@mui/material";
+import Link from "next/link";
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import TopCard from "./TopCard";
 
@@ -7,8 +11,22 @@ const TopPosts = () => {
     const topPosts = posts.filter((post) => {
         return post.topPostOfTheWeek;
     });
+    const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
+    const [likeSuccess, setLikeSuccess] = useState(false);
+    useEffect(() => {
+        if (bookmarkSuccess) {
+            setTimeout(() => {
+                setBookmarkSuccess(false);
+            }, 5000);
+        }
+        if (likeSuccess) {
+            setTimeout(() => {
+                setLikeSuccess(false);
+            }, 5000);
+        }
+    }, [bookmarkSuccess, likeSuccess]);
     return (
-        <section className=" mt-10 flex justify-center flex-col p-2 md:p-10 md:gap-4">
+        <div className=" mt-10 flex justify-center flex-col p-2 md:p-10 md:gap-4 relative">
             <h2 className="bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent text-xl font-bold text-center md:hidden">
                 TOP POSTS OF THE WEEK
             </h2>
@@ -19,11 +37,27 @@ const TopPosts = () => {
                 </section>
                 <section className="flex gap-4 md:gap-2">
                     {topPosts.map((post, i) => (
-                        <TopCard key={i} num={i} post={post} />
+                        <TopCard
+                            key={i}
+                            num={i}
+                            post={post}
+                            setBookmarkSuccess={setBookmarkSuccess}
+                            setLikeSuccess={setLikeSuccess}
+                        />
                     ))}
                 </section>
             </section>
-        </section>
+            {likeSuccess && (
+                <Alert security="success" className="absolute top-10 left-1/2">
+                    <Link href="/like">MY LIKES</Link>
+                </Alert>
+            )}
+            {bookmarkSuccess && (
+                <Alert security="success" className="absolute top-24 left-1/2">
+                    <Link href="/bookmark">MY BOOKMARK</Link>
+                </Alert>
+            )}
+        </div>
     );
 };
 

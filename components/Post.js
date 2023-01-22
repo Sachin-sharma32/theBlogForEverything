@@ -1,4 +1,4 @@
-import { Avatar, Tooltip } from "@mui/material";
+import { Alert, Avatar, Tooltip } from "@mui/material";
 import Image from "next/image";
 import React, { useState } from "react";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -11,15 +11,30 @@ import { motion } from "framer-motion";
 import Like from "../utils/LikeIcon";
 import BookmarkBtn from "../utils/BookmarkBtn";
 import { imageBuilder } from "../sanity";
+import { useEffect } from "react";
 
 const Post = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);
+    const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
+    const [likeSuccess, setLikeSuccess] = useState(false);
+    useEffect(() => {
+        if (bookmarkSuccess) {
+            setTimeout(() => {
+                setBookmarkSuccess(false);
+            }, 5000);
+        }
+        if (likeSuccess) {
+            setTimeout(() => {
+                setLikeSuccess(false);
+            }, 5000);
+        }
+    }, [bookmarkSuccess, likeSuccess]);
     return (
         <motion.div
             initial={{ opacity: 0 }}
-            whileInView={{ y: [100, 0], opacity: 1 }}
+            whileInView={{ x: [-300, 0], opacity: 1 }}
             transition={{
-                x: { duration: 3 },
+                x: { duration: 1 },
                 default: { ease: "linear" },
             }}
             className={`${
@@ -96,12 +111,25 @@ const Post = ({ post }) => {
                             mode == "dark" ? "text-white" : "text-black"
                         }`}
                     >
-                        <BookmarkBtn post={post} />
+                        <BookmarkBtn
+                            post={post}
+                            setSuccess={setBookmarkSuccess}
+                        />
                         <div className="text-black relative">
-                            <Like post={post} />
+                            <Like post={post} setSuccess={setLikeSuccess} />
                         </div>
                     </div>
                 </article>
+            )}
+            {likeSuccess && (
+                <Alert security="success" className="absolute top-32 left-1/2 -translate-x-1/2">
+                    <Link href="/like">MY LIKES</Link>
+                </Alert>
+            )}
+            {bookmarkSuccess && (
+                <Alert security="success" className="absolute top-48 left-1/2 -translate-x-1/2">
+                    <Link href="/bookmark">MY BOOKMARK</Link>
+                </Alert>
             )}
         </motion.div>
     );

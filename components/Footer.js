@@ -18,9 +18,9 @@ const Footer = () => {
         <footer
             className={`${
                 mode == "light" ? "text-gray-800 bg-white" : "text-gray-300"
-            } p-10 flex lg:items-start lg:flex-row flex-col items-center justify-center gap-8 justify-items-center pb-10 text-xs  border-t-2 `}
+            } p-10  pb-10 text-xs border-t grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8`}
         >
-            <section className=" flex flex-col gap-2 p-4 h-full border200 text-center items-center">
+            <section className=" flex flex-col gap-4 h-full border200 text-center items-center col-span-2 sm:col-span-3 lg:col-span-2">
                 <Link href="/" className=" text-xl font-semibold">
                     <h5 className="bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
                         THE BLOG FOR EVERYTHING
@@ -39,85 +39,81 @@ const Footer = () => {
                 <section className=" cursor-pointer flex gap-2">
                     <a
                         href="https://www.facebook.com/profile.php?id=100026014650461"
-                        target="_blank"
-                        rel="noreferrer"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <FacebookIcon />
                     </a>
                     <a
                         target="_blank"
-                        rel="noreferrer"
-                        href="https://twitter.com/Sachins27374929"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <TwitterIcon />
                     </a>
                     <a
                         target="_blank"
-                        rel="noreferrer"
-                        href="https://www.instagram.com/sachinn._.sharmaa"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <InstagramIcon />
                     </a>
                     <a
                         href="https://github.com/Sachin-sharma32"
-                        target="_blank"
-                        rel="noreferrer"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <GitHubIcon />
                     </a>
                 </section>
             </section>
-            <section className="flex justify-evenly w-full items-center flex-col sm:flex-row gap-8">
-                <section className="  flex flex-col gap-2 items-center border200 text-left p-4 min-w-[300px] h-full">
-                    <section className="flex gap-8  w-full sm:justify-end justify-center">
-                        <section className="flex flex-col gap-2">
-                            {categories?.map((category, i) => (
-                                <Link
-                                    key={i}
-                                    href={`/search/${category.title}`}
-                                    className=" hover:scale-125 transition-all duration-200"
-                                >
-                                    {category.title.toUpperCase()}
-                                </Link>
-                            ))}
-                        </section>
-                        <div className="flex flex-col gap-2">
-                            {tags?.map((tag, i) => (
-                                <Link
-                                    key={i}
-                                    href={`/search/${tag.title}`}
-                                    className=" hover:scale-125 transition-all duration-200"
-                                >
-                                    {tag.title}
-                                </Link>
-                            ))}
-                        </div>
-                    </section>
-                </section>
-                <section className=" flex flex-col gap-2 text-left sm:justify-center h-full p-4 min-w-[300px] items-center">
-                    <section className="flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect">
-                        <LocationOnIcon />
-                        <p>A-24, Bal Nagar, Kartarpura</p>
-                    </section>
-                    <a
-                        href="tel: +916367212438"
-                        className="flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
+            <section className="flex flex-col w-full gap-2">
+                {categories?.map((category, i) => (
+                    <Link
+                        key={i}
+                        href={`/search/${category.title}`}
+                        className=" hover:scale-125 transition-all duration-200 w-full text-center"
                     >
-                        <PhoneIcon />
-                        <p>91+ 6367212438</p>
-                    </a>
-                    <a
-                        href="mailto: sachin2sharma001@gmail.com"
-                        className="flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
+                        {category?.title?.toUpperCase()}
+                    </Link>
+                ))}
+            </section>
+            <section className="flex flex-col gap-2 text-center">
+                {tags?.map((tag, i) => (
+                    <Link
+                        key={i}
+                        href={`/search/${tag.title}`}
+                        className=" hover:scale-125 transition-all duration-200 w-full"
                     >
-                        <MailIcon />
-                        <p>sachin2sharma001@gmail</p>
-                    </a>
-                </section>
+                        {tag.title}
+                    </Link>
+                ))}
+            </section>
+            <section className="flex flex-col gap-2 col-span-2 sm:col-span-1">
+                <a
+                    href="tel: +91 95210 85310"
+                    className=" justify-center flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
+                >
+                    <PhoneIcon />
+                    <p>91+ 95210 85310</p>
+                </a>
+                <a
+                    href="tel: +916367212438"
+                    className="justify-center flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
+                >
+                    <PhoneIcon />
+                    <p>91+ 6367212438</p>
+                </a>
+                <a
+                    href="mailto: Rahul.noble95@gmail.com"
+                    className="justify-center flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
+                >
+                    <MailIcon />
+                    <p>Rahul.noble95@gmail.com</p>
+                </a>
+                <a
+                    href="mailto: sachin2sharma001@gmail.com"
+                    className="justify-center flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
+                >
+                    <MailIcon />
+                    <p>sachin2sharma001@gmail</p>
+                </a>
             </section>
         </footer>
     );

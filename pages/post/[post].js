@@ -190,7 +190,7 @@ const Post = () => {
                 <Smooth
                     className={`${
                         mode == "light" ? "text-black" : "text-white"
-                    }min-h-screen bg-no-repeat bg-fixed bg-center`}
+                    }min-h-[100vh] bg-no-repeat bg-fixed bg-center`}
                     style={{
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",

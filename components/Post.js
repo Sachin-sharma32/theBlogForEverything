@@ -10,6 +10,7 @@ import { NumberInput } from "sanity";
 import { motion } from "framer-motion";
 import Like from "../utils/LikeIcon";
 import BookmarkBtn from "../utils/BookmarkBtn";
+import { imageBuilder } from "../sanity";
 
 const Post = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);
@@ -27,7 +28,12 @@ const Post = ({ post }) => {
                     : "bg-[#262626] shadow-black shadow-2xl"
             } h-[500px] w-[350px] rounded-sm overflow-hidden relative`}
         >
-            <Image src="/post-img.webp" width="400" height="10" alt="post" />
+            <img
+                src={`${imageBuilder(post.image)}`}
+                width="400"
+                className="h-[180px]"
+                alt="post"
+            />
             {post && (
                 <article className=" p-4">
                     <div className="flex items-center justify-between">
@@ -65,7 +71,7 @@ const Post = ({ post }) => {
                             {post?.summery[0]?.children[0]?.text}
                         </p>
                     </Link>
-                    <section className="flex gap-4 items-start">
+                    <section className="flex gap-0 items-start">
                         <div className="flex gap-2 cursor-pointer">
                             <Avatar src="/person.webp" />
                             <div>
@@ -78,9 +84,7 @@ const Post = ({ post }) => {
                                 >
                                     {post.author.name}
                                 </p>
-                                <p className=" text-xs">
-                                    {post.author.work}
-                                </p>
+                                <p className=" text-xs">{post.author.work}</p>
                             </div>
                         </div>
                         <div className="">
@@ -94,9 +98,7 @@ const Post = ({ post }) => {
                     >
                         <BookmarkBtn post={post} />
                         <div className="text-black relative">
-                            <Like
-                                post={post}
-                            />
+                            <Like post={post} />
                         </div>
                     </div>
                 </article>

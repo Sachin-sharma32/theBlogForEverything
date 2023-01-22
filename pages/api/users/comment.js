@@ -13,7 +13,6 @@ export default async function comment(req, res) {
             publishedAt: date,
         };
         const createdComment = await client.create(comment);
-        console.log(createdComment);
         const data = await client
             .patch(postId)
             .setIfMissing({ comments: [] })
@@ -24,7 +23,6 @@ export default async function comment(req, res) {
                 },
             ])
             .commit();
-        console.log(data);
         const postComments = await client.fetch(
             `*[_type == 'post' && _id == $id][0]{
               comments[]->
@@ -33,7 +31,6 @@ export default async function comment(req, res) {
                 id: data._id,
             }
         );
-        console.log("postComments", postComments);
         res.status(200).json(postComments);
     }
 }

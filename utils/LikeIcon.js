@@ -9,7 +9,7 @@ import { setPosts } from "../redux/slices";
 import { Tooltip } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Like = ({ post }) => {
+const Like = ({ post}) => {
     const [postDetails, setPostDetails] = useState(post);
     const dispatch = useDispatch();
     const router = useRouter();
@@ -35,6 +35,7 @@ const Like = ({ post }) => {
             setLoading(true);
             const data = { postId: post._id, userId: user._id, like };
             const { data: response } = await axios.put("/api/users/like", data);
+            console.log(response);
             if (response) {
                 setPostDetails({ ...post, likes: response.data.likes });
                 dispatch(setPosts(response.posts));

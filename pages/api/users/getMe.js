@@ -11,7 +11,6 @@ export default async function getMe(req, res) {
                 id: user.id,
             }
         );
-        console.log(existUser);
         const image = await client.fetch(
             `*[_type == 'user' && _id == $id][0]{
             image{asset->{_id,url}}

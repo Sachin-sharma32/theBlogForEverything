@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { ref } from "yup";
 
 const CheckOutsideClick = ({ children, handleClose, setToggleCategories }) => {
-    console.log(handleClose);
     const boxRef = useRef(null);
     const handleOutsideClick = (event) => {
         if (boxRef.current && !boxRef.current.contains(event.target)) {

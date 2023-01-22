@@ -39,7 +39,6 @@ const Search = () => {
         );
     }
     const selectedPosts = filterPosts;
-    console.log(selectedPosts);
 
     const [page, setPage] = useState(1);
     const lastPost = page * 9;

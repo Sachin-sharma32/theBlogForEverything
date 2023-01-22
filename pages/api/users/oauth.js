@@ -34,7 +34,6 @@ export default async function oauth(req, res) {
                     expiresIn: "30d",
                 }
             );
-            console.log(data);
             return res.status(200).json({ data, token: accessToken });
         }
     }

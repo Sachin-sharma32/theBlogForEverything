@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const Author = ({ author }) => {
     const mode = useSelector((state) => state.base.mode);
-    console.log(author)
     return (
         <section
             className={`${

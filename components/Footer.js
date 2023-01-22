@@ -99,20 +99,20 @@ const Footer = () => {
                     </section>
                 </section>
                 <section className=" flex flex-col gap-2 text-left sm:justify-center h-full p-4 min-w-[300px] items-center">
-                    <section className="flex gap-2 sm:w-full hover:scale-125 transition-all duration-200 cursor-pointer animation-effect">
+                    <section className="flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect">
                         <LocationOnIcon />
                         <p>A-24, Bal Nagar, Kartarpura</p>
                     </section>
                     <a
                         href="tel: +916367212438"
-                        className="flex gap-2 sm:w-full hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                        className="flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <PhoneIcon />
                         <p>91+ 6367212438</p>
                     </a>
                     <a
                         href="mailto: sachin2sharma001@gmail.com"
-                        className="flex gap-2 sm:w-full hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                        className="flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <MailIcon />
                         <p>sachin2sharma001@gmail</p>

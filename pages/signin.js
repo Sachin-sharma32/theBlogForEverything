@@ -36,7 +36,6 @@ const SignIn = () => {
         }, 2000);
     };
     const { mutate: userSignIn, error: err } = useSignin(onSuccess, onError);
-    console.log(err);
     const submitHandler = async (e) => {
         e.preventDefault();
         const user = { email, password };

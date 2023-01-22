@@ -21,29 +21,24 @@ const baseSlice = createSlice({
         },
         setPosts: (state, action) => {
             state.posts = action.payload;
-            console.log(state.posts);
         },
         setSession: (state, action) => {
             state.session = action.payload;
         },
         setUser: (state, action) => {
             state.user = action.payload;
-            console.log(state.user);
         },
         setBookmarks: (state, action) => {
             state.bookmarks = action.payload;
         },
         setLiked: (state, action) => {
             state.likes = action.payload;
-            console.log(state.likes);
         },
         setCategories: (state, action) => {
             state.categories = action.payload;
-            console.log(state.categories);
         },
         setTags: (state, action) => {
             state.tags = action.payload;
-            console.log(state.tags);
         },
     },
 });

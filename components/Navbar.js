@@ -24,6 +24,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CategoryBox from "./CategoryBox";
 import LoginIcon from "@mui/icons-material/Login";
 import CheckOutsideClick from "../utils/CheckOutsideClick";
+import ToggleSwitch from "../utils/toggleSwitch";
 
 const Navbar = () => {
     const [hasSession, setHasSession] = useState(false);
@@ -64,7 +65,6 @@ const Navbar = () => {
         dispatch(setSession(cookie.user));
     }
     const mode = useSelector((state) => state.base.mode);
-    console.log(mode);
     const router = useRouter();
 
     const [search, setSearch] = useState("");
@@ -74,8 +74,6 @@ const Navbar = () => {
     };
 
     let liked = [];
-    console.log(posts);
-    console.log(siteUser);
     useEffect(() => {
         posts.map((post) => {
             post.likes?.map((item) => {
@@ -87,18 +85,15 @@ const Navbar = () => {
         dispatch(setLiked(liked));
         setLikes(liked.length);
     }, [posts, siteUser]);
-    console.log(likes);
 
     useEffect(() => {
         const md = localStorage.getItem("mode");
-        console.log(md);
         if (md === null) {
             dispatch(setMode("dark"));
         } else {
             dispatch(setMode(localStorage.getItem("mode")));
         }
     }, []);
-    console.log(user);
     return (
         <nav
             className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${
@@ -136,14 +131,17 @@ const Navbar = () => {
                         id=""
                         className={`${
                             mode == "dark"
-                                ? "bg-gray-500 focus-within:bg-white"
-                                : " bg-white focus-within:bg-gray-200"
-                        } rounded-sm h-fit outline-none w-full transition-all duration-200`}
+                                ? " bg-inherit focus-within:bg-inherit"
+                                : " bg-inherit focus-within:bg-inherit"
+                        } rounded-sm h-fit outline-none w-full`}
                         onChange={(e) => {
                             setSearch(e.target.value);
                         }}
                     />
-                    <button type="submit">
+                    <button
+                        type="submit"
+                        className=" active:scale-90 transition-all duration-200"
+                    >
                         <SearchIcon className=" text-black text-lg sm:text-2xl" />
                     </button>
                 </form>
@@ -161,9 +159,9 @@ const Navbar = () => {
                         >
                             <CategoryIcon className="text-lg sm:text-2xl" />
                             {toggleCategories ? (
-                                <ArrowDropUpIcon className="hidden sm:flex animation-effect" />
+                                <ArrowDropUpIcon className="hidden sm:flex" />
                             ) : (
-                                <ArrowDropDownIcon className="hidden sm:flex animation-effect" />
+                                <ArrowDropDownIcon className="hidden sm:flex" />
                             )}
                         </a>
                         {toggleCategories && (

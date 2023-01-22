@@ -5,7 +5,6 @@ import TwitterProvider from "next-auth/providers/twitter";
 import FacebookProvider from "next-auth/providers/facebook";
 
 const id = process.env.GOOGLE_CLIENT_SECRET;
-console.log(id);
 
 export default NextAuth({
     providers: [

@@ -1,4 +1,4 @@
-import { Avatar, CircularProgress, Tooltip } from "@mui/material";
+import { Alert, Avatar, CircularProgress, Tooltip } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import RelatedPosts from "../../components/RelatedPosts";
 import Author from "../../components/Author";
@@ -18,6 +18,8 @@ import Head from "next/head";
 import { imageBuilder } from "../../sanity";
 import BookmarkBtn from "../../utils/BookmarkBtn";
 import Like from "../../utils/LikeIcon";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Post = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -25,16 +27,15 @@ const Post = () => {
     const posts = useSelector((state) => state.base.posts);
     const user = useSelector((state) => state.base.user);
     const [comment, setComment] = useState("");
+    const [copy, setCopy] = useState(false);
 
     const currentPost = posts.filter((item) => {
         return item._id == router.query.post;
     });
     const post = currentPost[0];
-    console.log(post);
     const [comments, setComments] = useState([]);
     useEffect(() => {
         if (post?.comments) {
-            console.log(post);
             let sorted = [...post.comments];
             sorted = sorted.sort(
                 (a, b) =>
@@ -68,7 +69,7 @@ const Post = () => {
                 setSuccess(false);
             }, 2000);
         }
-    }, []);
+    }, [success]);
     const submitHandler = async (values, { resetForm }) => {
         setLoading(true);
         values = {
@@ -112,8 +113,26 @@ const Post = () => {
         setComments(sorted);
         setComment("");
         setLoading(false);
+        setSuccess(true);
     };
-
+    const [effect, setEffect] = useState(null);
+    useEffect(() => {
+        if (post) {
+            if (mode === "light") {
+                setEffect(
+                    `linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.9) 90%, rgb(255, 255, 255) 100%),url(${imageBuilder(
+                        post.image
+                    )})`
+                );
+            } else {
+                setEffect(
+                    `linear-gradient(rgba(0, 0, 0, 0.7) 0%, rgb(0, 0, 0,.8) 50%, rgba(0, 0, 0, 0.9) 90%, rgb(0, 0, 0) 100%),url(${imageBuilder(
+                        post.image
+                    )})`
+                );
+            }
+        }
+    }, [mode, post]);
     if (post) {
         return (
             <>
@@ -167,15 +186,25 @@ const Post = () => {
                         content={`https://theblogforeverything.com/post${post._id}`}
                     />
                 </Head>
+
                 <Smooth
                     className={`${
-                        mode == "dark"
-                            ? "post-page text-white"
-                            : "post-page-light text-gray-800 bg-white"
-                    }  min-h-screen `}
+                        mode == "light" ? "text-black" : "text-white"
+                    }min-h-screen bg-no-repeat bg-fixed bg-center`}
+                    style={{
+                        backgroundRepeat: "no-repeat",
+                        backgroundPosition: "center",
+                        backgroundSize: "cover",
+                        backgroundAttachment: "fixed",
+                        backgroundImage: `${effect}`,
+                    }}
                 >
                     {post && (
-                        <article className=" px-4 md:px-10 py-4 md:py-8 flex flex-col lg:flex-row lg:gap-10">
+                        <article
+                            className={`${
+                                mode === "light" ? "text-black" : "text-white"
+                            } px-4 md:px-10 py-4 md:py-8 flex flex-col lg:flex-row lg:gap-10`}
+                        >
                             <div className=" w-[100%] lg-[70%]">
                                 <section
                                     className={`${
@@ -198,7 +227,13 @@ const Post = () => {
                                 <h1 className=" mt-2 md:mt-8 text-3xl md:text-5xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
                                     {post.title}
                                 </h1>
-                                <figure className=" mt-4 flex gap-2 text-xs items-center">
+                                <div
+                                    className={`${
+                                        mode === "dark"
+                                            ? "text-white"
+                                            : "text-black"
+                                    } mt-4 flex gap-2 text-xs items-center`}
+                                >
                                     <Avatar src="/person.webp" />
                                     <figcaption>
                                         {post.author.name} on{" "}
@@ -206,7 +241,7 @@ const Post = () => {
                                     </figcaption>
                                     <BookmarkBtn post={post} />
                                     <Like post={post} />
-                                </figure>
+                                </div>
                                 <main
                                     className={`${
                                         mode == "dark"
@@ -218,7 +253,11 @@ const Post = () => {
                                         blocks={post.content}
                                         projectId="k0me7ccv"
                                         dataset="production"
-                                        serializers={serializerFn()}
+                                        className=" leading-5"
+                                        serializers={serializerFn(
+                                            copy,
+                                            setCopy
+                                        )}
                                     />
                                     <div className="flex justify-end gap-4">
                                         <BookmarkBtn post={post} />
@@ -258,7 +297,6 @@ const Post = () => {
                                         >
                                             {(props) => {
                                                 {
-                                                    console.log(props);
                                                 }
                                                 return (
                                                     <Form className="flex flex-col justify-center items-center gap-6  w-fit ">
@@ -361,7 +399,7 @@ const Post = () => {
                                         </Formik>
                                     ) : (
                                         <form
-                                            className="flex flex-col justify-center items-center gap-6  w-fit"
+                                            className="flex flex-col justify-center items-center gap-6  w-fit relative"
                                             onSubmit={submitUserHandler}
                                         >
                                             <textarea
@@ -399,6 +437,14 @@ const Post = () => {
                                                     <p>POST COMMENT</p>
                                                 )}
                                             </button>
+                                            {success && (
+                                                <div className=" absolute top-10">
+                                                    <Alert severity="success">
+                                                        Comment Posted
+                                                        Successfully
+                                                    </Alert>
+                                                </div>
+                                            )}
                                         </form>
                                     )}
                                 </section>

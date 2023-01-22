@@ -7,14 +7,12 @@ import { useRouter } from "next/router";
 import { CircularProgress, Tooltip } from "@mui/material";
 
 const LikeCommentIcon = ({ comment }) => {
-    console.log(comment);
     const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
     const [loading, setLoading] = useState(false);
     const [like, setLike] = useState(true);
     const [likes, setLikes] = useState(comment.likes ? comment.likes : []);
-    console.log(likes);
     let filterLikes = [];
     if (user && likes?.length > 0) {
         filterLikes = likes?.filter((item) => {

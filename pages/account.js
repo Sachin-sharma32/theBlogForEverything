@@ -15,7 +15,6 @@ const Account = () => {
     const user = useSelector((state) => state.base.user);
     const [loading, setLoading] = useState(false);
     const [btnLoading, setBtnLoading] = useState(false);
-    console.log(user);
     const [image, setImage] = useState("");
     const URL_REGEX =
         /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;

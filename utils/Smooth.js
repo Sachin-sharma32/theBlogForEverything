@@ -7,6 +7,7 @@ const Smooth = (props) => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             className={`${props.className}`}
+            style={props.style}
         >
             {props.children}
         </motion.div>

@@ -54,7 +54,6 @@ const Register = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const onSuccess = () => {
-        console.log("success");
         setSuccess(true);
         setTimeout(() => {
             setSuccess(false);
@@ -81,7 +80,6 @@ const Register = () => {
     const { data: session } = useSession();
     const { mutate: oAuthLogIn } = useOauth();
     useEffect(() => {
-        console.log(session);
         if (session) {
             const data = {
                 name: session.user.name,

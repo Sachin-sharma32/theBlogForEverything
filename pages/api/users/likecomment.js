@@ -5,7 +5,6 @@ import { client } from "../../../sanity";
 export default async function likecomment(req, res) {
     if (req.method === "PUT") {
         const { userId, commentId, like } = req.body;
-        console.log(req.body);
         const data = like
             ? await client
                   .patch(commentId)
@@ -21,7 +20,6 @@ export default async function likecomment(req, res) {
                   .patch(commentId)
                   .unset([`likes[_ref=="${userId}"]`])
                   .commit();
-        console.log(data);
         res.status(200).json(data);
     }
 }

@@ -119,7 +119,6 @@ export const useGetMe = () => {
         {
             enabled: !!session,
             onSuccess: (data) => {
-                console.log(data);
                 dispatch(setUser(data.data.user));
             },
         }
@@ -176,7 +175,6 @@ export const useGetCategories = () => {
         },
         {
             onSuccess: (data) => {
-                console.log(data);
                 dispatch(setCategories(data.data));
             },
         }
@@ -191,7 +189,6 @@ export const useGetTags = () => {
         },
         {
             onSuccess: (data) => {
-                console.log(data);
                 dispatch(setTags(data.data));
             },
         }

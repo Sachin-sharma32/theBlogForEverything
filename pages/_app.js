@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import Footer from "../components/Footer";
 import { SessionProvider } from "next-auth/react";
 
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     const queryClient = new QueryClient();
     return (

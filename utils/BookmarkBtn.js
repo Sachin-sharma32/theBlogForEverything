@@ -17,7 +17,7 @@ const BookmarkBtn = ({ post }) => {
     const user = useSelector((state) => state.base.user);
     const [loading, setLoading] = useState(false);
     let filterBookmark = [];
-if (user) {
+    if (user) {
         filterBookmark = user?.bookmarks?.filter((item) => {
             return item._ref === post?._id;
         });

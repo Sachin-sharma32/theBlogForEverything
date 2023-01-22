@@ -60,6 +60,9 @@ const SignIn = () => {
         if (provider === "twitter") {
             setError(true);
             setErrorMsg("TWITTER IS NOT FUNCTIONAL CURRENTLY");
+            setTimeout(() => {
+                setError(false);
+            }, 2000);
         } else {
             await signIn(provider).then((session) => {});
         }
@@ -75,7 +78,7 @@ const SignIn = () => {
         >
             {error && (
                 <Alert severity="error" className=" fixed top-20 z-50">
-                    {err.response.data.message}
+                    {errorMsg}
                 </Alert>
             )}
             {success && (

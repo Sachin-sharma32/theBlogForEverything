@@ -9,8 +9,6 @@ import { useOauth, useRegister } from "../hooks/content";
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Error from "../utils/Error";
-import { PropaneSharp } from "@mui/icons-material";
-import ErrorModel from "../utils/ErrorModel";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
 import { Alert } from "@mui/material";
@@ -98,6 +96,9 @@ const Register = () => {
         if (provider === "twitter") {
             setError(true);
             setErrorMsg("TWITTER IS NOT FUNCTIONAL CURRENTLY");
+            setTimeout(() => {
+                setError(false);
+            }, 2000);
         } else {
             await signIn(provider).then((session) => {});
         }

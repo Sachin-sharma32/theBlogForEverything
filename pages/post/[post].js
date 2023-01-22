@@ -232,7 +232,7 @@ const Post = () => {
                                         mode === "dark"
                                             ? "text-white"
                                             : "text-black"
-                                    } mt-4 flex gap-2 text-xs items-center`}
+                                    } mt-4 flex gap-2 text-xs items-center min-h-screen`}
                                 >
                                     <Avatar src="/person.webp" />
                                     <figcaption>

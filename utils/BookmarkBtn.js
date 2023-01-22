@@ -52,7 +52,7 @@ const BookmarkBtn = ({ post }) => {
             } hover:scale-125 duration-200 flex justify-center items-center`}
         >
             {loading ? (
-                <div className=" w-5 h-5 flex justify-start items-center">
+                <div className=" w-6 h-6 flex justify-center items-center">
                     <CircularProgress size="1rem" color="inherit" />
                 </div>
             ) : (

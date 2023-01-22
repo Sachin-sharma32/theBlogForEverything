@@ -157,11 +157,13 @@ const Navbar = () => {
                             }}
                         >
                             <CategoryIcon className="text-lg sm:text-2xl" />
-                            {toggleCategories ? (
-                                <ArrowDropUpIcon className="hidden sm:flex" />
-                            ) : (
-                                <ArrowDropDownIcon className="hidden sm:flex" />
-                            )}
+                            <div className=" hidden sm:flex">
+                                {toggleCategories ? (
+                                    <ArrowDropUpIcon />
+                                ) : (
+                                    <ArrowDropDownIcon />
+                                )}
+                            </div>
                         </a>
                         {toggleCategories && (
                             <CategoryBox
@@ -241,7 +243,7 @@ const Navbar = () => {
                                     </li>
                                 </ul>
                                 <button
-                                    className=" mt-[4rem] absolute w-5 text-transparent h-5 -top-20 right-4 z-50"
+                                    className=" mt-[4rem] absolute w-8 text-transparent h-8 -top-20 right-4 z-50"
                                     onClick={hideSideBar}
                                 >
                                     <MenuIcon className="" />

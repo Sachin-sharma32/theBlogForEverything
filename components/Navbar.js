@@ -185,7 +185,7 @@ const Navbar = () => {
                         <CheckOutsideClick handleClose={hideSideBar}>
                             <div
                                 ref={sideRef}
-                                className=" transition-all duration-200 absolute -top-12 -right-4 min-h-screen mt-[4rem] w-[200px] translate-x-[500px] p-4 flex flex-col gap-4 z-50"
+                                className=" transition-all duration-200 absolute -top-10 -right-4 min-h-screen mt-[4rem] w-[200px] translate-x-[500px] p-4 flex flex-col gap-4 z-50"
                             >
                                 <ul
                                     className={`${

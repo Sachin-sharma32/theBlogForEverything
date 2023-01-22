@@ -8,7 +8,6 @@ import TopPosts from "../components/TopPosts";
 import { motion } from "framer-motion";
 import Smooth from "../utils/Smooth";
 import Head from "next/head";
-import ToggleSwitch from "../utils/toggleSwitch";
 
 export default function Home() {
     const mode = useSelector((state) => state.base.mode);

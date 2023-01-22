@@ -24,7 +24,6 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CategoryBox from "./CategoryBox";
 import LoginIcon from "@mui/icons-material/Login";
 import CheckOutsideClick from "../utils/CheckOutsideClick";
-import ToggleSwitch from "../utils/toggleSwitch";
 
 const Navbar = () => {
     const [hasSession, setHasSession] = useState(false);

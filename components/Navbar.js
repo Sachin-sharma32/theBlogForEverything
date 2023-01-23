@@ -325,11 +325,14 @@ const Navbar = () => {
                                 )}
                                 {!siteUser?.image &&
                                     (mode == "dark" ? (
-                                        <div className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10 bg-white rounded-full"></div>
-                                    ) : (
                                         <Avatar
                                             src="/site-chopped-light.jpg"
-                                            className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10 bg-black rounded-full"
+                                            className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
+                                        />
+                                    ) : (
+                                        <Avatar
+                                            src="/site-chopped-dark.jpg"
+                                            className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
                                         />
                                     ))}
                             </div>

@@ -20,10 +20,7 @@ export default async function verifyUser(req, res) {
                     _type: "user",
                     name: req.query.name,
                     email: req.query.email,
-                    password: CryptoJS.AES.encrypt(
-                        req.query.password,
-                        "sachin1234"
-                    ).toString(),
+                    password: req.query.password,
                     isAdmin: false,
                 },
             },

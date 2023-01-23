@@ -15,10 +15,14 @@ export default async function register(req, res) {
             .status(400)
             .json({ message: "user with this email already exist" });
     } else {
+        const encPass = CryptoJS.AES.encrypt(
+            req.body.password,
+            "sachin1234"
+        ).toString();
         await sendEmail({
             email: req.body.email,
             subject: "User verification link",
-            message: `http://localhost:3000/api/users/verifyUser?name=${req.body.name}&email=${req.body.email}&password=${req.body.password}`,
+            message: `http://localhost:3000/api/users/verifyUser?name=${req.body.name}&email=${req.body.email}&password=${encPass}`,
         });
         res.status(200).json({ status: "success" });
     }

@@ -94,6 +94,8 @@ const Navbar = () => {
             dispatch(setMode(localStorage.getItem("mode")));
         }
     }, []);
+
+    console.log(session, hasSession);
     return (
         <nav
             className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${
@@ -344,7 +346,7 @@ const Navbar = () => {
                                 } absolute top-10 -left-36 -translate-x-1/2 shadow-2xl shadow-black flex-col text-sm user-links font-normal z-0 hidden drop-down`}
                             >
                                 <li className="bg-gradient-to-r from-pink-500 to-orange-500 p-4">
-                                    Hi, {user?.data.user.name.toUpperCase()}
+                                    Hi, {user?.data?.user?.name?.toUpperCase()}
                                 </li>
                                 <Link href="/account">
                                     <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">

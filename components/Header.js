@@ -73,7 +73,6 @@ const Header = () => {
     if (post && mode) {
         return (
             <>
-                <div className=" sticky top-10">stickey</div>
                 <header className=" flex justify-center items-center mt-0 pt-8 ">
                     <motion.div
                         initial={{ opacity: 0 }}

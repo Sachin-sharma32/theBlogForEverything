@@ -28,10 +28,9 @@ const Post = ({ post }) => {
     return (
         <motion.div
             initial={{ opacity: 0 }}
-            whileInView={{ x: [-300, 0], opacity: 1 }}
+            whileInView={{ opacity: 1 }}
             transition={{
-                x: { duration: 1 },
-                default: { ease: "linear" },
+                delay: 0.1,
             }}
             className={`${
                 mode == "light"

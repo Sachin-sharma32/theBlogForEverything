@@ -4,6 +4,7 @@ import { client } from "../../../sanity";
 import sendEmail from "../../../utils/email";
 
 export default async function register(req, res) {
+    console.log(req.body);
     const existUser = await client.fetch(
         `*[_type == "user" && email == $email][0]`,
         {
@@ -19,6 +20,7 @@ export default async function register(req, res) {
             req.body.password,
             process.env.CRYPTO_SECRET
         ).toString();
+        console.log(encPass);
         await sendEmail({
             email: req.body.email,
             subject: "User verification link",

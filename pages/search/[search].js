@@ -53,7 +53,11 @@ const Search = () => {
         <>
             <Head>
                 <title>TBFE - {search}</title>
-                <link rel="icon" type="image/png" href="/site-light-chopped.jpg" />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    href="/site-light-chopped.jpg"
+                />
                 <meta
                     name="description"
                     content='  A comprehensive blogging platform that provides readers with
@@ -102,7 +106,10 @@ const Search = () => {
                     entertained, 'The Blog for Everything' has
                     something for everyone."
                 />
-                <meta property="twitter:image:src" content="/site-light-chopped.jpg" />
+                <meta
+                    property="twitter:image:src"
+                    content="/site-light-chopped.jpg"
+                />
                 <meta
                     property="og:url"
                     content={`https://theblogforeverything.com/search/${search}`}
@@ -125,8 +132,17 @@ const Search = () => {
                         <div
                             className={`${mode == "light" ? "text-black" : ""}`}
                         >
-                            <h3 className=" text-3xl text-center mb-10 font-bold text-red-500">
-                                NOT RESULT FOUND FOR {search?.toUpperCase()}
+                            <h3
+                                className={`${
+                                    mode == "dark"
+                                        ? "text-white"
+                                        : "text-[#262626]"
+                                }  flex flex-col justify-center items-center text-3xl text-center mb-10 font-bold`}
+                            >
+                                <span>NOT RESULT FOUND FOR</span>
+                                <span className=" text-red-500">
+                                    {search?.toUpperCase()}
+                                </span>
                             </h3>
                             <Link href="/">
                                 <div className=" text-xl flex items-center gap-2 cursor-pointer hover:gap-3 transition-all duration-200 justify-center">

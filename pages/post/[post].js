@@ -276,7 +276,7 @@ const Post = () => {
                                         mode == "dark"
                                             ? "bg-[#262626] text-white"
                                             : "bg-white text-[#262626]"
-                                    } mt-4 md:mt-10  p-10 rounded-sm shadow-xl text-xs sm:text-base relative py-4`}
+                                    } mt-4 md:mt-10  p-4 sm:p-10 rounded-sm shadow-xl text-xs sm:text-base relative py-4`}
                                 >
                                     <PortableText
                                         value={post.content}

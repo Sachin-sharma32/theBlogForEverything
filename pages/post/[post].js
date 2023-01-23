@@ -207,7 +207,7 @@ const Post = () => {
                 <Smooth
                     className={`${
                         mode == "light" ? "text-black" : "text-white"
-                    }min-h-[100vh] bg-no-repeat bg-fixed bg-center`}
+                    }h-[100%] bg-no-repeat bg-fixed bg-center`}
                     style={{
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",

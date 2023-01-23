@@ -13,6 +13,7 @@ const Search = () => {
     const { search } = router.query;
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
+    console.log(posts);
     let filterPosts = posts.filter((post) => {
         return (
             post.title.toLowerCase().includes(search.toLowerCase()) ||

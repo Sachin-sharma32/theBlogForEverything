@@ -341,7 +341,7 @@ const Navbar = () => {
                                     mode === "dark"
                                         ? "bg-[#262626] text-white"
                                         : "bg-white text-black"
-                                } absolute top-10 -left-36 -translate-x-1/2 shadow-2xl shadow-black flex-col text-sm user-links font-normal z-50 hidden drop-down`}
+                                } absolute top-10 -left-36 -translate-x-1/2 shadow-2xl shadow-black flex-col text-sm user-links font-normal z-0 hidden drop-down`}
                             >
                                 <li className="bg-gradient-to-r from-pink-500 to-orange-500 p-4">
                                     Hi, {user?.data.user.name.toUpperCase()}

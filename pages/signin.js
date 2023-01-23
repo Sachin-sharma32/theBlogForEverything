@@ -82,12 +82,12 @@ const SignIn = () => {
             min-h-screen relative`}
             >
                 {error && (
-                    <Alert severity="error" className=" fixed top-20 z-50">
+                    <Alert severity="error" className=" absolute top-20 z-50">
                         {errorMsg}
                     </Alert>
                 )}
                 {success && (
-                    <Alert severity="success" className=" fixed top-20 z-50">
+                    <Alert severity="success" className=" absolute top-20 z-50">
                         Logged In Successfully
                     </Alert>
                 )}

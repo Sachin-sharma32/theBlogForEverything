@@ -12,6 +12,7 @@ import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
 import { Alert } from "@mui/material";
 import Head from "next/head";
+import SuccessModel from "../utils/SuccessModel";
 
 const Register = () => {
     const router = useRouter();
@@ -120,14 +121,16 @@ const Register = () => {
             min-h-screen`}
             >
                 {error && (
-                    <Alert severity="error" className=" fixed top-20 z-50">
-                        {errorMsg}
-                    </Alert>
+                    <div className=" fixed z-50 top-20">
+                        <Alert severity="error">{errorMsg}</Alert>
+                    </div>
                 )}
                 {success && (
-                    <Alert severity="success" className=" fixed top-20 z-50">
-                        USER REGISTERED SUCCESSFULLY
-                    </Alert>
+                    <div className=" fixed top-20 z-50">
+                        <Alert severity="success">
+                            VERIFICATION EMAIL SENT
+                        </Alert>
+                    </div>
                 )}
                 <div
                     className={`${

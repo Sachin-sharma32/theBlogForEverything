@@ -71,7 +71,9 @@ const LikeCommentIcon = ({ comment }) => {
                             </a>
                         )}
                     </Tooltip>
-                    <p className=" bg-gray-500 text-white absolute top-0 right-0 -translate-x-1/2 -translate-y-1/2 white w-5 h-5 rounded-full text-xs flex items-center justify-center">
+                    <p
+                    style={{top: '10px'}}
+                     className="absolute -right-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full text-xs flex items-center justify-center bg-black text-white">
                         {likes.length}
                     </p>
                 </div>

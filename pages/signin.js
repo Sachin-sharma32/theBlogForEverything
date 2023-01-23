@@ -66,6 +66,22 @@ const SignIn = () => {
 
     return (
         <>
+            {error && (
+                <Alert
+                    severity="error"
+                    className=" absolute top-20 z-50 left-1/2 -translate-x-1/2"
+                >
+                    {errorMsg}
+                </Alert>
+            )}
+            {success && (
+                <Alert
+                    severity="success"
+                    className=" absolute top-20 z-50 left-1/2 -translate-x-1/2"
+                >
+                    Logged In Successfully
+                </Alert>
+            )}
             <Head>
                 <title>TBFE - Sign In</title>
                 <link
@@ -81,16 +97,6 @@ const SignIn = () => {
             text-xs
             min-h-screen relative`}
             >
-                {error && (
-                    <Alert severity="error" className=" absolute top-20 z-50">
-                        {errorMsg}
-                    </Alert>
-                )}
-                {success && (
-                    <Alert severity="success" className=" absolute top-20 z-50">
-                        Logged In Successfully
-                    </Alert>
-                )}
                 <div
                     className={`${
                         mode == "dark" ? "signin-form" : "signin-form-light"

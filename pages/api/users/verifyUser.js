@@ -1,4 +1,5 @@
 import { client } from "../../../sanity";
+import CryptoJS from "crypto-js";
 
 export default async function verifyUser(req, res) {
     const existUser = await client.fetch(
@@ -19,7 +20,10 @@ export default async function verifyUser(req, res) {
                     _type: "user",
                     name: req.query.name,
                     email: req.query.email,
-                    password: req.query.password,
+                    password: CryptoJS.AES.encrypt(
+                        req.query.password,
+                        process.env.CRYPTO_SECRET
+                    ).toString(),
                     isAdmin: false,
                 },
             },
@@ -36,8 +40,7 @@ export default async function verifyUser(req, res) {
             }
         )
             .then((response) => {
-                console.log("first");
-                res.redirect("http://localhost:3000/signin");
+                res.redirect(`${process.env.SITE_URL}/signin`);
             })
             .catch((error) => {
                 res.status(400).json({

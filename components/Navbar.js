@@ -71,7 +71,6 @@ const Navbar = () => {
         e.preventDefault();
         router.push(`/search/${search}`);
     };
-
     let liked = [];
     useEffect(() => {
         if (siteUser) {
@@ -95,7 +94,6 @@ const Navbar = () => {
         }
     }, []);
 
-    console.log(session, hasSession);
     return (
         <nav
             className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${

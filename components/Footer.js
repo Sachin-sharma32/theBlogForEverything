@@ -60,14 +60,12 @@ const Footer = () => {
                     </a>
                     <a
                         href="https://twitter.com/parallelquotes/status/1059298596196114433?s=12&t=Qx1DqWgqxc1LNBztel4doA"
-                        target="_blank"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <TwitterIcon />
                     </a>
                     <a
                         href="https://instagram.com/the.blogforeverything?igshid=YmMyMTA2M2Y="
-                        target="_blank"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <InstagramIcon />

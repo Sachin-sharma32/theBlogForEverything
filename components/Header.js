@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Avatar, IconButton, Tooltip } from "@mui/material";
+import { Alert, Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
 import { imageBuilder } from "../sanity";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useAddToBookmark } from "../hooks/content";
 import BookmarkBtn from "../utils/BookmarkBtn";
 import styled from "styled-components";
-import { PropaneSharp } from "@mui/icons-material";
 
 const Header = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -143,7 +141,7 @@ const Header = () => {
                 </motion.div>
                 {success && (
                     <Alert security="success" className="absolute top-24">
-                        <Link href="/bookmark">MY BOOKMARK</Link>
+                        <Link href="/bookmark">MY BOOKMARK 👉</Link>
                     </Alert>
                 )}
             </header>

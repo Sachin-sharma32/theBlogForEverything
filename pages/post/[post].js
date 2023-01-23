@@ -1,12 +1,10 @@
-import { Alert, Avatar, CircularProgress, Tooltip } from "@mui/material";
+import { Alert, Avatar, CircularProgress} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import RelatedPosts from "../../components/RelatedPosts";
 import Author from "../../components/Author";
 import Smooth from "../../utils/Smooth";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import serializerFn from "../../utils/serializer";
-const BlockContent = require("@sanity/block-content-to-react");
 import moment from "moment/moment";
 import Link from "next/link";
 import * as yup from "yup";
@@ -19,6 +17,8 @@ import { imageBuilder } from "../../sanity";
 import BookmarkBtn from "../../utils/BookmarkBtn";
 import Like from "../../utils/LikeIcon";
 import EastIcon from "@mui/icons-material/East";
+import { PortableText } from "@portabletext/react";
+import RichTextComponent from "../../components/RichTextComponent";
 
 const Post = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -221,7 +221,7 @@ const Post = () => {
                             security="success"
                             className="absolute top-20 left-1/2 -translate-x-1/2"
                         >
-                            <Link href="/bookmark">MY BOOKMARK</Link>
+                            <Link href="/bookmark">MY BOOKMARK 👉</Link>
                         </Alert>
                     )}
                     {post && (
@@ -276,12 +276,11 @@ const Post = () => {
                                             : "bg-white text-[#262626]"
                                     } mt-4 md:mt-10  p-4 rounded-sm shadow-xl text-xs sm:text-base relative py-4`}
                                 >
-                                    <BlockContent
-                                        blocks={post.content}
+                                    <PortableText
                                         projectId="k0me7ccv"
                                         dataset="production"
-                                        className=" leading-5"
-                                        serializers={serializerFn(
+                                        value={post.content}
+                                        components={RichTextComponent(
                                             copy,
                                             setCopy
                                         )}
@@ -302,7 +301,7 @@ const Post = () => {
                                                 className="absolute bottom-24 right-14 translate-x-1/2"
                                             >
                                                 <Link href="/like">
-                                                    MY LIKES
+                                                    MY LIKES 👉
                                                 </Link>
                                             </Alert>
                                         )}
@@ -312,7 +311,7 @@ const Post = () => {
                                                 className="absolute bottom-10 right-14 translate-x-1/2 z-50"
                                             >
                                                 <Link href="/bookmark">
-                                                    MY BOOKMARK
+                                                    MY BOOKMARK 👉
                                                 </Link>
                                             </Alert>
                                         )}

@@ -1,5 +1,4 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Post from "../components/Post";
 import Smooth from "../utils/Smooth";

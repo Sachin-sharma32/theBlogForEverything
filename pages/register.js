@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Smooth from "../utils/Smooth";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";

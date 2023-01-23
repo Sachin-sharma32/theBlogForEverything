@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "../../components/Post";
@@ -16,7 +15,6 @@ const Search = () => {
     const filters = ["Newest", "Oldest"];
     let filterPosts = [...posts];
     if (filter == "Newest") {
-        console.log(filterPosts);
         filterPosts.sort(
             (a, b) =>
                 new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime() -

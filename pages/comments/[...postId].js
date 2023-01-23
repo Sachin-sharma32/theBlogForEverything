@@ -16,7 +16,6 @@ const Comments = () => {
     const post = posts.filter((post) => {
         return post._id == postId;
     });
-    console.log(post);
 
     return (
         <>
@@ -33,7 +32,7 @@ const Comments = () => {
                 className={`${
                     mode === "light"
                         ? "bg-white text-black"
-                        : "bg-[#262626] text-white"
+                        : "bg-[#262626] text-gray-400"
                 } min-h-screen flex justify-center p-10 text-xs sm:text-base`}
             >
                 <div className=" w-[100%] sm:w-[80%]">

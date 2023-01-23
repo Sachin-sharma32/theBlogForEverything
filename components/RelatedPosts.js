@@ -1,9 +1,7 @@
 import { Avatar } from "@mui/material";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useSelector } from "react-redux";
-import { motion } from "framer-motion";
 
 const RelatedPosts = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);

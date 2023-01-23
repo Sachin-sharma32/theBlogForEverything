@@ -1,12 +1,8 @@
-import { Alert, Avatar, Tooltip } from "@mui/material";
-import Image from "next/image";
+import { Alert, Avatar } from "@mui/material";
 import React, { useState } from "react";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import moment from "moment/moment";
-import { NumberInput } from "sanity";
 import { motion } from "framer-motion";
 import Like from "../utils/LikeIcon";
 import BookmarkBtn from "../utils/BookmarkBtn";
@@ -122,13 +118,19 @@ const Post = ({ post }) => {
                 </article>
             )}
             {likeSuccess && (
-                <Alert security="success" className="absolute top-32 left-1/2 -translate-x-1/2">
-                    <Link href="/like">MY LIKES</Link>
+                <Alert
+                    security="success"
+                    className="absolute top-32 left-1/2 -translate-x-1/2"
+                >
+                    <Link href="/like">MY LIKES 👉</Link>
                 </Alert>
             )}
             {bookmarkSuccess && (
-                <Alert security="success" className="absolute top-48 left-1/2 -translate-x-1/2">
-                    <Link href="/bookmark">MY BOOKMARK</Link>
+                <Alert
+                    security="success"
+                    className="absolute top-48 left-1/2 -translate-x-1/2"
+                >
+                    <Link href="/bookmark">MY BOOKMARK 👉</Link>
                 </Alert>
             )}
         </motion.div>

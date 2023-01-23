@@ -3,14 +3,12 @@ import React from "react";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MailIcon from "@mui/icons-material/Mail";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { Avatar } from "@mui/material";
 import Image from "next/image";
+import TelegramIcon from "@mui/icons-material/Telegram";
 
 const Footer = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -44,7 +42,7 @@ const Footer = () => {
                     )}
                 </Link>
                 <p>
-                    A comprehensive blogging platform that provides readers with
+                    A comprehensive content platform that provides readers with
                     a wide range of information on a variety of topics. From the
                     latest news and current events, to lifestyle and personal
                     development, the platform aims to be a one-stop-shop for all
@@ -55,28 +53,30 @@ const Footer = () => {
                 </p>
                 <section className=" cursor-pointer flex gap-2">
                     <a
-                        href="https://www.facebook.com/profile.php?id=100026014650461"
+                        href="https://www.facebook.com/profile.php?id=100089863353239&mibextid=LQQJ4d"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <FacebookIcon />
                     </a>
                     <a
+                        href="https://twitter.com/parallelquotes/status/1059298596196114433?s=12&t=Qx1DqWgqxc1LNBztel4doA"
                         target="_blank"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <TwitterIcon />
                     </a>
                     <a
+                        href="https://instagram.com/the.blogforeverything?igshid=YmMyMTA2M2Y="
                         target="_blank"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
                         <InstagramIcon />
                     </a>
                     <a
-                        href="https://github.com/Sachin-sharma32"
+                        href="https://t.me/+PFpcobYVHjU4NjZl"
                         className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                     >
-                        <GitHubIcon />
+                        <TelegramIcon />
                     </a>
                 </section>
             </section>

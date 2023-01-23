@@ -395,7 +395,7 @@ const Navbar = () => {
                 <div
                     className={`${
                         mode == "dark" ? "text-white" : "text-black "
-                    } flex gap-2 sm:gap-4 text-xs items-center`}
+                    } flex gap-1 sm:gap-4 text-xs items-center`}
                 >
                     <a
                         onClick={() => {

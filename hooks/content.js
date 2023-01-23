@@ -1,15 +1,7 @@
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    addToBookmark,
-    setBookmark,
-    setBookmarks,
-    setCategories,
-    setPosts,
-    setTags,
-    setUser,
-} from "../redux/slices";
+import { setCategories, setPosts, setTags, setUser } from "../redux/slices";
 import { client } from "../sanity";
 import { useCookies } from "react-cookie";
 import { useRouter } from "next/router";
@@ -23,41 +15,6 @@ export const useGetPosts = () => {
         });
     });
 };
-
-// export const useAddToBookmark = () => {
-//     const session = useSelector((state) => state.base.session);
-//     const user = useSelector((state) => state.base.user);
-//     const posts = useSelector((state) => state.base.posts);
-//     const dispatch = useDispatch();
-//     const queryClient = useQueryClient();
-//     return useMutation(
-//         "addToBookmark",
-//         (postId) => {
-//             return axios.post(
-//                 "/api/users/bookmark",
-//                 { postId },
-//                 {
-//                     headers: {
-//                         authorization: `Bearer ${session}`,
-//                     },
-//                 }
-//             );
-//         },
-//         {
-//             onSuccess: (data) => {
-//                 const filter = [];
-//                 posts?.forEach((post) => {
-//                     data?.data.data.bookmark?.forEach((bookmark) => {
-//                         if (post._id == bookmark) {
-//                             filter.push(post);
-//                         }
-//                     });
-//                 });
-//                 dispatch(setBookmarks(filter));
-//             },
-//         }
-//     );
-// };
 
 export const useSignin = (onSuccess, onError) => {
     const session = useSelector((state) => state.base.session);

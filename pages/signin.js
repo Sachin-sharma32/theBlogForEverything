@@ -1,14 +1,10 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Smooth from "../utils/Smooth";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useOauth, useSignin } from "../hooks/content";
 import { signIn, useSession } from "next-auth/react";
-import ErrorModel from "../utils/ErrorModel";
-import { RouterRounded } from "@mui/icons-material";
-import SuccessModel from "../utils/SuccessModel";
 import { Alert } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";

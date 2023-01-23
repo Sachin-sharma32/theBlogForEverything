@@ -7,6 +7,7 @@ import BookmarkBtn from "../utils/BookmarkBtn";
 
 const TopCard = ({ num, post, setLikeSuccess, setBookmarkSuccess }) => {
     const mode = useSelector((state) => state.base.mode);
+    console.log(post);
     return (
         <section
             className={` relative p-4 md:hover:rotate-[5deg] flex justify-center items-start min-w-[200px] md:min-w-[300px] h-80 shadow-xl  rounded-md border-gray-500 border md:border-transparent top-card ${

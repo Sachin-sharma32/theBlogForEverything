@@ -2,10 +2,9 @@ import { client } from "../../../sanity";
 
 export default async function updateuser(req, res) {
     const { values, userId, image } = req.body;
-    const projectId = "k0me7ccv";
-    const dataset = "production";
-    const token =
-        "skxNaTIwDAiFA5wLMvqVHGfrsbtDRdisWCiabALb0kE0mxXGy90z5Q6SGk7RouKmnEoLGb4zH9gGRkPSESJ62jFCvm49a57yCZk4UrofCWXKfzXb6M8Z5dZbKKBKSXHxT6kkluommgcXlSDBsJhGPPiheF5RYEmN2ioRidoYlI8RE242404Y";
+    const projectId = process.env.SANITY_PROJECT_ID;
+    const dataset = process.env.SANITY_DATASET;
+    const token = process.env.SANITY_TOKEN;
     const mutations = [
         {
             patch: {

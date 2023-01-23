@@ -1,4 +1,3 @@
-import CryptoJS from "crypto-js";
 import { client } from "../../../sanity";
 
 export default async function verifyUser(req, res) {

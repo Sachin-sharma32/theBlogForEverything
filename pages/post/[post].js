@@ -279,8 +279,6 @@ const Post = () => {
                                     } mt-4 md:mt-10  p-10 rounded-sm shadow-xl text-xs sm:text-base relative py-4`}
                                 >
                                     <PortableText
-                                        projectId="k0me7ccv"
-                                        dataset="production"
                                         value={post.content}
                                         components={RichTextComponent(
                                             copy,

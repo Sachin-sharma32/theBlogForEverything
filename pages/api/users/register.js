@@ -17,12 +17,12 @@ export default async function register(req, res) {
     } else {
         const encPass = CryptoJS.AES.encrypt(
             req.body.password,
-            "sachin1234"
+            process.env.CRYPTO_SECRET
         ).toString();
         await sendEmail({
             email: req.body.email,
             subject: "User verification link",
-            message: `http://localhost:3000/api/users/verifyUser?name=${req.body.name}&email=${req.body.email}&password=${encPass}`,
+            message: `${process.env.SITE_URL}/api/users/verifyUser?name=${req.body.name}&email=${req.body.email}&password=${encPass}`,
         });
         res.status(200).json({ status: "success" });
     }

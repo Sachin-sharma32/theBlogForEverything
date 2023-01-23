@@ -20,7 +20,7 @@ export default async function signin(req, res) {
         }
         const existsPassword = CryptoJS.AES.decrypt(
             exists.password,
-            "sachin1234"
+            process.env.CRYPTO_SECRET
         ).toString(CryptoJS.enc.Utf8);
         if (password != existsPassword) {
             return res

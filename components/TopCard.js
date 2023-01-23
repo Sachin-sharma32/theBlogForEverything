@@ -39,7 +39,13 @@ const TopCard = ({ num, post, setLikeSuccess, setBookmarkSuccess }) => {
                 <div className=" flex gap-4">
                     <Avatar src={imageBuilder(post.author.image)} />
                     <div>
-                        <p>{post.author.name}</p>
+                        <p
+                            className={`${
+                                mode == "dark" ? "text-white" : "text-black"
+                            }`}
+                        >
+                            {post.author.name}
+                        </p>
                         <p className=" text-xs">{post.author.work}</p>
                     </div>
                 </div>

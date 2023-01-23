@@ -71,7 +71,7 @@ const BookmarkBtn = ({ post, setSuccess }) => {
                                 onClick={handleBookmark}
                                 className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
                             >
-                                <BookmarkIcon />
+                                <BookmarkIcon style={{ color: "#15c39a" }} />
                             </a>
                         )}
                     </Tooltip>

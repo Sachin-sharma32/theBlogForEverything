@@ -64,12 +64,18 @@ const Like = ({ post, setSuccess }) => {
                                 onClick={handleLike}
                                 className="cursor-pointer "
                             >
-                                <FavoriteIcon />
+                                <FavoriteIcon className=" text-red-500" />
                             </div>
                         )}
                     </Tooltip>
                     {post?.likes ? (
-                        <p className=" absolute top-0 -right-0 -translate-x-1/2 -translate-y-1/2 bg-gray-500 w-5 h-5 rounded-full text-xs flex items-center justify-center">
+                        <p
+                            className={`${
+                                mode === "dark"
+                                    ? "bg-white text-black"
+                                    : "bg-black text-white"
+                            } absolute top-0 -right-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full text-xs flex items-center justify-center`}
+                        >
                             {post.likes.length}
                         </p>
                     ) : (

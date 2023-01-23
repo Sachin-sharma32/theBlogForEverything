@@ -49,12 +49,12 @@ const TopPosts = () => {
             </section>
             {likeSuccess && (
                 <Alert security="success" className="absolute top-10 left-1/2">
-                    <Link href="/like">MY LIKES 👉</Link>
+                    <Link href="/like">MY LIKES</Link>
                 </Alert>
             )}
             {bookmarkSuccess && (
                 <Alert security="success" className="absolute top-24 left-1/2">
-                    <Link href="/bookmark">MY BOOKMARK 👉</Link>
+                    <Link href="/bookmark">MY BOOKMARKS</Link>
                 </Alert>
             )}
         </div>

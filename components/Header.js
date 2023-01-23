@@ -141,7 +141,7 @@ const Header = () => {
                 </motion.div>
                 {success && (
                     <Alert security="success" className="absolute top-24">
-                        <Link href="/bookmark">MY BOOKMARK 👉</Link>
+                        <Link href="/bookmark">MY BOOKMARKS</Link>
                     </Alert>
                 )}
             </header>

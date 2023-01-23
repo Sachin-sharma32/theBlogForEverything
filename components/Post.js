@@ -121,7 +121,7 @@ const Post = ({ post }) => {
                     security="success"
                     className="absolute top-32 left-1/2 -translate-x-1/2"
                 >
-                    <Link href="/like">MY LIKES 👉</Link>
+                    <Link href="/like">MY LIKES</Link>
                 </Alert>
             )}
             {bookmarkSuccess && (
@@ -129,7 +129,7 @@ const Post = ({ post }) => {
                     security="success"
                     className="absolute top-48 left-1/2 -translate-x-1/2"
                 >
-                    <Link href="/bookmark">MY BOOKMARK 👉</Link>
+                    <Link href="/bookmark">MY BOOKMARKS</Link>
                 </Alert>
             )}
         </motion.div>

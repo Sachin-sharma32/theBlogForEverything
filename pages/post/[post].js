@@ -221,7 +221,7 @@ const Post = () => {
                             security="success"
                             className="absolute top-20 left-1/2 -translate-x-1/2"
                         >
-                            <Link href="/bookmark">MY BOOKMARK 👉</Link>
+                            <Link href="/bookmark">MY BOOKMARKS</Link>
                         </Alert>
                     )}
                     {post && (
@@ -301,7 +301,7 @@ const Post = () => {
                                                 className="absolute bottom-24 right-14 translate-x-1/2"
                                             >
                                                 <Link href="/like">
-                                                    MY LIKES 👉
+                                                    MY LIKES
                                                 </Link>
                                             </Alert>
                                         )}
@@ -311,7 +311,7 @@ const Post = () => {
                                                 className="absolute bottom-10 right-14 translate-x-1/2 z-50"
                                             >
                                                 <Link href="/bookmark">
-                                                    MY BOOKMARK 👉
+                                                    MY BOOKMARKS
                                                 </Link>
                                             </Alert>
                                         )}

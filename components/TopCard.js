@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import moment from "moment/moment";
 import Like from "../utils/LikeIcon";
 import BookmarkBtn from "../utils/BookmarkBtn";
+import { imageBuilder } from "../sanity";
 
 const TopCard = ({ num, post, setLikeSuccess, setBookmarkSuccess }) => {
     const mode = useSelector((state) => state.base.mode);
@@ -36,7 +37,7 @@ const TopCard = ({ num, post, setLikeSuccess, setBookmarkSuccess }) => {
                     </div>
                 </div>
                 <div className=" flex gap-4">
-                    <Avatar src="/person.webp" />
+                    <Avatar src={imageBuilder(post.author.image)} />
                     <div>
                         <p>{post.author.name}</p>
                         <p className=" text-xs">{post.author.work}</p>

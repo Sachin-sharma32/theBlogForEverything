@@ -23,7 +23,7 @@ const Search = () => {
         );
     });
 
-    const [filter, setFilter] = useState("");
+    const [filter, setFilter] = useState("Newest");
     const filters = ["Newest", "Oldest"];
     if (filter == "Newest") {
         filterPosts.sort(

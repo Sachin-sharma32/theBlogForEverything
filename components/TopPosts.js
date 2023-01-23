@@ -11,6 +11,11 @@ const TopPosts = () => {
     const topPosts = posts.filter((post) => {
         return post.topPostOfTheWeek;
     });
+    topPosts.sort(
+        (a, b) =>
+            new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime() -
+            new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime()
+    );
     const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
     const [likeSuccess, setLikeSuccess] = useState(false);
     useEffect(() => {

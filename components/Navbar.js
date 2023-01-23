@@ -317,22 +317,19 @@ const Navbar = () => {
                         <div className=" relative profile-icon">
                             <div className="">
                                 {siteUser?.image?.length > 0 && (
-                                    <img
+                                    <Avatar
                                         src={`${siteUser?.image}`}
-                                        className=" cursor-pointer w-7 rounded-full h-7 sm:w-10 sm:h-10 border border-inherit"
+                                        className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
                                         alt="user image"
                                     />
                                 )}
                                 {!siteUser?.image &&
                                     (mode == "dark" ? (
-                                        <Avatar
-                                            src="/site-chopped-dark.png"
-                                            className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
-                                        />
+                                        <div className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10 bg-white rounded-full"></div>
                                     ) : (
                                         <Avatar
-                                            src="/site-chopped-light.png"
-                                            className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
+                                            src="/site-chopped-light.jpg"
+                                            className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10 bg-black rounded-full"
                                         />
                                     ))}
                             </div>
@@ -405,7 +402,7 @@ const Navbar = () => {
                         }}
                         className={` ${
                             mode == "light" ? "text-black" : "text-white"
-                        } cursor-pointer hover:scale-125 animation-effect transition-all duration-200 text-lg sm:text-2xl`}
+                        } cursor-pointer hover:scale-125 animation-effect transition-all duration-200 text-lg sm:text-2xl flex`}
                     >
                         <Brightness4Icon />
                     </a>

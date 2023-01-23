@@ -1,4 +1,4 @@
-import { Alert, Avatar, CircularProgress} from "@mui/material";
+import { Alert, Avatar, CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import RelatedPosts from "../../components/RelatedPosts";
 import Author from "../../components/Author";
@@ -195,7 +195,7 @@ const Post = () => {
                         content={`${post.summery[0].children[0].text}`}
                     />
                     <meta
-                        property="twitter:image:src"
+                        property="twitter:image"
                         content={`${imageBuilder(post.image)}`}
                     />
                     <meta
@@ -259,7 +259,9 @@ const Post = () => {
                                             : "text-black"
                                     } mt-4 flex gap-2 text-xs items-center`}
                                 >
-                                    <Avatar src="/person.webp" />
+                                    <Avatar
+                                        src={imageBuilder(post.author.image)}
+                                    />
                                     <figcaption>
                                         {post.author.name} on{" "}
                                         {moment(post.publishedAt).format("ll")}

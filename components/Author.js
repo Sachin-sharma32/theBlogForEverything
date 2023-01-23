@@ -2,6 +2,7 @@ import { Avatar } from "@mui/material";
 import React from "react";
 import EmailIcon from "@mui/icons-material/Email";
 import { useSelector } from "react-redux";
+import { imageBuilder } from "../sanity";
 
 const Author = ({ author }) => {
     const mode = useSelector((state) => state.base.mode);
@@ -14,7 +15,7 @@ const Author = ({ author }) => {
             } p-4 shadow-2xl`}
         >
             <figure className="flex gap-2 items-center">
-                <Avatar src="/person.webp" alt="user profile" />
+                <Avatar src={imageBuilder(author.image)} alt="user profile" />
                 <figcaption className=" font-semibold">
                     {author.name}
                 </figcaption>

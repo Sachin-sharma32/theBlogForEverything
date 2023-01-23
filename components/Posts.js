@@ -28,11 +28,11 @@ const Posts = () => {
     const mode = useSelector((state) => state.base.mode);
 
     const [page, setPage] = useState(1);
-    const lastPost = page * 4;
-    const firstPost = lastPost - 3;
+    const lastPost = page * 6;
+    const firstPost = lastPost - 5;
     const pagePosts = posts.slice(firstPost - 1, lastPost);
     let pages = [];
-    for (let i = 1; i <= Math.ceil(posts.length / 4); i++) {
+    for (let i = 1; i <= Math.ceil(posts.length / 6); i++) {
         pages.push(i);
     }
 
@@ -64,7 +64,7 @@ const Posts = () => {
                     ))}
                 </div>
             </div>
-            <div className="grid lg:grid-cols-2 gap-10">
+            <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-10">
                 {pagePosts.map((post, i) => (
                     <Post key={i} post={post} />
                 ))}

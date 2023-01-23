@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import CryptoJS from "crypto-js";
 import { client } from "../../../sanity";
+import sendEmail from "../../../utils/email";
 
 export default async function register(req, res) {
     const projectId = process.env.SANITY_PROJECT_ID;
@@ -31,28 +32,33 @@ export default async function register(req, res) {
             .status(400)
             .json({ message: "user with this email already exist" });
     } else {
-        fetch(
-            `https://${projectId}.api.sanity.io/v2021-06-07/data/mutate/${dataset}`,
-            {
-                method: "post",
-                headers: {
-                    "Content-type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({ mutations }),
-            }
-        )
-            .then((response) => {
-                res.status(200).json({
-                    status: "success",
-                    data: response,
-                });
-            })
-            .catch((error) => {
-                res.status(404).json({
-                    status: "Error",
-                    message: "something went wrong",
-                });
-            });
+        await sendEmail({
+            email: req.body.email,
+            subject: "User verification link (valid for 10 minutes)",
+            message: "hello",
+        });
+        // fetch(
+        //     `https://${projectId}.api.sanity.io/v2021-06-07/data/mutate/${dataset}`,
+        //     {
+        //         method: "post",
+        //         headers: {
+        //             "Content-type": "application/json",
+        //             Authorization: `Bearer ${token}`,
+        //         },
+        //         body: JSON.stringify({ mutations }),
+        //     }
+        // )
+        //     .then((response) => {
+        //         res.status(200).json({
+        //             status: "success",
+        //             data: response,
+        //         });
+        //     })
+        //     .catch((error) => {
+        //         res.status(400).json({
+        //             status: "Error",
+        //             message: "something went wrong",
+        //         });
+        //     });
     }
 }

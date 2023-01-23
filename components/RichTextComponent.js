@@ -58,7 +58,7 @@ const RichTextComponent = (copy, setCopy) => {
                         {children.map((item, i) => (
                             <div
                                 key={i}
-                                className="flex gap-4 transition-all duration-200"
+                                className="flex gap-4"
                             >
                                 <ArrowForwardIcon className=" text-orange-500" />
                                 <li>{item}</li>
@@ -72,7 +72,7 @@ const RichTextComponent = (copy, setCopy) => {
                     {children.map((item, i) => (
                         <div
                             key={i}
-                            className="flex gap-4 transition-all duration-200"
+                            className="flex gap-4"
                         >
                             <p className=" text-orange-500 font-bold">
                                 {i + 1}.

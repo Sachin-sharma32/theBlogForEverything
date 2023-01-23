@@ -81,9 +81,9 @@ const Post = ({ post }) => {
                             {post?.summery[0]?.children[0]?.text}
                         </p>
                     </Link>
-                    <section className="flex gap-0 items-start">
+                    <section className="flex gap-0 items-start absolute bottom-2">
                         <div className="flex gap-2 cursor-pointer">
-                            <Avatar src="/person.webp" />
+                            <Avatar src={imageBuilder(post.author.image)} />
                             <div>
                                 <p
                                     className={`${

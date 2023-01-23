@@ -8,7 +8,7 @@ const Posts = () => {
     let posts = useSelector((state) => state.base.posts);
     let postsCopy = [...posts];
 
-    const [filter, setFilter] = useState("");
+    const [filter, setFilter] = useState("Newest");
     const filters = ["Newest", "Oldest"];
     if (filter == "Newest") {
         postsCopy.sort(

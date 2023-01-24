@@ -80,7 +80,7 @@ const Post = ({ post }) => {
                         <h5
                             className={`${
                                 mode == "dark" ? "text-white" : "text-black"
-                            } mt-4 text-3xl font-bold mb-2`}
+                            } mt-4 text-2xl font-bold mb-2`}
                         >
                             {post.title}
                         </h5>

@@ -8,9 +8,14 @@ const RelatedPosts = ({ post }) => {
     const posts = useSelector((state) => state.base.posts);
     const relatedPosts = posts
         .filter((item) => {
-            return (
-                item.category._id == post.category._id && item._id != post._id
-            );
+            if (item.category) {
+                return (
+                    item.category._id == post.category._id &&
+                    item._id != post._id
+                );
+            } else {
+                return false;
+            }
         })
         .splice(0, 2);
     return (

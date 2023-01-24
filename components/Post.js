@@ -86,7 +86,7 @@ const Post = ({ post }) => {
                             {post.title}
                         </h5>
                         <p className=" mb-4">
-                            post?.summery[0]?.children[0]?.text
+                            {post?.summery[0]?.children[0]?.text}
                         </p>
                     </Link>
                     <section className="flex gap-0 items-start absolute bottom-2">
@@ -124,7 +124,9 @@ const Post = ({ post }) => {
                     </div>
                 </article>
             ) : (
-                <div className="h-[100%] flex justify-center items-center">POST IS UNDER CONSTRUCTION</div>
+                <div className="h-[100%] flex justify-center items-center">
+                    POST IS UNDER CONSTRUCTION
+                </div>
             )}
             {likeSuccess && (
                 <Alert

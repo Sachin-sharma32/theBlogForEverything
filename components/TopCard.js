@@ -28,11 +28,12 @@ const TopCard = ({ num, post, setLikeSuccess, setBookmarkSuccess }) => {
                         {post.title}
                     </h5>
                     <div className=" text-orange-500 flex gap-x-4 flex-wrap">
-                        {post.tags.map((item, i) => (
-                            <div key={i}>
-                                <p>#{item.title}</p>
-                            </div>
-                        ))}
+                        {post.tags &&
+                            post.tags.map((item, i) => (
+                                <div key={i}>
+                                    <p>#{item.title}</p>
+                                </div>
+                            ))}
                     </div>
                 </div>
                 <div className=" flex gap-4">

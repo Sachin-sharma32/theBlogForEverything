@@ -158,15 +158,23 @@ const Post = () => {
                     />
                     <meta
                         name="description"
-                        content={`${post.summery[0].children[0].text}`}
+                        content={`${
+                            post.summery
+                                ? `${post.summery[0].children[0].text}`
+                                : `${post.title}`
+                        }`}
                     />
                     <meta
                         property="og:title"
                         content={`TBFE - ${post.title}`}
                     />
                     <meta
-                        property="og:description"
-                        content={`${post.summery[0].children[0].text}`}
+                        name="og:description"
+                        content={`${
+                            post.summery
+                                ? `${post.summery[0].children[0].text}`
+                                : `${post.title}`
+                        }`}
                     />
                     <meta property="og:type" content="article" />
                     <meta
@@ -191,8 +199,12 @@ const Post = () => {
                     />
                     <meta property="twitter:title" content={`${post.title}`} />
                     <meta
-                        property="twitter:description"
-                        content={`${post.summery[0].children[0].text}`}
+                        name="twitter:description"
+                        content={`${
+                            post.summery
+                                ? `${post.summery[0].children[0].text}`
+                                : `${post.title}`
+                        }`}
                     />
                     <meta
                         property="twitter:image"

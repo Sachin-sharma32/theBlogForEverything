@@ -32,13 +32,13 @@ const Header = () => {
                         90deg,
                         ${mode === "dark"
                                 ? "rgba(0, 0, 0, 0.649) 25%,"
-                                : "rgba(255, 255, 255, 0.8),"}
+                                : "rgba(230, 230, 230, 0.8),"}
                             ${mode === "dark"
                                 ? "rgba(0, 0, 0, 0.641) 50%,"
-                                : "rgba(255, 255, 255, 0.897) 50%,"}
+                                : "rgba(230, 230, 230, 0.897) 50%,"}
                             ${mode === "dark"
                                 ? "rgba(0, 0, 0, 0.665) 100%"
-                                : "rgba(255, 255, 255, 0.831) 100%"}
+                                : "rgba(230, 230, 230, 0.831) 100%"}
                     ),
                     url(${imageBuilder(post.image)});
                 background-size: cover;
@@ -50,13 +50,13 @@ const Header = () => {
                         90deg,
                         ${mode === "dark"
                                 ? "rgba(0, 0, 0, 0.5) 25%,"
-                                : "rgba(255, 255, 255, .5),"}
+                                : "rgba(100 , 100, 100,.6) 0%,"}
                             ${mode === "dark"
                                 ? "rgba(0, 0, 0, 0.7) 50%,"
-                                : "rgba(255, 255, 255,.8) 50%,"}
+                                : "rgba(250, 250, 250) 75%,"}
                             ${mode === "dark"
                                 ? "rgba(0, 0, 0) 100%"
-                                : "rgba(255, 255, 255) 100%"}
+                                : "rgba(250, 250, 250) 100%"}
                     ),
                     url(${imageBuilder(post.image)});
                 background-size: cover;

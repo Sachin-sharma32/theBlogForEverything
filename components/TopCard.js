@@ -10,7 +10,7 @@ const TopCard = ({ num, post, setLikeSuccess, setBookmarkSuccess }) => {
     const mode = useSelector((state) => state.base.mode);
     return (
         <section
-            className={` relative p-4 md:hover:rotate-[5deg] flex justify-center items-start min-w-[200px] md:min-w-[300px] h-80 shadow-xl  rounded-md border-gray-500 border md:border-transparent top-card ${
+            className={` relative p-4 md:hover:rotate-[5deg] flex justify-center items-start w-[250px] md:min-w-[300px] h-80 shadow-xl rounded-md border-gray-500 border md:border-transparent top-card ${
                 num != 0 && " md:-ml-[100px]"
             } ${mode == "light" ? " bg-white" : "bg-[#262626] shadow-black"}`}
         >
@@ -27,7 +27,7 @@ const TopCard = ({ num, post, setLikeSuccess, setBookmarkSuccess }) => {
                     >
                         {post.title}
                     </h5>
-                    <div className=" text-orange-500 flex gap-4">
+                    <div className=" text-orange-500 flex gap-x-4 flex-wrap">
                         {post.tags.map((item, i) => (
                             <div key={i}>
                                 <p>#{item.title}</p>

@@ -54,7 +54,7 @@ const Post = ({ post }) => {
             post.author ? (
                 <article className=" p-4">
                     <div className="flex items-center justify-between">
-                        <div className=" text-orange-500 flex gap-2">
+                        <div className=" text-[#eb9586] flex gap-2">
                             {post?.tags?.map((tag, i) => (
                                 <Link href={`/search/${tag.title}`} key={i}>
                                     <p className=" text-xs cursor-pointer hover:scale-110 transition-all duration-200">
@@ -85,8 +85,7 @@ const Post = ({ post }) => {
                             {post.title}
                         </h5>
                         <p className=" mb-4">
-                            {post?.summery &&
-                                post?.summery[0].children[0].text}
+                            {post?.summery && post?.summery[0].children[0].text}
                         </p>
                     </Link>
                     <section className="flex gap-2 items-start absolute bottom-2">

@@ -140,7 +140,7 @@ const Register = () => {
                     <div className="flex-col gap-4 mt-4 items-center justify-center">
                         <div className="flex flex-col items-center">
                             <div className=" mb-6">
-                                <h1 className=" text-center text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
+                                <h1 className=" text-center text-3xl font-bold bg-gradient-to-r from-[#eb9586] to-blue-500 text-transparent bg-clip-text">
                                     WELCOME TO TBFE
                                 </h1>
                             </div>

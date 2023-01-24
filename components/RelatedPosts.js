@@ -30,7 +30,7 @@ const RelatedPosts = ({ post }) => {
             justify-center
             items-center shadow-xl`}
         >
-            <h4 className=" text-xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
+            <h4 className=" text-xl font-bold bg-gradient-to-r from-[#eb9586] to-blue-500 text-transparent bg-clip-text">
                 RELATED POSTS
             </h4>
             <div className=" mt-4 flex flex-col gap-4">
@@ -43,7 +43,7 @@ const RelatedPosts = ({ post }) => {
                                     {post.author.name}
                                 </p>
                             </div>
-                            <div className="text-xs text-orange-500 flex gap-2 mt-2">
+                            <div className="text-xs text-[#eb9586] flex gap-2 mt-2">
                                 {post.tags.map((item, i) => (
                                     <div key={i}>
                                         <p>#{item.title}</p>

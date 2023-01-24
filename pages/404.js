@@ -26,7 +26,7 @@ const PageNotFound = () => {
                 <div className="-translate-y-10 flex flex-col items-center gap-4">
                     <h1 className=" text-5xl font-bold">404</h1>
                     <p>
-                        <span className=" text-orange-500">
+                        <span className=" text-[#eb9586]">
                             This URL does not exist on this website
                         </span>
                     </p>

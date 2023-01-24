@@ -89,7 +89,7 @@ const Header = () => {
                                             href={`/post/${post._id}`}
                                             className="flex flex-col gap-4 sm:gap-10"
                                         >
-                                            <h1 className=" text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
+                                            <h1 className=" text-3xl font-bold bg-gradient-to-r from-[#eb9586] to-blue-500 text-transparent bg-clip-text">
                                                 {post.title}
                                             </h1>
                                             <p

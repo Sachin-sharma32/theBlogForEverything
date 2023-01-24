@@ -38,7 +38,7 @@ const Comments = () => {
                 <div className=" w-[100%] sm:w-[80%]">
                     <div className="flex flex-col justify-center items-center text-center">
                         <p>ALL COMMENTS FOR</p>
-                        <h1 className="bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text text-2xl font-bold mb-10">
+                        <h1 className="bg-gradient-to-r from-[#eb9586] to-blue-500 text-transparent bg-clip-text text-2xl font-bold mb-10">
                             {post[0]?.title}
                         </h1>
                         <Link

@@ -56,11 +56,8 @@ const RichTextComponent = (copy, setCopy) => {
                 <div>
                     <ul className=" ml-4 sm:ml-10 py-5 list-disk space-y-5">
                         {children.map((item, i) => (
-                            <div
-                                key={i}
-                                className="flex gap-4"
-                            >
-                                <ArrowForwardIcon className=" text-orange-500" />
+                            <div key={i} className="flex gap-4">
+                                <ArrowForwardIcon className=" text-[#eb9586]" />
                                 <li>{item}</li>
                             </div>
                         ))}
@@ -70,11 +67,8 @@ const RichTextComponent = (copy, setCopy) => {
             number: ({ children }) => (
                 <ul className=" ml-4 sm:ml-10 py-5 list-disk space-y-5">
                     {children.map((item, i) => (
-                        <div
-                            key={i}
-                            className="flex gap-4"
-                        >
-                            <p className=" text-orange-500 font-bold">
+                        <div key={i} className="flex gap-4">
+                            <p className=" text-[#eb9586] font-bold">
                                 {i + 1}.
                             </p>
                             <li>{item}</li>
@@ -85,22 +79,22 @@ const RichTextComponent = (copy, setCopy) => {
         },
         block: {
             h1: ({ children }) => (
-                <h1 className=" text-2xl sm:text-5xl py-4 sm:py-10 font-extrabold text-orange-500">
+                <h1 className=" text-2xl sm:text-5xl py-4 sm:py-10 font-extrabold text-[#eb9586]">
                     {children}
                 </h1>
             ),
             h2: ({ children }) => (
-                <h2 className=" text-xl sm:text-4xl py-4 sm:py-10 font-extrabold text-orange-500">
+                <h2 className=" text-xl sm:text-4xl py-4 sm:py-10 font-extrabold text-[#eb9586]">
                     {children}
                 </h2>
             ),
             h3: ({ children }) => (
-                <h3 className=" text-lg sm:text-3xl py-4 sm:py-10 font-extrabold text-orange-500">
+                <h3 className=" text-lg sm:text-3xl py-4 sm:py-10 font-extrabold text-[#eb9586]">
                     {children}
                 </h3>
             ),
             h4: ({ children }) => (
-                <h3 className=" text-base sm:text-2xl py-4 sm:py-10 font-extrabold text-orange-500">
+                <h3 className=" text-base sm:text-2xl py-4 sm:py-10 font-extrabold text-[#eb9586]">
                     {children}
                 </h3>
             ),

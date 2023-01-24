@@ -29,7 +29,7 @@ const TopCategories = () => {
                     : "bg-white shadow-2xl"
             } top-categories-box duration-500 gap-4 md:w-[50%] lg:w-[30%] mb-20  mt-28 justify-center items-center flex h-fit mx-6 flex-col p-10 md:p-4 rounded-md md:sticky top-16`}
         >
-            <h4 className="font-bold text-xl bg-gradient-to-r from-pink-500 to-orange-500 text-transparent bg-clip-text">
+            <h4 className="font-bold text-xl bg-gradient-to-r from-[#eb9586] to-blue-500 text-transparent bg-clip-text">
                 RECOMMENDED
             </h4>
             <div className=" flex flex-wrap gap-4 text-xs justify-center ">

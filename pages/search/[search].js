@@ -132,7 +132,7 @@ const Search = () => {
                     {filterPosts.length > 0 ? (
                         <h3 className=" flex flex-col sm:flex-none text-xl sm:text-3xl text-center mb-10 font-bold">
                             SHOWING RESULTS FOR{" "}
-                            <span className=" bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
+                            <span className=" bg-gradient-to-r from-[#eb9586] to-blue-500 bg-clip-text text-transparent">
                                 {search?.toUpperCase()}
                             </span>
                         </h3>

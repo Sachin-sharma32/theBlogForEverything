@@ -40,7 +40,7 @@ const Posts = () => {
     return (
         <section className=" p-10 md:w-[70%] flex flex-col justify-center items-center gap-2 md:gap-10">
             <div>
-                <h3 className=" text-3xl text-center mb-10 bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent font-bold">
+                <h3 className=" text-3xl text-center mb-10 bg-gradient-to-r from-[#eb9586] to-blue-500 bg-clip-text text-transparent font-bold">
                     FEATURED POSTS
                 </h3>
                 <div className="flex gap-4 mb-4 justify-center">

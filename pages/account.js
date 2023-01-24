@@ -327,7 +327,7 @@ const Account = () => {
                                                     mode == "light"
                                                         ? "text-white"
                                                         : "text-black"
-                                                } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-pink-500 to-orange-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                                } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#eb9586] to-blue-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
                                                 type="submit"
                                                 disabled={
                                                     !props.isValid && !loading

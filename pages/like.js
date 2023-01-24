@@ -24,7 +24,7 @@ const Like = () => {
                 } p-10 flex flex-col items-center text-sm text-gray-500 min-h-screen relative`}
             >
                 <div>
-                    <h3 className=" text-3xl text-center mb-10 bg-gradient-to-r from-[#eb9586] to-blue-500 bg-clip-text text-transparent font-bold">
+                    <h3 className=" text-3xl text-center mb-10 bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent font-bold">
                         LIKED BY ME
                     </h3>
                 </div>

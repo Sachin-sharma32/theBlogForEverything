@@ -30,7 +30,7 @@ const RelatedPosts = ({ post }) => {
             justify-center
             items-center shadow-xl`}
         >
-            <h4 className=" text-xl font-bold bg-gradient-to-r from-[#eb9586] to-blue-500 text-transparent bg-clip-text">
+            <h4 className=" text-xl font-bold bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
                 RELATED POSTS
             </h4>
             <div className=" mt-4 flex flex-col gap-4">

@@ -13,7 +13,7 @@ const CategoryBox = ({ setToggleCategories }) => {
         <motion.div
             className={`${
                 mode == "light" ? "bg-white text-black" : "bg-black text-white"
-            }  text-xs absolute top-8 -right-2  p-2 w-52 flex flex-col items-center justify-center gap-0 rounded-md z-50 shadow-2xl bg-gradient-to-r from-[#eb9586] to-blue-500`}
+            }  text-xs absolute top-8 -right-2  p-2 w-52 flex flex-col items-center justify-center gap-0 rounded-md z-50 shadow-2xl bg-gradient-to-r from-[#ff7d69] to-blue-700`}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.3 }}

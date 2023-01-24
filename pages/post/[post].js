@@ -261,7 +261,7 @@ const Post = () => {
                                         </Link>
                                     ))}
                                 </section>
-                                <h1 className=" mt-2 md:mt-8 text-3xl md:text-5xl font-bold bg-gradient-to-r from-[#eb9586] to-blue-500 text-transparent bg-clip-text">
+                                <h1 className=" mt-2 md:mt-8 text-3xl md:text-5xl font-bold bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
                                     {post.title}
                                 </h1>
                                 <div
@@ -341,7 +341,7 @@ const Post = () => {
                                     flex-col
                                     items-center shadow-xl text-xs md:text-base`}
                                 >
-                                    <div className=" pb-1 bg-gradient-to-r from-[#eb9586] to-blue-500 h-7">
+                                    <div className=" pb-1 bg-gradient-to-r from-[#ff7d69] to-blue-700 h-7">
                                         <h3
                                             className={`${
                                                 mode == "dark"
@@ -430,7 +430,7 @@ const Post = () => {
                                                                 mode == "light"
                                                                     ? "text-white"
                                                                     : "text-black"
-                                                            } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#eb9586] to-blue-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                                            } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#ff7d69] to-blue-700 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
                                                             type="submit"
                                                             disabled={
                                                                 !props.isValid
@@ -485,7 +485,7 @@ const Post = () => {
                                                     mode == "light"
                                                         ? "text-white"
                                                         : "text-black"
-                                                } transition-all duration-200 min-w-[120px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#eb9586] to-blue-500 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                                } transition-all duration-200 min-w-[120px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#ff7d69] to-blue-700 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
                                                 type="submit"
                                             >
                                                 {loading && (

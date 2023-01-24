@@ -13,6 +13,7 @@ export default async function register(req, res) {
             .status(400)
             .json({ message: "user with this email already exist" });
     } else {
+        console.log("hello");
         await sendEmail({
             email: req.body.email,
             name: req.body.name,

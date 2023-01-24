@@ -299,7 +299,6 @@ const Register = () => {
                     </div>
                 </div>
             </Smooth>
-            <Social />
         </>
     );
 };

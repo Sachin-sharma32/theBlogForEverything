@@ -100,7 +100,9 @@ const SignIn = () => {
             >
                 <div
                     className={`${
-                        mode == "dark" ? "signin-form" : "signin-form-light"
+                        mode == "dark"
+                            ? "signin-form bg-[#262626]"
+                            : "signin-form-light"
                     } -translate-y-6 bg-white w-[80%] h-[80vh] shadow-2xl px-10 text-white flex items-center justify-center`}
                 >
                     <div className=" w-[100 flex-col gap-4 mt-4 items-center">
@@ -227,7 +229,6 @@ const SignIn = () => {
                     </div>
                 </div>
             </Smooth>
-            <Social />
         </>
     );
 };

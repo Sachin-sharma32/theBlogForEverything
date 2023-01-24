@@ -40,7 +40,6 @@ const Like = () => {
                     </div>
                 )}
             </Smooth>
-            <Social />
         </>
     );
 };

@@ -39,8 +39,8 @@ export default function Social() {
         <div
             style={{ position: "sticky", bottom: 2, right: 20}}
             className={`${
-                mode === "light" ? "bg-white" : "bg-[#262626]"
-            } flex h-10 bg-transparent`}
+                mode === "light" ? "" : ""
+            } flex h-10 bg-transparent w-10`}
         >
             <SpeedDial
                 ariaLabel="SpeedDial basic example"

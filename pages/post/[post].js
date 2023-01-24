@@ -579,7 +579,6 @@ const Post = () => {
                         </article>
                     )}
                 </Smooth>
-                <Social />
             </>
         );
     } else {

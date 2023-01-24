@@ -240,7 +240,6 @@ const Search = () => {
                     </div>
                 )}
             </Smooth>
-            <Social/>
         </>
     );
 };

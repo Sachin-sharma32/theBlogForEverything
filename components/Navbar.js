@@ -27,10 +27,18 @@ import CheckOutsideClick from "../utils/CheckOutsideClick";
 
 const Navbar = () => {
     const [hasSession, setHasSession] = useState(false);
+    const mode = useSelector((state) => state.base.mode);
+
     const dispatch = useDispatch();
     const { data: user } = useGetMe();
     const { data } = useGetPosts();
     const [shown, setShown] = useState(false);
+
+    if (typeof window !== "undefined") {
+        document.body.style.backgroundColor = `${
+            mode === "light" ? "white" : "#262626"
+        }`;
+    }
 
     const [toggleCategories, setToggleCategories] = useState(false);
 
@@ -63,7 +71,7 @@ const Navbar = () => {
     if (cookie) {
         dispatch(setSession(cookie.user));
     }
-    const mode = useSelector((state) => state.base.mode);
+
     const router = useRouter();
 
     const [search, setSearch] = useState("");

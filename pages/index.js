@@ -100,7 +100,6 @@ export default function Home() {
                     <TopCategories />
                     <Posts />
                 </div>
-                <Social />
             </Smooth>
         </>
     );

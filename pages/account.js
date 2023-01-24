@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Smooth from "../utils/Smooth";
 import * as yup from "yup";
@@ -10,6 +10,7 @@ import { useUpdateAccount } from "../hooks/content";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Head from "next/head";
+import Social from "../utils/Socials";
 
 const Account = () => {
     const mode = useSelector((state) => state.base.mode);

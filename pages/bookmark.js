@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useSelector } from "react-redux";
 import Post from "../components/Post";
 import Smooth from "../utils/Smooth";
+import Social from "../utils/Socials";
 
 const Bookmark = () => {
     const mode = useSelector((state) => state.base.mode);

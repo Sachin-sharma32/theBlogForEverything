@@ -18,6 +18,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                         <Navbar />
                         <Component {...pageProps} />
                         <Footer />
+                        <Social />
                     </Provider>
                 </QueryClientProvider>
             </SessionProvider>

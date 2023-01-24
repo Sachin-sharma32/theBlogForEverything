@@ -8,6 +8,7 @@ import TopPosts from "../components/TopPosts";
 import { motion } from "framer-motion";
 import Smooth from "../utils/Smooth";
 import Head from "next/head";
+import Social from "../utils/Socials";
 
 export default function Home() {
     const mode = useSelector((state) => state.base.mode);
@@ -89,6 +90,7 @@ export default function Home() {
                     mode == "light" ? "bg-white" : "bg-[#262626]"
                 }`}
             >
+                <Social />
                 <Header />
                 <TopPosts />
                 <div className=" hidden md:flex">

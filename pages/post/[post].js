@@ -28,8 +28,8 @@ const Post = () => {
     const [comment, setComment] = useState("");
     const [copy, setCopy] = useState(false);
 
-    const currentPost = posts.filter((item) => {
-        return item._id == router.query.post;
+    const currentPost = posts?.filter((item) => {
+        return item?._id == router.query.post;
     });
     const post = currentPost[0];
     const [comments, setComments] = useState([]);
@@ -77,7 +77,7 @@ const Post = () => {
             comment: values.comment,
         };
         const { data } = await axios.put("/api/users/comment", {
-            postId: post._id,
+            postId: post?._id,
             values,
         });
         let sorted = [...data.comments];
@@ -100,7 +100,7 @@ const Post = () => {
             comment,
         };
         const { data } = await axios.put("/api/users/comment", {
-            postId: post._id,
+            postId: post?._id,
             values,
         });
         let sorted = [...data.comments];
@@ -179,7 +179,7 @@ const Post = () => {
                     />
                     <meta
                         property="og:url"
-                        content={`https://theblogforeverything.com/post${post._id}`}
+                        content={`https://theblogforeverything.com/post${post?._id}`}
                     />
                     <meta
                         property="twitter:card"

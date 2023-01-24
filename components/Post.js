@@ -89,24 +89,26 @@ const Post = ({ post }) => {
                                 post?.summery[0]?.children[0]?.text}
                         </p>
                     </Link>
-                    <section className="flex gap-0 items-start absolute bottom-2">
+                    <section className="flex gap-2 items-start absolute bottom-2">
                         <div className="flex gap-2 cursor-pointer">
                             <Avatar src={imageBuilder(post.author.image)} />
                             <div>
-                                <p
-                                    className={`${
-                                        mode == "dark"
-                                            ? "text-white"
-                                            : "text-black"
-                                    }`}
-                                >
-                                    {post.author.name}
-                                </p>
+                                <div className="flex gap-4 items-center">
+                                    <p
+                                        className={`${
+                                            mode == "dark"
+                                                ? "text-white"
+                                                : "text-black"
+                                        }`}
+                                    >
+                                        {post.author.name}
+                                    </p>
+                                    <div className="">
+                                        {moment(post.updatedAt).format("ll")}
+                                    </div>
+                                </div>
                                 <p className=" text-xs">{post.author.work}</p>
                             </div>
-                        </div>
-                        <div className="">
-                            {moment(post.updatedAt).format("ll")}
                         </div>
                     </section>
                     <div

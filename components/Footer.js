@@ -14,6 +14,9 @@ const Footer = () => {
     const mode = useSelector((state) => state.base.mode);
     const tags = useSelector((state) => state.base.tags);
     const categories = useSelector((state) => state.base.categories);
+    const footerCategories = categories?.filter((category) => {
+        return category.footer;
+    });
     const footerTags = tags?.filter((tag) => {
         return tag.footer;
     });
@@ -82,7 +85,7 @@ const Footer = () => {
                 </section>
             </section>
             <section className="flex flex-col w-full gap-2">
-                {categories?.map((category, i) => (
+                {footerCategories?.map((category, i) => (
                     <Link
                         key={i}
                         href={`/search/${category.title}`}

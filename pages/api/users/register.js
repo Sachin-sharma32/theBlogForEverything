@@ -24,7 +24,7 @@ export default async function register(req, res) {
                 console.log("data");
             })
             .catch((error) => {
-                res.status(400).json({ message: error });
+                res.status(400).json({ data: error });
             });
         res.status(200).json({ status: "success" });
     }

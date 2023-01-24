@@ -239,6 +239,7 @@ const Navbar = () => {
                                             dispatch(setUser({}));
                                             dispatch(setSession(null));
                                             signOut();
+                                            router.push("/");
                                         }}
                                     >
                                         <p>LOGOUT</p>

@@ -10,7 +10,7 @@ const sendEmail = async (options) => {
         },
     });
     console.log(options.url);
-    const data = await ejs.renderFile("./views/email.ejs", {
+    const data = await ejs.renderFile("email.ejs", {
         name: options.name,
         url: options.url,
     });

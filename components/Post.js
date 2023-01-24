@@ -51,7 +51,6 @@ const Post = ({ post }) => {
             post.title &&
             post.readTime &&
             post.title &&
-            post.summery &&
             post.author ? (
                 <article className=" p-4">
                     <div className="flex items-center justify-between">
@@ -86,7 +85,8 @@ const Post = ({ post }) => {
                             {post.title}
                         </h5>
                         <p className=" mb-4">
-                            {post?.summery[0]?.children[0]?.text}
+                            {post.summery &&
+                                post?.summery[0]?.children[0]?.text}
                         </p>
                     </Link>
                     <section className="flex gap-0 items-start absolute bottom-2">

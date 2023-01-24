@@ -27,7 +27,7 @@ const Author = ({ author }) => {
             </section>
             <section className=" mt-4">
                 <h4 className=" font-semibold">EDUCATION</h4>
-                <p className=" text-xs">{author.location}</p>
+                <p className=" text-xs">{author.education}</p>
             </section>
             <section className=" mt-4">
                 <h4 className=" font-semibold">WORK</h4>

@@ -17,7 +17,7 @@ const Posts = () => {
                 new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime() -
                 new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime()
         );
-    } else if (filter == "Older") {
+    } else if (filter == "Oldest") {
         postsCopy.sort(
             (a, b) =>
                 new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime() -

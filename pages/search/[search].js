@@ -34,21 +34,26 @@ const Search = () => {
                 new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime() -
                 new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime()
         );
-    } else if (filter == "Older") {
+    } else if (filter == "Oldest") {
         filterPosts.sort(
             (a, b) =>
                 new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime() -
                 new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime()
         );
     }
-    const selectedPosts = filterPosts;
+    const postDates = filterPosts.map((post) => {
+        return post.updatedAt
+            ? new Date(post.updatedAt).getTime()
+            : new Date(post.publishedAt).getTime();
+    });
+    console.log(postDates);
 
     const [page, setPage] = useState(1);
     const lastPost = page * 9;
     const firstPost = lastPost - 8;
-    const pagePosts = selectedPosts.slice(firstPost - 1, lastPost);
+    const pagePosts = filterPosts.slice(firstPost - 1, lastPost);
     let pages = [];
-    for (let i = 1; i <= Math.ceil(selectedPosts.length / 9); i++) {
+    for (let i = 1; i <= Math.ceil(filterPosts.length / 9); i++) {
         pages.push(i);
     }
 
@@ -124,7 +129,7 @@ const Search = () => {
                 } p-10 flex flex-col justify-center items-center text-sm text-gray-500 min-h-screen`}
             >
                 <div>
-                    {selectedPosts.length > 0 ? (
+                    {filterPosts.length > 0 ? (
                         <h3 className=" flex flex-col sm:flex-none text-xl sm:text-3xl text-center mb-10 font-bold">
                             SHOWING RESULTS FOR{" "}
                             <span className=" bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
@@ -156,7 +161,7 @@ const Search = () => {
                         </div>
                     )}
                 </div>
-                {selectedPosts.length > 0 && (
+                {filterPosts.length > 0 && (
                     <div className="flex gap-4 mb-4 justify-center">
                         {filters.map((item, i) => (
                             <p
@@ -184,7 +189,7 @@ const Search = () => {
                         <Post key={i} post={post} />
                     ))}
                 </div>
-                {selectedPosts.length > 0 && (
+                {filterPosts.length > 0 && (
                     <div className="flex gap-2 mt-6 md:mt-10 w-full justify-center">
                         <a className=" cursor-pointer hover:-translate-x-2 transition-all duration-200">
                             <WestIcon

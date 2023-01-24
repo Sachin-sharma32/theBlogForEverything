@@ -10,7 +10,7 @@ const RichTextComponent = (copy, setCopy) => {
         types: {
             image: ({ value }) => {
                 return (
-                    <div className="relative w-full h-fit m-4 sm:m-10 mx-auto">
+                    <div className="relative w-[100%] h-fit my-4 sm:m-10 mx-auto overflow-hidden">
                         <img
                             className=" object-contain w-[100%] h-[300px]"
                             src={imageBuilder(value)}

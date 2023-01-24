@@ -85,8 +85,8 @@ const Post = ({ post }) => {
                             {post.title}
                         </h5>
                         <p className=" mb-4">
-                            {post.summery &&
-                                post?.summery[0]?.children[0]?.text}
+                            {post?.summery &&
+                                post?.summery[0].children[0].text}
                         </p>
                     </Link>
                     <section className="flex gap-2 items-start absolute bottom-2">

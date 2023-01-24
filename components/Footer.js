@@ -14,6 +14,9 @@ const Footer = () => {
     const mode = useSelector((state) => state.base.mode);
     const tags = useSelector((state) => state.base.tags);
     const categories = useSelector((state) => state.base.categories);
+    const footerTags = tags?.filter((tag) => {
+        return tag.footer;
+    });
     return (
         <footer
             className={`${
@@ -90,7 +93,7 @@ const Footer = () => {
                 ))}
             </section>
             <section className="flex flex-col gap-2 text-center">
-                {tags?.map((tag, i) => (
+                {footerTags?.map((tag, i) => (
                     <Link
                         key={i}
                         href={`/search/${tag.title}`}

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Post from "./Post";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
+import ErrorBoundry from "../utils/ErrorBoundry";
 
 const Posts = () => {
     let posts = useSelector((state) => state.base.posts);
@@ -66,7 +67,9 @@ const Posts = () => {
             </div>
             <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-10">
                 {pagePosts.map((post, i) => (
-                    <Post key={i} post={post} />
+                    <ErrorBoundry key={i}>
+                        <Post post={post} />
+                    </ErrorBoundry>
                 ))}
             </div>
             <div className="flex gap-2 mt-6 md:mt-0">

@@ -10,6 +10,7 @@ import styled from "styled-components";
 const Header = () => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
+    console.log(posts);
     const [success, setSuccess] = useState(false);
     useEffect(() => {
         if (success) {

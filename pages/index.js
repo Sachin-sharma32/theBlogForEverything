@@ -88,9 +88,8 @@ export default function Home() {
             <Smooth
                 className={` text-gray-500 text-sm ${
                     mode == "light" ? "bg-white" : "bg-[#262626]"
-                }`}
+                } relative`}
             >
-                <Social />
                 <Header />
                 <TopPosts />
                 <div className=" hidden md:flex">
@@ -101,6 +100,7 @@ export default function Home() {
                     <TopCategories />
                     <Posts />
                 </div>
+                <Social />
             </Smooth>
         </>
     );

@@ -1,16 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import ErrorBoundry from "../utils/ErrorBoundry";
 
 const TopCategories = () => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
     let recommended = new Set();
     posts.forEach((post) => {
-        if (post.category.recommended) {
+        if (post?.category?.recommended) {
             recommended.add(post.category.title);
         }
-        post.tags.map((item) => {
+        post?.tags?.map((item) => {
             if (item.recommended) {
                 recommended.add(item.title);
             }
@@ -32,19 +33,21 @@ const TopCategories = () => {
                 RECOMMENDED
             </h4>
             <div className=" flex flex-wrap gap-4 text-xs justify-center ">
-                {recommended.map((item, i) => (
-                    <Link href={`/search/${item}`} key={i}>
-                        <div
-                            key={i}
-                            className={`${
-                                mode == "dark"
-                                    ? "bg-gray-200 text-black"
-                                    : "bg-gray-800 text-white"
-                            } hover:scale-110 active:scale-100 translate-all duration-200 px-4 rounded-md cursor-pointer h-6 items-center flex`}
-                        >
-                            {item}
-                        </div>
-                    </Link>
+                {recommended?.map((item, i) => (
+                    <ErrorBoundry key={i}>
+                        <Link href={`/search/${item}`}>
+                            <div
+                                key={i}
+                                className={`${
+                                    mode == "dark"
+                                        ? "bg-gray-200 text-black"
+                                        : "bg-gray-800 text-white"
+                                } hover:scale-110 active:scale-100 translate-all duration-200 px-4 rounded-md cursor-pointer h-6 items-center flex`}
+                            >
+                                {item}
+                            </div>
+                        </Link>
+                    </ErrorBoundry>
                 ))}
             </div>
         </section>

@@ -8,6 +8,7 @@ import Like from "../utils/LikeIcon";
 import BookmarkBtn from "../utils/BookmarkBtn";
 import { imageBuilder } from "../sanity";
 import { useEffect } from "react";
+import ErrorBoundry from "../utils/ErrorBoundry";
 
 const Post = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);
@@ -38,13 +39,20 @@ const Post = ({ post }) => {
                     : "bg-[#262626] shadow-black shadow-2xl"
             } h-[500px] w-[350px] rounded-sm overflow-hidden relative`}
         >
-            <img
-                src={`${imageBuilder(post.image)}`}
-                width="400"
-                className="h-[180px]"
-                alt="post"
-            />
-            {post && (
+            {post.image && (
+                <img
+                    src={`${imageBuilder(post?.image)}`}
+                    width="400"
+                    className="h-[180px]"
+                    alt="post"
+                />
+            )}
+            {post.tags &&
+            post.title &&
+            post.readTime &&
+            post.title &&
+            post.summery &&
+            post.author ? (
                 <article className=" p-4">
                     <div className="flex items-center justify-between">
                         <div className=" text-orange-500 flex gap-2">
@@ -78,7 +86,7 @@ const Post = ({ post }) => {
                             {post.title}
                         </h5>
                         <p className=" mb-4">
-                            {post?.summery[0]?.children[0]?.text}
+                            post?.summery[0]?.children[0]?.text
                         </p>
                     </Link>
                     <section className="flex gap-0 items-start absolute bottom-2">
@@ -115,6 +123,8 @@ const Post = ({ post }) => {
                         </div>
                     </div>
                 </article>
+            ) : (
+                <div className="h-[100%] flex justify-center items-center">POST IS UNDER CONSTRUCTION</div>
             )}
             {likeSuccess && (
                 <Alert

@@ -8,10 +8,11 @@ import Box from "@mui/material/Box";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
+import { useSelector } from "react-redux";
 
 const actions = [
     {
-        icon: <InstagramIcon />,
+        icon: <InstagramIcon className=" text-black" />,
         name: "Instagram",
         url: "https://instagram.com/the.blogforeverything?igshid=YmMyMTA2M2Y=",
     },
@@ -33,35 +34,31 @@ const actions = [
 ];
 
 export default function Social() {
+    const mode = useSelector((state) => state.base.mode);
     return (
-        <Box
-            sx={{
-                height: 320,
-                transform: "translateZ(0px)",
-                flexGrow: 1,
-                position: "absolute",
-                bottom: "0px",
-                left: "80px",
-                zIndex: "10",
-            }}
+        <div
+            style={{ position: "sticky", bottom: 0, right: 20 }}
+            className="flex h-10"
         >
             <SpeedDial
                 ariaLabel="SpeedDial basic example"
                 sx={{
-                    position: "absolute",
-                    bottom: 16,
-                    right: 16,
+                    margin: 2,
                     "& .MuiFab-primary": {
-                        backgroundColor: "#2563eb",
-                        color: "white",
+                        backgroundColor: `${
+                            mode === "dark" ? "white" : "black"
+                        }`,
+                        color: `${mode === "dark" ? "black" : "white"}`,
+                        width: "40px",
                     },
                 }}
+                className=""
                 icon={<SpeedDialIcon />}
                 FabProps={{
                     sx: {
                         "&:hover": {
-                            bgcolor: "#dbeafe",
-                            color: "black",
+                            bgcolor: `${mode === "dark" ? "white" : "black"}`,
+                            color: `${mode === "dark" ? "black" : "white"}`,
                         },
                     },
                 }}
@@ -75,12 +72,12 @@ export default function Social() {
                         sx={{
                             width: 50,
                             height: 50,
-                            backgroundColor: "lightblue",
+                            backgroundColor: "white",
                         }}
                         FabProps={{
                             sx: {
                                 "&:hover": {
-                                    bgcolor: "#64a2ee",
+                                    bgcolor: "white",
                                     color: "black",
                                 },
                             },
@@ -88,6 +85,6 @@ export default function Social() {
                     />
                 ))}
             </SpeedDial>
-        </Box>
+        </div>
     );
 }

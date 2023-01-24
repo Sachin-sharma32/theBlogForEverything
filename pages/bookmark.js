@@ -47,6 +47,7 @@ const Bookmark = () => {
                     </div>
                 )}
             </Smooth>
+            <Social />
         </>
     );
 };

@@ -11,14 +11,13 @@ import Social from "../utils/Socials";
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     const queryClient = new QueryClient();
     return (
-        <div>
+        <div className=" w-[100%] h-[100%]">
             <SessionProvider session={session}>
                 <QueryClientProvider client={queryClient}>
                     <Provider store={store}>
                         <Navbar />
                         <Component {...pageProps} />
                         <Footer />
-                        <Social />
                     </Provider>
                 </QueryClientProvider>
             </SessionProvider>

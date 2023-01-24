@@ -9,6 +9,7 @@ import { Alert } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
 import Head from "next/head";
+import Social from "../utils/Socials";
 
 const SignIn = () => {
     const router = useRouter();
@@ -226,6 +227,7 @@ const SignIn = () => {
                     </div>
                 </div>
             </Smooth>
+            <Social />
         </>
     );
 };

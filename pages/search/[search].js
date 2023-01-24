@@ -7,6 +7,7 @@ import Smooth from "../../utils/Smooth";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 import Head from "next/head";
+import Social from "../../utils/Socials";
 
 const Search = () => {
     const router = useRouter();
@@ -239,6 +240,7 @@ const Search = () => {
                     </div>
                 )}
             </Smooth>
+            <Social/>
         </>
     );
 };

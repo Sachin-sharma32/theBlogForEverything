@@ -354,6 +354,7 @@ const Account = () => {
                         </Formik>
                     </div>
                 </Smooth>
+                <Social />
             </>
         );
     } else {

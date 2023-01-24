@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Alert } from "@mui/material";
 import Head from "next/head";
 import SuccessModel from "../utils/SuccessModel";
+import Social from "../utils/Socials";
 
 const Register = () => {
     const router = useRouter();
@@ -298,6 +299,7 @@ const Register = () => {
                     </div>
                 </div>
             </Smooth>
+            <Social />
         </>
     );
 };

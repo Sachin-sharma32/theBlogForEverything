@@ -37,8 +37,10 @@ export default function Social() {
     const mode = useSelector((state) => state.base.mode);
     return (
         <div
-            style={{ position: "sticky", bottom: 0, right: 20 }}
-            className="flex h-10"
+            style={{ position: "sticky", bottom: 2, right: 20}}
+            className={`${
+                mode === "light" ? "bg-white" : "bg-[#262626]"
+            } flex h-10 bg-transparent`}
         >
             <SpeedDial
                 ariaLabel="SpeedDial basic example"

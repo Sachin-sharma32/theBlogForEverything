@@ -19,6 +19,7 @@ import Like from "../../utils/LikeIcon";
 import EastIcon from "@mui/icons-material/East";
 import { PortableText } from "@portabletext/react";
 import RichTextComponent from "../../components/RichTextComponent";
+import Social from "../../utils/Socials";
 
 const Post = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -578,6 +579,7 @@ const Post = () => {
                         </article>
                     )}
                 </Smooth>
+                <Social />
             </>
         );
     } else {

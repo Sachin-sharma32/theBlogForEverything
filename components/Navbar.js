@@ -225,6 +225,11 @@ const Navbar = () => {
                                             Liked Posts
                                         </li>
                                     </Link>
+                                    <Link href="/images" onClick={hideSideBar}>
+                                        <li className=" hidden sm:flex bg-[#ff7d69] hover:bg-gray-200 hover:text-black w-full p-4">
+                                            Image Library
+                                        </li>
+                                    </Link>
                                     {siteUser?.isAdmin && (
                                         <Link
                                             href="http://localhost:3333"
@@ -368,6 +373,11 @@ const Navbar = () => {
                                 <Link href="/like">
                                     <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
                                         Liked Posts
+                                    </li>
+                                </Link>
+                                <Link href="/images">
+                                    <li className=" bg-[#ffb1a4] hover:bg-gray-200 hover:text-black w-96 p-4">
+                                        Image Library
                                     </li>
                                 </Link>
                                 {siteUser?.isAdmin && (

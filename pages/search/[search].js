@@ -15,13 +15,15 @@ const Search = () => {
     const posts = useSelector((state) => state.base.posts);
     console.log(posts);
     let filterPosts = posts.filter((post) => {
-        return (
-            post.title.toLowerCase().includes(search.toLowerCase()) ||
-            post.tags.find((item) => {
-                return item.title.toLowerCase() == search.toLowerCase();
-            }) ||
-            post.category.title.toLowerCase().includes(search.toLowerCase())
-        );
+        if (post.title && post.tags && post.category) {
+            return (
+                post.title.toLowerCase().includes(search.toLowerCase()) ||
+                post.tags.find((item) => {
+                    return item.title.toLowerCase() == search.toLowerCase();
+                }) ||
+                post.category.title.toLowerCase().includes(search.toLowerCase())
+            );
+        }
     });
 
     const [filter, setFilter] = useState("Newest");

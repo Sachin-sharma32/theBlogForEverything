@@ -4,6 +4,10 @@ export default function Document() {
     return (
         <Html>
             <Head>
+                <script
+                    async
+                    src="https://www.googletagmanager.com/gtag/js?id=G-0ZT11RT6JK"
+                ></script>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
                     rel="preconnect"

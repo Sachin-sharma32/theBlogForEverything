@@ -49,7 +49,7 @@ export default function Social() {
                             mode === "dark" ? "white" : "black"
                         }`,
                         color: `${mode === "dark" ? "black" : "white"}`,
-                        width: "40px",
+                        width: "39px",
                     },
                 }}
                 className=""

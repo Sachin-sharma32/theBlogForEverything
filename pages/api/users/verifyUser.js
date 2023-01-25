@@ -11,6 +11,8 @@ export default async function verifyUser(req, res) {
     if (existUser) {
         return res.status(400).json({ message: "Session expired" });
     } else {
+        const queryName = req.query.name.replace("-", " ");
+        const queryPassword = req.query.password.replace("-", " ");
         const projectId = process.env.SANITY_PROJECT_ID;
         const dataset = process.env.SANITY_DATASET;
         const token = process.env.SANITY_TOKEN;
@@ -18,10 +20,10 @@ export default async function verifyUser(req, res) {
             {
                 create: {
                     _type: "user",
-                    name: req.query.name,
+                    name: queryName,
                     email: req.query.email,
                     password: CryptoJS.AES.encrypt(
-                        req.query.password,
+                        queryPassword,
                         process.env.CRYPTO_SECRET
                     ).toString(),
                     isAdmin: false,

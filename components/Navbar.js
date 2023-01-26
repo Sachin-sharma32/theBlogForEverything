@@ -106,7 +106,7 @@ const Navbar = () => {
         <nav
             className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${
                 mode == "light" ? "bg-white" : "bg-[#262626]"
-            } z-50`}
+            } z-50 flex gap-2`}
         >
             <div className="flex gap-4 items-center">
                 <Link href="/">

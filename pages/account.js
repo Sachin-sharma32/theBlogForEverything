@@ -179,7 +179,7 @@ const Account = () => {
                                                             props.values.name
                                                         }
                                                         placeholder="User Name"
-                                                        className=" border-b bg-white w-full  h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                        className=" border-b bg-white w-full  h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="name"
@@ -197,7 +197,7 @@ const Account = () => {
                                                     name="email"
                                                     value={props.values.email}
                                                     placeholder="Email"
-                                                    className=" bg-gray-200 w-[300px] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                    className=" bg-gray-200 w-[300px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                             </div>
                                             <div className="flex gap-4 items-center">
@@ -210,7 +210,7 @@ const Account = () => {
                                                         name="bio"
                                                         cols="30"
                                                         rows="5"
-                                                        className=" bg-white w-full text-black p-4 mt-4 border-b-2 shadow-sm rounded-md outline-none"
+                                                        className=" bg-white w-full text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
                                                         placeholder="Tell us about yourself"
                                                     ></Field>
                                                     <ErrorMessage
@@ -228,7 +228,7 @@ const Account = () => {
                                                         type="text"
                                                         name="websiteURL"
                                                         placeholder="https://www.google.com"
-                                                        className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                        className=" bg-white w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="websiteURL"
@@ -280,7 +280,7 @@ const Account = () => {
                                                         type="text"
                                                         name="location"
                                                         placeholder="London,England"
-                                                        className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                        className=" bg-white w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="location"
@@ -297,7 +297,7 @@ const Account = () => {
                                                         type="text"
                                                         name="work"
                                                         placeholder="Senior Software Developer @Google"
-                                                        className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                        className=" bg-white w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="work"
@@ -314,7 +314,7 @@ const Account = () => {
                                                         type="text"
                                                         name="education"
                                                         placeholder="Bachlors In Computer Science"
-                                                        className=" bg-white w-full h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                        className=" bg-white w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="education"
@@ -327,7 +327,7 @@ const Account = () => {
                                                     mode == "light"
                                                         ? "text-white"
                                                         : "text-black"
-                                                } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#ff7d69] to-blue-700 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                                } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#ff7d69] to-blue-700 w-fit self-end rounded-2xl p-2 hover:scale-110 active:scale-100 font-semibold`}
                                                 type="submit"
                                                 disabled={
                                                     !props.isValid && !loading

@@ -67,18 +67,20 @@ const Header = () => {
             display: flex;
             justify-content: end;
             align-items: center;
+            border-radius: 40px;
+            overflow: hidden;
         `;
     }
 
     if (post && mode) {
         return (
             <>
-                <header className=" flex justify-center items-center mt-0 pt-8 ">
+                <header className=" flex justify-center items-center mt-0 pt-8">
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ x: [200, 0], opacity: 1 }}
                         transition={{ duration: 1 }}
-                        className={` bg-white w-[80vw] h-[60vh] sm:h-[80vh] flex justify-end items-center shadow-2xl rounded-sm cursor-pointer"`}
+                        className={` w-[80vw] h-[60vh] sm:h-[80vh] flex justify-end items-center shadow-2xl cursor-pointer rounded-[40px] overflow-hidden"`}
                     >
                         <StyledContainer mode={mode}>
                             {post && (

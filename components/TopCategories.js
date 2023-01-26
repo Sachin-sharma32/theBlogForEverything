@@ -27,7 +27,7 @@
 //                 mode == "dark"
 //                     ? "bg-[#262626] shadow-2xl shadow-black"
 //                     : "bg-white shadow-2xl"
-//             } top-categories-box duration-500 gap-4 md:w-[50%] lg:w-[30%] mb-20  mt-28 justify-center items-center flex h-fit mx-6 flex-col p-10 md:p-4 rounded-md md:sticky top-16`}
+//             } top-categories-box duration-500 gap-4 md:w-[50%] lg:w-[30%] mb-20  mt-28 justify-center items-center flex h-fit mx-6 flex-col p-10 md:p-4 rounded-2xl md:sticky top-16`}
 //         >
 //             <h4 className="font-bold text-xl bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
 //                 RECOMMENDED
@@ -42,7 +42,7 @@
 //                                     mode == "dark"
 //                                         ? "bg-gray-200 text-black"
 //                                         : "bg-gray-800 text-white"
-//                                 } hover:scale-110 active:scale-100 translate-all duration-200 px-4 rounded-md cursor-pointer h-6 items-center flex`}
+//                                 } hover:scale-110 active:scale-100 translate-all duration-200 px-4 rounded-2xl cursor-pointer h-6 items-center flex`}
 //                             >
 //                                 {item}
 //                             </div>
@@ -69,13 +69,12 @@ const TopCategories = () => {
     const categories = useSelector((state) => state.base.categories);
     return (
         <div className=" mt-10 flex justify-center flex-col p-2 md:p-10 md:gap-4 relative">
-            <h2 className="bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent text-xl font-bold text-center md:hidden">
+            <h2 className=" bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent text-xl font-bold text-center md:hidden">
                 TOP CATEGORIES
             </h2>
             <section className="flex overflow-x-scroll p-2 gap-4 h-96 items-center">
-                <section className=" flex-col justify-end bg-gradient-to-b from-[#ff7d69] to-blue-700 p-10 rounded-md text-white min-w-[200px] md:min-w-[300px] h-80 hidden md:flex">
-                    <h3>TOP CATEGORIES</h3>
-                    <h4 className=" text-xs text-gray-200">Sachin Sharma</h4>
+                <section className=" flex-col justify-center font-extrabold bg-gradient-to-b from-[#ff7d69] to-blue-700 p-10 rounded-2xl text-white min-w-[200px] md:min-w-[300px] h-80 hidden md:flex">
+                    <h3 className="text-2xl -rotate-45 skew-x-12">TOP CATEGORIES</h3>
                 </section>
                 <section className="flex gap-4 md:gap-2">
                     {categories.map(

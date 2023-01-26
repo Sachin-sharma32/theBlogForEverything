@@ -14,7 +14,7 @@ export default function Document() {
                     href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300&display=swap"
                     rel="stylesheet"
                 />
-                <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet"></link>
+                <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;0,900;1,400&display=swap" rel="stylesheet"/>
             </Head>
             <body>
                 <Main />

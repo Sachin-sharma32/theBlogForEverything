@@ -13,7 +13,7 @@ const CategoryBox = ({ setToggleCategories, toggleCategories }) => {
         <motion.div
             className={`${
                 mode == "light" ? "bg-white text-black" : "bg-black text-white"
-            } overflow-hidden  text-xs absolute top-8 -right-2  p-2 w-52 flex flex-col items-center justify-center gap-0 rounded-md z-50 shadow-2xl bg-gradient-to-r from-[#ff7d69] to-blue-700`}
+            } overflow-hidden  text-xs absolute top-8 -right-2  p-2 w-52 flex flex-col items-center justify-center gap-0 rounded-2xl z-50 shadow-2xl bg-gradient-to-r from-[#ff7d69] to-blue-700`}
         >
             {headerCategories.map((item, index) => {
                 return (
@@ -29,7 +29,7 @@ const CategoryBox = ({ setToggleCategories, toggleCategories }) => {
                                 mode == "light"
                                     ? "text-white hover:bg-white hover:text-black"
                                     : "text-black hover:bg-black hover:text-white"
-                            } w-48 transition-all duration-150 p-2 text-center rounded-md backdrop-opacity-50 font-semibold`}
+                            } w-48 transition-all duration-150 p-2 text-center rounded-2xl backdrop-opacity-50 font-semibold`}
                         >
                             {item.title.toUpperCase()}
                         </p>

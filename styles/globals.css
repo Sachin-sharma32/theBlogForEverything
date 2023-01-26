@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Heebo";
+  src: url("../public/Heebo-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Lobster";
+  src: url("../public/Lobster-Regular.ttf")
+}
+
 html,
 body {
   padding: 0;
@@ -30,6 +39,7 @@ a {
   body {
     color: black;
     background: #262626;
+    font-weight: 200;
   }
 }
 

@@ -101,7 +101,7 @@ const RichTextComponent = (copy, setCopy) => {
             h5: ({ children }) => <h3 className=" py-4">{children}</h3>,
             h6: ({ children }) => <h3 className=" py-2">{children}</h3>,
             blockquote: ({ children }) => (
-                <div className=" flex gap-4 bg-orange-100 my-4 rounded-md overflow-hidden">
+                <div className=" flex gap-4 bg-orange-100 my-4 rounded-2xl overflow-hidden">
                     <div className="bg-orange-500 p-4 flex justify-center items-center">
                         Attention
                     </div>

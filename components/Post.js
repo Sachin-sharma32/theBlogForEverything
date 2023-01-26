@@ -38,7 +38,7 @@ const Post = ({ post }) => {
                 mode == "light"
                     ? "bg-white shadow-2xl"
                     : "bg-[#262626] shadow-black shadow-2xl"
-            } h-[530px]  w-[350px] rounded-sm overflow-hidden relative`}
+            } h-[530px]  w-[350px] rounded-2xl overflow-hidden relative`}
         >
             {post.image && (
                 <div className=" overflow-hidden">

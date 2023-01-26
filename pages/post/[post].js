@@ -376,7 +376,7 @@ const Post = () => {
                                                                 }
                                                                 cols="30"
                                                                 rows="5"
-                                                                className=" bg-white  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-md outline-none"
+                                                                className=" bg-white  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
                                                                 placeholder="Write a comment..."
                                                             ></Field>
                                                             <ErrorMessage
@@ -397,7 +397,7 @@ const Post = () => {
                                                                     }
                                                                     name="name"
                                                                     placeholder="Name"
-                                                                    className=" bg-white w-[350px] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                                    className=" bg-white w-[350px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                                 />
                                                                 <ErrorMessage
                                                                     name="name"
@@ -416,7 +416,7 @@ const Post = () => {
                                                                     }
                                                                     name="email"
                                                                     placeholder="Email"
-                                                                    className=" bg-white w-[350px] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                                    className=" bg-white w-[350px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                                 />
                                                                 <ErrorMessage
                                                                     name="email"
@@ -431,7 +431,7 @@ const Post = () => {
                                                                 mode == "light"
                                                                     ? "text-white"
                                                                     : "text-black"
-                                                            } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#ff7d69] to-blue-700 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                                            } transition-all duration-200 min-w-[100px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#ff7d69] to-blue-700 w-fit self-end rounded-2xl p-2 hover:scale-110 active:scale-100 font-semibold`}
                                                             type="submit"
                                                             disabled={
                                                                 !props.isValid
@@ -474,7 +474,7 @@ const Post = () => {
                                                 id=""
                                                 cols="30"
                                                 value={comment}
-                                                className=" bg-white  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-md outline-none"
+                                                className=" bg-white  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
                                                 rows="10"
                                                 onChange={(e) => {
                                                     setComment(e.target.value);
@@ -486,7 +486,7 @@ const Post = () => {
                                                     mode == "light"
                                                         ? "text-white"
                                                         : "text-black"
-                                                } transition-all duration-200 min-w-[120px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#ff7d69] to-blue-700 w-fit self-end rounded-md p-2 hover:scale-110 active:scale-100 font-semibold`}
+                                                } transition-all duration-200 min-w-[120px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#ff7d69] to-blue-700 w-fit self-end rounded-2xl p-2 hover:scale-110 active:scale-100 font-semibold`}
                                                 type="submit"
                                             >
                                                 {loading && (
@@ -535,7 +535,7 @@ const Post = () => {
                                                                 ).format("ll")}
                                                             </p>
                                                         </div>
-                                                        <div className=" mt-2 bg-white p-4 pr-20 rounded-md text-black">
+                                                        <div className=" mt-2 bg-white p-4 pr-20 rounded-2xl text-black">
                                                             <div className="relative">
                                                                 <p>
                                                                     {
@@ -569,10 +569,10 @@ const Post = () => {
                                 </section>
                             </div>
                             <aside className=" lg:w-[30%] mt-8 flex flex-col justify-center items-center md:justify-start md:flex-row lg:flex-col gap-2 lg:gap-8">
-                                <div className=" bg-white rounded-md overflow-hidden shadow-xl w-fit h-fit">
+                                <div className=" bg-white rounded-2xl overflow-hidden shadow-xl w-fit h-fit">
                                     <Author author={post.author} />
                                 </div>
-                                <div className=" bg-white rounded-md overflow-hidden sticky top-20 shadow-xl w-fit">
+                                <div className=" bg-white rounded-2xl overflow-hidden sticky top-20 shadow-xl w-fit">
                                     <RelatedPosts post={post} />
                                 </div>
                             </aside>

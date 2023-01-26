@@ -71,7 +71,7 @@ const Comments = () => {
                                     mode == "dark"
                                         ? " text-black bg-white"
                                         : " text-white bg-gray-300"
-                                } mt-2  p-4 pr-20 rounded-md `}
+                                } mt-2  p-4 pr-20 rounded-2xl `}
                             >
                                 <div className="relative">
                                     <p>{item.comment}</p>

@@ -48,7 +48,7 @@ const Author = ({ author }) => {
                 w-full
                 p-2
                 justify-center
-                rounded-md
+                rounded-2xl
                 flex
                 gap-2
                 items-center

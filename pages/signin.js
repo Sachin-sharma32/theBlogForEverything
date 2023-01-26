@@ -122,7 +122,7 @@ const SignIn = () => {
                                         name=""
                                         id=""
                                         placeholder="Email"
-                                        className=" bg-white w-[100%] md:w-[500px] h-10 rounded-md px-4 border-b-4 text-black border-white shadow-md outline-none focus-within:border-green-500 focus:invalid:border-red-500"
+                                        className=" bg-white w-[100%] md:w-[500px] h-10 rounded-2xl px-4 border-b-4 text-black border-white shadow-md outline-none focus-within:border-green-500 focus:invalid:border-red-500"
                                         onChange={(e) => {
                                             setEmail(e.target.value);
                                         }}
@@ -132,7 +132,7 @@ const SignIn = () => {
                                         name=""
                                         id=""
                                         placeholder="Password"
-                                        className=" bg-white w-[100%] md:w-[500px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                        className=" bg-white w-[100%] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                         onChange={(e) => {
                                             setPassword(e.target.value);
                                         }}
@@ -143,7 +143,7 @@ const SignIn = () => {
                                             mode == "dark"
                                                 ? " border-white hover:border-black hover:bg-black hover:text-white"
                                                 : " border-black text-black hover:bg-black hover:text-white"
-                                        } border w-[100%] md:w-[500px] px-4 py-2 rounded-md  transition-all duration-200 active:scale-90`}
+                                        } border w-[100%] md:w-[500px] px-4 py-2 rounded-2xl  transition-all duration-200 active:scale-90`}
                                     >
                                         SIGN IN
                                     </button>
@@ -170,7 +170,7 @@ const SignIn = () => {
                         </div>
                         <div className=" mt-6 items-center grid grid-cols-1 justify-center justify-items-center gap-4">
                             <div
-                                className="flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] md:w-[500px] items-center bg-white text-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] md:w-[500px] items-center bg-white text-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                                 onClick={() => {
                                     oAuthSignIn("google");
                                 }}
@@ -184,7 +184,7 @@ const SignIn = () => {
                                 <p>GOOGLE</p>
                             </div>
                             <div
-                                className="flex px-4 py-1 gap-2 rounded-md justify-center  w-[100%] md:w-[500px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center  w-[100%] md:w-[500px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                                 onClick={() => {
                                     oAuthSignIn("facebook");
                                 }}
@@ -198,7 +198,7 @@ const SignIn = () => {
                                 <p>FACEBOOK</p>
                             </div>
                             <div
-                                className="flex px-4 py-1 gap-2 rounded-md justify-center  w-[100%] md:w-[500px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center  w-[100%] md:w-[500px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                                 onClick={() => {
                                     oAuthSignIn("github");
                                 }}
@@ -212,7 +212,7 @@ const SignIn = () => {
                                 <p>GITHUB</p>
                             </div>
                             <div
-                                className="flex px-4 py-1 gap-2 rounded-md justify-center  w-[100%] md:w-[500px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center  w-[100%] md:w-[500px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                                 onClick={() => {
                                     oAuthSignIn("twitter");
                                 }}

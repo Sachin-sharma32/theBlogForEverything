@@ -161,7 +161,7 @@ const Register = () => {
                                                     type="text"
                                                     name="name"
                                                     placeholder="Name"
-                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                                 <ErrorMessage
                                                     name="name"
@@ -173,7 +173,7 @@ const Register = () => {
                                                     type="text"
                                                     name="email"
                                                     placeholder="Email"
-                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                                 <ErrorMessage
                                                     name="email"
@@ -185,7 +185,7 @@ const Register = () => {
                                                     type="text"
                                                     name="password"
                                                     placeholder="Password"
-                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                                 <ErrorMessage
                                                     name="password"
@@ -197,7 +197,7 @@ const Register = () => {
                                                     type="text"
                                                     name="passwordConfirm"
                                                     placeholder="passwordConfirm"
-                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-md px-4 text-black shadow-md outline-none"
+                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                                 <ErrorMessage
                                                     name="passwordConfirm"
@@ -211,7 +211,7 @@ const Register = () => {
                                                     mode == "dark"
                                                         ? " border-white valid:hover:border-black valid:hover:bg-black hover:text-white"
                                                         : " border-black text-black hover:bg-black hover:text-white"
-                                                }  border w-[100%] md:w-[400px] px-4 py-2 rounded-md  transition-all duration-200 valid:active:scale-90 disabled:bg-gray-500`}
+                                                }  border w-[100%] md:w-[400px] px-4 py-2 rounded-2xl  transition-all duration-200 valid:active:scale-90 disabled:bg-gray-500`}
                                             >
                                                 REGISTER
                                             </button>
@@ -243,7 +243,7 @@ const Register = () => {
                                 onClick={() => {
                                     oAuthSignIn("google");
                                 }}
-                                className="flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] sm:w-[150px] items-center bg-white text-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] sm:w-[150px] items-center bg-white text-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                             >
                                 <Image
                                     src="/google.png"
@@ -257,7 +257,7 @@ const Register = () => {
                                 onClick={() => {
                                     oAuthSignIn("facebook");
                                 }}
-                                className="flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] sm:w-[150px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] sm:w-[150px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                             >
                                 <Image
                                     src="/facebook.png"
@@ -271,7 +271,7 @@ const Register = () => {
                                 onClick={() => {
                                     oAuthSignIn("github");
                                 }}
-                                className=" border-2 border-gray-500 flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] sm:w-[150px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className=" border-2 border-gray-500 flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] sm:w-[150px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                             >
                                 <Image
                                     src="/github-dark.png"
@@ -285,7 +285,7 @@ const Register = () => {
                                 onClick={() => {
                                     oAuthSignIn("twitter");
                                 }}
-                                className="flex px-4 py-1 gap-2 rounded-md justify-center w-[100%] sm:w-[150px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] sm:w-[150px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                             >
                                 <Image
                                     src="/twitter.png"

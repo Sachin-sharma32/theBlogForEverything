@@ -103,7 +103,7 @@ const Posts = () => {
                             mode == "dark"
                                 ? "border-white text-white"
                                 : "border-black"
-                        } hover:scale-110 active:scale-100 transition-all duration-200 w-6 h-6 flex justify-center items-center rounded-sm cursor-pointer border`}
+                        } hover:scale-110 active:scale-100 transition-all duration-200 w-6 h-6 flex justify-center items-center cursor-pointer border- rounded-full`}
                         onClick={() => {
                             setPage(item);
                         }}

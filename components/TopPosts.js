@@ -36,7 +36,7 @@ const TopPosts = () => {
                 TOP POSTS OF THE WEEK
             </h2>
             <section className="flex overflow-x-scroll p-2 gap-4 h-96 items-center">
-                <section className=" flex-col justify-end bg-gradient-to-b from-[#ff7d69] to-blue-700 p-10 rounded-md text-white min-w-[200px] md:min-w-[300px] h-80 hidden md:flex">
+                <section className=" flex-col justify-end bg-gradient-to-b from-[#ff7d69] to-blue-700 p-10 rounded-2xl text-white min-w-[200px] md:min-w-[300px] h-80 hidden md:flex">
                     <h3>TOP POSTS OF THE WEEK</h3>
                     <h4 className=" text-xs text-gray-200">Sachin Sharma</h4>
                 </section>

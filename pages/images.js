@@ -67,7 +67,7 @@ export default function BasicMasonry() {
                                     <img
                                         src={imageBuilder(image)}
                                         alt="post image"
-                                        className=" h-full w-full rounded-md"
+                                        className=" h-full w-full rounded-2xl"
                                         onClick={() => {
                                             setSelectedImage(image);
                                             handleToggle();

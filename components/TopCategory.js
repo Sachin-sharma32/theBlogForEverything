@@ -22,11 +22,11 @@ const TopCategory = ({ num, category }) => {
     };
     return (
         <section
-            className={` relative p-4 md:hover:rotate-[0deg] flex justify-center items-start w-[250px] md:min-w-[300px] h-80 shadow-xl rounded-md border-gray-500 border md:border-transparent top-card ${
+            className={` relative p-4 md:hover:rotate-[0deg] flex justify-center items-start w-[250px] md:min-w-[300px] h-80 shadow-xl rounded-2xl border-gray-500 border md:border-transparent top-card ${
                 num != 0 && " md:-ml-[240px]"
             } ${
                 mode == "light" ? " bg-white" : "bg-[#262626] shadow-black"
-            } relative`}
+            } relative overflow-hidden`}
             onMouseEnter={showCategoryBox}
             onMouseLeave={hideCategoryBox}
         >

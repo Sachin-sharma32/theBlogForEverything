@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-PKPENVER0M');
-    `}
+                `}
             </Script>
             <SessionProvider session={session}>
                 <QueryClientProvider client={queryClient}>

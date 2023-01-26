@@ -444,16 +444,24 @@ const Navbar = () => {
                     >
                         <Brightness4Icon className=" hover:rotate-180 transition-all duration-200" />
                     </a>
-                    <div className="hidden md:flex gap-4">
+                    <div className="hidden md:flex gap-2">
                         <Link
                             href="/signin"
-                            className=" hover:scale-110 active:scale-100 transition-all duration-200"
+                            className={`${
+                                mode == "light"
+                                    ? "hover:bg-black hover:text-white hover:border-black"
+                                    : "hover:bg-white hover:text-black"
+                            }  font-bold border-2 px-2 flex items-center w-20 justify-center py-1 rounded-2xl text- active:scale-90 transition-all duration-200`}
                         >
                             SIGN IN
                         </Link>
                         <Link
                             href="/register"
-                            className=" hover:scale-110 active:scale-100 transition-all duration-200"
+                            className={`${
+                                mode == "light"
+                                    ? "bg-black text-white hover:bg-white hover:text-black border-black"
+                                    : "bg-white text-black hover:bg-[#262626] hover:text-white"
+                            } border-2  flex items-center px-2 py-1 rounded-2xl active:scale-90 transition-all duration-200`}
                         >
                             REGISTER
                         </Link>

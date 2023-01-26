@@ -289,7 +289,7 @@ const Post = () => {
                                         mode == "dark"
                                             ? "bg-[#262626] text-white"
                                             : "bg-white text-[#262626]"
-                                    } mt-4 md:mt-10  p-4 sm:p-10 rounded-sm shadow-xl text-xs sm:text-base relative py-4`}
+                                    } mt-4 md:mt-10  p-4 sm:p-10 rounded-sm shadow-xl text-xs sm:text-base relative py-4 rounded-2xl`}
                                 >
                                     <PortableText
                                         value={post.content}
@@ -336,11 +336,10 @@ const Post = () => {
                                             ? "bg-gray-800"
                                             : "bg-gray-100 text-black"
                                     }  mt-10
-                                    rounded-sm
                                     p-4
                                     flex
                                     flex-col
-                                    items-center shadow-xl text-xs md:text-base`}
+                                    items-center shadow-xl text-xs md:text-base rounded-2xl`}
                                 >
                                     <div className=" pb-1 bg-gradient-to-r from-[#ff7d69] to-blue-700 h-7">
                                         <h3

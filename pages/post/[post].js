@@ -188,7 +188,7 @@ const Post = () => {
                     />
                     <meta
                         property="og:url"
-                        content={`https://www.theblogforeverything.com/post${post?._id}`}
+                        content={`https://www.theblogforeverything.com/post/${post?._id}`}
                     />
                     <meta
                         name="twitter:card"

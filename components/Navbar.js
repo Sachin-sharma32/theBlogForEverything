@@ -108,52 +108,54 @@ const Navbar = () => {
                 mode == "light" ? "bg-white" : "bg-[#262626]"
             } z-50`}
         >
-            <Link href="/">
-                {mode == "dark" ? (
-                    <Image
-                        src="/site-chopped-dark.jpg"
-                        width="100"
-                        height="20"
-                        alt="Website Logo"
-                    />
-                ) : (
-                    <Image
-                        src="/site-chopped-light.jpg"
-                        width="100"
-                        height="20"
-                        alt="Website Logo"
-                    />
-                )}
-            </Link>
-            <div className="flex items-center justify-between gap-2 sm:gap-4">
-                <form
-                    onSubmit={submitHandler}
-                    className={`${
-                        mode == "dark"
-                            ? "bg-gray-500 focus-within:bg-white focus-within:shadow-gray-900"
-                            : "bg-white border focus-within:bg-gray-200"
-                    } rounded-sm flex justify-between items-center h-7 px-1 md:px-2 w-52 sm:w-60 md:w-80 md:focus-within:w-96 transition-scale duration-200 focus-within:shadow-lg`}
-                >
-                    <input
-                        type="text"
-                        name=""
-                        id=""
+            <div className="flex gap-4 items-center">
+                <Link href="/">
+                    {mode == "dark" ? (
+                        <Image
+                            src="/site-chopped-dark.jpg"
+                            width="100"
+                            height="20"
+                            alt="Website Logo"
+                        />
+                    ) : (
+                        <Image
+                            src="/site-chopped-light.jpg"
+                            width="100"
+                            height="20"
+                            alt="Website Logo"
+                        />
+                    )}
+                </Link>
+                <div className="flex items-center justify-between gap-2 sm:gap-4">
+                    <form
+                        onSubmit={submitHandler}
                         className={`${
                             mode == "dark"
-                                ? " bg-inherit focus-within:bg-inherit"
-                                : " bg-inherit focus-within:bg-inherit"
-                        } rounded-sm h-fit outline-none w-full`}
-                        onChange={(e) => {
-                            setSearch(e.target.value);
-                        }}
-                    />
-                    <button
-                        type="submit"
-                        className=" active:scale-90 transition-all duration-200"
+                                ? "bg-gray-500 focus-within:bg-white focus-within:shadow-gray-900"
+                                : "bg-white border focus-within:bg-gray-200"
+                        } rounded-2xl flex justify-between items-center h-7 px-1 md:pl-4 w-52 sm:w-60 md:w-80 md:focus-within:w-96 transition-scale duration-200 focus-within:shadow-lg text-xs`}
                     >
-                        <SearchIcon className=" text-black text-lg sm:text-2xl" />
-                    </button>
-                </form>
+                        <input
+                            type="text"
+                            name=""
+                            id=""
+                            className={`${
+                                mode == "dark"
+                                    ? " bg-inherit focus-within:bg-inherit"
+                                    : " bg-inherit focus-within:bg-inherit"
+                            } h-fit outline-none w-full`}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                            }}
+                        />
+                        <button
+                            type="submit"
+                            className=" active:scale-90 transition-all duration-200"
+                        >
+                            <SearchIcon className=" text-black text-lg sm:text-2xl" />
+                        </button>
+                    </form>
+                </div>
                 <CheckOutsideClick setToggleCategories={setToggleCategories}>
                     <section
                         className={`${
@@ -166,14 +168,28 @@ const Navbar = () => {
                                 setToggleCategories((current) => !current);
                             }}
                         >
-                            <CategoryIcon className="text-lg sm:text-2xl" />
-                            <div className=" hidden sm:flex">
+                            {mode === "dark" ? (
+                                <Image
+                                    src="/category-light.png"
+                                    width="24"
+                                    height="24"
+                                    className=" hover:rotate-180 transition-all duration-200 active:rotate-180"
+                                />
+                            ) : (
+                                <Image
+                                    src="/category-dark.png"
+                                    width="24"
+                                    height="24"
+                                    className=" hover:rotate-180 transition-all duration-200 active:rotate-180"
+                                />
+                            )}
+                            {/* <div className=" hidden sm:flex">
                                 {toggleCategories ? (
                                     <ArrowDropUpIcon />
                                 ) : (
                                     <ArrowDropDownIcon />
                                 )}
-                            </div>
+                            </div> */}
                         </a>
                         {toggleCategories && (
                             <CategoryBox
@@ -325,7 +341,7 @@ const Navbar = () => {
                                         : "text-white"
                                 } cursor-pointer hover:scale-125 text-lg sm:text-2xl animation-effect`}
                             >
-                                <Brightness4Icon className="text-lg sm:text-2xl" />
+                                <Brightness4Icon className="text-lg sm:text-2xl hover:rotate-180" />
                             </a>
                         </button>
                         <div className=" relative profile-icon">
@@ -426,7 +442,7 @@ const Navbar = () => {
                             mode == "light" ? "text-black" : "text-white"
                         } cursor-pointer hover:scale-125 animation-effect transition-all duration-200 text-lg sm:text-2xl flex`}
                     >
-                        <Brightness4Icon />
+                        <Brightness4Icon className=" hover:rotate-180 transition-all duration-200" />
                     </a>
                     <div className="hidden md:flex gap-4">
                         <Link

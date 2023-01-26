@@ -90,7 +90,7 @@ export default function Home() {
                     mode == "light" ? "bg-white" : "bg-[#262626]"
                 } relative`}
             >
-                <Header />
+                {/* <Header />
                 <TopPosts />
                 <div className=" hidden md:flex">
                     <Posts />
@@ -99,7 +99,10 @@ export default function Home() {
                 <div className=" md:hidden flex flex-col">
                     <TopCategories />
                     <Posts />
-                </div>
+                </div> */}
+                <Header />
+                <TopCategories />
+                <Posts />
             </Smooth>
         </>
     );

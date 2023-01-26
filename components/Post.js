@@ -38,15 +38,17 @@ const Post = ({ post }) => {
                 mode == "light"
                     ? "bg-white shadow-2xl"
                     : "bg-[#262626] shadow-black shadow-2xl"
-            } h-[500px] w-[350px] rounded-sm overflow-hidden relative`}
+            } h-[530px]  w-[350px] rounded-sm overflow-hidden relative`}
         >
             {post.image && (
-                <img
-                    src={`${imageBuilder(post?.image)}`}
-                    width="400"
-                    className="h-[180px]"
-                    alt="post"
-                />
+                <div className=" overflow-hidden">
+                    <img
+                        src={`${imageBuilder(post?.image)}`}
+                        width="400"
+                        className="h-[180px] hover:scale-125 transition-all duration-700"
+                        alt="post"
+                    />
+                </div>
             )}
             {post.tags &&
             post.title &&
@@ -54,7 +56,7 @@ const Post = ({ post }) => {
             post.title &&
             post.author ? (
                 <article className=" p-4">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between text-xs">
                         <div className=" text-[#eb9586] flex gap-2">
                             {post?.tags?.map((tag, i) => (
                                 <Link href={`/search/${tag.title}`} key={i}>

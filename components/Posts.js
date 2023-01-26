@@ -30,16 +30,16 @@ const Posts = () => {
     const mode = useSelector((state) => state.base.mode);
 
     const [page, setPage] = useState(1);
-    const lastPost = page * 6;
-    const firstPost = lastPost - 5;
+    const lastPost = page * 12;
+    const firstPost = lastPost - 11;
     const pagePosts = posts.slice(firstPost - 1, lastPost);
     let pages = [];
-    for (let i = 1; i <= Math.ceil(posts.length / 6); i++) {
+    for (let i = 1; i <= Math.ceil(posts.length / 12); i++) {
         pages.push(i);
     }
 
     return (
-        <section className=" p-10 md:w-[70%] flex flex-col justify-center items-center gap-2 md:gap-10">
+        <section className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">
             <div>
                 <h3 className=" text-3xl text-center mb-10 bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent font-bold">
                     FEATURED POSTS
@@ -68,7 +68,7 @@ const Posts = () => {
             </div>
             <motion.div
                 Layout
-                className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-10"
+                className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10"
             >
                 {pagePosts.map((post, i) => (
                     <ErrorBoundry key={i}>

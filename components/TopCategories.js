@@ -73,8 +73,15 @@ const TopCategories = () => {
                 TOP CATEGORIES
             </h2>
             <section className="flex overflow-x-scroll p-2 gap-4 h-96 items-center">
-                <section className=" flex-col justify-center font-extrabold bg-gradient-to-b from-[#ff7d69] to-blue-700 p-10 rounded-2xl text-white min-w-[200px] md:min-w-[300px] h-80 hidden md:flex">
-                    <h3 className="text-2xl -rotate-45 skew-x-12">TOP CATEGORIES</h3>
+                <section className="card flex-col justify-center font-extrabold p-10 rounded-2xl text-white min-w-[200px] md:min-w-[300px] h-80 hidden md:flex">
+                    <div className="bg-gradient-to-b card__side card__side--front rounded-2xl flex justify-center items-center from-[#ff7d69] to-blue-700 h-full w-full">
+                        <h3 className="text-2xl ">TOP CATEGORIES</h3>
+                    </div>
+                    <div className="bg-gradient-to-b card__side card__side--back rounded-2xl flex justify-center items-center from-[#ff7d69] to-blue-700 h-full w-full">
+                        <Link href="/search" className="text-2xl ">
+                            ALL POSTS
+                        </Link>
+                    </div>
                 </section>
                 <section className="flex gap-4 md:gap-2">
                     {categories.map(

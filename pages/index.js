@@ -57,7 +57,7 @@ export default function Home() {
                 />
                 <meta
                     property="og:url"
-                    content="https://theblogforeverything.com/"
+                    content="https://www.theblogforeverything.com/"
                 />
                 <meta property="twitter:card" content="summary_large_image" />
                 <meta

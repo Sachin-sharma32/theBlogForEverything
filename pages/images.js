@@ -28,7 +28,9 @@ export default function BasicMasonry() {
     const [selectedImage, setSelectedImage] = React.useState(null);
     const [col, setCol] = useState(4);
     const images = posts.map((post) => {
-        return post.image;
+        if (post.image) {
+            return post.image;
+        }
     });
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {

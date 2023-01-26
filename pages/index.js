@@ -23,7 +23,7 @@ export default function Home() {
                 />
                 <meta
                     name="description"
-                    content='  A comprehensive blogging platform that provides readers with
+                    content='A comprehensive blogging platform that provides readers with
                     a wide range of information on a variety of topics. From the
                     latest news and current events, to lifestyle and personal
                     development, the platform aims to be a one-stop-shop for all

@@ -30,6 +30,7 @@ const Post = ({ post }) => {
         <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
+            Layout
             transition={{
                 delay: 0.1,
             }}

@@ -4,6 +4,7 @@ import Post from "./Post";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 import ErrorBoundry from "../utils/ErrorBoundry";
+import { motion } from "framer-motion";
 
 const Posts = () => {
     let posts = useSelector((state) => state.base.posts);
@@ -65,13 +66,16 @@ const Posts = () => {
                     ))}
                 </div>
             </div>
-            <div className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-10">
+            <motion.div
+                Layout
+                className="grid lg:grid-cols-2 2xl:grid-cols-3 gap-10"
+            >
                 {pagePosts.map((post, i) => (
                     <ErrorBoundry key={i}>
                         <Post post={post} />
                     </ErrorBoundry>
                 ))}
-            </div>
+            </motion.div>
             <div className="flex gap-2 mt-6 md:mt-0">
                 <a className=" cursor-pointer hover:-translate-x-2 transition-all duration-200">
                     <WestIcon

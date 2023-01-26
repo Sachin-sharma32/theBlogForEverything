@@ -133,7 +133,7 @@ const Navbar = () => {
                             mode == "dark"
                                 ? "bg-gray-500 focus-within:bg-white focus-within:shadow-gray-900"
                                 : "bg-white border focus-within:bg-gray-200"
-                        } rounded-2xl flex justify-between items-center h-7 px-1 md:pl-4 w-52 sm:w-60 md:w-80 md:focus-within:w-96 transition-scale duration-200 focus-within:shadow-lg text-xs`}
+                        } rounded-2xl pl-3 flex justify-between items-center h-7 px-1 md:pl-4 w-52 sm:w-60 md:w-80 md:focus-within:w-96 transition-scale duration-200 focus-within:shadow-lg text-xs`}
                     >
                         <input
                             type="text"

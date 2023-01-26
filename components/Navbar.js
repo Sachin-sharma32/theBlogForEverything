@@ -339,9 +339,9 @@ const Navbar = () => {
                                     mode == "light"
                                         ? "text-black"
                                         : "text-white"
-                                } cursor-pointer hover:scale-125 text-lg sm:text-2xl animation-effect`}
+                                } cursor-pointer hover:scale-125 text-lg sm:text-2xl animation-effect hover:rotate-180 transition-all duration-200`}
                             >
-                                <Brightness4Icon className="text-lg sm:text-2xl hover:rotate-180" />
+                                <Brightness4Icon className="text-lg sm:text-2xl" />
                             </a>
                         </button>
                         <div className=" relative profile-icon">

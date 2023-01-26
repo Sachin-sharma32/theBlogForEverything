@@ -28,9 +28,7 @@ export default function BasicMasonry() {
     const [selectedImage, setSelectedImage] = React.useState(null);
     const [col, setCol] = useState(4);
     const images = posts.map((post) => {
-        if (post.image) {
-            return post.image;
-        }
+        return post.image;
     });
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
@@ -41,7 +39,6 @@ export default function BasicMasonry() {
     };
     if (typeof window !== "undefined") {
         let width = screen.width;
-        console.log(width);
         if (width < 500) {
             setCol(2);
         } else if (width >= 500 && width <= 1000) {
@@ -60,19 +57,25 @@ export default function BasicMasonry() {
             </p>
             <Box className=" mt-2 max-h-screen overflow-y-scroll image-scrollbar min-h-screen opacity-0 sm:opacity-100">
                 <Masonry columns={col} spacing={2}>
-                    {images.map((image, index) => (
-                        <Item key={index} sx={{ height: heights[index] }}>
-                            <img
-                                src={imageBuilder(image)}
-                                alt="post image"
-                                className=" h-full w-full rounded-md"
-                                onClick={() => {
-                                    setSelectedImage(image);
-                                    handleToggle();
-                                }}
-                            />
-                        </Item>
-                    ))}
+                    {images.map(
+                        (image, index) =>
+                            image != undefined && (
+                                <Item
+                                    key={index}
+                                    sx={{ height: heights[index] }}
+                                >
+                                    <img
+                                        src={imageBuilder(image)}
+                                        alt="post image"
+                                        className=" h-full w-full rounded-md"
+                                        onClick={() => {
+                                            setSelectedImage(image);
+                                            handleToggle();
+                                        }}
+                                    />
+                                </Item>
+                            )
+                    )}
                 </Masonry>
                 {images.length > 0 && selectedImage && (
                     <div>

@@ -14,7 +14,6 @@ const Search = () => {
     const { search } = router.query;
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
-    console.log(posts);
     let filterPosts = posts.filter((post) => {
         if (post.title && post.tags && post.category) {
             return (
@@ -47,7 +46,6 @@ const Search = () => {
             ? new Date(post.updatedAt).getTime()
             : new Date(post.publishedAt).getTime();
     });
-    console.log(postDates);
 
     const [page, setPage] = useState(1);
     const lastPost = page * 9;

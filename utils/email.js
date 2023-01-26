@@ -10,7 +10,6 @@ const sendEmail = async (options) => {
             pass: "fqjxppcdhntarlfa",
         },
     });
-    console.log(options.url);
     const mailOptions = {
         from: "sachin sharma <sachin2sharma001@gmail.com>",
         to: options.email,

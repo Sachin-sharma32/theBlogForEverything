@@ -91,7 +91,6 @@ export const useUpdateAccount = (onSuccess, onError) => {
         },
         {
             onSuccess: (data) => {
-                console.log(data);
                 queryClient.invalidateQueries("getMe");
                 onSuccess();
             },

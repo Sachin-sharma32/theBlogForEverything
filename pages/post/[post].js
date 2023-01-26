@@ -188,17 +188,17 @@ const Post = () => {
                     />
                     <meta
                         property="og:url"
-                        content={`https://theblogforeverything.com/post${post?._id}`}
+                        content={`https://www.theblogforeverything.com/post${post?._id}`}
                     />
                     <meta
-                        property="twitter:card"
+                        name="twitter:card"
                         content="summary_large_image"
                     />
                     <meta
-                        property="twitter:site"
+                        name="twitter:site"
                         content="FBFE - The Blog For Everything"
                     />
-                    <meta property="twitter:title" content={`${post.title}`} />
+                    <meta name="twitter:title" content={`${post.title}`} />
                     <meta
                         name="twitter:description"
                         content={`${
@@ -208,12 +208,12 @@ const Post = () => {
                         }`}
                     />
                     <meta
-                        property="twitter:image"
+                        name="twitter:image"
                         content={`${imageBuilder(post.image)}`}
                     />
                     <meta
-                        property="og:url"
-                        content={`https://theblogforeverything.com/post${post._id}`}
+                        name="og:url"
+                        content={`https://www.theblogforeverything.com/post${post._id}`}
                     />
                 </Head>
 

@@ -18,7 +18,7 @@ export default function Home() {
                 <title>TBFE - Home</title>
                 <link
                     rel="icon"
-                    type="image/png"
+                    type="image/jpg"
                     href="/site-light-chopped.jpg"
                 />
                 <meta
@@ -55,21 +55,23 @@ export default function Home() {
                     property="og:image"
                     content="https://cdn.sanity.io/images/k0me7ccv/production/8fa01467c0ac00d838090a47782c009153f72a94-1024x1024.jpg"
                 />
+                <meta property="og:image:type" content="image/jpeg" />
+                <meta property="og:locale" content="en_IN" />
+                <meta
+                    property="og:image:alt"
+                    content="TheBlogForEverything logo"
+                />
+                <meta property="og:image:width" content="400" />
+                <meta property="og:image:height" content="400" />
                 <meta
                     property="og:url"
                     content="https://www.theblogforeverything.com/"
                 />
-                <meta property="twitter:card" content="summary_large_image" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:site" content="@TBFEpage" />
+                <meta name="twitter:title" content="The Blog For Everything" />
                 <meta
-                    property="twitter:site"
-                    content="FBFE - The Blog For Everything"
-                />
-                <meta
-                    property="twitter:title"
-                    content="A comprehensive blog website"
-                />
-                <meta
-                    property="twitter:description"
+                    name="twitter:description"
                     content="A comprehensive blogging platform that provides readers with
                     a wide range of information on a variety of topics. From the
                     latest news and current events, to lifestyle and personal
@@ -80,12 +82,12 @@ export default function Home() {
                     something for everyone."
                 />
                 <meta
-                    property="twitter:image:src"
-                    content="/site-light-chopped.jpg"
+                    name="twitter:image"
+                    content="https://cdn.sanity.io/images/k0me7ccv/production/8fa01467c0ac00d838090a47782c009153f72a94-1024x1024.jpg"
                 />
                 <meta
-                    property="og:url"
-                    content="https://theblogforeverything.com/"
+                    name="og:url"
+                    content="https://www.theblogforeverything.com/"
                 />
             </Head>
             <Smooth

@@ -51,7 +51,10 @@ export default function Home() {
                 />
                 <meta property="og:type" content="website" />
                 <meta property="og:site_name" content="TheBlogForEverything" />
-                <meta property="og:image" content="/site-light-chopped.jpg" />
+                <meta
+                    property="og:image"
+                    content="https://cdn.sanity.io/images/k0me7ccv/production/8fa01467c0ac00d838090a47782c009153f72a94-1024x1024.jpg"
+                />
                 <meta
                     property="og:url"
                     content="https://theblogforeverything.com/"

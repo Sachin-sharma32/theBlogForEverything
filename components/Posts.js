@@ -13,29 +13,19 @@ const Posts = () => {
 
     const [filter, setFilter] = useState("Newest");
     const filters = ["Newest", "Oldest"];
-    useEffect(() => {
-        if (filter == "Newest") {
-            postsCopy.sort(
-                (a, b) =>
-                    new Date(
-                        b.updatedAt ? b.updatedAt : b.publishedAt
-                    ).getTime() -
-                    new Date(
-                        a.updatedAt ? a.updatedAt : a.publishedAt
-                    ).getTime()
-            );
-        } else if (filter == "Oldest") {
-            postsCopy.sort(
-                (a, b) =>
-                    new Date(
-                        a.updatedAt ? a.updatedAt : a.publishedAt
-                    ).getTime() -
-                    new Date(
-                        b.updatedAt ? b.updatedAt : b.publishedAt
-                    ).getTime()
-            );
-        }
-    }, [filter]);
+    if (filter == "Newest") {
+        postsCopy.sort(
+            (a, b) =>
+                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime() -
+                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime()
+        );
+    } else if (filter == "Oldest") {
+        postsCopy.sort(
+            (a, b) =>
+                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime() -
+                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime()
+        );
+    }
     posts = postsCopy;
 
     const mode = useSelector((state) => state.base.mode);

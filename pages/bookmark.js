@@ -10,15 +10,13 @@ const Bookmark = () => {
     const user = useSelector((state) => state.base.user);
     const posts = useSelector((state) => state.base.posts);
     let bookmarks = [];
-    useEffect(() => {
-        if (user && posts) {
-            bookmarks = posts.filter((post) => {
-                return user.bookmarks.find((bookmark) => {
-                    return bookmark._ref == post._id;
-                });
+    if (user && posts) {
+        bookmarks = posts.filter((post) => {
+            return user.bookmarks.find((bookmark) => {
+                return bookmark._ref == post._id;
             });
-        }
-    }, [posts, user]);
+        });
+    }
     return (
         <>
             <Head>

@@ -13,8 +13,13 @@ const Comments = () => {
     const { postId } = router.query;
     const posts = useSelector((state) => state.base.posts);
     const mode = useSelector((state) => state.base.mode);
-    const post = posts.filter((post) => {
-        return post._id == postId;
+    const post = useMemo(() => {
+        return posts.filter(
+            (post) => {
+                return post._id == postId;
+            },
+            [posts]
+        );
     });
 
     return (

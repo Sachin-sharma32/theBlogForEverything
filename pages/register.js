@@ -12,8 +12,6 @@ import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
 import { Alert } from "@mui/material";
 import Head from "next/head";
-import SuccessModel from "../utils/SuccessModel";
-import Social from "../utils/Socials";
 
 const Register = () => {
     const router = useRouter();

@@ -18,12 +18,10 @@ import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import { signOut } from "next-auth/react";
 import MenuIcon from "@mui/icons-material/Menu";
-import CategoryIcon from "@mui/icons-material/Category";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CategoryBox from "./CategoryBox";
 import LoginIcon from "@mui/icons-material/Login";
 import CheckOutsideClick from "../utils/CheckOutsideClick";
+import ErrorBoundry from "../utils/ErrorBoundry";
 
 const Navbar = () => {
     const [hasSession, setHasSession] = useState(false);
@@ -192,9 +190,11 @@ const Navbar = () => {
                             </div> */}
                         </a>
                         {toggleCategories && (
-                            <CategoryBox
-                                setToggleCategories={setToggleCategories}
-                            />
+                            <ErrorBoundry>
+                                <CategoryBox
+                                    setToggleCategories={setToggleCategories}
+                                />
+                            </ErrorBoundry>
                         )}
                     </section>
                 </CheckOutsideClick>

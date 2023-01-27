@@ -10,6 +10,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CloseIcon from "@mui/icons-material/Close";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import { useState } from "react";
+import { useMemo } from "react";
 
 const heights = [
     150, 200, 130, 180, 210, 250, 230, 180, 150, 190, 100, 150, 130, 150, 180,
@@ -27,9 +28,11 @@ export default function BasicMasonry() {
     const posts = useSelector((state) => state.base.posts);
     const [selectedImage, setSelectedImage] = React.useState(null);
     const [col, setCol] = useState(4);
-    const images = posts.map((post) => {
-        return post.image;
-    });
+    const images = useMemo(() => {
+        return posts.map((post) => {
+            return post.image;
+        });
+    }, [posts]);
     const [open, setOpen] = React.useState(false);
     const handleClose = () => {
         setOpen(false);

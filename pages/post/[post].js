@@ -19,7 +19,8 @@ import Like from "../../utils/LikeIcon";
 import EastIcon from "@mui/icons-material/East";
 import { PortableText } from "@portabletext/react";
 import RichTextComponent from "../../components/RichTextComponent";
-import Social from "../../utils/Socials";
+import { useMemo } from "react";
+import ErrorBoundry from "../../utils/ErrorBoundry";
 
 const Post = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -29,9 +30,11 @@ const Post = () => {
     const [comment, setComment] = useState("");
     const [copy, setCopy] = useState(false);
 
-    const currentPost = posts?.filter((item) => {
-        return item?._id == router.query.post;
-    });
+    const currentPost = useMemo(() => {
+        return posts?.filter((item) => {
+            return item?._id == router.query.post;
+        });
+    }, [posts]);
     const post = currentPost[0];
     const [comments, setComments] = useState([]);
     useEffect(() => {
@@ -190,10 +193,7 @@ const Post = () => {
                         property="og:url"
                         content={`https://www.theblogforeverything.com/post/${post?._id}`}
                     />
-                    <meta
-                        name="twitter:card"
-                        content="summary_large_image"
-                    />
+                    <meta name="twitter:card" content="summary_large_image" />
                     <meta
                         name="twitter:site"
                         content="FBFE - The Blog For Everything"
@@ -569,10 +569,14 @@ const Post = () => {
                             </div>
                             <aside className=" lg:w-[30%] mt-8 flex flex-col justify-center items-center md:justify-start md:flex-row lg:flex-col gap-2 lg:gap-8">
                                 <div className=" bg-white rounded-2xl overflow-hidden shadow-xl w-fit h-fit">
-                                    <Author author={post.author} />
+                                    <ErrorBoundry>
+                                        <Author author={post.author} />
+                                    </ErrorBoundry>
                                 </div>
                                 <div className=" bg-white rounded-2xl overflow-hidden sticky top-20 shadow-xl w-fit">
-                                    <RelatedPosts post={post} />
+                                    <ErrorBoundry>
+                                        <RelatedPosts post={post} />
+                                    </ErrorBoundry>
                                 </div>
                             </aside>
                         </article>

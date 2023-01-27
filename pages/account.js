@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Smooth from "../utils/Smooth";
 import * as yup from "yup";
 import { Formik, Field, ErrorMessage, Form } from "formik";
@@ -10,7 +10,6 @@ import { useUpdateAccount } from "../hooks/content";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Head from "next/head";
-import Social from "../utils/Socials";
 
 const Account = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -34,7 +33,6 @@ const Account = () => {
             .string()
             .min(3, "Education should be atleast 5 characters long"),
     });
-    const dispatch = useDispatch();
     const uploadImage = (e) => {
         setLoading(true);
         const file = e.target.files[0];

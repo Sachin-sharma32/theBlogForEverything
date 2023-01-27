@@ -19,6 +19,7 @@ export default async function like(req, res) {
                   .patch(userId)
                   .unset([`bookmarks[_ref=="${postId}"]`])
                   .commit();
+        console.log(data);
         res.status(200).json(data);
     }
 }

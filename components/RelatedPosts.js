@@ -1,23 +1,25 @@
 import { Avatar } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 const RelatedPosts = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
-    const relatedPosts = posts
-        .filter((item) => {
-            if (item.category) {
-                return (
-                    item.category._id == post.category._id &&
-                    item._id != post._id
-                );
-            } else {
-                return false;
-            }
-        })
-        .splice(0, 2);
+    const relatedPosts = useMemo(() => {
+        return posts
+            .filter((item) => {
+                if (item.category) {
+                    return (
+                        item.category._id == post.category._id &&
+                        item._id != post._id
+                    );
+                } else {
+                    return false;
+                }
+            })
+            .splice(0, 2);
+    }, [posts, post]);
     return (
         <div
             className={`${
@@ -61,4 +63,4 @@ const RelatedPosts = ({ post }) => {
     );
 };
 
-export default RelatedPosts;
+export default React.memo(RelatedPosts);

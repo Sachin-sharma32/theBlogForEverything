@@ -1,21 +1,23 @@
 import Head from "next/head";
 import { useSelector } from "react-redux";
 import Post from "../components/Post";
+import ErrorBoundry from "../utils/ErrorBoundry";
 import Smooth from "../utils/Smooth";
-import Social from "../utils/Socials";
 
 const Bookmark = () => {
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
     const posts = useSelector((state) => state.base.posts);
     let bookmarks = [];
-    if (user && posts) {
-        bookmarks = posts.filter((post) => {
-            return user.bookmarks.find((bookmark) => {
-                return bookmark._ref == post._id;
+    useEffect(() => {
+        if (user && posts) {
+            bookmarks = posts.filter((post) => {
+                return user.bookmarks.find((bookmark) => {
+                    return bookmark._ref == post._id;
+                });
             });
-        });
-    }
+        }
+    }, [posts, user]);
     return (
         <>
             <Head>
@@ -38,7 +40,9 @@ const Bookmark = () => {
                 </div>
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
                     {bookmarks?.map((post, i) => (
-                        <Post key={i} post={post} />
+                        <ErrorBoundry key={i}>
+                            <Post post={post} />
+                        </ErrorBoundry>
                     ))}
                 </div>
                 {bookmarks?.length === 0 && (

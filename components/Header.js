@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Alert, Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
 import { imageBuilder } from "../sanity";
@@ -18,9 +18,11 @@ const Header = () => {
             }, 5000);
         }
     }, [success]);
-    let post = posts?.filter((item) => {
-        return item.bestPost;
-    });
+    let post = useMemo(() => {
+        return posts?.filter((item) => {
+            return item.bestPost;
+        });
+    }, [posts]);
     post = post[0];
 
     let StyledContainer;
@@ -158,4 +160,4 @@ const Header = () => {
     }
 };
 
-export default Header;
+export default React.memo(Header);

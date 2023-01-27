@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     <Provider store={store}>
                         <Navbar />
                         <Component {...pageProps} />
+                        <ReactQueryDevtools />
                         <Footer />
                         <Social />
                     </Provider>

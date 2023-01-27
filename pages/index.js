@@ -1,14 +1,10 @@
 import { useSelector } from "react-redux";
-import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Navbar from "../components/Navbar";
 import Posts from "../components/Posts";
 import TopCategories from "../components/TopCategories";
-import TopPosts from "../components/TopPosts";
-import { motion } from "framer-motion";
 import Smooth from "../utils/Smooth";
 import Head from "next/head";
-import Social from "../utils/Socials";
+import ErrorBoundry from "../utils/ErrorBoundry";
 
 export default function Home() {
     const mode = useSelector((state) => state.base.mode);
@@ -105,9 +101,15 @@ export default function Home() {
                     <TopCategories />
                     <Posts />
                 </div> */}
-                <Header />
-                <TopCategories />
-                <Posts />
+                <ErrorBoundry>
+                    <Header />
+                </ErrorBoundry>
+                <ErrorBoundry>
+                    <TopCategories />
+                </ErrorBoundry>
+                <ErrorBoundry>
+                    <Posts />
+                </ErrorBoundry>
             </Smooth>
         </>
     );

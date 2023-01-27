@@ -21,6 +21,7 @@ export default async function like(req, res) {
                   .unset([`likes[_ref=="${userId}"]`])
                   .commit();
         const posts = await client.fetch(query);
+        console.log(posts);
         res.status(200).json({ data, posts });
     }
 }

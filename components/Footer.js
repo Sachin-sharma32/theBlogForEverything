@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React from "react";
+import React, { useMemo } from "react";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -14,12 +14,16 @@ const Footer = () => {
     const mode = useSelector((state) => state.base.mode);
     const tags = useSelector((state) => state.base.tags);
     const categories = useSelector((state) => state.base.categories);
-    const footerCategories = categories?.filter((category) => {
-        return category.footer;
-    });
-    const footerTags = tags?.filter((tag) => {
-        return tag.footer;
-    });
+    const footerCategories = useMemo(() => {
+        return categories?.filter((category) => {
+            return category.footer;
+        });
+    }, [categories]);
+    const footerTags = useMemo(() => {
+        return tags?.filter((tag) => {
+            return tag.footer;
+        });
+    }, [tags]);
     return (
         <footer
             className={`${

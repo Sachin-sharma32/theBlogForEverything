@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
 const CategoryBox = ({ setToggleCategories, toggleCategories }) => {
     const categories = useSelector((state) => state.base.categories);
-    const headerCategories = categories.filter((category) => {
-        return category.header;
-    });
+    const headerCategories = useMemo(() => {
+        return categories.filter((category) => {
+            return category.header;
+        });
+    }, [categories]);
     const mode = useSelector((state) => state.base.mode);
     return (
         <motion.div

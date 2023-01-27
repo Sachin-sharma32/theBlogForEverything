@@ -2,8 +2,8 @@ import Head from "next/head";
 import React from "react";
 import { useSelector } from "react-redux";
 import Post from "../components/Post";
+import ErrorBoundry from "../utils/ErrorBoundry";
 import Smooth from "../utils/Smooth";
-import Social from "../utils/Socials";
 
 const Like = () => {
     const mode = useSelector((state) => state.base.mode);
@@ -31,7 +31,9 @@ const Like = () => {
 
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
                     {liked?.map((post, i) => (
-                        <Post key={i} post={post} />
+                        <ErrorBoundry key={i}>
+                            <Post post={post} />
+                        </ErrorBoundry>
                     ))}
                 </div>
                 {liked?.length === 0 && (

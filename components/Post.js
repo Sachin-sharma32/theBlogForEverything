@@ -8,7 +8,6 @@ import Like from "../utils/LikeIcon";
 import BookmarkBtn from "../utils/BookmarkBtn";
 import { imageBuilder } from "../sanity";
 import { useEffect } from "react";
-import ErrorBoundry from "../utils/ErrorBoundry";
 
 const Post = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);
@@ -152,4 +151,4 @@ const Post = ({ post }) => {
     );
 };
 
-export default Post;
+export default React.memo(Post);

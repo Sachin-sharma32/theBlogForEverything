@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "./Post";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 import ErrorBoundry from "../utils/ErrorBoundry";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
 const Posts = () => {
     let posts = useSelector((state) => state.base.posts);
@@ -12,19 +13,29 @@ const Posts = () => {
 
     const [filter, setFilter] = useState("Newest");
     const filters = ["Newest", "Oldest"];
-    if (filter == "Newest") {
-        postsCopy.sort(
-            (a, b) =>
-                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime() -
-                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime()
-        );
-    } else if (filter == "Oldest") {
-        postsCopy.sort(
-            (a, b) =>
-                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime() -
-                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime()
-        );
-    }
+    useEffect(() => {
+        if (filter == "Newest") {
+            postsCopy.sort(
+                (a, b) =>
+                    new Date(
+                        b.updatedAt ? b.updatedAt : b.publishedAt
+                    ).getTime() -
+                    new Date(
+                        a.updatedAt ? a.updatedAt : a.publishedAt
+                    ).getTime()
+            );
+        } else if (filter == "Oldest") {
+            postsCopy.sort(
+                (a, b) =>
+                    new Date(
+                        a.updatedAt ? a.updatedAt : a.publishedAt
+                    ).getTime() -
+                    new Date(
+                        b.updatedAt ? b.updatedAt : b.publishedAt
+                    ).getTime()
+            );
+        }
+    }, [filter]);
     posts = postsCopy;
 
     const mode = useSelector((state) => state.base.mode);
@@ -32,11 +43,17 @@ const Posts = () => {
     const [page, setPage] = useState(1);
     const lastPost = page * 12;
     const firstPost = lastPost - 11;
-    const pagePosts = posts.slice(firstPost - 1, lastPost);
     let pages = [];
-    for (let i = 1; i <= Math.ceil(posts.length / 12); i++) {
-        pages.push(i);
-    }
+    const pagePosts = useMemo(
+        () => posts.slice(firstPost - 1, lastPost),
+        [page, posts]
+    );
+
+    useEffect(() => {
+        for (let i = 1; i <= Math.ceil(posts.length / 12); i++) {
+            pages.push(i);
+        }
+    }, [posts]);
 
     return (
         <section className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">
@@ -127,4 +144,4 @@ const Posts = () => {
     );
 };
 
-export default Posts;
+export default React.memo(Posts);

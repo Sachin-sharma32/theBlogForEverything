@@ -57,6 +57,7 @@
 // export default TopCategories;
 
 import { Alert } from "@mui/material";
+import { ErrorBoundary } from "@sanity/ui";
 import Link from "next/link";
 import React from "react";
 import { useState } from "react";
@@ -88,11 +89,9 @@ const TopCategories = () => {
                         (category, i) =>
                             category.title &&
                             category.image && (
-                                <TopCategory
-                                    key={i}
-                                    num={i}
-                                    category={category}
-                                />
+                                <ErrorBoundary key={i}>
+                                    <TopCategory num={i} category={category} />
+                                </ErrorBoundary>
                             )
                     )}
                 </section>
@@ -101,4 +100,4 @@ const TopCategories = () => {
     );
 };
 
-export default TopCategories;
+export default React.memo(TopCategories);

@@ -49,11 +49,9 @@ const Posts = () => {
         [page, posts]
     );
 
-    useEffect(() => {
-        for (let i = 1; i <= Math.ceil(posts.length / 12); i++) {
-            pages.push(i);
-        }
-    }, [posts]);
+    for (let i = 1; i <= Math.ceil(posts.length / 12); i++) {
+        pages.push(i);
+    }
 
     return (
         <section className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">

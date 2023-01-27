@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Post from "../components/Post";
 import ErrorBoundry from "../utils/ErrorBoundry";

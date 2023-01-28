@@ -168,7 +168,10 @@ const Post = ({ headerPost }) => {
                                 : `${headerPost.title}`
                         }`}
                     />
-                    <meta property="og:title" content={headerPost?.title} />
+                    <meta
+                        property="og:title"
+                        content={`TBFE - ${headerPost?.title}`}
+                    />
                     <meta
                         name="og:description"
                         content={`${

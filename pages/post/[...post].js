@@ -154,7 +154,7 @@ const Post = ({ headerPost }) => {
         return (
             <>
                 <Head>
-                    <title>TBFE - {headerPost?.title}</title>
+                    <title>TBFE - {`${headerPost?.title}`}</title>
                     <link
                         rel="icon"
                         type="image/png"

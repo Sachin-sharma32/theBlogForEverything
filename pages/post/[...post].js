@@ -13,7 +13,7 @@ import Error from "../../utils/Error";
 import axios from "axios";
 import LikeCommentIcon from "../../utils/LikeCommentIcon";
 import Head from "next/head";
-import { imageBuilder } from "../../sanity";
+import { client, imageBuilder } from "../../sanity";
 import BookmarkBtn from "../../utils/BookmarkBtn";
 import Like from "../../utils/LikeIcon";
 import EastIcon from "@mui/icons-material/East";
@@ -22,7 +22,7 @@ import RichTextComponent from "../../components/RichTextComponent";
 import { useMemo } from "react";
 import ErrorBoundry from "../../utils/ErrorBoundry";
 
-const Post = () => {
+const Post = ({ headerPost }) => {
     const mode = useSelector((state) => state.base.mode);
     const router = useRouter();
     const posts = useSelector((state) => state.base.posts);
@@ -154,7 +154,7 @@ const Post = () => {
         return (
             <>
                 <Head>
-                    <title>TBFE - {post.title}</title>
+                    <title>TBFE - {headerPost.title}</title>
                     <link
                         rel="icon"
                         type="image/png"
@@ -164,20 +164,20 @@ const Post = () => {
                         name="description"
                         content={`${
                             post.summery
-                                ? `${post.summery[0].children[0].text}`
-                                : `${post.title}`
+                                ? `${headerPost.summery[0].children[0].text}`
+                                : `${headerPost.title}`
                         }`}
                     />
                     <meta
                         property="og:title"
-                        content={`TBFE - ${post.title}`}
+                        content={`TBFE - ${headerPost.title}`}
                     />
                     <meta
                         name="og:description"
                         content={`${
-                            post.summery
-                                ? `${post.summery[0].children[0].text}`
-                                : `${post.title}`
+                            headerPost.summery
+                                ? `${headerPost.summery[0].children[0].text}`
+                                : `${headerPost.title}`
                         }`}
                     />
                     <meta property="og:type" content="article" />
@@ -187,33 +187,36 @@ const Post = () => {
                     />
                     <meta
                         property="og:image"
-                        content={`${imageBuilder(post.image)}`}
+                        content={`${imageBuilder(headerPost.image)}`}
                     />
                     <meta
                         property="og:url"
-                        content={`https://www.theblogforeverything.com/post/${post?._id}`}
+                        content={`https://www.theblogforeverything.com/headerPost/${headerPost?._id}`}
                     />
                     <meta name="twitter:card" content="summary_large_image" />
                     <meta
                         name="twitter:site"
                         content="FBFE - The Blog For Everything"
                     />
-                    <meta name="twitter:title" content={`${post.title}`} />
+                    <meta
+                        name="twitter:title"
+                        content={`${headerPost.title}`}
+                    />
                     <meta
                         name="twitter:description"
                         content={`${
-                            post.summery
-                                ? `${post.summery[0].children[0].text}`
-                                : `${post.title}`
+                            headerPost.summery
+                                ? `${headerPost.summery[0].children[0].text}`
+                                : `${headerPost.title}`
                         }`}
                     />
                     <meta
                         name="twitter:image"
-                        content={`${imageBuilder(post.image)}`}
+                        content={`${imageBuilder(headerPost.image)}`}
                     />
                     <meta
                         name="og:url"
-                        content={`https://www.theblogforeverything.com/post${post._id}`}
+                        content={`https://www.theblogforeverything.com/headerPost${headerPost._id}`}
                     />
                 </Head>
 
@@ -590,3 +593,16 @@ const Post = () => {
 };
 
 export default Post;
+
+export async function getServerSideProps(context) {
+    const { query } = context;
+    const headerPost = await client.fetch(
+        `*[_type == "post" && _id == $id][0]`,
+        {
+            id: query.post[0],
+        }
+    );
+    return {
+        props: { headerPost },
+    };
+}

@@ -29,9 +29,9 @@ const Post = ({ post }) => {
         <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            Layout
+            layout
             transition={{
-                delay: 0.1,
+                delay: .1,
             }}
             className={`${
                 mode == "light"

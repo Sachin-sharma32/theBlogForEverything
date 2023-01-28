@@ -72,7 +72,7 @@ const Posts = () => {
                 </div>
             </div>
             <motion.div
-                Layout
+                layout
                 className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10"
             >
                 {pagePosts.map((post, i) => (

@@ -547,7 +547,7 @@ Post.getInitialProps = async (context) => {
         image: imageBuilder(headerPost.image),
         summery: headerPost.summery[0].children[0].text,
         keywords: tags.toString(),
-        type: "article",
+        type: "website",
         imageAlt: headerPost.title,
         id: headerPost._id,
     };

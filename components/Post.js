@@ -55,7 +55,7 @@ const Post = ({ post }) => {
             post.title &&
             post.author ? (
                 <article className=" p-4">
-                    <div className="flex items-center justify-between text-xs">
+                    <div className="flex items-center justify-between text-xs flex-wrap gap-1">
                         <div className=" text-[#eb9586] flex gap-2">
                             {post?.tags?.map((tag, i) => (
                                 <Link href={`/search/${tag.title}`} key={i}>

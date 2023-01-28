@@ -104,14 +104,6 @@ const Register = () => {
 
     return (
         <>
-            <Head>
-                <title>TBFE - Register</title>
-                <link
-                    rel="icon"
-                    type="image/png"
-                    href="/site-light-chopped.jpg"
-                />
-            </Head>
             <Smooth
                 className={`${mode == "light" ? "bg-white" : ""}   flex
             justify-center
@@ -302,3 +294,17 @@ const Register = () => {
 };
 
 export default Register;
+
+Register.getInitialProps = async (context) => {
+    return {
+        title: "Register | TEFE",
+        image: "/site-light-chopped.jpg",
+        summery:
+            "Register to TEFE to get access to all the features of the site",
+        keywords:
+            "register, sign in, sign up, login, TBFE, tech, tech blog, the blog for everyone",
+        type: "website",
+        imageAlt: "The Blog For Everything log",
+        parameter: "register",
+    };
+};

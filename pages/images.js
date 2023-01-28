@@ -125,3 +125,17 @@ export default function BasicMasonry() {
         </div>
     );
 }
+
+BasicMasonry.getInitialProps = async (context) => {
+    return {
+        title: "Image Gallery | The Blog For Everything",
+        image: "/site-light-chopped.jpg",
+        summery:
+            "Image Gallery | The Blog For Everything. This is the image gallery of the blog for everything. You can see all the images of the posts here.",
+        keywords:
+           "image gallery, images, gallery, the blog for everything, theblogforeverything, the blog for everything image gallery, theblogforeverything image gallery, the blog for everything images, theblogforeverything images, the blog for everything gallery, theblogforeverything gallery",
+        type: "website",
+        imageAlt: "The Blog For Everything log",
+        parameter: "images",
+    };
+};

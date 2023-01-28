@@ -233,3 +233,17 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+SignIn.getInitialProps = async (context) => {
+    return {
+        title: "Sign In | TBFE",
+        image: "/site-light-chopped.jpg",
+        summery:
+            "Sign In to TEFE to get access to all the features of the site",
+        keywords:
+            "register, sign in, sign up, login, tefe, tech, tech blog, tech blog for everyone",
+        type: "website",
+        imageAlt: "The Blog For Everything log",
+        parameter: "signin",
+    };
+};

@@ -8,12 +8,59 @@ import Footer from "../components/Footer";
 import { SessionProvider } from "next-auth/react";
 import Social from "../utils/Socials";
 import Script from "next/script";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+    console.log(pageProps);
     const queryClient = new QueryClient();
 
     return (
         <div className=" w-[100%] h-[100%]">
+            <Head>
+                <title>TBFE - {pageProps.title}</title>
+                <link
+                    rel="icon"
+                    type="image/jpg"
+                    href={`/site-light-chopped.jpg`}
+                />
+                <meta name="description" content={`${pageProps.summery}`} />
+                <meta name="keywords" content={pageProps.keywords} />
+                <meta
+                    property="og:title"
+                    content={`TBFE - ${pageProps.title}`}
+                />
+                <meta
+                    property="og:description"
+                    content={`${pageProps.summery}`}
+                />
+                <meta property="og:type" content={`${pageProps.type}`} />
+                <meta property="og:site_name" content="TheBlogForEverything" />
+                <meta property="og:image" content={`${pageProps.image}`} />
+                <meta property="og:image:type" content="image/jpeg" />
+                <meta property="og:locale" content="en_IN" />
+                <meta property="og:image:alt" content={`${pageProps.title}`} />
+                <meta property="og:image:width" content="400" />
+                <meta property="og:image:height" content="400" />
+                {pageProps.id ? (
+                    <meta
+                        property="og:url"
+                        content={`https://www.theblogforeverything.com/post/${pageProps.id}`}
+                    />
+                ) : (
+                    <meta
+                        property="og:url"
+                        content={`https://www.theblogforeverything.com/${pageProps.parameter}`}
+                    />
+                )}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:site" content="@TBFEpage" />
+                <meta name="twitter:title" content={`${pageProps.title}`} />
+                <meta
+                    name="twitter:description"
+                    content={`${pageProps.summery}`}
+                />
+                <meta name="twitter:image" content={`${pageProps.image}`} />
+            </Head>
             <Script
                 src="https://www.googletagmanager.com/gtag/js?id=G-PKPENVER0M"
                 strategy="afterInteractive"

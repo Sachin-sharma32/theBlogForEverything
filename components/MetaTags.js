@@ -1,15 +1,9 @@
-import { useSelector } from "react-redux";
-import Header from "../components/Header";
-import Posts from "../components/Posts";
-import TopCategories from "../components/TopCategories";
-import Smooth from "../utils/Smooth";
 import Head from "next/head";
-import ErrorBoundry from "../utils/ErrorBoundry";
+import React from "react";
 
-export default function Home() {
-    const mode = useSelector((state) => state.base.mode);
+const MetaTags = () => {
     return (
-        <>
+        <div>
             <Head>
                 <title>TBFE - Home</title>
                 <link
@@ -81,32 +75,13 @@ export default function Home() {
                     name="twitter:image"
                     content="https://cdn.sanity.io/images/k0me7ccv/production/8fa01467c0ac00d838090a47782c009153f72a94-1024x1024.jpg"
                 />
+                <meta
+                    name="og:url"
+                    content="https://www.theblogforeverything.com/"
+                />
             </Head>
-            <Smooth
-                className={` text-gray-500 text-sm ${
-                    mode == "light" ? "bg-white" : "bg-[#262626]"
-                } relative`}
-            >
-                {/* <Header />
-                <TopPosts />
-                <div className=" hidden md:flex">
-                    <Posts />
-                    <TopCategories />
-                </div>
-                <div className=" md:hidden flex flex-col">
-                    <TopCategories />
-                    <Posts />
-                </div> */}
-                <ErrorBoundry>
-                    <Header />
-                </ErrorBoundry>
-                <ErrorBoundry>
-                    <TopCategories />
-                </ErrorBoundry>
-                <ErrorBoundry>
-                    <Posts />
-                </ErrorBoundry>
-            </Smooth>
-        </>
+        </div>
     );
-}
+};
+
+export default MetaTags;

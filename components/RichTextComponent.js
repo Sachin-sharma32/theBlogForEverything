@@ -54,7 +54,9 @@ const RichTextComponent = (copy, setCopy) => {
         list: {
             bullet: ({ children }) => (
                 <div>
-                    <ul className=" ml-4 sm:ml-10 py-5 list-disk space-y-5">
+                    <ul
+                        className=" py-5 list-disk space-y-5"
+                    >
                         {children.map((item, i) => (
                             <div key={i} className="flex gap-4">
                                 <ArrowForwardIcon className=" text-[#eb9586]" />
@@ -65,7 +67,7 @@ const RichTextComponent = (copy, setCopy) => {
                 </div>
             ),
             number: ({ children }) => (
-                <ul className=" ml-4 sm:ml-10 py-5 list-disk space-y-5">
+                <ul className=" py-5 list-disk space-y-5">
                     {children.map((item, i) => (
                         <div key={i} className="flex gap-4">
                             <p className=" text-[#eb9586] font-bold">

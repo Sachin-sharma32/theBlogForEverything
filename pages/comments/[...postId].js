@@ -7,6 +7,7 @@ import Smooth from "../../utils/Smooth";
 import Link from "next/link";
 import WestIcon from "@mui/icons-material/West";
 import Head from "next/head";
+import App from "next/app";
 
 const Comments = () => {
     const router = useRouter();
@@ -23,7 +24,7 @@ const Comments = () => {
     });
 
     return (
-        <>
+        <div>
             <Head>
                 <title>TBFE - {post[0]?.title}</title>
                 <link
@@ -89,7 +90,7 @@ const Comments = () => {
                     ))}
                 </div>
             </Smooth>
-        </>
+        </div>
     );
 };
 

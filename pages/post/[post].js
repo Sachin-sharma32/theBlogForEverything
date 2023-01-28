@@ -535,12 +535,13 @@ export default Post;
 Post.getInitialProps = async (context) => {
     const { query } = context;
     const headerPost = await client.fetch(
-        `*[_type == "post" && _id == $id][0]{title, image, summery, tags[]->, summery}`,
+        `*[_type == "post" && _id == $id][0]{title, image, summery, tags[]->, summery,_id}`,
         {
             id: query.post,
         }
     );
     const tags = headerPost.tags.map((tag) => tag.title);
+    console.log(headerPost);
     return {
         title: headerPost.title,
         image: imageBuilder(headerPost.image),
@@ -548,6 +549,6 @@ Post.getInitialProps = async (context) => {
         keywords: tags.toString(),
         type: "article",
         imageAlt: headerPost.title,
-        id: headerPost.id,
+        id: headerPost._id,
     };
 };

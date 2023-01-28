@@ -170,7 +170,7 @@ const Post = ({ headerPost }) => {
                     />
                     <meta
                         property="og:title"
-                        content={`TBFE - ${headerPost?.title}`}
+                        content="The Blog For Everything"
                     />
                     <meta
                         name="og:description"

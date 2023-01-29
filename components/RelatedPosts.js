@@ -2,6 +2,7 @@ import { Avatar } from "@mui/material";
 import Link from "next/link";
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
+import { imageBuilder } from "../sanity";
 
 const RelatedPosts = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);
@@ -40,7 +41,9 @@ const RelatedPosts = ({ post }) => {
                     <Link href={`/post/${post._id}`} key={i}>
                         <div className=" border-b-2 pb-2">
                             <div className="flex items-center gap-2 cursor-pointer">
-                                <Avatar src="/person.webp" />
+                                <Avatar
+                                    src={`${imageBuilder(post?.author.image)}`}
+                                />
                                 <p className=" text-xs font-semibold">
                                     {post.author.name}
                                 </p>

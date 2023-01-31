@@ -146,7 +146,7 @@ const Search = () => {
                                         : "text-[#262626]"
                                 }  flex flex-col justify-center items-center text-3xl text-center mb-10 font-bold`}
                             >
-                                <span>NOT RESULT FOUND FOR</span>
+                                <span>NO RESULT FOUND FOR</span>
                                 <span className=" text-red-500">
                                     {search?.toUpperCase()}
                                 </span>

@@ -99,6 +99,11 @@ a {
   height: 8px;
 }
 
+pre::-webkit-scrollbar{
+  width: 0px;
+  height: 0px;
+}
+
 @media only screen and (min-width: 601px) {
   .profile-icon:hover .drop-down{
     display: flex;
@@ -190,3 +195,21 @@ a {
         transform: rotateY(-180deg); }
       .card:hover .card__side--back {
         transform: rotateY(0); }
+        
+        
+        ul {
+          list-style: none; /* Remove default bullets */
+        }
+        
+        
+        ul li::before {
+          content: "\2605";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+          color: rgb(255, 89, 0); /* Change the color */
+          font-weight: bold; /* If you want it to be bold */
+          display: inline-block; /* Needed to add space between the bullet and the text */
+          width: 1em; /* Also needed for space (tweak if needed) */
+          margin-left: -19px; /* Also needed for space (tweak if needed) */
+        }
+        li{
+          margin-left: 30px;
+        }

@@ -7,12 +7,7 @@ import { Avatar } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 import { setLiked, setMode, setSession, setUser } from "../redux/slices";
-import {
-    useGetCategories,
-    useGetMe,
-    useGetPosts,
-    useGetTags,
-} from "../hooks/content";
+import { useGetCategories, useGetPosts, useGetTags } from "../hooks/content";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
@@ -22,13 +17,31 @@ import CategoryBox from "./CategoryBox";
 import LoginIcon from "@mui/icons-material/Login";
 import CheckOutsideClick from "../utils/CheckOutsideClick";
 import ErrorBoundry from "../utils/ErrorBoundry";
+import { useGetMe } from "../hooks/useUser";
+import { useLogOut } from "../hooks/useAuth";
+import { useUserLikes } from "../hooks/useLike";
 
 const Navbar = () => {
-    const [hasSession, setHasSession] = useState(false);
+    const [userData, setUserData] = useState(null);
+    // const [likes, setLikes] = useState(null);
     const mode = useSelector((state) => state.base.mode);
+    const [userLikes, setUserLikes] = useState(null);
+
+    const onSuccess = (data) => {
+        setUserData(data);
+    };
+    const onError = () => {
+        setUserData(null);
+    };
+    const { data: user } = useGetMe(onSuccess, onError);
+    console.log(user);
+    const onLikeSuccess = (data) => {
+        setUserLikes(data);
+    };
+    useUserLikes(user?._id, onLikeSuccess);
 
     const dispatch = useDispatch();
-    const { data: user } = useGetMe();
+    // const { data: user } = useGetMe();
     const { data } = useGetPosts();
     const [shown, setShown] = useState(false);
 
@@ -39,6 +52,8 @@ const Navbar = () => {
     }
 
     const [toggleCategories, setToggleCategories] = useState(false);
+
+    const { mutate: logOut } = useLogOut();
 
     useGetTags();
     useGetCategories();
@@ -58,11 +73,10 @@ const Navbar = () => {
 
     const session = useSelector((state) => state.base.session);
     const posts = useSelector((state) => state.base.posts);
-    const likes = useSelector((state) => state.base.likes);
 
     useEffect(() => {
         if (session) {
-            setHasSession(true);
+            setUserData(true);
         }
     }, [session]);
     const [cookie, setCookie] = useCookies(["user"]);
@@ -77,19 +91,6 @@ const Navbar = () => {
         e.preventDefault();
         router.push(`/search/${search}`);
     };
-    let liked = [];
-    useEffect(() => {
-        if (siteUser) {
-            posts.map((post) => {
-                post.likes?.map((item) => {
-                    if (item._id === siteUser._id) {
-                        liked.push(post);
-                    }
-                });
-            });
-            dispatch(setLiked(liked));
-        }
-    }, [posts, siteUser]);
 
     useEffect(() => {
         const md = localStorage.getItem("mode");
@@ -181,13 +182,6 @@ const Navbar = () => {
                                     className=" hover:rotate-180 transition-all duration-200 active:rotate-180"
                                 />
                             )}
-                            {/* <div className=" hidden sm:flex">
-                                {toggleCategories ? (
-                                    <ArrowDropUpIcon />
-                                ) : (
-                                    <ArrowDropDownIcon />
-                                )}
-                            </div> */}
                         </a>
                         {toggleCategories && (
                             <ErrorBoundry>
@@ -199,7 +193,7 @@ const Navbar = () => {
                     </section>
                 </CheckOutsideClick>
             </div>
-            {hasSession ? (
+            {userData ? (
                 <div className=" relative">
                     <div>
                         <button
@@ -221,7 +215,7 @@ const Navbar = () => {
                                     } shadow-2xl shadow-black flex-col text-sm user-links font-normal z-50`}
                                 >
                                     <li className="bg-gradient-to-r from-[#ff7d69] to-blue-700 p-4">
-                                        Hi, {user?.data?.user?.name}
+                                        Hi, {user?.name}
                                     </li>
                                     <Link href="/account" onClick={hideSideBar}>
                                         <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
@@ -259,16 +253,8 @@ const Navbar = () => {
                                     <li
                                         className=" hover:bg-gray-200 hover:text-black w-full p-4 flex flex-col text-center cursor-pointer"
                                         onClick={() => {
-                                            setCookie("user", "logout", {
-                                                path: "/",
-                                                maxAge: 0,
-                                                sameSite: true,
-                                            });
-                                            setHasSession(false);
-                                            dispatch(setUser({}));
-                                            dispatch(setSession(null));
-                                            signOut();
-                                            router.push("/");
+                                            setUserData(null);
+                                            logOut();
                                         }}
                                     >
                                         <p>LOGOUT</p>
@@ -304,7 +290,7 @@ const Navbar = () => {
                                         : "bg-black text-white"
                                 } rounded-full p-2 flex justify-center items-center w-5 h-5 absolute -top-2 -right-2`}
                             >
-                                {siteUser?.bookmarks?.length}
+                                {userData.bookmarks.length}
                             </p>
                         </Link>
                         <Link href="/like" className="relative hidden md:flex">
@@ -324,7 +310,7 @@ const Navbar = () => {
                                         : "bg-black text-white"
                                 } absolute -top-2 -right-2 w-5 h-5 rounded-full flex justify-center items-center`}
                             >
-                                {likes.length}
+                                {userLikes?.length}
                             </p>
                         </Link>
                         <button
@@ -346,14 +332,14 @@ const Navbar = () => {
                         </button>
                         <div className=" relative profile-icon">
                             <div className="">
-                                {siteUser?.image?.length > 0 && (
+                                {user?.image?.length > 0 && (
                                     <Avatar
-                                        src={`${siteUser?.image}`}
+                                        src={`${user?.image}`}
                                         className=" cursor-pointer w-7 h-7 sm:w-10 sm:h-10"
                                         alt="user image"
                                     />
                                 )}
-                                {!siteUser?.image &&
+                                {!user?.image &&
                                     (mode == "dark" ? (
                                         <Avatar
                                             src="/site-chopped-light.jpg"
@@ -374,7 +360,7 @@ const Navbar = () => {
                                 } absolute top-10 -left-36 -translate-x-1/2 shadow-2xl shadow-black flex-col text-sm rounded-2xl overflow-hidden user-links font-normal z-0 hidden drop-down`}
                             >
                                 <li className="bg-gradient-to-r from-[#ff7d69] to-blue-700 p-4">
-                                    Hi, {user?.data?.user?.name?.toUpperCase()}
+                                    Hi, {user?.name?.toUpperCase()}
                                 </li>
                                 <Link href="/account">
                                     <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
@@ -396,7 +382,7 @@ const Navbar = () => {
                                         Image Library
                                     </li>
                                 </Link>
-                                {siteUser?.isAdmin && (
+                                {user?.isAdmin && (
                                     <Link href="https://theblogforeverything.sanity.studio">
                                         <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
                                             Dashboard
@@ -406,21 +392,13 @@ const Navbar = () => {
                                 <li
                                     className=" hover:bg-gray-200 hover:text-black w-96 p-4 flex flex-col text-center cursor-pointer"
                                     onClick={() => {
-                                        setCookie("user", "logout", {
-                                            path: "/",
-                                            maxAge: 0,
-                                            sameSite: true,
-                                        });
-                                        setHasSession(false);
-                                        dispatch(setUser(null));
-                                        dispatch(setSession(null));
+                                        setUserData(null);
+                                        logOut();
                                         signOut();
                                     }}
                                 >
                                     <p>LOGOUT</p>
-                                    <p className=" text-xs">
-                                        {user?.data.user.email}
-                                    </p>
+                                    <p className=" text-xs">{user?.email}</p>
                                 </li>
                             </ul>
                         </div>

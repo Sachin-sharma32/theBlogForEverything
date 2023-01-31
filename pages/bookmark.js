@@ -2,24 +2,15 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Post from "../components/Post";
+import { useGetMe } from "../hooks/useUser";
 import ErrorBoundry from "../utils/ErrorBoundry";
 import Smooth from "../utils/Smooth";
 
 const Bookmark = () => {
     const mode = useSelector((state) => state.base.mode);
-    const user = useSelector((state) => state.base.user);
-    const posts = useSelector((state) => state.base.posts);
-    let bookmarks = [];
-    if (user && posts) {
-        bookmarks = posts.filter((post) => {
-            return user.bookmarks.find((bookmark) => {
-                return bookmark._ref == post._id;
-            });
-        });
-    }
+    const { data: user } = useGetMe();
     return (
         <>
-        
             <Head>
                 <title>TBFE - Bookmarks</title>
                 <link
@@ -39,13 +30,13 @@ const Bookmark = () => {
                     </h3>
                 </div>
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
-                    {bookmarks?.map((post, i) => (
+                    {user?.bookmarks?.map((post, i) => (
                         <ErrorBoundry key={i}>
                             <Post post={post} />
                         </ErrorBoundry>
                     ))}
                 </div>
-                {bookmarks?.length === 0 && (
+                {user?.bookmarks?.length === 0 && (
                     <div className="bg-red-500 text-black p-4 absolute top-40 font-bold">
                         THERE ARE NO BOOKMARKS
                     </div>

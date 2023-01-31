@@ -13,7 +13,6 @@ import Error from "../../utils/Error";
 import axios from "axios";
 import LikeCommentIcon from "../../utils/LikeCommentIcon";
 import Head from "next/head";
-import { client, imageBuilder } from "../../sanity";
 import BookmarkBtn from "../../utils/BookmarkBtn";
 import Like from "../../utils/LikeIcon";
 import EastIcon from "@mui/icons-material/East";
@@ -21,25 +20,23 @@ import { PortableText } from "@portabletext/react";
 import RichTextComponent from "../../components/RichTextComponent";
 import { useMemo } from "react";
 import ErrorBoundry from "../../utils/ErrorBoundry";
-import Document from "../_document";
-import MyApp from "../_app";
-import MetaTags from "../../components/MetaTags";
-import { NextPageContext } from "next";
+import Editor from "rich-markdown-editor";
 
-const Post = () => {
+const Post = ({ post }) => {
+    const [editor, setEditor] = useState(null);
     const mode = useSelector((state) => state.base.mode);
     const router = useRouter();
-    const posts = useSelector((state) => state.base.posts);
+    // const posts = useSelector((state) => state.base.posts);
     const user = useSelector((state) => state.base.user);
     const [comment, setComment] = useState("");
     const [copy, setCopy] = useState(false);
 
-    const currentPost = useMemo(() => {
-        return posts?.filter((item) => {
-            return item?._id == router.query.post;
-        });
-    }, [posts]);
-    const post = currentPost[0];
+    // const currentPost = useMemo(() => {
+    //     return posts?.filter((item) => {
+    //         return item?._id == router.query.post;
+    //     });
+    // }, [posts]);
+    // const post = currentPost[0];
     const [comments, setComments] = useState([]);
     useEffect(() => {
         if (post?.comments) {
@@ -127,15 +124,11 @@ const Post = () => {
         if (post) {
             if (mode === "light") {
                 setEffect(
-                    `linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.9) 90%, rgb(255, 255, 255) 100%),url(${imageBuilder(
-                        post.image
-                    )})`
+                    `linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.9) 90%, rgb(255, 255, 255) 100%),url("${post.image}")`
                 );
             } else {
                 setEffect(
-                    `linear-gradient(rgba(0, 0, 0, 0.7) 0%, rgb(0, 0, 0,.8) 50%, rgba(0, 0, 0, 0.9) 90%, rgb(0, 0, 0) 100%),url(${imageBuilder(
-                        post.image
-                    )})`
+                    `linear-gradient(rgba(0, 0, 0, 0.7) 0%, rgb(0, 0, 0,.8) 50%, rgba(0, 0, 0, 0.9) 90%, rgb(0, 0, 0) 100%),url("${post.image}")`
                 );
             }
         }
@@ -154,6 +147,28 @@ const Post = () => {
             }, 5000);
         }
     }, [bookmarkSuccess, likeSuccess]);
+    const postCentent = post.content
+        .replaceAll("<h1>", '<h1 class="text-5xl font-bold mb-6">')
+        .replaceAll("<h2>", '<h2 class="text-4xl font-bold mb-6">')
+        .replaceAll("<h3>", '<h3 class="text-3xl font-bold mb-6">')
+        .replaceAll("<h4>", '<h4 class="text-2xl font-bold mb-6">')
+        .replaceAll("<h5>", '<h5 class="text-xl font-bold mb-6">')
+        .replaceAll("<h6>", '<h6 class="text-lg font-bold mb-6">')
+        .replaceAll("<ul>", '<ul class="list-disc font-normal">')
+        .replaceAll("<ol>", '<ol class="list-decimal font-normal">')
+        .replaceAll("<ul>", "<ul>")
+        .replaceAll("<li>", '<li class="mb-4">')
+        .replaceAll(
+            "<pre",
+            '<pre class="bg-gray-100 p-4 rounded-md text-black overflow-scroll max-w-[500px] max-h-[300;x] mb-4 m-auto'
+        )
+        .replaceAll("<img", "<img class='h-[300px] m-auto w-[500px] mb-4'")
+        .replaceAll(
+            "<blockquote>",
+            '<blockquote class="p-4 pl-2 h-fit border-l-4 border-orange-500 bg-orange-100 text-gray-500 rounded-lg font-bold mb-4 text-center quote">'
+        )
+        .replaceAll("<a", '<a class="text-blue-500 hover:border-b pb-1"')
+        .replaceAll("<p>", '<p class="mb-4 font-normal">');
     if (post) {
         return (
             <div>
@@ -212,9 +227,7 @@ const Post = () => {
                                             : "text-black"
                                     } mt-4 flex gap-2 text-xs items-center`}
                                 >
-                                    <Avatar
-                                        src={imageBuilder(post.author.image)}
-                                    />
+                                    <Avatar src={post.author.image} />
                                     <figcaption>
                                         {post.author.name} on{" "}
                                         {moment(post.publishedAt).format("ll")}
@@ -232,19 +245,33 @@ const Post = () => {
                                     } mt-4 md:mt-10  p-4 sm:p-10 rounded-sm shadow-xl text-xs sm:text-base relative py-4 rounded-2xl`}
                                     style={{ fontFamily: "Inter" }}
                                 >
-                                    <PortableText
+                                    {/* <PortableText
                                         value={post.content}
                                         components={RichTextComponent(
                                             copy,
                                             setCopy
                                         )}
+                                    /> */}
+                                    <div
+                                        dangerouslySetInnerHTML={{
+                                            __html: postCentent,
+                                        }}
                                     />
-
+                                    {/* <Editor /> */}
+                                    {/* <Editor
+                                        onSave={(
+                                            editorData,
+                                            title,
+                                            description
+                                        ) =>
+                                            onSaveHandler(
+                                                editorData,
+                                                title,
+                                                description
+                                            )
+                                        }
+                                    /> */}
                                     <div className="flex justify-end gap-3 relative mt-4">
-                                        <BookmarkBtn
-                                            post={post}
-                                            setSuccess={setBookmarkSuccess}
-                                        />
                                         <Like
                                             post={post}
                                             setSuccess={setLikeSuccess}
@@ -532,23 +559,46 @@ const Post = () => {
 
 export default Post;
 
-Post.getInitialProps = async (context) => {
-    const { query } = context;
-    const headerPost = await client.fetch(
-        `*[_type == "post" && _id == $id][0]{title, image, summery, tags[]->, summery,_id}`,
+// Post.getInitialProps = async (context) => {
+//     const { query } = context;
+//     const headerPost = await client.fetch(
+//         `*[_type == "post" && _id == $id][0]{title, image, summery, tags[]->, summery,_id}`,
+//         {
+//             id: query.post,
+//         }
+//     );
+//     const tags = headerPost.tags.map((tag) => tag.title);
+//     return {
+//         title: headerPost.title,
+//         image: imageBuilder(headerPost.image),
+//         summery: headerPost.summery[0].children[0].text,
+//         keywords: tags.toString(),
+//         type: "website",
+//         imageAlt: headerPost.title,
+//         id: headerPost._id,
+//     };
+// };
+
+export async function getServerSideProps(context) {
+    const post = await axios.get(
+        `http://localhost:8000/api/v1/posts/${context.params.post}`,
         {
-            id: query.post,
+            headers: {
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDQwMTAxYzk0MGUxZWVkMTlmMmVmMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTA3ODYyMSwiZXhwIjoxNjc1NjgzNDIxfQ.m78XjAVnusQbvTUnbowBRNQOt88iGd6YmfIxFYKAZts`,
+            },
         }
     );
-    const tags = headerPost.tags.map((tag) => tag.title);
-    console.log(headerPost);
+    // const tags = post?.tags?.map((tag) => tag.title);
     return {
-        title: headerPost.title,
-        image: imageBuilder(headerPost.image),
-        summery: headerPost.summery[0].children[0].text,
-        keywords: tags.toString(),
-        type: "website",
-        imageAlt: headerPost.title,
-        id: headerPost._id,
+        props: {
+            post: post.data.data.doc,
+            // title: post.title,
+            // image: post.image,
+            // summery: post.summery,
+            // keywords: tags.toString(),
+            // type: "website",
+            // imageAlt: post.title,
+            // id: post._id,
+        },
     };
-};
+}

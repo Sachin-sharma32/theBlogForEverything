@@ -9,6 +9,10 @@ import { Alert } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
 import Head from "next/head";
+import { useLogIn } from "../hooks/useAuth";
+import Login from "@mui/icons-material/Login";
+import { Layer } from "@sanity/ui";
+import Layout from "../components/Layout";
 
 const SignIn = () => {
     const router = useRouter();
@@ -32,11 +36,12 @@ const SignIn = () => {
             setError(false);
         }, 2000);
     };
-    const { mutate: userSignIn, error: err } = useSignin(onSuccess, onError);
+    const { mutate: logIn } = useLogIn(onSuccess, onError);
+    // const { mutate: userSignIn, error: err } = useSignin(onSuccess, onError);
     const submitHandler = async (e) => {
         e.preventDefault();
         const user = { email, password };
-        userSignIn(user);
+        logIn(user);
     };
 
     const { data: session } = useSession();
@@ -65,7 +70,7 @@ const SignIn = () => {
     };
 
     return (
-        <>
+        <Layout>
             {error && (
                 <Alert
                     severity="error"
@@ -228,7 +233,7 @@ const SignIn = () => {
                     </div>
                 </div>
             </Smooth>
-        </>
+        </Layout>
     );
 };
 

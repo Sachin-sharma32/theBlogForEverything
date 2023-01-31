@@ -2,12 +2,16 @@ import Head from "next/head";
 import React from "react";
 import { useSelector } from "react-redux";
 import Post from "../components/Post";
+import { useUserLikes } from "../hooks/useLike";
+import { useGetMe } from "../hooks/useUser";
 import ErrorBoundry from "../utils/ErrorBoundry";
 import Smooth from "../utils/Smooth";
 
 const Like = () => {
     const mode = useSelector((state) => state.base.mode);
-    const liked = useSelector((state) => state.base.likes);
+    const { data: user } = useGetMe();
+    const { data: likes } = useUserLikes(user?._id);
+    console.log(likes);
     return (
         <>
             <Head>
@@ -30,13 +34,13 @@ const Like = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
-                    {liked?.map((post, i) => (
+                    {likes?.map((post, i) => (
                         <ErrorBoundry key={i}>
-                            <Post post={post} />
+                            <Post post={post._id} />
                         </ErrorBoundry>
                     ))}
                 </div>
-                {liked?.length === 0 && (
+                {likes?.length === 0 && (
                     <div className="bg-red-500 text-black p-4 absolute top-32 font-bold">
                         NO LIKES TO SHOW
                     </div>

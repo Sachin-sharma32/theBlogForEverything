@@ -23,11 +23,15 @@
         "bcryptjs": "^2.4.3",
         "cookies": "^0.8.0",
         "crypto-js": "^4.1.1",
+        "dangerously-set-html-content": "^1.0.13",
         "ejs": "^3.1.8",
         "file-saver": "^2.0.5",
         "formik": "^2.2.9",
         "framer-motion": "^8.4.5",
+        "html-react-parser": "^3.0.8",
+        "html-to-formatted-text": "^2.7.0",
         "html-to-image": "^1.11.4",
+        "html2plaintext": "^2.1.4",
         "jsonwebtoken": "^9.0.0",
         "mailing-core": "^0.9.8",
         "mjml": "^4.13.0",
@@ -36,6 +40,7 @@
         "next": "13.1.2",
         "next-auth": "^4.18.8",
         "next-sanity": "^4.0.6",
+        "node-html-parser": "^6.1.4",
         "nodemailer": "^6.9.0",
         "nodemailer-express-handlebars": "^6.0.0",
         "react": "^18.2.0",
@@ -45,6 +50,7 @@
         "react-query": "^3.39.2",
         "react-redux": "^8.0.5",
         "react-syntax-highlighter": "^15.5.0",
+        "rich-markdown-editor": "^11.21.3",
         "sanity": "^3.0.0",
         "styled-components": "^5.2.0",
         "uuidv4": "^6.2.13",
@@ -57,6 +63,10 @@
         "eslint": "8.31.0",
         "eslint-config-next": "13.1.2",
         "postcss": "^8.4.21",
-        "tailwindcss": "^3.2.4"
+        "tailwindcss": "^3.2.4",
+        "typescript": "4.9.4"
+    },
+    "resolutions": {
+        "prosemirror-model": "1.9.1"
     }
 }

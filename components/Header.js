@@ -6,10 +6,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import BookmarkBtn from "../utils/BookmarkBtn";
 import styled from "styled-components";
+import { useGetBestPost } from "../hooks/usePost";
 
 const Header = () => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
+    const { data: bestPost } = useGetBestPost();
+    console.log(bestPost);
     const [success, setSuccess] = useState(false);
     useEffect(() => {
         if (success) {
@@ -26,7 +29,7 @@ const Header = () => {
     post = post[0];
 
     let StyledContainer;
-    if (post && mode) {
+    if (bestPost) {
         StyledContainer = styled.div`
             @media only screen and (max-width: 768px) {
                 background-image: linear-gradient(
@@ -41,7 +44,7 @@ const Header = () => {
                                 ? "rgba(0, 0, 0, 0.665) 100%"
                                 : "rgba(230, 230, 230, 0.831) 100%"}
                     ),
-                    url(${imageBuilder(post.image)});
+                    url(${bestPost?.image});
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -59,7 +62,7 @@ const Header = () => {
                                 ? "rgba(0, 0, 0) 100%"
                                 : "rgba(250, 250, 250) 100%"}
                     ),
-                    url(${imageBuilder(post.image)});
+                    url(${bestPost?.image});
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -74,7 +77,7 @@ const Header = () => {
         `;
     }
 
-    if (post && mode) {
+    if (bestPost) {
         return (
             <>
                 <header className=" flex justify-center items-center mt-0 pt-8">
@@ -89,11 +92,11 @@ const Header = () => {
                                 <section>
                                     <article className=" sm:w-80 p-4 sm:p-0 w-50 flex flex-col gap-4 sm:gap-10 mr-0 sm:mr-10 cursor-pointer">
                                         <Link
-                                            href={`/post/${post._id}`}
+                                            href={`/post/${bestPost._id}`}
                                             className="flex flex-col gap-4 sm:gap-10"
                                         >
                                             <h1 className=" text-3xl font-bold bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
-                                                {post.title}
+                                                {bestPost.title}
                                             </h1>
                                             <p
                                                 className={`${
@@ -102,16 +105,11 @@ const Header = () => {
                                                         : "text-white"
                                                 }`}
                                             >
-                                                {
-                                                    post.summery[0].children[0]
-                                                        .text
-                                                }
+                                                {bestPost.summery}
                                             </p>
                                             <figure className="flex gap-4 items-center">
                                                 <Avatar
-                                                    src={imageBuilder(
-                                                        post.author.image
-                                                    )}
+                                                    src={bestPost.author.image}
                                                     className=" w-14 h-14"
                                                 />
                                                 <figcaption>
@@ -122,10 +120,10 @@ const Header = () => {
                                                                 : "text-white"
                                                         }`}
                                                     >
-                                                        {post.author.name}
+                                                        {bestPost.author.name}
                                                     </p>
                                                     <p className=" text-xs">
-                                                        {post.author.work}
+                                                        {bestPost.author.work}
                                                     </p>
                                                 </figcaption>
                                             </figure>
@@ -138,7 +136,7 @@ const Header = () => {
                                             } flex justify-end gap-4 text-lg h-7`}
                                         >
                                             <BookmarkBtn
-                                                post={post}
+                                                post={bestPost}
                                                 setSuccess={setSuccess}
                                             />
                                         </div>

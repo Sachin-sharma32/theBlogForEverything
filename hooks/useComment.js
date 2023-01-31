@@ -1,0 +1,79 @@
+import { useQuery, useQueryClient, useMutation } from "react-query";
+
+export const useGetComments = (onSuccess, onError) => {
+    return useQuery(
+        "comments",
+        (postId) => {
+            return axios.get(`http://localhost:8000/api/v1/comments/${postId}`);
+        },
+        {
+            onSuccess: onSuccess,
+            onError: onError,
+            select: (data) => {
+                const comments = data.data.data.docs;
+                return comments;
+            },
+        }
+    );
+};
+
+export const useDeleteComment = (onSuccess, onError) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        "deleteComment",
+        (commentId) => {
+            return axios.delete(
+                `http://localhost:8000/api/v1/comments/${commentId}`
+            );
+        },
+        {
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["comments"]);
+                onSuccess();
+            },
+            onError: onError,
+        }
+    );
+};
+
+export const useAddComment = (onSuccess, onError) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        "addComment",
+        (data) => {
+            return axios.post(
+                `http://localhost:8000/api/v1/comments/${data.commentId}`,
+                data.postId,
+                data.data
+            );
+        },
+        {
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["comments"]);
+                onSuccess();
+            },
+            onError: onError,
+        }
+    );
+};
+
+
+export const useUpdateComment = (onSuccess, onError) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        "updateComment",
+        (data) => {
+            return axios.patch(
+                `http://localhost:8000/api/v1/comments/${data.commentId}`,
+                data.data
+            );
+        },
+        {
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["comments"]);
+                onSuccess();
+            },
+            onError: onError,
+        }
+    );
+}

@@ -5,11 +5,12 @@ import TopCategories from "../components/TopCategories";
 import Smooth from "../utils/Smooth";
 import Head from "next/head";
 import ErrorBoundry from "../utils/ErrorBoundry";
+import Layout from "../components/Layout";
 
 export default function Home() {
     const mode = useSelector((state) => state.base.mode);
     return (
-        <>
+        <Layout>
             <Head>
                 <title>TBFE - Home</title>
                 <link
@@ -107,6 +108,6 @@ export default function Home() {
                     <Posts />
                 </ErrorBoundry>
             </Smooth>
-        </>
+        </Layout>
     );
 }

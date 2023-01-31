@@ -9,9 +9,13 @@ import { SessionProvider } from "next-auth/react";
 import Social from "../utils/Socials";
 import Script from "next/script";
 import Head from "next/head";
+import axios from "axios";
+
+axios.defaults.headers.common[
+    "Authorization"
+] = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDQwMTAxYzk0MGUxZWVkMTlmMmVmMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTAzNzkzMywiZXhwIjoxNjc1NjQyNzMzfQ.ZF4SJtLWaFn9AQNCnlhvNCvc1Gh_JN1LtZVZcZ3Je3U`;
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-    console.log(pageProps);
     const queryClient = new QueryClient();
 
     return (

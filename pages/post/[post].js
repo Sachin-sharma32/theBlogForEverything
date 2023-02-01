@@ -124,7 +124,7 @@ const Post = () => {
     };
     const [effect, setEffect] = useState(null);
     useEffect(() => {
-        if (post) {
+        if (post && post?.image?.asset) {
             if (mode === "light") {
                 setEffect(
                     `linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.9) 90%, rgb(255, 255, 255) 100%),url(${imageBuilder(
@@ -154,6 +154,7 @@ const Post = () => {
             }, 5000);
         }
     }, [bookmarkSuccess, likeSuccess]);
+
     if (post) {
         return (
             <div>
@@ -227,9 +228,9 @@ const Post = () => {
                                 <main
                                     className={`${
                                         mode == "dark"
-                                            ? "bg-[#262626] text-white"
+                                            ? "bg-[#262626] text-white shadow-black"
                                             : "bg-white text-[#262626]"
-                                    } mt-4 md:mt-10  p-4 sm:p-10 rounded-sm shadow-xl text-xs sm:text-base relative py-4 rounded-2xl`}
+                                    } mt-4 md:mt-10  p-4 sm:p-10 text-xs sm:text-base relative py-4 rounded-2xl shadow-2xl`}
                                     style={{ fontFamily: "Inter" }}
                                 >
                                     <PortableText
@@ -544,7 +545,9 @@ Post.getInitialProps = async (context) => {
     console.log(headerPost);
     return {
         title: headerPost.title,
-        image: imageBuilder(headerPost.image),
+        image: headerPost?.image?.asset
+            ? imageBuilder(headerPost.image)
+            : "https://cdn.sanity.io/images/k0me7ccv/production/8fa01467c0ac00d838090a47782c009153f72a94-1024x1024.jpg",
         summery: headerPost.summery[0].children[0].text,
         keywords: tags.toString(),
         type: "website",

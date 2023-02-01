@@ -73,7 +73,8 @@ const Posts = () => {
             </div>
             <motion.div
                 layout
-                className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10"
+                // className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10"
+                className="columns-1 md:columns-2 xl:columns-3 2xl:columns-4 gap-10"
             >
                 {pagePosts.map((post, i) => (
                     <ErrorBoundry key={i}>

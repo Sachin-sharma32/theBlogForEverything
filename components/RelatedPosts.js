@@ -7,20 +7,32 @@ import { imageBuilder } from "../sanity";
 const RelatedPosts = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
-    const relatedPosts = useMemo(() => {
-        return posts
-            .filter((item) => {
-                if (item.category) {
-                    return (
-                        item.category._id == post.category._id &&
-                        item._id != post._id
-                    );
-                } else {
-                    return false;
-                }
-            })
-            .splice(0, 2);
-    }, [posts, post]);
+    // const relatedPosts = useMemo(() => {
+    //     return posts
+    //         .filter((item) => {
+    //             if (item.category) {
+    //                 return (
+    //                     item.category._id == post.category._id &&
+    //                     item._id != post._id
+    //                 );
+    //             } else {
+    //                 return false;
+    //             }
+    //         })
+    //         .splice(0, 2);
+    // }, [posts, post]);
+    const relatedPosts = posts
+        .filter((item) => {
+            if (item.category) {
+                return (
+                    item.category._id == post.category._id &&
+                    item._id != post._id
+                );
+            } else {
+                return false;
+            }
+        })
+        .splice(0, 2);
     return (
         <div
             className={`${
@@ -38,7 +50,7 @@ const RelatedPosts = ({ post }) => {
             </h4>
             <div className=" mt-4 flex flex-col gap-4">
                 {relatedPosts.map((post, i) => (
-                    <Link href={`/post/${post._id}`} key={i}>
+                    <Link href={`/post/${post._id}`} key={post._id}>
                         <div className=" border-b-2 pb-2">
                             <div className="flex items-center gap-2 cursor-pointer">
                                 <Avatar

@@ -123,20 +123,6 @@ export const useOauth = () => {
     );
 };
 
-export const useGetCategories = () => {
-    const dispatch = useDispatch();
-    return useQuery(
-        "getCategories",
-        () => {
-            return axios.post("/api/users/categories");
-        },
-        {
-            onSuccess: (data) => {
-                dispatch(setCategories(data.data));
-            },
-        }
-    );
-};
 export const useGetTags = () => {
     const dispatch = useDispatch();
     return useQuery(

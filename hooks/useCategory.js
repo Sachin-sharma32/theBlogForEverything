@@ -1,15 +1,13 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 
-export const useGetCategories = (onSuccess, onError) => {
+export const useGetCategories = () => {
     return useQuery(
         "getCategories",
         () => {
             return axios.get(`http://localhost:8000/api/v1/categories`);
         },
         {
-            onSuccess: onSuccess,
-            onError: onError,
             select: (data) => {
                 const categories = data.data.data.docs;
                 return categories;

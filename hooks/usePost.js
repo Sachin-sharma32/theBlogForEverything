@@ -1,15 +1,24 @@
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import {
+    useQuery,
+    useMutation,
+    useQueryClient,
+    useInfiniteQuery,
+} from "react-query";
 import axios from "axios";
 
-export const useGetPosts = (onSuccess, onError) => {
+export const useGetPosts = (pageNumber, sort) => {
     return useQuery(
         "posts",
         () => {
-            return axios.get(`http://localhost:8000/api/v1/posts`);
+            console.log(pageNumber);
+            return axios.get(
+                `http://localhost:8000/api/v1/posts?page=${pageNumber}&limit=12&sort=${sort}`
+            );
         },
         {
-            onSuccess: onSuccess,
-            onError: onError,
+            onSuccess: (data) => {
+                console.log(data);
+            },
             select: (data) => {
                 const posts = data.data.data.docs;
                 return posts;
@@ -19,7 +28,6 @@ export const useGetPosts = (onSuccess, onError) => {
 };
 
 export const useGetPost = (postId, onSuccess) => {
-    console.log("getPost");
     return useQuery(
         "post",
         () => {
@@ -54,3 +62,19 @@ export const useGetBestPost = (onSuccess, onError) => {
         }
     );
 };
+
+export const useTotalDocuments = () => {
+    return useQuery(
+        "totalDocuments",
+        () => {
+            return axios.get(`http://localhost:8000/api/v1/posts/total`);
+        },
+        {
+            select: (data) => {
+                const totalDocuments = data.data.data.total;
+                return totalDocuments;
+            },
+        }
+    );
+};
+

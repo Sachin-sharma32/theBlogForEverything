@@ -8,25 +8,17 @@ import Link from "next/link";
 import WestIcon from "@mui/icons-material/West";
 import Head from "next/head";
 import App from "next/app";
+import { useGetComments } from "../../hooks/useComment";
+import axios from "axios";
 
-const Comments = () => {
+const Comments = ({ comments }) => {
     const router = useRouter();
-    const { postId } = router.query;
-    const posts = useSelector((state) => state.base.posts);
     const mode = useSelector((state) => state.base.mode);
-    const post = useMemo(() => {
-        return posts.filter(
-            (post) => {
-                return post._id == postId;
-            },
-            [posts]
-        );
-    });
 
     return (
         <div>
             <Head>
-                <title>TBFE - {post[0]?.title}</title>
+                <title>TBFE - {comments?.postId?.title}</title>
                 <link
                     rel="icon"
                     type="image/png"
@@ -45,10 +37,10 @@ const Comments = () => {
                     <div className="flex flex-col justify-center items-center text-center">
                         <p>ALL COMMENTS FOR</p>
                         <h1 className="bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text text-2xl font-bold mb-10">
-                            {post[0]?.title}
+                            {comments.postId.title}
                         </h1>
                         <Link
-                            href={`/post/${post[0]?._id}`}
+                            href={`/post/${comments.postId._id}`}
                             className={`${
                                 mode == "dark" ? "text-white" : "text-black"
                             } flex gap-2 hover:gap-4 justify-center items-center self-end duration-200 transition-all text-xs`}
@@ -57,7 +49,7 @@ const Comments = () => {
                             <p>BACK TO POST</p>
                         </Link>
                     </div>
-                    {post[0]?.comments?.map((item, i) => (
+                    {comments?.comments?.map((item, i) => (
                         <div
                             className={`${
                                 mode == "dark" ? "border-white" : "border-black"
@@ -80,9 +72,12 @@ const Comments = () => {
                                 } mt-2  p-4 pr-20 rounded-2xl `}
                             >
                                 <div className="relative">
-                                    <p>{item.comment}</p>
+                                    <p>{item.message}</p>
                                     <div className=" absolute -bottom-4 -right-16 flex gap-6">
-                                        <LikeCommentIcon comment={item} />
+                                        <LikeCommentIcon
+                                            comments={comments}
+                                            comment={item}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -95,3 +90,19 @@ const Comments = () => {
 };
 
 export default Comments;
+
+export async function getServerSideProps(context) {
+    const comments = await axios.get(
+        `http://localhost:8000/api/v1/comments/${context.params.postId}`,
+        {
+            headers: {
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDQwMTAxYzk0MGUxZWVkMTlmMmVmMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTA3ODYyMSwiZXhwIjoxNjc1NjgzNDIxfQ.m78XjAVnusQbvTUnbowBRNQOt88iGd6YmfIxFYKAZts`,
+            },
+        }
+    );
+    return {
+        props: {
+            comments: comments.data.data.docs,
+        },
+    };
+}

@@ -11,7 +11,6 @@ const Like = () => {
     const mode = useSelector((state) => state.base.mode);
     const { data: user } = useGetMe();
     const { data: likes } = useUserLikes(user?._id);
-    console.log(likes);
     return (
         <>
             <Head>

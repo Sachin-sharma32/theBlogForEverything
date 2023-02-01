@@ -9,11 +9,14 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import TelegramIcon from "@mui/icons-material/Telegram";
+import { useGetCategories } from "../hooks/useCategory";
+import { useGetTags } from "../hooks/useTag";
 
 const Footer = () => {
     const mode = useSelector((state) => state.base.mode);
-    const tags = useSelector((state) => state.base.tags);
-    const categories = useSelector((state) => state.base.categories);
+    const { data: categories } = useGetCategories();
+    const { data: tags } = useGetTags();
+    
     const footerCategories = useMemo(() => {
         return categories?.filter((category) => {
             return category.footer;

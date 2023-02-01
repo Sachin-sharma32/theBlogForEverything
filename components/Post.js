@@ -11,13 +11,11 @@ import { useEffect } from "react";
 import { useGetPost } from "../hooks/usePost";
 
 const Post = ({ post }) => {
-    console.log(post);
     const mode = useSelector((state) => state.base.mode);
     const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
 
     const [likeSuccess, setLikeSuccess] = useState(false);
     const [currentPost, setCurrentPost] = useState(null);
-    console.log(currentPost);
     const onSuccess = (data) => {
         setCurrentPost(data);
     };
@@ -46,22 +44,22 @@ const Post = ({ post }) => {
                 mode == "light"
                     ? "bg-white shadow-2xl"
                     : "bg-[#262626] shadow-black shadow-2xl"
-            } h-[530px]  w-[350px] rounded-2xl overflow-hidden relative`}
+            }  w-[350px] rounded-2xl overflow-hidden relative mb-10`}
         >
-            {currentPost?.image && (
+            {post?.image && (
                 <div className=" overflow-hidden">
                     <img
-                        src={currentPost.image}
+                        src={post.image}
                         width="400"
                         className="h-[180px] hover:scale-125 transition-all duration-700"
-                        alt="currentPost"
+                        alt="post"
                     />
                 </div>
             )}
             <article className=" p-4">
                 <div className="flex items-center justify-between text-xs flex-wrap gap-1">
                     <div className=" text-[#eb9586] flex gap-2">
-                        {currentPost?.tags?.map((tag, i) => (
+                        {post?.tags?.map((tag, i) => (
                             <Link href={`/search/${tag.title}`} key={i}>
                                 <p className=" text-xs cursor-pointer hover:scale-110 transition-all duration-200">
                                     #{tag.title}
@@ -74,25 +72,22 @@ const Post = ({ post }) => {
                             mode == "dark" ? "text-gray-300" : "text-gray-700"
                         }`}
                     >
-                        {currentPost?.readTime} minutes
+                        {post?.readTime} minutes
                     </p>
                 </div>
-                <Link
-                    href={`/post/${currentPost?._id}`}
-                    className=" cursor-pointer"
-                >
+                <Link href={`/post/${post?._id}`} className=" cursor-pointer">
                     <h5
                         className={`${
                             mode == "dark" ? "text-white" : "text-black"
                         } mt-4 text-2xl font-bold mb-2`}
                     >
-                        {currentPost?.title}
+                        {post?.title}
                     </h5>
-                    <p className=" mb-4">{currentPost?.summery}</p>
+                    <p className=" mb-4">{post?.summery}</p>
                 </Link>
-                <section className="flex gap-2 items-start absolute bottom-2">
+                <section className="flex gap-2 items-start">
                     <div className="flex gap-2 cursor-pointer">
-                        <Avatar src={currentPost?.author.image} />
+                        <Avatar src={post?.author.image} />
                         <div>
                             <div className="flex gap-4 items-center">
                                 <p
@@ -102,17 +97,13 @@ const Post = ({ post }) => {
                                             : "text-black"
                                     }`}
                                 >
-                                    {currentPost?.author.name}
+                                    {post?.author.name}
                                 </p>
                                 <div className="">
-                                    {moment(currentPost?.updatedAt).format(
-                                        "ll"
-                                    )}
+                                    {moment(post?.updatedAt).format("ll")}
                                 </div>
                             </div>
-                            <p className=" text-xs">
-                                {currentPost?.author.work}
-                            </p>
+                            <p className=" text-xs">{post?.author.work}</p>
                         </div>
                     </div>
                 </section>
@@ -121,12 +112,9 @@ const Post = ({ post }) => {
                         mode == "dark" ? "text-white" : "text-black"
                     }`}
                 >
-                    <BookmarkBtn
-                        post={currentPost}
-                        setSuccess={setBookmarkSuccess}
-                    />
+                    <BookmarkBtn post={post} setSuccess={setBookmarkSuccess} />
                     <div className="text-black relative">
-                        <Like post={currentPost} setSuccess={setLikeSuccess} />
+                        <Like post={post} setSuccess={setLikeSuccess} />
                     </div>
                 </div>
             </article>

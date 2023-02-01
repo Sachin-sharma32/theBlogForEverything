@@ -48,42 +48,11 @@ const TopCategory = ({ num, category }) => {
                         {category.title}
                     </h3>
                     <img
-                        src={imageBuilder(category.image)}
+                        src={category.image}
                         alt=""
                         className="h-full w-full"
                     />
                 </motion.div>
-                {/* <div>
-                    <p>{moment(post.updatedAt).format("ll")}</p>
-                    <h5
-                        className={`${
-                            mode == "light" ? "text-black" : "text-white"
-                        } text-xl`}
-                    >
-                        {post.title}
-                    </h5>
-                    <div className=" text-[#ff7d69] via-[#ff7d69] flex gap-x-4 flex-wrap">
-                        {post.tags &&
-                            post.tags.map((item, i) => (
-                                <div key={i}>
-                                    <p>#{item.title}</p>
-                                </div>
-                            ))}
-                    </div>
-                </div>
-                <div className=" flex gap-4">
-                    <Avatar src={imageBuilder(post.author.image)} />
-                    <div>
-                        <p
-                            className={`${
-                                mode == "dark" ? "text-white" : "text-black"
-                            }`}
-                        >
-                            {post.author.name}
-                        </p>
-                        <p className=" text-xs">{post.author.work}</p>
-                    </div>
-                </div> */}
             </Link>
         </section>
     );

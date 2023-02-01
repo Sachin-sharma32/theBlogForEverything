@@ -21,8 +21,9 @@ const Like = ({ post, setSuccess }) => {
     const { data: user } = useGetMe();
     useEffect(() => {
         if (user && currentPost) {
-            currentPost?.likes?.map((like) => {
-                if (like == user._id) {
+            post?.likes?.map((like) => {
+                if (like === user._id) {
+                    console.log(like, user._id);
                     setLike(false);
                 }
             });
@@ -32,9 +33,7 @@ const Like = ({ post, setSuccess }) => {
     const onSuccess = () => {
         setLike((current) => !current);
     };
-    const onError = () => {
-        console.log("error");
-    };
+    const onError = () => {};
     const { mutate: toggleLike } = useHandleLike(onSuccess, onError);
     return (
         <div
@@ -71,7 +70,7 @@ const Like = ({ post, setSuccess }) => {
                                 : "bg-black text-white"
                         } absolute top-0 -right-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full text-xs flex items-center justify-center`}
                     >
-                        {currentPost.likes.length}
+                        {post.likes.length}
                     </p>
                 ) : (
                     ""

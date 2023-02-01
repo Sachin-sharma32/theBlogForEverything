@@ -100,7 +100,6 @@ export const useGetMe = (onSuccess, onError) => {
         },
         {
             select: (data) => {
-                console.log("getMe");
                 const user = data.data.data.user;
                 return user;
             },

@@ -6,8 +6,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import { Avatar } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
-import { setLiked, setMode, setSession, setUser } from "../redux/slices";
-import { useGetCategories, useGetPosts, useGetTags } from "../hooks/content";
+import { setMode, setSession, setUser } from "../redux/slices";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
@@ -34,7 +33,6 @@ const Navbar = () => {
         setUserData(null);
     };
     const { data: user } = useGetMe(onSuccess, onError);
-    console.log(user);
     const onLikeSuccess = (data) => {
         setUserLikes(data);
     };
@@ -42,7 +40,6 @@ const Navbar = () => {
 
     const dispatch = useDispatch();
     // const { data: user } = useGetMe();
-    const { data } = useGetPosts();
     const [shown, setShown] = useState(false);
 
     if (typeof window !== "undefined") {
@@ -55,8 +52,6 @@ const Navbar = () => {
 
     const { mutate: logOut } = useLogOut();
 
-    useGetTags();
-    useGetCategories();
 
     const sideRef = useRef();
 
@@ -290,7 +285,7 @@ const Navbar = () => {
                                         : "bg-black text-white"
                                 } rounded-full p-2 flex justify-center items-center w-5 h-5 absolute -top-2 -right-2`}
                             >
-                                {userData.bookmarks.length}
+                                {userData?.bookmarks?.length}
                             </p>
                         </Link>
                         <Link href="/like" className="relative hidden md:flex">

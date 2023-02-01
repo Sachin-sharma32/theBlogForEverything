@@ -21,34 +21,17 @@ import RichTextComponent from "../../components/RichTextComponent";
 import { useMemo } from "react";
 import ErrorBoundry from "../../utils/ErrorBoundry";
 import Editor from "rich-markdown-editor";
+import { useAddComment, useGetComments } from "../../hooks/useComment";
 
 const Post = ({ post }) => {
+    const { data: comments } = useGetComments(post?._id);
+    const [loading, setLoading] = useState(false);
     const [editor, setEditor] = useState(null);
     const mode = useSelector((state) => state.base.mode);
     const router = useRouter();
-    // const posts = useSelector((state) => state.base.posts);
     const user = useSelector((state) => state.base.user);
     const [comment, setComment] = useState("");
     const [copy, setCopy] = useState(false);
-
-    // const currentPost = useMemo(() => {
-    //     return posts?.filter((item) => {
-    //         return item?._id == router.query.post;
-    //     });
-    // }, [posts]);
-    // const post = currentPost[0];
-    const [comments, setComments] = useState([]);
-    useEffect(() => {
-        if (post?.comments) {
-            let sorted = [...post.comments];
-            sorted = sorted.sort(
-                (a, b) =>
-                    new Date(b.publishedAt).getTime() -
-                    new Date(a.publishedAt).getTime()
-            );
-            setComments(sorted);
-        }
-    }, [post]);
 
     const initialValues = {
         name: "",
@@ -66,7 +49,6 @@ const Post = ({ post }) => {
             .matches(EMAIL_REGEX, "Please provide a valid email address"),
     });
     const [success, setSuccess] = useState(false);
-    const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (success) {
             setTimeout(() => {
@@ -74,24 +56,14 @@ const Post = ({ post }) => {
             }, 2000);
         }
     }, [success]);
+    const { mutate: createComment } = useAddComment();
     const submitHandler = async (values, { resetForm }) => {
-        setLoading(true);
         values = {
             name: values.name,
             email: values.email,
-            comment: values.comment,
+            message: values.comment,
         };
-        const { data } = await axios.put("/api/users/comment", {
-            postId: post?._id,
-            values,
-        });
-        let sorted = [...data.comments];
-        sorted = sorted.sort(
-            (a, b) =>
-                new Date(b.publishedAt).getTime() -
-                new Date(a.publishedAt).getTime()
-        );
-        setComments(sorted);
+        createComment({ postId: post._id, data: values });
         resetForm({ values: "" });
         setLoading(false);
         setSuccess(true);
@@ -104,17 +76,7 @@ const Post = ({ post }) => {
             email: user.email,
             comment,
         };
-        const { data } = await axios.put("/api/users/comment", {
-            postId: post?._id,
-            values,
-        });
-        let sorted = [...data.comments];
-        sorted = sorted.sort(
-            (a, b) =>
-                new Date(b.publishedAt).getTime() -
-                new Date(a.publishedAt).getTime()
-        );
-        setComments(sorted);
+        createComment({ postId: post.id, data: values });
         setComment("");
         setLoading(false);
         setSuccess(true);
@@ -482,57 +444,63 @@ const Post = ({ post }) => {
                                     )}
                                 </section>
                                 <section className=" mt-10 text-xs md:text-base">
-                                    {comments?.length > 0 && (
-                                        <article>
-                                            {comments
-                                                .slice(0, 3)
-                                                .map((item, i) => (
-                                                    <div
-                                                        className="border-t-[1px] border-white mt-4"
-                                                        key={i}
-                                                    >
-                                                        <div>
-                                                            <h5 className=" text-2xl font-semibold">
-                                                                {item.name}
-                                                            </h5>
-                                                            <p className=" text-xs">
-                                                                #{" "}
-                                                                {moment(
-                                                                    item.publishedAt
-                                                                ).format("ll")}
-                                                            </p>
-                                                        </div>
-                                                        <div className=" mt-2 bg-white p-4 pr-20 rounded-2xl text-black">
-                                                            <div className="relative">
-                                                                <p>
-                                                                    {
-                                                                        item.comment
-                                                                    }
+                                    {comments &&
+                                        comments?.comments?.length > 0 && (
+                                            <article>
+                                                {comments.comments
+                                                    .slice(0, 3)
+                                                    .map((item, i) => (
+                                                        <div
+                                                            className="border-t-[1px] border-white mt-4"
+                                                            key={i}
+                                                        >
+                                                            <div>
+                                                                <h5 className=" text-2xl font-semibold">
+                                                                    {item.name}
+                                                                </h5>
+                                                                <p className=" text-xs">
+                                                                    #{" "}
+                                                                    {moment(
+                                                                        item.publishedAt
+                                                                    ).format(
+                                                                        "ll"
+                                                                    )}
                                                                 </p>
-                                                                <div className=" absolute -bottom-4 -right-16 flex gap-6">
-                                                                    <LikeCommentIcon
-                                                                        comment={
-                                                                            item
+                                                            </div>
+                                                            <div className=" mt-2 bg-white p-4 pr-20 rounded-2xl text-black">
+                                                                <div className="relative">
+                                                                    <p>
+                                                                        {
+                                                                            item.message
                                                                         }
-                                                                    />
+                                                                    </p>
+                                                                    <div className=" absolute -bottom-4 -right-16 flex gap-6">
+                                                                        <LikeCommentIcon
+                                                                            comments={
+                                                                                comments
+                                                                            }
+                                                                            comment={
+                                                                                item
+                                                                            }
+                                                                        />
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                ))}
-                                            <Link
-                                                href={`/comments/${post._id}`}
-                                                className={`${
-                                                    mode == "dark"
-                                                        ? "text-white"
-                                                        : "text-black"
-                                                } flex gap-2 hover:gap-4 justify-center items-center self-end duration-200 transition-all mt-6`}
-                                            >
-                                                <p>SEE ALL REVIEWS</p>
-                                                <EastIcon />
-                                            </Link>
-                                        </article>
-                                    )}
+                                                    ))}
+                                                <Link
+                                                    href={`/comments/${post._id}`}
+                                                    className={`${
+                                                        mode == "dark"
+                                                            ? "text-white"
+                                                            : "text-black"
+                                                    } flex gap-2 hover:gap-4 justify-center items-center self-end duration-200 transition-all mt-6`}
+                                                >
+                                                    <p>SEE ALL REVIEWS</p>
+                                                    <EastIcon />
+                                                </Link>
+                                            </article>
+                                        )}
                                 </section>
                             </div>
                             <aside className=" lg:w-[30%] mt-8 flex flex-col justify-center items-center md:justify-start md:flex-row lg:flex-col gap-2 lg:gap-8">
@@ -588,17 +556,18 @@ export async function getServerSideProps(context) {
             },
         }
     );
-    // const tags = post?.tags?.map((tag) => tag.title);
     return {
         props: {
             post: post.data.data.doc,
-            // title: post.title,
-            // image: post.image,
-            // summery: post.summery,
-            // keywords: tags.toString(),
-            // type: "website",
-            // imageAlt: post.title,
-            // id: post._id,
+            title: post.data.data.doc.title,
+            image: post.data.data.doc.image,
+            summery: post.data.data.doc.summery,
+            keywords: post.data.data.doc.tags
+                .map((tag) => tag.title)
+                .toString(),
+            type: "website",
+            imageAlt: post.data.data.doc.title,
+            id: post.data.data.doc._id,
         },
     };
 }

@@ -29,7 +29,7 @@ const Header = () => {
     post = post[0];
 
     let StyledContainer;
-    if (bestPost) {
+    if (bestPost?.image) {
         StyledContainer = styled.div`
             @media only screen and (max-width: 768px) {
                 background-image: linear-gradient(
@@ -96,7 +96,7 @@ const Header = () => {
                                             className="flex flex-col gap-4 sm:gap-10"
                                         >
                                             <h1 className=" text-3xl font-bold bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
-                                                {bestPost.title}
+                                                {bestPost?.title}
                                             </h1>
                                             <p
                                                 className={`${
@@ -109,7 +109,9 @@ const Header = () => {
                                             </p>
                                             <figure className="flex gap-4 items-center">
                                                 <Avatar
-                                                    src={bestPost.author.image}
+                                                    src={
+                                                        bestPost?.author?.image
+                                                    }
                                                     className=" w-14 h-14"
                                                 />
                                                 <figcaption>

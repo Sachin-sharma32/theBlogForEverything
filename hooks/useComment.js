@@ -1,14 +1,14 @@
+import axios from "axios";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 
-export const useGetComments = (onSuccess, onError) => {
+export const useGetComments = (postId) => {
     return useQuery(
         "comments",
-        (postId) => {
+        () => {
             return axios.get(`http://localhost:8000/api/v1/comments/${postId}`);
         },
         {
-            onSuccess: onSuccess,
-            onError: onError,
+            enabled: !!postId,
             select: (data) => {
                 const comments = data.data.data.docs;
                 return comments;
@@ -42,8 +42,7 @@ export const useAddComment = (onSuccess, onError) => {
         "addComment",
         (data) => {
             return axios.post(
-                `http://localhost:8000/api/v1/comments/${data.commentId}`,
-                data.postId,
+                `http://localhost:8000/api/v1/comments/${data.postId}`,
                 data.data
             );
         },
@@ -57,6 +56,29 @@ export const useAddComment = (onSuccess, onError) => {
     );
 };
 
+export const useHandleCommentLike = () => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        "handleCommentLike",
+        (data) => {
+            return axios.patch(
+                `http://localhost:8000/api/v1/comments/${data.commentsId}/comment/${data.commentId}`,
+                {
+                    userId: data.userId,
+                }
+            );
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(["comments"]);
+            },
+            select: (data) => {
+                const comment = data.data.data.doc;
+                return comment;
+            },
+        }
+    );
+};
 
 export const useUpdateComment = (onSuccess, onError) => {
     const queryClient = useQueryClient();
@@ -76,4 +98,22 @@ export const useUpdateComment = (onSuccess, onError) => {
             onError: onError,
         }
     );
-}
+};
+
+export const useGetComment = (commentsId, commentId) => {
+    const queryClient = useQueryClient();
+    return useQuery(
+        "comment",
+        () => {
+            return axios.get(
+                `http://localhost:8000/api/v1/comments/${commentsId}/comment/${commentId}`
+            );
+        },
+        {
+            select: (data) => {
+                const comment = data.data.data.doc;
+                return comment;
+            },
+        }
+    );
+};

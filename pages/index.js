@@ -88,25 +88,13 @@ export default function Home() {
                     mode == "light" ? "bg-white" : "bg-[#262626]"
                 } relative`}
             >
-                {/* <Header />
-                <TopPosts />
-                <div className=" hidden md:flex">
-                    <Posts />
-                    <TopCategories />
-                </div>
-                <div className=" md:hidden flex flex-col">
-                    <TopCategories />
-                    <Posts />
-                </div> */}
                 <ErrorBoundry>
                     <Header />
                 </ErrorBoundry>
                 <ErrorBoundry>
                     <TopCategories />
                 </ErrorBoundry>
-                <ErrorBoundry>
-                    <Posts />
-                </ErrorBoundry>
+                <ErrorBoundry><Posts /></ErrorBoundry>
             </Smooth>
         </Layout>
     );

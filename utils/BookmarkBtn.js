@@ -11,18 +11,13 @@ import { useHandleBookmark } from "../hooks/useBookmark";
 import { useGetMe } from "../hooks/useUser";
 
 const BookmarkBtn = ({ post, setSuccess }) => {
-    console.log(post);
     const mode = useSelector((state) => state.base.mode);
     const [exist, setExist] = useState(false);
-    console.log(exist);
     const { data: user } = useGetMe();
-    console.log(user);
     useEffect(() => {
         if (user && post) {
             user.bookmarks.map((bookmark) => {
-                console.log(bookmark);
                 if (bookmark == post._id) {
-                    console.log("hello");
                     setExist(true);
                 }
             });

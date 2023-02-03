@@ -27,6 +27,7 @@ const Navbar = () => {
     const [userLikes, setUserLikes] = useState(null);
 
     const onSuccess = (data) => {
+        console.log(data);
         setUserData(data);
     };
     const onError = () => {
@@ -51,7 +52,6 @@ const Navbar = () => {
     const [toggleCategories, setToggleCategories] = useState(false);
 
     const { mutate: logOut } = useLogOut();
-
 
     const sideRef = useRef();
 

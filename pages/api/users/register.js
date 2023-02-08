@@ -2,6 +2,7 @@ import { client } from "../../../sanity";
 import sendEmail from "../../../utils/email";
 
 export default async function register(req, res) {
+    console.log(req.body);
     const existUser = await client.fetch(
         `*[_type == "user" && email == $email][0]`,
         {
@@ -21,6 +22,7 @@ export default async function register(req, res) {
             subject: "User verification link",
             url: `${process.env.SITE_URL}/api/users/verifyUser?name=${queryName}&email=${req.body.email}&password=${queryPassword}`,
             message: `${process.env.SITE_URL}/api/users/verifyUser?name=${queryName}&email=${req.body.email}&password=${queryPassword}`,
+            button: "REGISTER",
         });
         //     .then((data) => {
         //     })

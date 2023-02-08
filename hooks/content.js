@@ -31,6 +31,7 @@ export const useSignin = (onSuccess, onError) => {
         },
         {
             onSuccess: (data) => {
+                console.log(data);
                 queryClient.invalidateQueries({ queryKey: ["getMe"] });
                 if (data.data.cookie) {
                     setCookie("user", JSON.stringify(data.data.cookie), {
@@ -39,7 +40,7 @@ export const useSignin = (onSuccess, onError) => {
                         sameSite: true,
                     });
                 }
-                onSuccess();
+                onSuccess(data);
             },
             onError: onError,
         }
@@ -142,12 +143,69 @@ export const useGetTags = () => {
     return useQuery(
         "getTags",
         () => {
-            return axios.post("/api/users/tags");
+            return axios.get("/api/users/tags");
         },
         {
             onSuccess: (data) => {
                 dispatch(setTags(data.data));
             },
+        }
+    );
+};
+
+export const useCreateTag = (onSuccess, onError) => {
+    const dispatch = useDispatch();
+    return useMutation(
+        "createTag",
+        (data) => {
+            return axios.post("/api/users/tags", data);
+        },
+        {
+            onSuccess: (data) => {
+                console.log(data);
+                dispatch(setTags(data.data));
+                onSuccess();
+            },
+            onError: onError,
+        }
+    );
+};
+
+export const useForgotPassword = (onSuccess, onError) => {
+    return useMutation(
+        "forgotPassword",
+        (data) => {
+            return axios.post("/api/users/forgotPassword", data);
+        },
+        {
+            onSuccess: onSuccess,
+            onError: onError,
+        }
+    );
+};
+
+export const useCreateUserPost = (onSuccess, onError) => {
+    return useMutation(
+        "createUserPost",
+        (data) => {
+            return axios.post("/api/users/userPost", data);
+        },
+        {
+            onSuccess: onSuccess,
+            onError: onError,
+        }
+    );
+};
+
+export const useResetPassword = (onSuccess, onError) => {
+    return useMutation(
+        "resetPassword",
+        (data) => {
+            return axios.post("/api/users/resetPassword", data);
+        },
+        {
+            onSuccess: onSuccess,
+            onError: onError,
         }
     );
 };

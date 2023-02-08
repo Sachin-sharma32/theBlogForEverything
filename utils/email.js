@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const path = require("path");
+import { Book } from "@mui/icons-material";
 import ejs from "ejs";
 
 const sendEmail = async (options) => {
@@ -17,7 +18,7 @@ const sendEmail = async (options) => {
         html: ` <table class="one-column" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-spacing:0; border-left:1px solid #e8e7e5; border-right:1px solid #e8e7e5; border-bottom:1px solid #e8e7e5; padding: 10px" bg="#FFFFFF">
         
         <div width="350" height="150" align="center" style="border-radius: 50%;">
-          <img src="https://scontent.fjai8-1.fna.fbcdn.net/v/t39.30808-6/326510247_711146270629364_5238237488290086428_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=lSIgnLtS9J4AX_9WFG_&_nc_ht=scontent.fjai8-1.fna&oh=00_AfBZ7S29GnwmO1N2iEX7gSYcDgMNABtSDurJAZnw5eH5Gw&oe=63D601EE" width="60" height="60" style="padding-top:5px" alt="" border="0"/>
+          <img src="https://scontent.fjai8-1.fna.fbcdn.net/v/t39.30808-6/326510247_711146270629364_5238237488290086428_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=is2ajZkQNSYAX9eFlt9&_nc_ht=scontent.fjai8-1.fna&oh=00_AfA-FQBxHMT1W9BE74XcISmNaqgmHgLo5EsTWORY1sBEcw&oe=63E7CE2E" width="60" height="60" style="padding-top:5px" alt="" border="0"/>
         </div>
 
         <tr>
@@ -32,7 +33,7 @@ const sendEmail = async (options) => {
               stay informed, learn something new, or simply be
               entertained, &quot;The Blog for Everything&quot; has
               something for everyone.</p>
-              <a style="color: white; background-color: black; padding-right: 10px; padding-left: 10px; padding-top: 4px; padding-bottom: 4px; border: none; text-decoration: none;" href=${options.url}>REGISTER</a>
+              <a style="color: white; background-color: black; padding-right: 10px; padding-left: 10px; padding-top: 4px; padding-bottom: 4px; border: none; text-decoration: none;" href=${options.url}>${options.button}</a>
           </p></td>
         </tr>
       </tables>`,

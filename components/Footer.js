@@ -28,7 +28,7 @@ const Footer = () => {
         <footer
             className={`${
                 mode == "light" ? "text-gray-800 bg-white" : "text-gray-300"
-            } p-10  pb-10 text-xs border-t grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8`}
+            } p-10 text-xs border-t grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8`}
         >
             <section className=" flex flex-col gap-4 h-full border200 text-center items-center col-span-2 sm:col-span-3 lg:col-span-2">
                 <Link

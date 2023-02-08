@@ -3,12 +3,23 @@ import React, { useEffect, useState } from "react";
 import Smooth from "../utils/Smooth";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { useOauth, useSignin } from "../hooks/content";
+import { useGetCategories, useOauth, useSignin } from "../hooks/content";
 import { signIn, useSession } from "next-auth/react";
-import { Alert } from "@mui/material";
+import {
+    Alert,
+    Dialog,
+    DialogContent,
+    Stack,
+    DialogTitle,
+    DialogActions,
+    DialogContentText,
+    Button,
+} from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
 import Head from "next/head";
+import { client } from "../sanity";
+import axios from "axios";
 
 const SignIn = () => {
     const router = useRouter();
@@ -18,11 +29,26 @@ const SignIn = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
-    const onSuccess = () => {
+    const [showDialog, setShowDialog] = useState(false);
+    const categories = useSelector((state) => state.base.categories);
+    const user = useSelector((state) => state.base.user);
+    const [preferences, setPreferences] = useState([]);
+    console.log(categories);
+
+    const onSuccess = (data) => {
+        console.log(data);
         setSuccess(true);
         setTimeout(() => {
+            document.body.style.overflow = "hidden";
             setSuccess(false);
-            router.push("/");
+            if (
+                !data.data.data.preferences ||
+                data.data.data.preferences.length === 0
+            ) {
+                setShowDialog(true);
+            } else {
+                router.push("/");
+            }
         }, 2000);
     };
     const onError = (err) => {
@@ -39,6 +65,12 @@ const SignIn = () => {
         userSignIn(user);
     };
 
+    const addPreferences = async () => {
+        const userData = { preferences, userId: user._id };
+        const data = await axios.put("/api/users/preferences", userData);
+        router.push("/");
+    };
+
     const { data: session } = useSession();
     const { mutate: oAuthLogIn } = useOauth();
     useEffect(() => {
@@ -48,7 +80,14 @@ const SignIn = () => {
                 email: session.user.email,
             };
             oAuthLogIn(data);
-            router.push("/");
+            if (
+                !data.data.data.preferences ||
+                data.data.data.preferences.length === 0
+            ) {
+                setShowDialog(true);
+            } else {
+                router.push("/");
+            }
         }
     }, [session]);
 
@@ -65,7 +104,59 @@ const SignIn = () => {
     };
 
     return (
-        <>
+        <div className="relative">
+            {showDialog && (
+                <div className=" fixed left-0 top-0 h-screen z-50 w-screen backdrop-blur-sm flex justify-center items-center">
+                    <div className="flex flex-col p-10 bg-white w-[500px] gap-4 rounded-3xl relative">
+                        <h3 className="text-2xl font-bold">
+                            CHOOSE YOUR PREFERENCES
+                        </h3>
+                        <div className="flex flex-wrap text-sm gap-2">
+                            {categories?.map((category, i) => (
+                                <div
+                                    onClick={() => {
+                                        if (
+                                            preferences.find(
+                                                (item) =>
+                                                    item._id === category._id
+                                            )
+                                        ) {
+                                            setPreferences(
+                                                preferences.filter(
+                                                    (item) =>
+                                                        item._id !==
+                                                        category._id
+                                                )
+                                            );
+                                        } else {
+                                            setPreferences([
+                                                ...preferences,
+                                                { ...category, _key: i },
+                                            ]);
+                                        }
+                                    }}
+                                    key={i}
+                                    className={`${
+                                        preferences.find(
+                                            (item) => item._id === category._id
+                                        )
+                                            ? "bg-white text-black"
+                                            : "bg-black text-white"
+                                    } border-2 px-4 rounded-full  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                >
+                                    {category?.title}
+                                </div>
+                            ))}
+                        </div>
+                        <button
+                            onClick={addPreferences}
+                            className=" absolute bottom-4 right-6 bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </div>
+            )}
             {error && (
                 <Alert
                     severity="error"
@@ -102,7 +193,7 @@ const SignIn = () => {
                         mode == "dark"
                             ? "signin-form bg-[#262626]"
                             : "signin-form-light"
-                    } -translate-y-6 bg-white w-[80%] h-[80vh] shadow-2xl px-10 text-white flex items-center justify-center`}
+                    } -translate-y-6 bg-white w-[80%] p-10 shadow-2xl px-10 text-white flex items-center justify-center`}
                 >
                     <div className=" w-[100 flex-col gap-4 mt-4 items-center">
                         <div className="flex flex-col w-fit items-center">
@@ -146,17 +237,30 @@ const SignIn = () => {
                                     >
                                         SIGN IN
                                     </button>
-                                    <Link
-                                        href="/register"
-                                        className={`${
-                                            mode == "dark"
-                                                ? "text-white"
-                                                : "text-black"
-                                        } flex gap-2 hover:gap-4 justify-center items-center self-end transition-all duration-200`}
-                                    >
-                                        <p>REGISTER</p>
-                                        <EastIcon />
-                                    </Link>
+                                    <div className="flex justify-between w-full">
+                                        <Link
+                                            href="/forgotPassword"
+                                            className={`${
+                                                mode == "dark"
+                                                    ? "text-white"
+                                                    : "text-black"
+                                            } flex gap-2 hover:gap-4 justify-center items-center self-end transition-all duration-200`}
+                                        >
+                                            <p>FORGOT PASSWORD</p>
+                                            <EastIcon />
+                                        </Link>
+                                        <Link
+                                            href="/register"
+                                            className={`${
+                                                mode == "dark"
+                                                    ? "text-white"
+                                                    : "text-black"
+                                            } flex gap-2 hover:gap-4 justify-center items-center self-end transition-all duration-200`}
+                                        >
+                                            <p>REGISTER</p>
+                                            <EastIcon />
+                                        </Link>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -228,7 +332,7 @@ const SignIn = () => {
                     </div>
                 </div>
             </Smooth>
-        </>
+        </div>
     );
 };
 

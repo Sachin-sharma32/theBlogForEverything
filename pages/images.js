@@ -65,7 +65,7 @@ export default function BasicMasonry() {
                         (image, index) =>
                             image?.asset && (
                                 <ErrorBoundry key={index}>
-                                    <Item sx={{ height: heights[index] }}>
+                                    <Item sx={{ height: heights[index] }} className="rounded-2xl">
                                         {console.log(image)}
                                         <img
                                             src={imageBuilder(image)}
@@ -93,11 +93,11 @@ export default function BasicMasonry() {
                             className=""
                         >
                             <div className="w-[100%] h-[100%] flex justify-center items-center">
-                                <div className=" w-[90%] lg:w-[50%] relative bg-white -translate-y-1/2">
+                                <div className=" w-[90%] lg:w-[50%] relative bg-white -translate-y-3/4 border-8 rounded-3xl border-white">
                                     <img
                                         src={imageBuilder(selectedImage)}
                                         alt=""
-                                        className=" w-[100%] h-96"
+                                        className=" w-[100%] h-96 rounded-3xl"
                                     />
                                     <CloseIcon
                                         className=" absolute top-2 right-2 cursor-pointer"

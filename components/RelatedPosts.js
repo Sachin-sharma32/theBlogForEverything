@@ -25,7 +25,7 @@ const RelatedPosts = ({ post }) => {
         .filter((item) => {
             if (item.category) {
                 return (
-                    item.category._id == post.category._id &&
+                    item.category._id == post?.category?._id &&
                     item._id != post._id
                 );
             } else {

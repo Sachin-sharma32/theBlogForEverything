@@ -192,7 +192,7 @@ const Post = () => {
                                             : "text-black"
                                     } flex gap-4 text-xs`}
                                 >
-                                    {post.tags.map((item, i) => (
+                                    {post?.tags?.map((item, i) => (
                                         <Link
                                             href={`/search/${item.title}`}
                                             key={i}
@@ -510,16 +510,22 @@ const Post = () => {
                                 </section>
                             </div>
                             <aside className=" lg:w-[30%] mt-8 flex flex-col justify-center items-center md:justify-start md:flex-row lg:flex-col gap-2 lg:gap-8">
-                                <div className=" bg-white rounded-2xl overflow-hidden shadow-xl w-fit h-fit">
+                                <div
+                                    className={`${
+                                        mode == "dark" ? "shadow-black" : ""
+                                    } bg-inherit overflow-hidden shadow-xl w-fit h-fit  rounded-2xl`}
+                                >
                                     <ErrorBoundry>
                                         <Author author={post.author} />
                                     </ErrorBoundry>
                                 </div>
-                                <div className=" bg-white rounded-2xl overflow-hidden sticky top-20 shadow-xl w-fit">
-                                    <ErrorBoundry>
-                                        <RelatedPosts post={post} />
-                                    </ErrorBoundry>
-                                </div>
+                                {post?.category && (
+                                    <div className=" bg-inherit rounded-2xl overflow-hidden sticky top-20 shadow-xl w-fit">
+                                        <ErrorBoundry>
+                                            <RelatedPosts post={post} />
+                                        </ErrorBoundry>
+                                    </div>
+                                )}
                             </aside>
                         </article>
                     )}
@@ -541,15 +547,17 @@ Post.getInitialProps = async (context) => {
             id: query.post,
         }
     );
-    const tags = headerPost.tags.map((tag) => tag.title);
+    console.log(headerPost);
+    const tags = headerPost?.tags?.map((tag) => tag.title);
     console.log(headerPost);
     return {
         title: headerPost.title,
         image: headerPost?.image?.asset
             ? imageBuilder(headerPost.image)
             : "https://cdn.sanity.io/images/k0me7ccv/production/8fa01467c0ac00d838090a47782c009153f72a94-1024x1024.jpg",
-        summery: headerPost.summery[0].children[0].text,
-        keywords: tags.toString(),
+        summery:
+            headerPost.summery && headerPost?.summery[0]?.children[0]?.text,
+        keywords: tags?.toString(),
         type: "website",
         imageAlt: headerPost.title,
         id: headerPost._id,

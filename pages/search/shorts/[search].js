@@ -2,12 +2,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import Post from "../../components/Post";
-import Smooth from "../../utils/Smooth";
+import Post from "../../../components/Post";
+import Smooth from "../../../utils/Smooth";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 import Head from "next/head";
-import Social from "../../utils/Socials";
 
 const Search = () => {
     const router = useRouter();
@@ -62,13 +61,13 @@ const Search = () => {
             <div className="text-white flex gap-2 px-10 pt-4 text-xs sticky top-[52px] z-40 bg-[#262626] pb-4">
                 <Link
                     href={`/search/${search}`}
-                    className=" active:scale-90 transition-all duration-300 border-2 px-2 rounded-full bg-black text-white border-black"
+                    className=" active:scale-90 transition-all duration-300 border-2 px-2 rounded-full hover:bg-black hover:text-white hover:border-black"
                 >
                     POSTS
                 </Link>
                 <Link
                     href={`/search/shorts/${search}`}
-                    className=" active:scale-90 transition-all duration-300 border-2 px-2 rounded-full hover:bg-black hover:text-white hover:border-black"
+                    className=" active:scale-90 transition-all duration-300 border-2 px-2 rounded-full bg-black text-white border-black"
                 >
                     SHORTS
                 </Link>

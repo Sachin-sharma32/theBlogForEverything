@@ -81,7 +81,7 @@ a {
 }
 
 ::-webkit-scrollbar{
-  width: 10px;
+  width: 5px;
   height: 8px;
 }
 
@@ -97,6 +97,9 @@ a {
 .image-scrollbar::-webkit-scrollbar{
   width: 0px;
   height: 8px;
+}
+.create::-webkit-scrollbar{
+  width: 0px;
 }
 
 @media only screen and (min-width: 601px) {
@@ -190,3 +193,59 @@ a {
         transform: rotateY(-180deg); }
       .card:hover .card__side--back {
         transform: rotateY(0); }
+        
+        .ql-container, .ql-editor{
+          overflow: hidden;
+          padding-left: 20%;
+          padding-right: 20%;
+          border: none;
+          font-size: larger;
+          /* background-color: black; */
+        }
+        .ql-container input{
+          background-color: white;
+          outline: none;
+        }
+        .ql-editor::-webkit-scrollbar{
+          width: 0px;
+        }
+        .ql-container::-webkit-scrollbar{
+          width: 0px;
+        }
+        .editor-container::-webkit-scrollbar{
+          width: 0px;
+        }
+        .ql-editor image{
+          width: "20px";
+        }
+      
+        .ql-toolbar{
+          /* background-color: black;
+          border: none;
+          color:white */
+          position: static;
+          top: 0;
+        }
+        /* .ql-toolbar .ql-stroke-label{
+          color: white;
+          background-color: white;
+        }
+        .ql-toolbar .ql-fill-label{
+          color: white;
+        }
+        .ql-toolbar .ql-picker-label{
+          color: white;
+        }
+        .ql-toolbar .ql-picker-label:hover{
+          color: black;
+        } */
+        .ql-bubble .ql-tooltip{
+          width: "20px" !important;
+        }
+        .quill > .ql-container > .ql-editor.ql-blank::before{
+          padding-left: 20%;
+          padding-right: 20%;
+          font-size: 20px;
+          content: "Select text to see formatting options";
+          transform: translateY(-2px);
+      }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "./Post";
 import WestIcon from "@mui/icons-material/West";
@@ -9,10 +9,18 @@ import { useMemo } from "react";
 
 const Posts = () => {
     let posts = useSelector((state) => state.base.posts);
+    let user = useSelector((state) => state.base.user);
+    console.log(posts);
     let postsCopy = [...posts];
+    const containerRef = useRef(null);
 
     const [filter, setFilter] = useState("Newest");
-    const filters = ["Newest", "Oldest"];
+    let filters;
+    if (user?.preferences) {
+        filters = ["Preferred", "Newest", "Oldest"];
+    }else{
+        filters = ["Newest","Oldest"]
+    }
     if (filter == "Newest") {
         postsCopy.sort(
             (a, b) =>
@@ -25,6 +33,12 @@ const Posts = () => {
                 new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime() -
                 new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime()
         );
+    } else {
+        postsCopy.filter((post) => {
+            return user?.preferences?.find(
+                (pref) => pref._id == post?.category?._id
+            );
+        });
     }
     posts = postsCopy;
 
@@ -46,7 +60,10 @@ const Posts = () => {
     return (
         <section className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">
             <div>
-                <h3 className=" text-3xl text-center mb-10 bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent font-bold">
+                <h3
+                    ref={containerRef}
+                    className=" text-3xl text-center mb-10 bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent font-bold"
+                >
                     FEATURED POSTS
                 </h3>
                 <div className="flex gap-4 mb-4 justify-center">
@@ -74,7 +91,7 @@ const Posts = () => {
             <motion.div
                 layout
                 // className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10"
-                className="columns-1 md:columns-2 xl:columns-3 2xl:columns-4 gap-10"
+                className="columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4"
             >
                 {pagePosts.map((post, i) => (
                     <ErrorBoundry key={i}>
@@ -86,6 +103,9 @@ const Posts = () => {
                 <a className=" cursor-pointer hover:-translate-x-2 transition-all duration-200">
                     <WestIcon
                         onClick={() => {
+                            containerRef.current.scrollIntoView({
+                                behavior: "smooth",
+                            });
                             if (page > 1) {
                                 setPage((cur) => cur - 1);
                             } else {
@@ -111,6 +131,9 @@ const Posts = () => {
                                 : "border-black"
                         } hover:scale-110 active:scale-100 transition-all duration-200 w-6 h-6 flex justify-center items-center cursor-pointer border- rounded-full`}
                         onClick={() => {
+                            containerRef.current.scrollIntoView({
+                                behavior: "smooth",
+                            });
                             setPage(item);
                         }}
                     >
@@ -120,6 +143,9 @@ const Posts = () => {
                 <a className=" cursor-pointer hover:translate-x-2 transition-all duration-200">
                     <EastIcon
                         onClick={() => {
+                            containerRef.current.scrollIntoView({
+                                behavior: "smooth",
+                            });
                             if (page < pages.length) {
                                 setPage((cur) => cur + 1);
                             } else {

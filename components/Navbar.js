@@ -22,10 +22,23 @@ import CategoryBox from "./CategoryBox";
 import LoginIcon from "@mui/icons-material/Login";
 import CheckOutsideClick from "../utils/CheckOutsideClick";
 import ErrorBoundry from "../utils/ErrorBoundry";
+import CreateIcon from "@mui/icons-material/Create";
+import Tooltip from "@mui/material/Tooltip";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Navbar = () => {
     const [hasSession, setHasSession] = useState(false);
     const mode = useSelector((state) => state.base.mode);
+    const categories = useSelector((state) => state.base.categories);
+    const tags = useSelector((state) => state.base.tags);
+    const [showDialog, setShowDialog] = useState(false);
+    const [selectedOption, setSelectedOption] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [showCategoryDialog, setShowCategoryDialog] = useState(false);
+    const [title, setTitle] = useState("");
+    const [showTitleDialog, setShowTitleDialog] = useState(false);
+
+    const options = ["post", "short", "experience", "story"];
 
     const dispatch = useDispatch();
     const { data: user } = useGetMe();
@@ -55,6 +68,7 @@ const Navbar = () => {
     };
 
     const siteUser = useSelector((state) => state.base.user);
+    console.log(siteUser);
 
     const session = useSelector((state) => state.base.session);
     const posts = useSelector((state) => state.base.posts);
@@ -100,12 +114,123 @@ const Navbar = () => {
         }
     }, []);
 
+    const handleCreate = () => {
+        setShowCategoryDialog(false);
+        router.push(
+            `/create?type=${selectedOption}&category=${selectedCategory._id}`
+        );
+
+        if (typeof window != "undefined") {
+            document.body.style.height = "fit-content";
+            document.body.style.overflow = "";
+        }
+    };
+
     return (
         <nav
             className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${
                 mode == "light" ? "bg-white" : "bg-[#262626]"
             } z-50 flex gap-2`}
         >
+            {showDialog && (
+                <div className=" fixed left-0 top-0 h-screen z-50 w-screen backdrop-blur-sm flex justify-center items-center">
+                    <div className="flex flex-col p-10 bg-white w-[500px] gap-4 rounded-3xl relative">
+                        <h3 className="text-2xl font-bold">CHOOSE A TYPE</h3>
+                        <div className="flex flex-wrap text-sm gap-2">
+                            {options?.map((option, i) => (
+                                <div
+                                    onClick={() => {
+                                        if (selectedOption == option) {
+                                            setSelectedOption("");
+                                        } else {
+                                            setSelectedOption(option);
+                                        }
+                                    }}
+                                    key={i}
+                                    className={`${
+                                        selectedOption == option
+                                            ? "bg-white text-black"
+                                            : "bg-black text-white"
+                                    } border-2 px-4 rounded-full  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                >
+                                    {option}
+                                </div>
+                            ))}
+                        </div>
+                        <button
+                            onClick={() => {
+                                setShowDialog(false);
+                                setShowCategoryDialog(true);
+                            }}
+                            className=" absolute bottom-4 right-6 bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
+                        >
+                            Next
+                        </button>
+                        <button
+                            className=" absolute top-4 right-4"
+                            onClick={() => {
+                                setShowDialog(false);
+                                if (typeof window != "undefined") {
+                                    document.body.style.height = "fit-content";
+                                    document.body.style.overflow = "";
+                                }
+                            }}
+                        >
+                            <CloseIcon />
+                        </button>
+                    </div>
+                </div>
+            )}
+            {showCategoryDialog && (
+                <div className=" fixed left-0 top-0 h-screen z-50 w-screen backdrop-blur-sm flex justify-center items-center">
+                    <div className="flex flex-col p-10 bg-white w-[500px] gap-4 rounded-3xl relative">
+                        <h3 className="text-2xl font-bold">
+                            CHOOSE YOUR PREFERENCES
+                        </h3>
+                        <div className="flex flex-wrap text-sm gap-2">
+                            {categories?.map((category, i) => (
+                                <div
+                                    onClick={() => {
+                                        if (
+                                            selectedCategory._id == category._id
+                                        ) {
+                                            setSelectedCategory(null);
+                                        } else {
+                                            setSelectedCategory(category);
+                                        }
+                                    }}
+                                    key={i}
+                                    className={`${
+                                        selectedCategory?._id == category._id
+                                            ? "bg-white text-black"
+                                            : "bg-black text-white"
+                                    } border-2 px-4 rounded-full  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                >
+                                    {category?.title}
+                                </div>
+                            ))}
+                        </div>
+                        <button
+                            onClick={handleCreate}
+                            className=" absolute bottom-4 right-6 bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
+                        >
+                            Next
+                        </button>
+                        <button
+                            className=" absolute top-4 right-4"
+                            onClick={() => {
+                                setShowCategoryDialog(false);
+                                if (typeof window != "undefined") {
+                                    document.body.style.height = "fit-content";
+                                    document.body.style.overflow = "";
+                                }
+                            }}
+                        >
+                            <CloseIcon />
+                        </button>
+                    </div>
+                </div>
+            )}
             <div className="flex gap-4 items-center">
                 <Link href="/">
                     {mode == "dark" ? (
@@ -284,6 +409,24 @@ const Navbar = () => {
                         </CheckOutsideClick>
                     </div>
                     <div className=" flex gap-2 sm:gap-4 items-center justify-center">
+                        <Tooltip title="Create">
+                            <button
+                                className={` ${
+                                    mode == "light"
+                                        ? "text-black"
+                                        : "text-white"
+                                } cursor-pointer hover:scale-125 transition-all duration-200 animation-effect`}
+                                onClick={() => {
+                                    setShowDialog(true);
+                                    if (typeof window != "undefined") {
+                                        document.body.style.height = "100vh";
+                                        document.body.style.overflow = "hidden";
+                                    }
+                                }}
+                            >
+                                <CreateIcon />
+                            </button>
+                        </Tooltip>
                         <Link
                             href="/bookmark"
                             className="relative md:flex hidden"

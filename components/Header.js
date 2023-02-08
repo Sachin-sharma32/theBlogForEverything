@@ -11,13 +11,6 @@ const Header = () => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
     const [success, setSuccess] = useState(false);
-    useEffect(() => {
-        if (success) {
-            setTimeout(() => {
-                setSuccess(false);
-            }, 5000);
-        }
-    }, [success]);
     let post = useMemo(() => {
         return posts?.filter((item) => {
             return item.bestPost;

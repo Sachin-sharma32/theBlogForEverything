@@ -10,7 +10,7 @@ import { Skeleton } from "@mui/material";
 
 const Posts = () => {
     let posts = useSelector((state) => state.base.posts);
-    console.log(posts);
+    posts;
     let user = useSelector((state) => state.base.user);
     const containerRef = useRef(null);
     const [page, setPage] = useState(1);

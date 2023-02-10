@@ -65,8 +65,11 @@ export default function BasicMasonry() {
                         (image, index) =>
                             image?.asset && (
                                 <ErrorBoundry key={index}>
-                                    <Item sx={{ height: heights[index] }} className="rounded-2xl">
-                                        {console.log(image)}
+                                    <Item
+                                        sx={{ height: heights[index] }}
+                                        className="rounded-2xl"
+                                    >
+                                        {image}
                                         <img
                                             src={imageBuilder(image)}
                                             alt="post image"

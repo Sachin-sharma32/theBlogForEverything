@@ -8,22 +8,23 @@ import { useGetPosts } from "../hooks/content";
 import { setLiked, setPosts } from "../redux/slices";
 import { Tooltip } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useHandleLike } from "../hooks/useLike";
-import { useGetMe } from "../hooks/useUser";
-import { useGetPost } from "../hooks/usePost";
+import { useHandleLike } from "../routers/usePost";
+import { useGetPost } from "../routers/usePost";
 
 const Like = ({ post, setSuccess }) => {
     const router = useRouter();
     const [like, setLike] = useState(true);
 
     const mode = useSelector((state) => state.base.mode);
+    const user = useSelector((state) => state.base.user);
     const { data: currentPost } = useGetPost(post?._id);
-    const { data: user } = useGetMe();
+    currentPost;
+    user;
     useEffect(() => {
         if (user && currentPost) {
-            post?.likes?.map((like) => {
-                if (like === user._id) {
-                    console.log(like, user._id);
+            currentPost?.likes?.map((like) => {
+                if (like._id === user._id) {
+                    like, user._id;
                     setLike(false);
                 }
             });

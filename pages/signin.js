@@ -34,9 +34,9 @@ const SignIn = () => {
     const [showDialog, setShowDialog] = useState(false);
     const categories = useSelector((state) => state.base.categories);
     const user = useSelector((state) => state.base.user);
-    console.log(user);
+    user;
     const [preferences, setPreferences] = useState([]);
-    console.log(categories);
+    categories;
 
     const onSuccess = (data) => {
         dispatch(setSuccessPopup(true));

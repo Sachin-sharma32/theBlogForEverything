@@ -6,7 +6,7 @@ export default async function tags(req, res) {
         const data = await client.fetch(query);
         res.status(200).json(data);
     } else if (req.method == "POST") {
-        console.log(req.body);
+        req.body;
         const exist = await client.fetch(
             `*[_type == "tag" && title == $title][0]`,
             {

@@ -2,7 +2,7 @@ import { client } from "../../../sanity";
 import sendEmail from "../../../utils/email";
 
 export default async function register(req, res) {
-    console.log(req.body);
+    req.body;
     const existUser = await client.fetch(
         `*[_type == "user" && email == $email][0]`,
         {

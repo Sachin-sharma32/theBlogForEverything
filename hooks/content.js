@@ -31,7 +31,7 @@ export const useSignin = (onSuccess, onError) => {
         },
         {
             onSuccess: (data) => {
-                console.log(data);
+                data;
                 queryClient.invalidateQueries({ queryKey: ["getMe"] });
                 if (data.data.cookie) {
                     setCookie("user", JSON.stringify(data.data.cookie), {
@@ -162,7 +162,7 @@ export const useCreateTag = (onSuccess, onError) => {
         },
         {
             onSuccess: (data) => {
-                console.log(data);
+                data;
                 dispatch(setTags(data.data));
                 onSuccess();
             },

@@ -7,7 +7,7 @@ export const useUpdateUser = (onSuccess, onError) => {
     return useMutation(
         "updateUser",
         (data) => {
-            console.log(data);
+            data;
             return axios.patch(
                 `http://localhost:8000/api/v1/users/${data.userId}`,
                 data.preferences

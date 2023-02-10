@@ -3,7 +3,7 @@ import { client } from "../../../sanity";
 
 export default async function userPost(req, res) {
     if (req.method === "POST") {
-        console.log(req.body);
+        req.body;
         const { title, image, content, category, tags, type, userId } =
             req.body;
         const userPost = {
@@ -26,7 +26,7 @@ export default async function userPost(req, res) {
                 },
             ])
             .commit();
-        console.log("data", data);
+        "data", data;
         res.status(200).json({ data });
     }
 }

@@ -37,8 +37,8 @@ const Create = () => {
     const [error, setError] = useState(false);
     const [image, setImage] = useState("");
     const user = useSelector((state) => state.base.user);
-    console.log("user", user);
-    console.log(image);
+    "user", user;
+    image;
     const [imageDialog, setImageDialog] = useState(false);
 
     const validationObject = yup.object({
@@ -78,18 +78,18 @@ const Create = () => {
         validationSchema: validationObject,
     });
 
-    console.log(filter);
+    filter;
     useEffect(() => {
         if (tags) {
             if (search != "") {
-                console.log(search);
+                search;
                 setFilter(
                     tags.filter((tag) =>
                         tag.title.toLowerCase().includes(search.toLowerCase())
                     )
                 );
             } else {
-                console.log("tags");
+                ("tags");
                 setFilter(tags);
             }
         }
@@ -110,17 +110,17 @@ const Create = () => {
                     filename: file.name,
                 })
                 .then((data) => {
-                    console.log(data);
+                    data;
                     setImage(data.url);
                 });
         }
     };
 
     const onPostSuccess = () => {
-        console.log("success");
+        ("success");
     };
     const onPostError = () => {
-        console.log("error");
+        ("error");
     };
 
     const { mutate: createUserPost } = useCreateUserPost(
@@ -144,7 +144,7 @@ const Create = () => {
         <div className=" min-h-[90vh] flex-col relative mt-2">
             <Dialog open={showTagsDialog}>
                 <DialogTitle>Choose Tags (3)</DialogTitle>
-                <DialogContent sx={{ width: "500px", height:'300px' }}>
+                <DialogContent sx={{ width: "500px", height: "300px" }}>
                     <input
                         type="text"
                         placeholder="Search"

@@ -30,7 +30,7 @@ const baseSlice = createSlice({
         },
         setUser: (state, action) => {
             state.user = action.payload;
-            console.log(state.user);
+            state.user;
         },
         setBookmarks: (state, action) => {
             state.bookmarks = action.payload;

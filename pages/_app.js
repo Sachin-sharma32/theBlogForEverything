@@ -13,7 +13,7 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-    console.log(pageProps);
+    pageProps;
     const queryClient = new QueryClient();
 
     const [cookie, setCookie, removeCookie] = useCookies(["jwt"]);

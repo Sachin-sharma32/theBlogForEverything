@@ -2,7 +2,7 @@ import { client } from "../../../sanity";
 
 export default async function Preferences(req, res) {
     if (req.method === "PUT") {
-        console.log(req.body);
+        req.body;
         const data = await client
             .patch(req.body.userId)
             .setIfMissing({ preferences: [] })

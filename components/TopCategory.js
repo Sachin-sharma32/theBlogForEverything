@@ -9,7 +9,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 
 const TopCategory = ({ num, category }) => {
-    console.log(category);
+    category;
     const mode = useSelector((state) => state.base.mode);
     const categoryRef = useRef(null);
     const headingRef = useRef(null);
@@ -48,7 +48,11 @@ const TopCategory = ({ num, category }) => {
                     <h3 className=" text-xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white bg-black w-full text-center backdrop-brightness-50">
                         {category.title}
                     </h3>
-                    <img src={category.image} alt="" className="h-full w-full" />
+                    <img
+                        src={category.image}
+                        alt=""
+                        className="h-full w-full"
+                    />
                 </motion.div>
                 {/* <div>
                         <p>{moment(post.updatedAt).format("ll")}</p>

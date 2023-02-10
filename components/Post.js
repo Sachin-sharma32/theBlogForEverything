@@ -10,7 +10,7 @@ import { imageBuilder } from "../sanity";
 import { useEffect } from "react";
 
 const Post = ({ post }) => {
-    console.log(post);
+    post;
     const mode = useSelector((state) => state.base.mode);
     const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
     const [likeSuccess, setLikeSuccess] = useState(false);

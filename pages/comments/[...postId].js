@@ -11,10 +11,10 @@ import App from "next/app";
 import { useGetComments } from "../../routers/useComment";
 
 const Comments = ({ postId }) => {
-    console.log(postId);
+    postId;
     const router = useRouter();
     const { data: comments } = useGetComments(postId);
-    console.log(comments);
+    comments;
     const mode = useSelector((state) => state.base.mode);
     if (comments) {
         return (

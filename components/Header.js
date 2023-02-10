@@ -16,7 +16,7 @@ const Header = () => {
     const dispatch = useDispatch();
     const [success, setSuccess] = useState(false);
     const { data: post } = useGetBestPost();
-    console.log(post)
+    post;
 
     useEffect(() => {
         if (success) {
@@ -100,9 +100,7 @@ const Header = () => {
                                                         : "text-white"
                                                 }`}
                                             >
-                                                {
-                                                    post.summery
-                                                }
+                                                {post.summery}
                                             </p>
                                             <figure className="flex gap-4 items-center">
                                                 <Avatar

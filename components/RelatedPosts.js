@@ -32,7 +32,7 @@ const RelatedPosts = ({ post }) => {
             }
         })
         .splice(0, 2);
-    console.log(relatedPosts);
+    relatedPosts;
     return (
         <div
             className={`${

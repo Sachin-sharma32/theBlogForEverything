@@ -41,7 +41,7 @@ export const useAddComment = (onSuccess, onError) => {
     return useMutation(
         "addComment",
         (data) => {
-            console.log(data);
+            data;
             return axios.post(
                 `http://localhost:8000/api/v1/comments/${data.postId}`,
                 data.data
@@ -93,6 +93,24 @@ export const useHandleCommentLike = () => {
             onSuccess: () => {
                 queryClient.invalidateQueries(["comments"]);
             },
+            select: (data) => {
+                const comment = data.data.data.doc;
+                return comment;
+            },
+        }
+    );
+};
+
+export const useGetComment = (commentsId, commentId) => {
+    const queryClient = useQueryClient();
+    return useQuery(
+        "comment",
+        () => {
+            return axios.get(
+                `http://localhost:8000/api/v1/comments/${commentsId}/comment/${commentId}`
+            );
+        },
+        {
             select: (data) => {
                 const comment = data.data.data.doc;
                 return comment;

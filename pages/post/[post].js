@@ -21,7 +21,7 @@ import ErrorBoundry from "../../utils/ErrorBoundry";
 
 const Post = ({ post }) => {
     const { data: comments } = useGetComments(post._id);
-    console.log(comments);
+    comments;
     const [loading, setLoading] = useState(false);
     const [editor, setEditor] = useState(null);
     const mode = useSelector((state) => state.base.mode);

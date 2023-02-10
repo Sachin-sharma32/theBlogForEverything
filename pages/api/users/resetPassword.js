@@ -8,7 +8,7 @@ export default async function verifyUser(req, res) {
             email: req.body.email,
         }
     );
-    console.log(existUser)
+    existUser;
     if (!existUser) {
         return res.status(400).json({ message: "User don't exist" });
     } else {

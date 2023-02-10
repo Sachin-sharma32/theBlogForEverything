@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { setPosts } from "../redux/slices";
 import { useDispatch } from "react-redux";
@@ -31,6 +31,22 @@ export const useGetAllPosts = () => {
         }
     );
 };
+
+export const useGetPost = (postId) => {
+    return useQuery(
+        "getPost",
+        () => {
+            return axios.get(`http://localhost:8000/api/v1/posts/${postId}`);
+        },
+        {
+            select: (data) => {
+                const post = data.data.data.doc;
+                return post;
+            },
+        }
+    );
+};
+
 export const useCreatePost = (onSuccess, onError) => {
     return useMutation(
         "createPost",

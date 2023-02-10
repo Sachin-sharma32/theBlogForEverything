@@ -9,7 +9,7 @@ export default async function forgotPassword(req, res) {
         }
     );
     if (existUser) {
-        console.log(existUser);
+        existUser;
         await sendEmail({
             email: req.body.email,
             name: req.body.email,

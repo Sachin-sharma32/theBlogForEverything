@@ -82,7 +82,7 @@ const Navbar = () => {
     };
 
     const siteUser = useSelector((state) => state.base.user);
-    console.log(siteUser);
+    siteUser;
 
     const session = useSelector((state) => state.base.session);
     const posts = useSelector((state) => state.base.posts);

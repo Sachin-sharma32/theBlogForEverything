@@ -30,7 +30,7 @@ export const useLogIn = (onSuccess, onError) => {
         },
         {
             onSuccess: (data) => {
-                console.log(data);
+                data;
                 dispatch(setUser(data.data.data.user));
                 setCookie("jwt", JSON.stringify(data.data.data.token), {
                     path: "/",

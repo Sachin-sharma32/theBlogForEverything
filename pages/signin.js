@@ -39,7 +39,6 @@ const SignIn = () => {
     console.log(categories);
 
     const onSuccess = (data) => {
-        console.log(data);
         dispatch(setSuccessPopup(true));
         dispatch(setMessage("Signed In successfully"));
         setTimeout(() => {

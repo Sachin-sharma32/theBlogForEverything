@@ -15,12 +15,12 @@ const Author = ({ author }) => {
             } p-4 shadow-2xl`}
         >
             <figure className="flex gap-2 items-center">
-                <Avatar src={imageBuilder(author.image)} alt="user profile" />
+                <Avatar src={author.image} alt="user profile" />
                 <figcaption className=" font-semibold">
                     {author.name}
                 </figcaption>
             </figure>
-            <p className=" text-xs mt-2">{author.bio[0].children[0].text}</p>
+            <p className=" text-xs mt-2">{author.bio}</p>
             <section className=" mt-4">
                 <h4 className=" font-semibold">LOCATION</h4>
                 <p className=" text-xs">{author.location}</p>

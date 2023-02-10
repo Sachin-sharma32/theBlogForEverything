@@ -5,90 +5,77 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useGetPosts } from "../hooks/content";
-import {
-    setLiked,
-    setMessage,
-    setPosts,
-    setSuccessPopup,
-} from "../redux/slices";
+import { setLiked, setPosts } from "../redux/slices";
 import { Tooltip } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useHandleLike } from "../hooks/useLike";
+import { useGetMe } from "../hooks/useUser";
+import { useGetPost } from "../hooks/usePost";
 
 const Like = ({ post, setSuccess }) => {
-    const dispatch = useDispatch();
     const router = useRouter();
-    const likes = useSelector((state) => state.base.likes);
     const [like, setLike] = useState(true);
+
     const mode = useSelector((state) => state.base.mode);
-    const user = useSelector((state) => state.base.user);
-    const [loading, setLoading] = useState(false);
+    const { data: currentPost } = useGetPost(post?._id);
+    const { data: user } = useGetMe();
     useEffect(() => {
-        if (user && post) {
+        if (user && currentPost) {
             post?.likes?.map((like) => {
-                if (like._id == user._id) {
+                if (like === user._id) {
+                    console.log(like, user._id);
                     setLike(false);
                 }
             });
         }
-    }, [user, likes, post]);
-    const handleLike = async () => {
-        if (user) {
-            setLoading(true);
-            const data = { postId: post._id, userId: user._id, like };
-            const { data: response } = await axios.put("/api/users/like", data);
-            if (response) {
-                dispatch(setPosts(response.posts));
-                setLoading(false);
-                setLike((curr) => !curr);
-                dispatch(setSuccessPopup(true));
-                dispatch(setMessage("Likes Updated"));
-            }
-        } else {
-            router.push("/signin");
-        }
-    };
+    }, [user, currentPost]);
 
+    const onSuccess = () => {
+        setLike((current) => !current);
+    };
+    const onError = () => {};
+    const { mutate: toggleLike } = useHandleLike(onSuccess, onError);
     return (
         <div
             className={`${
                 mode == "dark" ? "text-white" : "text-black"
             } hover:scale-125 transition-all duration-200`}
         >
-            {loading ? (
-                <div className=" w-6 h-6 flex justify-center items-center">
-                    <CircularProgress size="1rem" color="inherit" />
-                </div>
-            ) : (
-                <div>
-                    <Tooltip title="Like" placement="bottom">
-                        {like ? (
-                            <a onClick={handleLike} className="cursor-pointer">
-                                <FavoriteBorderIcon />
-                            </a>
-                        ) : (
-                            <div
-                                onClick={handleLike}
-                                className="cursor-pointer "
-                            >
-                                <FavoriteIcon className=" text-red-500" />
-                            </div>
-                        )}
-                    </Tooltip>
-                    {post?.likes ? (
-                        <p
-                            className={`${
-                                mode === "dark"
-                                    ? "bg-white text-black"
-                                    : "bg-black text-white"
-                            } absolute top-0 -right-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full text-xs flex items-center justify-center`}
-                        >
-                            {post.likes.length}
-                        </p>
+            <div
+                onClick={() => {
+                    user
+                        ? toggleLike({
+                              postId: currentPost._id,
+                              userId: user._id,
+                          })
+                        : router.push("/signin");
+                }}
+            >
+                <Tooltip title="Like" placement="bottom">
+                    {like ? (
+                        <a className="cursor-pointer">
+                            <FavoriteBorderIcon />
+                        </a>
                     ) : (
-                        ""
+                        <div className="cursor-pointer ">
+                            <FavoriteIcon className=" text-red-500" />
+                        </div>
                     )}
-                </div>
-            )}
+                </Tooltip>
+                {currentPost?.likes ? (
+                    <p
+                        className={`${
+                            mode === "dark"
+                                ? "bg-white text-black"
+                                : "bg-black text-white"
+                        } absolute top-0 -right-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full text-xs flex items-center justify-center`}
+                    >
+                        {post.likes.length}
+                    </p>
+                ) : (
+                    ""
+                )}
+            </div>
         </div>
     );
 };

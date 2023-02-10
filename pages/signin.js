@@ -74,14 +74,14 @@ const SignIn = () => {
     };
 
     const { data: session } = useSession();
-    const { mutate: oAuthLogIn } = useOauth();
     useEffect(() => {
         if (session) {
             const data = {
                 name: session.user.name,
                 email: session.user.email,
+                oAuth: true,
             };
-            oAuthLogIn(data);
+            login(data);
             if (
                 !data.data.data.preferences ||
                 data.data.data.preferences.length === 0

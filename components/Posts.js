@@ -11,11 +11,11 @@ import { useTotalPosts } from "../routers/usePost";
 import { useQuery } from "react-query";
 
 const Posts = () => {
-    const { data: total } = useTotalPosts();
+    let posts = useSelector((state) => state.base.posts);
     let user = useSelector((state) => state.base.user);
+    console.log(posts);
+    let postsCopy = [...posts];
     const containerRef = useRef(null);
-    const [page, setPage] = useState(1);
-    const [pages, setPages] = useState(null);
 
     const [filter, setFilter] = useState("Newest");
     let filters;
@@ -24,34 +24,41 @@ const Posts = () => {
     } else {
         filters = ["Newest", "Oldest"];
     }
+    if (filter == "Newest") {
+        postsCopy.sort(
+            (a, b) =>
+                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime() -
+                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime()
+        );
+    } else if (filter == "Oldest") {
+        postsCopy.sort(
+            (a, b) =>
+                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime() -
+                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime()
+        );
+    } else {
+        postsCopy.filter((post) => {
+            return user?.preferences?.find(
+                (pref) => pref._id == post?.category?._id
+            );
+        });
+    }
+    posts = postsCopy;
 
     const mode = useSelector((state) => state.base.mode);
 
-    const { data: posts } = useQuery(
-        ["posts", page, filter],
-        () => {
-            console.log(filter);
-            return axios.get(
-                `http://localhost:8000/api/v1/posts?page=${page}&limit=12&sort=${filter}`
-            );
-        },
-        {
-            select: (data) => {
-                const posts = data.data.data.docs;
-                return posts;
-            },
-        }
+    const [page, setPage] = useState(1);
+    const lastPost = page * 12;
+    const firstPost = lastPost - 11;
+    let pages = [];
+    const pagePosts = useMemo(
+        () => posts.slice(firstPost - 1, lastPost),
+        [page, posts]
     );
 
-    useEffect(() => {
-        if (total > 0) {
-            const postPages = [];
-            for (let i = 1; i <= Math.ceil(total / 12); i++) {
-                postPages.push(i);
-            }
-            setPages(postPages);
-        }
-    }, [total]);
+    for (let i = 1; i <= Math.ceil(posts.length / 12); i++) {
+        pages.push(i);
+    }
 
     return (
         <section className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">
@@ -88,8 +95,8 @@ const Posts = () => {
                 layout
                 className="columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4"
             >
-                {posts.length > 0
-                    ? posts.map((post, i) => (
+                {pagePosts.length > 0
+                    ? pagePosts.map((post, i) => (
                           <ErrorBoundry key={i}>
                               <Post post={post} />
                           </ErrorBoundry>

@@ -22,7 +22,6 @@ import {
     setSuccess,
     setUser,
 } from "../redux/slices";
-import { useGetTags } from "../hooks/content";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
@@ -39,6 +38,7 @@ import { setErrorPopup, setSuccessPopup } from "../redux/slices";
 import { useAllCategories } from "../routers/useCategory";
 import { useGetMe } from "../routers/useUser";
 import { useGetAllPosts } from "../routers/usePost";
+import { useGetAllTags } from "../routers/useTag";
 
 const Navbar = () => {
     const [hasSession, setHasSession] = useState(false);
@@ -66,7 +66,7 @@ const Navbar = () => {
 
     const [toggleCategories, setToggleCategories] = useState(false);
 
-    useGetTags();
+    useGetAllTags();
     useAllCategories();
     useGetAllPosts();
 

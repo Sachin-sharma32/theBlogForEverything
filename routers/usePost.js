@@ -22,7 +22,7 @@ export const useGetAllPosts = () => {
     return useQuery(
         "allPosts",
         () => {
-            return axios.get("http://localhost:8000/api/v1/posts");
+            return axios.get("http://localhost:8000/api/v1/posts?limit=1000");
         },
         {
             onSuccess: (data) => {

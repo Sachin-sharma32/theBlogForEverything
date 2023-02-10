@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Smooth from "../../utils/Smooth";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
 import { Alert, Snackbar } from "@mui/material";
@@ -12,27 +12,24 @@ import { useLogIn, useResetPassword } from "../../hooks/useAuth";
 import Login from "@mui/icons-material/Login";
 import { Layer } from "@sanity/ui";
 import Layout from "../../components/Layout";
+import { setErrorPopup, setSuccessPopup } from "../../redux/slices";
 
 const ResetPassword = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
     let { token } = router.query;
     token = token[0];
     const mode = useSelector((state) => state.base.mode);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
     const [message, setMessage] = useState("");
     const onSuccess = () => {
-        setSuccess(true);
-        setMessage("Password Reset Successfully");
-        setTimeout(() => {
-            router.push("/signin");
-        }, 2000);
+        dispatch(setSuccessPopup(true));
+        dispatch(setMessage("Password Reset Successfully"));
     };
     const onError = (err) => {
-        setError(true);
-        setMessage(err.response.data.message);
+        dispatch(setErrorPopup(true));
+        dispatch(setMessage(err.response.data.message));
     };
     const { mutate: resetPassword } = useResetPassword(onSuccess, onError);
     const submitHandler = async (e) => {
@@ -45,38 +42,6 @@ const ResetPassword = () => {
 
     return (
         <Layout>
-            <Snackbar
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                onClose={() => {
-                    setSuccess(false);
-                }}
-                open={success}
-            >
-                <Alert
-                    severity="success"
-                    onClose={() => {
-                        setSuccess(false);
-                    }}
-                >
-                    {message}
-                </Alert>
-            </Snackbar>
-            <Snackbar
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                onClose={() => {
-                    setError(false);
-                }}
-                open={error}
-            >
-                <Alert
-                    severity="error"
-                    onClose={() => {
-                        setError(false);
-                    }}
-                >
-                    {message}
-                </Alert>
-            </Snackbar>
             <Head>
                 <title>TBFE - Sign In</title>
                 <link

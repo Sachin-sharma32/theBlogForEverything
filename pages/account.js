@@ -67,15 +67,9 @@ const Account = () => {
     const onSuccess = () => {
         setBtnLoading(false);
         setSuccess(true);
-        setTimeout(() => {
-            setSuccess(false);
-        }, 2000);
     };
     const onError = () => {
         setError(true);
-        setTimeout(() => {
-            setError(false);
-        }, 2000);
     };
     const { mutate: updateAccount, error: err } = useUpdateAccount(
         onSuccess,

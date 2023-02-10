@@ -9,6 +9,9 @@ const initialState = {
     likes: [],
     categories: [],
     tags: [],
+    message: "",
+    error: false,
+    success: false,
 };
 
 const baseSlice = createSlice({
@@ -40,6 +43,15 @@ const baseSlice = createSlice({
         setTags: (state, action) => {
             state.tags = action.payload;
         },
+        setMessage: (state, action) => {
+            state.message = action.payload;
+        },
+        setErrorPopup: (state, action) => {
+            state.error = action.payload;
+        },
+        setSuccessPopup: (state, action) => {
+            state.success = action.payload;
+        },
     },
 });
 
@@ -52,5 +64,8 @@ export const {
     setLiked,
     setCategories,
     setTags,
+    setMessage,
+    setErrorPopup,
+    setSuccessPopup,
 } = baseSlice.actions;
 export default baseSlice.reducer;

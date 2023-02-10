@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Smooth from "../utils/Smooth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useGetCategories, useOauth, useSignin } from "../hooks/content";
 import { signIn, useSession } from "next-auth/react";
@@ -20,15 +20,15 @@ import Link from "next/link";
 import Head from "next/head";
 import { client } from "../sanity";
 import axios from "axios";
+import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
+import CloseIcon from "@mui/icons-material/Close";
 
 const SignIn = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const mode = useSelector((state) => state.base.mode);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
-    const [errorMsg, setErrorMsg] = useState("");
     const [showDialog, setShowDialog] = useState(false);
     const categories = useSelector((state) => state.base.categories);
     const user = useSelector((state) => state.base.user);
@@ -37,10 +37,9 @@ const SignIn = () => {
 
     const onSuccess = (data) => {
         console.log(data);
-        setSuccess(true);
+        dispatch(setSuccessPopup(true));
+        dispatch(setMessage("Signed In successfully"));
         setTimeout(() => {
-            document.body.style.overflow = "hidden";
-            setSuccess(false);
             if (
                 !data.data.data.preferences ||
                 data.data.data.preferences.length === 0
@@ -52,11 +51,8 @@ const SignIn = () => {
         }, 2000);
     };
     const onError = (err) => {
-        setError(true);
-        setErrorMsg(err.response.data.message);
-        setTimeout(() => {
-            setError(false);
-        }, 2000);
+        dispatch(setErrorPopup(true));
+        dispatch(setMessage(err.response.data.message));
     };
     const { mutate: userSignIn, error: err } = useSignin(onSuccess, onError);
     const submitHandler = async (e) => {
@@ -105,7 +101,63 @@ const SignIn = () => {
 
     return (
         <div className="relative">
-            {showDialog && (
+            <Dialog open={showDialog}>
+                <DialogTitle>CHOOSE YOUR PREFERENCES</DialogTitle>
+                <DialogContent>
+                    <DialogContentText className="flex gap-1 mb-10 flex-wrap">
+                        {categories?.map((category, i) => (
+                            <div
+                                onClick={() => {
+                                    if (
+                                        preferences.find(
+                                            (item) => item._id === category._id
+                                        )
+                                    ) {
+                                        setPreferences(
+                                            preferences.filter(
+                                                (item) =>
+                                                    item._id !== category._id
+                                            )
+                                        );
+                                    } else {
+                                        setPreferences([
+                                            ...preferences,
+                                            { ...category, _key: i },
+                                        ]);
+                                    }
+                                }}
+                                key={i}
+                                className={`${
+                                    preferences.find(
+                                        (item) => item._id === category._id
+                                    )
+                                        ? "bg-white text-black"
+                                        : "bg-black text-white"
+                                } border-2 px-4 rounded-full  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                            >
+                                {category?.title}
+                            </div>
+                        ))}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <button
+                        onClick={addPreferences}
+                        className=" absolute bottom-4 right-6 bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
+                    >
+                        Save
+                    </button>
+                    <button
+                        className=" absolute top-4 right-4"
+                        onClick={() => {
+                            setShowDialog(false);
+                        }}
+                    >
+                        <CloseIcon />
+                    </button>
+                </DialogActions>
+            </Dialog>
+            {/* {showDialog && (
                 <div className=" fixed left-0 top-0 h-screen z-50 w-screen backdrop-blur-sm flex justify-center items-center">
                     <div className="flex flex-col p-10 bg-white w-[500px] gap-4 rounded-3xl relative">
                         <h3 className="text-2xl font-bold">
@@ -156,23 +208,7 @@ const SignIn = () => {
                         </button>
                     </div>
                 </div>
-            )}
-            {error && (
-                <Alert
-                    severity="error"
-                    className=" absolute top-20 z-50 left-1/2 -translate-x-1/2"
-                >
-                    {errorMsg}
-                </Alert>
-            )}
-            {success && (
-                <Alert
-                    severity="success"
-                    className=" absolute top-20 z-50 left-1/2 -translate-x-1/2"
-                >
-                    Logged In Successfully
-                </Alert>
-            )}
+            )} */}
             <Head>
                 <title>TBFE - Sign In</title>
                 <link

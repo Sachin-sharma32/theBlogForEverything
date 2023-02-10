@@ -13,18 +13,7 @@ const Post = ({ post }) => {
     const mode = useSelector((state) => state.base.mode);
     const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
     const [likeSuccess, setLikeSuccess] = useState(false);
-    useEffect(() => {
-        if (bookmarkSuccess) {
-            setTimeout(() => {
-                setBookmarkSuccess(false);
-            }, 5000);
-        }
-        if (likeSuccess) {
-            setTimeout(() => {
-                setLikeSuccess(false);
-            }, 5000);
-        }
-    }, [bookmarkSuccess, likeSuccess]);
+
     return (
         <motion.div
             initial={{ opacity: 0 }}

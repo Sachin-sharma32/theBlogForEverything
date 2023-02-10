@@ -5,7 +5,12 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useGetPosts } from "../hooks/content";
-import { setLiked, setPosts } from "../redux/slices";
+import {
+    setLiked,
+    setMessage,
+    setPosts,
+    setSuccessPopup,
+} from "../redux/slices";
 import { Tooltip } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -35,7 +40,8 @@ const Like = ({ post, setSuccess }) => {
                 dispatch(setPosts(response.posts));
                 setLoading(false);
                 setLike((curr) => !curr);
-                setSuccess(true);
+                dispatch(setSuccessPopup(true));
+                dispatch(setMessage("Likes Updated"));
             }
         } else {
             router.push("/signin");

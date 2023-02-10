@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "../components/Header";
 import Posts from "../components/Posts";
 import TopCategories from "../components/TopCategories";
@@ -6,8 +6,11 @@ import Smooth from "../utils/Smooth";
 import Head from "next/head";
 import ErrorBoundry from "../utils/ErrorBoundry";
 
+
 export default function Home() {
     const mode = useSelector((state) => state.base.mode);
+
+
     return (
         <>
             <Head>

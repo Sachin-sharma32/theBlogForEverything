@@ -10,7 +10,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Error from "../utils/Error";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
-import { Alert,} from "@mui/material";
+import { Alert } from "@mui/material";
 import Head from "next/head";
 
 const Register = () => {
@@ -56,7 +56,6 @@ const Register = () => {
     const onSuccess = () => {
         setSuccess(true);
         setTimeout(() => {
-            setSuccess(false);
             router.push("/signin");
         }, 2000);
     };
@@ -64,9 +63,6 @@ const Register = () => {
         console.log(err);
         setError(true);
         setErrorMsg(err.response.data.message);
-        setTimeout(() => {
-            setError(false);
-        }, 2000);
     };
     const { mutate: register, error: err } = useRegister(onSuccess, onError);
     const submitHandler = async (values) => {

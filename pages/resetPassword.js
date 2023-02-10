@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Smooth from "../utils/Smooth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useOauth, useResetPassword, useSignin } from "../hooks/content";
 import { signIn, useSession } from "next-auth/react";
@@ -12,23 +12,19 @@ import Head from "next/head";
 import Login from "@mui/icons-material/Login";
 import { useFormik, ErrorMessage, Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
 
 const ResetPassword = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const mode = useSelector((state) => state.base.mode);
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
-    const [message, setMessage] = useState("");
     const onSuccess = () => {
-        setSuccess(true);
-        setMessage("Password reset successfully.");
-        setTimeout(() => {
-            router.push("/");
-        }, 2000);
+        dispatch(setSuccessPopup(true));
+        dispatch(setMessage("Password reset successfully."));
     };
     const onError = (err) => {
-        setError(true);
-        setMessage("Something went wrong.");
+        dispatch(setErrorPopup(true));
+        dispatch(setMessage("Something went wrong."));
     };
 
     const { mutate: resetPassword } = useResetPassword(onSuccess, onError);

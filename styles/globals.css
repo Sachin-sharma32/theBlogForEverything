@@ -22,7 +22,7 @@ body {
   font-weight: 500;
   font-size: 16px;
   line-height: 1.8;
-  contain: paint;
+  /* contain: paint; */
   font-family: 'Merriweather', serif;
 }
 
@@ -81,7 +81,7 @@ a {
 }
 
 ::-webkit-scrollbar{
-  width: 5px;
+  width: 0px;
   height: 8px;
 }
 

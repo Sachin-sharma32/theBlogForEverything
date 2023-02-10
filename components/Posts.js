@@ -6,6 +6,7 @@ import EastIcon from "@mui/icons-material/East";
 import ErrorBoundry from "../utils/ErrorBoundry";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
+import { Skeleton } from "@mui/material";
 
 const Posts = () => {
     let posts = useSelector((state) => state.base.posts);
@@ -18,8 +19,8 @@ const Posts = () => {
     let filters;
     if (user?.preferences) {
         filters = ["Preferred", "Newest", "Oldest"];
-    }else{
-        filters = ["Newest","Oldest"]
+    } else {
+        filters = ["Newest", "Oldest"];
     }
     if (filter == "Newest") {
         postsCopy.sort(
@@ -90,14 +91,17 @@ const Posts = () => {
             </div>
             <motion.div
                 layout
-                // className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-10"
                 className="columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4"
             >
-                {pagePosts.map((post, i) => (
-                    <ErrorBoundry key={i}>
-                        <Post post={post} />
-                    </ErrorBoundry>
-                ))}
+                {pagePosts.lenght > 0
+                    ? pagePosts.map((post, i) => (
+                          <ErrorBoundry key={i}>
+                              <Post post={post} />
+                          </ErrorBoundry>
+                      ))
+                    : [...Array(12)].map((item) => (
+                          <Skeleton className=" h-[200px] bg-gray-500 w-[350px] rounded-2xl" />
+                      ))}
             </motion.div>
             <div className="flex gap-2 mt-6 md:mt-0">
                 <a className=" cursor-pointer hover:-translate-x-2 transition-all duration-200">

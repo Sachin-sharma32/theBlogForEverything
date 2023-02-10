@@ -1,15 +1,18 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Alert, Avatar } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { imageBuilder } from "../sanity";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import BookmarkBtn from "../utils/BookmarkBtn";
 import styled from "styled-components";
+import { setMessage, setSuccessPopup } from "../redux/slices";
+import Skeleton from "@mui/material/Skeleton";
 
 const Header = () => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
+    const dispatch = useDispatch();
     const [success, setSuccess] = useState(false);
     let post = useMemo(() => {
         return posts?.filter((item) => {
@@ -17,6 +20,13 @@ const Header = () => {
         });
     }, [posts]);
     post = post[0];
+
+    useEffect(() => {
+        if (success) {
+            dispatch(setSuccessPopup(true));
+            dispatch(setMessage("Added To Bookmark"));
+        }
+    }, [success]);
 
     let StyledContainer;
     if (post && mode) {
@@ -63,14 +73,12 @@ const Header = () => {
             justify-content: end;
             align-items: center;
             border-radius: 40px;
-            overflow: hidden;
         `;
     }
-
-    if (post && mode) {
-        return (
-            <>
-                <header className=" flex justify-center items-center mt-0 pt-8">
+    return (
+        <>
+            <header className=" flex justify-center items-center mt-0 pt-8">
+                {post ? (
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ x: [200, 0], opacity: 1 }}
@@ -140,17 +148,17 @@ const Header = () => {
                             )}
                         </StyledContainer>
                     </motion.div>
-                    {success && (
-                        <Alert security="success" className="absolute top-24">
-                            <Link href="/bookmark">MY BOOKMARKS</Link>
-                        </Alert>
-                    )}
-                </header>
-            </>
-        );
-    } else {
-        return <div className=" min-h-screen"></div>;
-    }
+                ) : (
+                    <Skeleton
+                        variant="rectangular"
+                        // width={210}
+                        // height={118}
+                        className={` w-[80vw] h-[60vh] sm:h-[80vh] bg-gray-500 flex justify-end items-center shadow-2xl cursor-pointer rounded-[40px] overflow-hidden`}
+                    />
+                )}
+            </header>
+        </>
+    );
 };
 
 export default React.memo(Header);

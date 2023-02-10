@@ -5,7 +5,12 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useGetPosts } from "../hooks/content";
-import { setPosts, setUser } from "../redux/slices";
+import {
+    setMessage,
+    setPosts,
+    setSuccessPopup,
+    setUser,
+} from "../redux/slices";
 import { Tooltip } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -40,7 +45,8 @@ const BookmarkBtn = ({ post, setSuccess }) => {
             if (response) {
                 dispatch(setUser({ ...user, bookmarks: response.bookmarks }));
                 setLoading(false);
-                setSuccess(true);
+                dispatch(setSuccessPopup(true));
+                dispatch(setMessage("Bookmarks Updated"));
             }
         } else {
             router.push("/signin");

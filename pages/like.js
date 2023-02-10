@@ -29,7 +29,7 @@ const Like = () => {
                     </h3>
                 </div>
 
-                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
+                <div className="columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4">
                     {liked?.map((post, i) => (
                         <ErrorBoundry key={i}>
                             <Post post={post} />

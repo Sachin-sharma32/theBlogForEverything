@@ -9,14 +9,13 @@ import { SessionProvider } from "next-auth/react";
 import Social from "../utils/Socials";
 import Script from "next/script";
 import Head from "next/head";
-import { Stack } from "@mui/material";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     console.log(pageProps);
     const queryClient = new QueryClient();
 
     return (
-        <Stack sx={{ backgroundColor: "" }}>
+        <div className=" overflow-y-scroll">
             <Head>
                 <title>TBFE - {pageProps.title}</title>
                 <link
@@ -74,7 +73,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 `}
                 </Script>
             </Head>
-            <Stack>
+            <div>
                 <QueryClientProvider client={queryClient}>
                     <Provider store={store}>
                         <SessionProvider session={session}>
@@ -86,8 +85,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                         </SessionProvider>
                     </Provider>
                 </QueryClientProvider>
-            </Stack>
-        </Stack>
+            </div>
+        </div>
     );
 }
 

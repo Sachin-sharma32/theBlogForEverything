@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Smooth from "../utils/Smooth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useForgotPassword, useOauth, useSignin } from "../hooks/content";
 import { signIn, useSession } from "next-auth/react";
@@ -10,23 +10,24 @@ import Link from "next/link";
 import Head from "next/head";
 import Login from "@mui/icons-material/Login";
 import { Alert, Snackbar } from "@mui/material";
+import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
 
 const ForgotPassword = () => {
     const router = useRouter();
+    const dispatch = useDispatch();
     const mode = useSelector((state) => state.base.mode);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
-    const [message, setMessage] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
     const onSuccess = () => {
-        // setSuccess(true);
-        // setMessage("Check your email for a link to reset your password.");
+        dispatch(setSuccessPopup(true));
+        dispatch(
+            setMessage("Check your email for a link to reset your password.")
+        );
     };
     const onError = (err) => {
-        setError(true);
-        setErrorMsg(err.message);
+        dispatch(setErrorPopup(true));
+        dispatch(setMessage(err.message));
     };
 
     const { mutate: forgotPassword } = useForgotPassword(onSuccess, onError);

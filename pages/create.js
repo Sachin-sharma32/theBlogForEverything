@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const TextEditor = dynamic(() => import("../components/TextEditor"), {
     ssr: false,
 });
@@ -13,6 +13,13 @@ import { useCreateTag, useCreateUserPost } from "../hooks/content";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { IconButton } from "@mui/material";
 import { client } from "../sanity";
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+} from "@mui/material";
+import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
 
 const Create = () => {
     const router = useRouter();
@@ -28,7 +35,6 @@ const Create = () => {
     const [filter, setFilter] = useState([]);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
-    const [message, setMessage] = useState("");
     const [image, setImage] = useState("");
     const user = useSelector((state) => state.base.user);
     console.log("user", user);
@@ -38,22 +44,15 @@ const Create = () => {
     const validationObject = yup.object({
         title: yup.string().min(3).max(10),
     });
+    const dispatch = useDispatch();
 
     const onError = (error) => {
-        console.log(error);
-        setError(true);
-        setTimeout(() => {
-            setError(false);
-        }, 2000);
-        setMessage(error.response.data.message);
+        dispatch(setErrorPopup(true));
+        dispatch(setMessage(error.response.data.message));
     };
     const onSuccess = (data) => {
-        console.log(data);
-        setSuccess(true);
-        setTimeout(() => {
-            setSuccess(false);
-        }, 2000);
-        setMessage("Tag created successfully");
+        dispatch(setSuccessPopup(true));
+        dispatch(setMessage("Tag created successfully"));
     };
     const { mutate: createTag } = useCreateTag(onSuccess, onError);
     const tagHandler = (values) => {
@@ -143,171 +142,146 @@ const Create = () => {
 
     return (
         <div className=" min-h-[90vh] flex-col relative mt-2">
-            {showTagsDialog && (
-                <div className=" fixed left-0 top-0 h-screen z-50 w-screen backdrop-blur-sm flex justify-center items-center">
-                    <div className="flex flex-col p-10  bg-white w-[500px] h-[500px] overflow-y-scroll gap-4 relative">
-                        {success && (
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-green-500 text-white p-4">
-                                {message}
-                            </div>
-                        )}
-                        {error && (
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-red-500 text-white p-4">
-                                {message}
-                            </div>
-                        )}
-                        <h3 className="text-2xl font-bold">CHOOSE TAGS (3)</h3>
+            <Dialog open={showTagsDialog}>
+                <DialogTitle>Choose Tags (3)</DialogTitle>
+                <DialogContent sx={{ width: "500px", height:'300px' }}>
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        onChange={(e) => {
+                            setSearch(e.target.value);
+                        }}
+                        className="border-b border-black bg-white outline-none w-[70%] mb-4"
+                    />
+                    <div className="flex gap-2">
                         <input
                             type="text"
-                            placeholder="Search"
-                            onChange={(e) => {
-                                setSearch(e.target.value);
-                            }}
+                            name="title"
+                            value={formik.values.title}
+                            onChange={formik.handleChange}
+                            onBlue={formik.handleBlur}
+                            placeholder="Create A Tag"
                             className="border-b border-black bg-white outline-none w-[70%]"
                         />
-                        <div className="flex gap-2">
-                            <input
-                                type="text"
-                                name="title"
-                                value={formik.values.title}
-                                onChange={formik.handleChange}
-                                onBlue={formik.handleBlur}
-                                placeholder="Create A Tag"
-                                className="border-b border-black bg-white outline-none w-[70%]"
-                            />
-                            <button
-                                type="submit"
-                                disabled={!formik.isValid}
-                                onClick={formik.handleSubmit}
-                                className=" cursor-pointer bg-black text-white w-6 h-6 flex justify-center items-center transition-all duration-300 rounded-full active:scale-90"
-                            >
-                                <AddIcon />
-                            </button>
-                        </div>
-                        <div className="flex flex-wrap text-sm gap-2">
-                            {filter?.map((tag, i) => (
-                                <div
-                                    onClick={() => {
-                                        if (
-                                            selectedTags.find(
-                                                (item) => item._id === tag._id
-                                            )
-                                        ) {
-                                            setSelectedTags(
-                                                selectedTags.filter(
-                                                    (item) =>
-                                                        item._id !== tag._id
-                                                )
-                                            );
-                                        } else {
-                                            if (selectedTags.length < 3) {
-                                                setSelectedTags([
-                                                    ...selectedTags,
-                                                    { ...tag, _key: i + 1 },
-                                                ]);
-                                            }
-                                        }
-                                    }}
-                                    key={i}
-                                    className={`${
+                        <button
+                            type="submit"
+                            disabled={!formik.isValid}
+                            onClick={formik.handleSubmit}
+                            className=" cursor-pointer bg-black text-white w-6 h-6 flex justify-center items-center transition-all duration-300 rounded-full active:scale-90"
+                        >
+                            <AddIcon />
+                        </button>
+                    </div>
+                    <div className="flex overflow-y-scroll flex-wrap gap-2 pt-4">
+                        {filter?.map((tag, i) => (
+                            <div
+                                onClick={() => {
+                                    if (
                                         selectedTags.find(
                                             (item) => item._id === tag._id
                                         )
-                                            ? "bg-white text-black"
-                                            : "bg-black text-white"
-                                    } border-2 px-4 rounded-full disabled:bg-gray-500  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
-                                >
-                                    {tag?.title}
-                                </div>
-                            ))}
-                        </div>
-                        <button
-                            disabled={selectedTags.length < 3}
-                            onClick={() => {
-                                setShowTagsDialog(false);
-                                setImageDialog(true);
-                            }}
-                            className=" sticky bottom-4 left-4 w-fit bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
-                        >
-                            Next
-                        </button>
-                        <button
-                            className=" absolute top-4 right-4"
-                            onClick={() => {
-                                setShowTagsDialog(false);
-                                if (typeof window != "undefined") {
-                                    document.body.style.height = "fit-content";
-                                    document.body.style.overflow = "";
-                                }
-                            }}
-                        >
-                            <CloseIcon />
-                        </button>
+                                    ) {
+                                        setSelectedTags(
+                                            selectedTags.filter(
+                                                (item) => item._id !== tag._id
+                                            )
+                                        );
+                                    } else {
+                                        if (selectedTags.length < 3) {
+                                            setSelectedTags([
+                                                ...selectedTags,
+                                                { ...tag, _key: i + 1 },
+                                            ]);
+                                        }
+                                    }
+                                }}
+                                key={i}
+                                className={`${
+                                    selectedTags.find(
+                                        (item) => item._id === tag._id
+                                    )
+                                        ? "bg-white text-black"
+                                        : "bg-black text-white"
+                                } border-2 px-2 rounded-full w-fit disabled:bg-gray-500  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                            >
+                                {tag?.title}
+                            </div>
+                        ))}
                     </div>
-                </div>
-            )}
-            {imageDialog && (
-                <div className=" fixed left-0 top-0 h-screen z-50 w-screen backdrop-blur-sm flex justify-center items-center">
-                    <div className="flex flex-col p-10 bg-white shadow-2xl h-[300px] w-[500px] gap-4 rounded-3xl relative">
-                        <h3 className="text-2xl font-bold text-center">
-                            CHOOSE BANNER IMAGE
-                        </h3>
-                        <IconButton
-                            aria-label="upload picture"
-                            component="label"
-                            size="large"
-                            sx={{
-                                width: "fit-content",
-                                position: "absolute",
-                                top: "50%",
-                                left: "50%",
-                            }}
-                            className=" -translate-x-1/2 -translate-y-1/2 z-50"
-                        >
-                            <input
-                                hidden
-                                accept="image/*"
-                                type="file"
-                                onChange={uploadImage}
-                            />
-                            <CameraAltIcon size="large" className="text-5xl" />
-                        </IconButton>
-                        <button
-                            className={`${
-                                image ? "text-white" : "text-black"
-                            } absolute top-4 right-4 z-50`}
-                            onClick={() => {
-                                setImageDialog(false);
-                                if (typeof window != "undefined") {
-                                    document.body.style.height = "fit-content";
-                                    document.body.style.overflow = "";
-                                }
-                            }}
-                        >
-                            <CloseIcon />
-                        </button>
-                        <button
-                            onClick={() => {
-                                createPost();
-                                setImageDialog(false);
-                                if (typeof window != "undefined") {
-                                    document.body.style.height = "fit-content";
-                                    document.body.style.overflow = "";
-                                }
-                            }}
-                            className=" absolute bottom-4 right-4 z-50 w-fit bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
-                        >
-                            CREATE POST
-                        </button>
-                        {image && (
-                            <img
-                                src={image}
-                                className=" absolute top-0 left-0 h-full w-full z-40"
-                            />
-                        )}
-                    </div>
-                </div>
-            )}
+                </DialogContent>
+                <DialogActions>
+                    <button
+                        disabled={selectedTags.length < 3}
+                        onClick={() => {
+                            setShowTagsDialog(false);
+                            setImageDialog(true);
+                        }}
+                        className=" sticky bottom-4 left-4 w-fit bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
+                    >
+                        Next
+                    </button>
+                    <button
+                        className=" absolute top-4 right-4"
+                        onClick={() => {
+                            setShowTagsDialog(false);
+                        }}
+                    >
+                        <CloseIcon />
+                    </button>
+                </DialogActions>
+            </Dialog>
+            <Dialog open={imageDialog}>
+                <DialogTitle>Choose Banner Image</DialogTitle>
+                <DialogContent className=" w-[500px] h-[200px]">
+                    <IconButton
+                        aria-label="upload picture"
+                        component="label"
+                        size="large"
+                        sx={{
+                            width: "fit-content",
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                        }}
+                        className=" -translate-x-1/2 -translate-y-1/2 z-50"
+                    >
+                        <input
+                            hidden
+                            accept="image/*"
+                            type="file"
+                            onChange={uploadImage}
+                        />
+                        <CameraAltIcon size="large" className="text-5xl" />
+                    </IconButton>
+                    <button
+                        className={`${
+                            image ? "text-white" : "text-black"
+                        } absolute top-4 right-4 z-50`}
+                        onClick={() => {
+                            setImageDialog(false);
+                        }}
+                    >
+                        <CloseIcon />
+                    </button>
+                    {image && (
+                        <img
+                            src={image}
+                            className=" absolute top-0 left-0 h-full w-full z-40"
+                        />
+                    )}
+                </DialogContent>
+                <DialogActions>
+                    <button
+                        onClick={() => {
+                            createPost();
+                            setImageDialog(false);
+                        }}
+                        className=" absolute bottom-4 right-4 z-50 w-fit bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
+                    >
+                        CREATE POST
+                    </button>
+                </DialogActions>
+            </Dialog>
             <div className=" w-[100%] bg-white flex flex-col gap-10 items-center pt-10">
                 <input
                     value={title}
@@ -321,10 +295,6 @@ const Create = () => {
                 <button
                     onClick={() => {
                         setShowTagsDialog(true);
-                        if (typeof window !== "undefined") {
-                            document.body.style.height = "100vh";
-                            document.body.style.overflow = "hidden";
-                        }
                     }}
                     className=" absolute bottom-20 right-10 bg-black text-white px-10 rounded-full hover:bg-white border-black hover:text-black border transition-all duration-300"
                 >

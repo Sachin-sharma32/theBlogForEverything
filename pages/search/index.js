@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "../../components/Post";
 import Smooth from "../../utils/Smooth";
@@ -11,6 +11,7 @@ import Social from "../../utils/Socials";
 const Search = () => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
+    const containerRef = useRef();
 
     const [filter, setFilter] = useState("");
     const filters = ["Newest", "Oldest"];
@@ -40,7 +41,7 @@ const Search = () => {
     }
 
     return (
-        <>
+        <div ref={containerRef}>
             <Head>
                 <title>TBFE - All posts</title>
                 <link
@@ -100,7 +101,7 @@ const Search = () => {
                         ))}
                     </div>
                 )}
-                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
+                <div className="columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4">
                     {pagePosts.map((post, i) => (
                         <Post key={i} post={post} />
                     ))}
@@ -110,6 +111,9 @@ const Search = () => {
                         <a className=" cursor-pointer hover:-translate-x-2 transition-all duration-200">
                             <WestIcon
                                 onClick={() => {
+                                    containerRef.current.scrollIntoView({
+                                        behavior: "smooth",
+                                    });
                                     if (page > 1) {
                                         setPage((cur) => cur - 1);
                                     } else {
@@ -136,6 +140,9 @@ const Search = () => {
                                 } hover:scale-110 active:scale-100 transition-all duration-200 w-6 h-6 flex justify-center items-center rounded-sm cursor-pointer border`}
                                 onClick={() => {
                                     setPage(item);
+                                    containerRef.current.scrollIntoView({
+                                        behavior: "smooth",
+                                    });
                                 }}
                             >
                                 {item}
@@ -144,6 +151,9 @@ const Search = () => {
                         <a className=" cursor-pointer hover:translate-x-2 transition-all duration-200">
                             <EastIcon
                                 onClick={() => {
+                                    containerRef.current.scrollIntoView({
+                                        behavior: "smooth",
+                                    });
                                     if (page < pages.length) {
                                         setPage((cur) => cur + 1);
                                     } else {
@@ -155,7 +165,7 @@ const Search = () => {
                     </div>
                 )}
             </Smooth>
-        </>
+        </div>
     );
 };
 

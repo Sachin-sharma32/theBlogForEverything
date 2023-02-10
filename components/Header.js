@@ -8,18 +8,15 @@ import BookmarkBtn from "../utils/BookmarkBtn";
 import styled from "styled-components";
 import { setMessage, setSuccessPopup } from "../redux/slices";
 import Skeleton from "@mui/material/Skeleton";
+import { useGetBestPost } from "../routers/usePost";
 
 const Header = () => {
     const mode = useSelector((state) => state.base.mode);
     const posts = useSelector((state) => state.base.posts);
     const dispatch = useDispatch();
     const [success, setSuccess] = useState(false);
-    let post = useMemo(() => {
-        return posts?.filter((item) => {
-            return item.bestPost;
-        });
-    }, [posts]);
-    post = post[0];
+    const { data: post } = useGetBestPost();
+    console.log(post)
 
     useEffect(() => {
         if (success) {
@@ -44,7 +41,7 @@ const Header = () => {
                                 ? "rgba(0, 0, 0, 0.665) 100%"
                                 : "rgba(230, 230, 230, 0.831) 100%"}
                     ),
-                    url(${imageBuilder(post.image)});
+                    url(${post?.image});
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -62,7 +59,7 @@ const Header = () => {
                                 ? "rgba(0, 0, 0) 100%"
                                 : "rgba(250, 250, 250) 100%"}
                     ),
-                    url(${imageBuilder(post.image)});
+                    url(${post.image});
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -104,15 +101,12 @@ const Header = () => {
                                                 }`}
                                             >
                                                 {
-                                                    post.summery[0].children[0]
-                                                        .text
+                                                    post.summery
                                                 }
                                             </p>
                                             <figure className="flex gap-4 items-center">
                                                 <Avatar
-                                                    src={imageBuilder(
-                                                        post.author.image
-                                                    )}
+                                                    src={post?.author?.image}
                                                     className=" w-14 h-14"
                                                 />
                                                 <figcaption>
@@ -123,10 +117,10 @@ const Header = () => {
                                                                 : "text-white"
                                                         }`}
                                                     >
-                                                        {post.author.name}
+                                                        {post.author?.name}
                                                     </p>
                                                     <p className=" text-xs">
-                                                        {post.author.work}
+                                                        {post.author?.work}
                                                     </p>
                                                 </figcaption>
                                             </figure>

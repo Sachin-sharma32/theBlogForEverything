@@ -22,6 +22,8 @@ import { client } from "../sanity";
 import axios from "axios";
 import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
 import CloseIcon from "@mui/icons-material/Close";
+import { useLogIn } from "../routers/useAuth";
+import { useUpdateUser } from "../routers/useUser";
 
 const SignIn = () => {
     const router = useRouter();
@@ -32,6 +34,7 @@ const SignIn = () => {
     const [showDialog, setShowDialog] = useState(false);
     const categories = useSelector((state) => state.base.categories);
     const user = useSelector((state) => state.base.user);
+    console.log(user);
     const [preferences, setPreferences] = useState([]);
     console.log(categories);
 
@@ -41,8 +44,8 @@ const SignIn = () => {
         dispatch(setMessage("Signed In successfully"));
         setTimeout(() => {
             if (
-                !data.data.data.preferences ||
-                data.data.data.preferences.length === 0
+                !data.data.data.user.preferences ||
+                data.data.data.user.preferences.length === 0
             ) {
                 setShowDialog(true);
             } else {
@@ -54,17 +57,21 @@ const SignIn = () => {
         dispatch(setErrorPopup(true));
         dispatch(setMessage(err.response.data.message));
     };
-    const { mutate: userSignIn, error: err } = useSignin(onSuccess, onError);
+    const { mutate: login, error: err } = useLogIn(onSuccess, onError);
     const submitHandler = async (e) => {
         e.preventDefault();
         const user = { email, password };
-        userSignIn(user);
+        login(user);
     };
 
+    const onUpdateSuccess = () => {
+        router.push("/");
+    };
+
+    const { mutate: updateUser } = useUpdateUser(onUpdateSuccess);
     const addPreferences = async () => {
         const userData = { preferences, userId: user._id };
-        const data = await axios.put("/api/users/preferences", userData);
-        router.push("/");
+        updateUser(userData);
     };
 
     const { data: session } = useSession();

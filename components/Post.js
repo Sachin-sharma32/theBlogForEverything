@@ -10,6 +10,7 @@ import { imageBuilder } from "../sanity";
 import { useEffect } from "react";
 
 const Post = ({ post }) => {
+    console.log(post);
     const mode = useSelector((state) => state.base.mode);
     const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
     const [likeSuccess, setLikeSuccess] = useState(false);
@@ -31,14 +32,14 @@ const Post = ({ post }) => {
             {post.image && (
                 <div className=" overflow-hidden">
                     <img
-                        src={`${imageBuilder(post?.image)}`}
+                        src={`${post.image}`}
                         width="400"
                         className="h-[180px] hover:scale-125 transition-all duration-700"
                         alt="post"
                     />
                 </div>
             )}
-            {post.title && post.title && post.author && (
+            {post.title && post.title && (
                 <article className=" p-4">
                     <div className="flex items-center justify-between text-xs flex-wrap gap-1">
                         <div className=" text-[#eb9586] flex gap-2">
@@ -73,13 +74,11 @@ const Post = ({ post }) => {
                         >
                             {post.title}
                         </h5>
-                        <p className=" mb-4">
-                            {post?.summery && post?.summery[0].children[0].text}
-                        </p>
+                        <p className=" mb-4">{post.summery}</p>
                     </Link>
                     <section className="flex gap-2 items-start">
                         <div className="flex gap-2 cursor-pointer">
-                            <Avatar src={imageBuilder(post.author.image)} />
+                            <Avatar src={post.author?.image} />
                             <div>
                                 <div className="flex gap-4 items-center">
                                     <p
@@ -89,13 +88,13 @@ const Post = ({ post }) => {
                                                 : "text-black"
                                         }`}
                                     >
-                                        {post.author.name}
+                                        {post.author?.name}
                                     </p>
                                     <div className="">
                                         {moment(post.publishedAt).format("ll")}
                                     </div>
                                 </div>
-                                <p className=" text-xs">{post.author.work}</p>
+                                <p className=" text-xs">{post.author?.work}</p>
                             </div>
                         </div>
                     </section>

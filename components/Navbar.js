@@ -22,12 +22,7 @@ import {
     setSuccess,
     setUser,
 } from "../redux/slices";
-import {
-    useGetCategories,
-    useGetMe,
-    useGetPosts,
-    useGetTags,
-} from "../hooks/content";
+import { useGetTags } from "../hooks/content";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
@@ -41,6 +36,9 @@ import CreateIcon from "@mui/icons-material/Create";
 import Tooltip from "@mui/material/Tooltip";
 import CloseIcon from "@mui/icons-material/Close";
 import { setErrorPopup, setSuccessPopup } from "../redux/slices";
+import { useAllCategories } from "../routers/useCategory";
+import { useGetMe } from "../routers/useUser";
+import { useGetAllPosts } from "../routers/usePost";
 
 const Navbar = () => {
     const [hasSession, setHasSession] = useState(false);
@@ -57,8 +55,7 @@ const Navbar = () => {
     const options = ["post", "short", "experience", "story"];
 
     const dispatch = useDispatch();
-    const { data: user } = useGetMe();
-    const { data } = useGetPosts();
+    useGetMe();
     const [shown, setShown] = useState(false);
 
     if (typeof window !== "undefined") {
@@ -70,7 +67,8 @@ const Navbar = () => {
     const [toggleCategories, setToggleCategories] = useState(false);
 
     useGetTags();
-    useGetCategories();
+    useAllCategories();
+    useGetAllPosts();
 
     const sideRef = useRef();
 
@@ -95,9 +93,9 @@ const Navbar = () => {
             setHasSession(true);
         }
     }, [session]);
-    const [cookie, setCookie] = useCookies(["user"]);
-    if (cookie) {
-        dispatch(setSession(cookie.user));
+    const [cookie, setCookie] = useCookies(["jwt"]);
+    if (siteUser) {
+        dispatch(setSession(cookie.jwt));
     }
 
     const router = useRouter();
@@ -362,7 +360,7 @@ const Navbar = () => {
                     </section>
                 </CheckOutsideClick>
             </div>
-            {hasSession ? (
+            {siteUser ? (
                 <div className=" relative">
                     <div>
                         <button
@@ -384,7 +382,7 @@ const Navbar = () => {
                                     } shadow-2xl shadow-black flex-col text-sm user-links font-normal z-50`}
                                 >
                                     <li className="bg-gradient-to-r from-[#ff7d69] to-blue-700 p-4">
-                                        Hi, {user?.data?.user?.name}
+                                        Hi, {siteUser?.name}
                                     </li>
                                     <Link href="/account" onClick={hideSideBar}>
                                         <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
@@ -422,13 +420,13 @@ const Navbar = () => {
                                     <li
                                         className=" hover:bg-gray-200 hover:text-black w-full p-4 flex flex-col text-center cursor-pointer"
                                         onClick={() => {
-                                            setCookie("user", "logout", {
+                                            setCookie("jwt", "logout", {
                                                 path: "/",
                                                 maxAge: 0,
                                                 sameSite: true,
                                             });
                                             setHasSession(false);
-                                            dispatch(setUser({}));
+                                            dispatch(setUser(null));
                                             dispatch(setSession(null));
                                             signOut();
                                             router.push("/");
@@ -547,7 +545,7 @@ const Navbar = () => {
                                 } absolute top-10 -left-36 -translate-x-1/2 shadow-2xl shadow-black flex-col text-sm rounded-2xl overflow-hidden user-links font-normal z-0 hidden drop-down`}
                             >
                                 <li className="bg-gradient-to-r from-[#ff7d69] to-blue-700 p-4">
-                                    Hi, {user?.data?.user?.name?.toUpperCase()}
+                                    Hi, {siteUser?.name.toUpperCase()}
                                 </li>
                                 <Link href="/account">
                                     <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
@@ -579,7 +577,7 @@ const Navbar = () => {
                                 <li
                                     className=" hover:bg-gray-200 hover:text-black w-96 p-4 flex flex-col text-center cursor-pointer"
                                     onClick={() => {
-                                        setCookie("user", "logout", {
+                                        setCookie("jwt", "logout", {
                                             path: "/",
                                             maxAge: 0,
                                             sameSite: true,
@@ -592,7 +590,7 @@ const Navbar = () => {
                                 >
                                     <p>LOGOUT</p>
                                     <p className=" text-xs">
-                                        {user?.data.user.email}
+                                        {siteUser?.email}
                                     </p>
                                 </li>
                             </ul>

@@ -10,10 +10,10 @@ import { Skeleton } from "@mui/material";
 
 const Posts = () => {
     let posts = useSelector((state) => state.base.posts);
-    let user = useSelector((state) => state.base.user);
     console.log(posts);
-    let postsCopy = [...posts];
+    let user = useSelector((state) => state.base.user);
     const containerRef = useRef(null);
+    const [page, setPage] = useState(1);
 
     const [filter, setFilter] = useState("Newest");
     let filters;
@@ -22,38 +22,10 @@ const Posts = () => {
     } else {
         filters = ["Newest", "Oldest"];
     }
-    if (filter == "Newest") {
-        postsCopy.sort(
-            (a, b) =>
-                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime() -
-                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime()
-        );
-    } else if (filter == "Oldest") {
-        postsCopy.sort(
-            (a, b) =>
-                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime() -
-                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime()
-        );
-    } else {
-        postsCopy.filter((post) => {
-            return user?.preferences?.find(
-                (pref) => pref._id == post?.category?._id
-            );
-        });
-    }
-    posts = postsCopy;
 
     const mode = useSelector((state) => state.base.mode);
 
-    const [page, setPage] = useState(1);
-    const lastPost = page * 12;
-    const firstPost = lastPost - 11;
-    let pages = [];
-    const pagePosts = useMemo(
-        () => posts.slice(firstPost - 1, lastPost),
-        [page, posts]
-    );
-
+    const pages = [];
     for (let i = 1; i <= Math.ceil(posts.length / 12); i++) {
         pages.push(i);
     }
@@ -93,8 +65,8 @@ const Posts = () => {
                 layout
                 className="columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4"
             >
-                {pagePosts.lenght > 0
-                    ? pagePosts.map((post, i) => (
+                {posts.length > 0
+                    ? posts.map((post, i) => (
                           <ErrorBoundry key={i}>
                               <Post post={post} />
                           </ErrorBoundry>

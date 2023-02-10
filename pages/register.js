@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Smooth from "../utils/Smooth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { signIn, useSession } from "next-auth/react";
-import { useOauth, useRegister } from "../hooks/content";
+import { useOauth } from "../hooks/content";
 import * as yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Error from "../utils/Error";
@@ -12,11 +12,12 @@ import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
 import { Alert } from "@mui/material";
 import Head from "next/head";
+import { useRegister } from "../routers/useAuth";
+import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
 
 const Register = () => {
     const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
-    const [errorMsg, setErrorMsg] = useState("");
 
     const PASSWORD_REGEX =
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -51,20 +52,19 @@ const Register = () => {
         password: "",
         passwordConfirm: "",
     };
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
+    const dispatch = useDispatch();
     const onSuccess = () => {
-        setSuccess(true);
+        dispatch(setSuccessPopup(true));
+        dispatch(setMessage("A verification link has been sent to your email"));
         setTimeout(() => {
             router.push("/signin");
         }, 2000);
     };
     const onError = (err) => {
-        console.log(err);
-        setError(true);
-        setErrorMsg(err.response.data.message);
+        dispatch(setErrorPopup(true));
+        dispatch(setMessage(err.response.data.message));
     };
-    const { mutate: register, error: err } = useRegister(onSuccess, onError);
+    const { mutate: register } = useRegister(onSuccess, onError);
     const submitHandler = async (values) => {
         const user = {
             name: values.name,
@@ -108,18 +108,6 @@ const Register = () => {
             text-xs
             min-h-screen`}
             >
-                {error && (
-                    <div className=" fixed z-50 top-20">
-                        <Alert severity="error">{errorMsg}</Alert>
-                    </div>
-                )}
-                {success && (
-                    <div className=" fixed top-20 z-50">
-                        <Alert severity="success">
-                            VERIFICATION EMAIL SENT
-                        </Alert>
-                    </div>
-                )}
                 <div
                     className={`${
                         mode == "dark" ? "signin-form" : "signin-form-light"

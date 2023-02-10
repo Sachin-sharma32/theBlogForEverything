@@ -9,13 +9,18 @@ import { SessionProvider } from "next-auth/react";
 import Social from "../utils/Socials";
 import Script from "next/script";
 import Head from "next/head";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     console.log(pageProps);
     const queryClient = new QueryClient();
 
+    const [cookie, setCookie, removeCookie] = useCookies(["jwt"]);
+    axios.defaults.headers.common["authorization"] = `Bearer ${cookie.jwt}`;
+
     return (
-        <div className=" overflow-y-scroll">
+        <div className=" overflow-y-scroll overflow-x-hidden">
             <Head>
                 <title>TBFE - {pageProps.title}</title>
                 <link

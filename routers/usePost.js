@@ -88,3 +88,18 @@ export const useHandleLike = (onSuccess, onError) => {
         }
     );
 };
+
+export const useTotalPosts = () => {
+    return useQuery(
+        "totalPosts",
+        () => {
+            return axios.get("http://localhost:8000/api/v1/posts/total");
+        },
+        {
+            select: (data) => {
+                const total = data.data.data.total;
+                return total;
+            },
+        }
+    );
+};

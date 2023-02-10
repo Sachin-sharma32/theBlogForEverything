@@ -7,13 +7,15 @@ import ErrorBoundry from "../utils/ErrorBoundry";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { Skeleton } from "@mui/material";
+import { useTotalPosts } from "../routers/usePost";
+import { useQuery } from "react-query";
 
 const Posts = () => {
-    let posts = useSelector((state) => state.base.posts);
-    posts;
+    const { data: total } = useTotalPosts();
     let user = useSelector((state) => state.base.user);
     const containerRef = useRef(null);
     const [page, setPage] = useState(1);
+    const [pages, setPages] = useState(null);
 
     const [filter, setFilter] = useState("Newest");
     let filters;
@@ -25,10 +27,31 @@ const Posts = () => {
 
     const mode = useSelector((state) => state.base.mode);
 
-    const pages = [];
-    for (let i = 1; i <= Math.ceil(posts.length / 12); i++) {
-        pages.push(i);
-    }
+    const { data: posts } = useQuery(
+        ["posts", page, filter],
+        () => {
+            console.log(filter);
+            return axios.get(
+                `http://localhost:8000/api/v1/posts?page=${page}&limit=12&sort=${filter}`
+            );
+        },
+        {
+            select: (data) => {
+                const posts = data.data.data.docs;
+                return posts;
+            },
+        }
+    );
+
+    useEffect(() => {
+        if (total > 0) {
+            const postPages = [];
+            for (let i = 1; i <= Math.ceil(total / 12); i++) {
+                postPages.push(i);
+            }
+            setPages(postPages);
+        }
+    }, [total]);
 
     return (
         <section className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">

@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/slices";
@@ -34,21 +34,7 @@ export const useGetMe = (onSuccess, onError) => {
         }
     );
 };
-export const useHandleBookmark = (onSuccess, onError) => {
-    return useMutation(
-        "handleBookmark",
-        (userId) => {
-            return axios.patch(
-                `http://localhost:8000/api/v1/users/bookmarks/${userId}`,
-                data
-            );
-        },
-        {
-            onSuccess,
-            onError,
-        }
-    );
-};
+
 export const useGetAllBookmarks = () => {
     return useQuery("allBookmarks", () => {
         return axios.get(
@@ -62,4 +48,25 @@ export const useGetUserLikes = (userId) => {
             `http://localhost:8000/api/v1/users/userLikes/${userId}`
         );
     });
+};
+
+export const useHandleBookmark = (onSuccess, onError) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        "handleBookmark",
+        (data) => {
+            return axios.patch(
+                `http://localhost:8000/api/v1/users/bookmarks/${data.userId}`,
+                { postId: data.postId }
+            );
+        },
+        {
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["bookmarks"]);
+                queryClient.invalidateQueries(["me"]);
+                onSuccess();
+            },
+            onError: onError,
+        }
+    );
 };

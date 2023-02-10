@@ -3,17 +3,14 @@ import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { setPosts, setUser } from "../redux/slices";
 import { Tooltip } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
-import { useHandleBookmark } from "../hooks/useBookmark";
-import { useGetMe } from "../hooks/useUser";
+import { useHandleBookmark } from "../routers/useUser";
 
 const BookmarkBtn = ({ post, setSuccess }) => {
     const mode = useSelector((state) => state.base.mode);
     const [exist, setExist] = useState(false);
-    const { data: user } = useGetMe();
+    const user = useSelector((state) => state.base.user);
+
     useEffect(() => {
         if (user && post) {
             user.bookmarks.map((bookmark) => {

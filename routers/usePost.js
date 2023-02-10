@@ -50,3 +50,25 @@ export const useHandlePostLike = (onSuccess, onError) => {
         );
     });
 };
+
+export const useHandleLike = (onSuccess, onError) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        "addLike",
+        (data) => {
+            return axios.patch(
+                `http://localhost:8000/api/v1/posts/likes/${data.postId}`,
+                { userId: data.userId }
+            );
+        },
+        {
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["likes"]);
+                queryClient.invalidateQueries(["userLikes"]);
+                queryClient.invalidateQueries(["post"]);
+                onSuccess();
+            },
+            onError: onError,
+        }
+    );
+};

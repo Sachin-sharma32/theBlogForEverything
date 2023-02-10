@@ -5,17 +5,17 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { CircularProgress, Tooltip } from "@mui/material";
-import { useHandleCommentLike } from "../hooks/useComment";
-import { useGetMe } from "../hooks/useUser";
 import { useGetComment } from "../hooks/useComment";
+import { useHandleCommentLike } from "../routers/useComment";
 
 const LikeCommentIcon = ({ comments, comment }) => {
     const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
+    const user = useSelector((state) => state.base.user);
     const [loading, setLoading] = useState(false);
     const [like, setLike] = useState(true);
     const { mutate: handleLike } = useHandleCommentLike();
-    const { data: user } = useGetMe();
+
     let filterLikes = [];
     if (user && comment?.likes?.length > 0) {
         filterLikes = comment?.likes?.filter((item) => {

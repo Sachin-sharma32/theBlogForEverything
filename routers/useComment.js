@@ -76,3 +76,27 @@ export const useUpdateComment = (onSuccess, onError) => {
         }
     );
 };
+
+export const useHandleCommentLike = () => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        "handleCommentLike",
+        (data) => {
+            return axios.patch(
+                `http://localhost:8000/api/v1/comments/${data.commentsId}/comment/${data.commentId}`,
+                {
+                    userId: data.userId,
+                }
+            );
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(["comments"]);
+            },
+            select: (data) => {
+                const comment = data.data.data.doc;
+                return comment;
+            },
+        }
+    );
+};

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
 const TextEditor = dynamic(() => import("../components/TextEditor"), {
@@ -9,7 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useCreateTag, useCreateUserPost } from "../hooks/content";
+import { useCreateTag } from "../hooks/content";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { IconButton } from "@mui/material";
 import { client } from "../sanity";
@@ -20,6 +20,15 @@ import {
     DialogActions,
 } from "@mui/material";
 import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
+import { useCreatePost } from "../routers/usePost";
+import { useUploadImage } from "../routers/useImage";
+import Tooltip from "@mui/material/Tooltip";
+import SendIcon from "@mui/icons-material/Send";
+import { useAssistence } from "../routers/useConversation";
+import { ThreeDots } from "react-loader-spinner";
+import CopyToClipboard from "react-copy-to-clipboard";
+import DoneIcon from "@mui/icons-material/Done";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const Create = () => {
     const router = useRouter();
@@ -37,12 +46,15 @@ const Create = () => {
     const [error, setError] = useState(false);
     const [image, setImage] = useState("");
     const user = useSelector((state) => state.base.user);
-    "user", user;
-    image;
     const [imageDialog, setImageDialog] = useState(false);
+    const [query, setQuery] = useState("");
+    const [loading, setLoading] = useState(false);
+    const containerRef = useRef();
+    const [conversation, setConversation] = useState([]);
+    const [copy, setCopy] = useState(false);
 
     const validationObject = yup.object({
-        title: yup.string().min(3).max(10),
+        title: yup.string().min(1).max(10),
     });
     const dispatch = useDispatch();
 
@@ -56,9 +68,10 @@ const Create = () => {
     };
     const { mutate: createTag } = useCreateTag(onSuccess, onError);
     const tagHandler = (values) => {
+        console.log(values);
         if (
-            tags.findOne((tag) =>
-                tag.toLowerCase().includes(values.title.toLowerCase())
+            tags?.find((tag) =>
+                tag.title.toLowerCase().includes(values.title.toLowerCase())
             )
         ) {
             setError(true);
@@ -95,63 +108,107 @@ const Create = () => {
         }
     }, [search, tags]);
 
+    const onImageSuccess = (data) => {
+        setImage(data.data);
+    };
+
+    const onImageError = () => {
+        console.log("something went wrong");
+    };
+
+    const { mutate: upload } = useUploadImage(onImageSuccess, onImageError);
     const uploadImage = (e) => {
         const file = e.target.files[0];
-        const allowedTypes = [
-            "image/png",
-            "image/jpeg",
-            "image/webp",
-            "image/jpg",
-        ];
-        if (allowedTypes.includes(file.type)) {
-            client.assets
-                .upload("file", file, {
-                    contentType: file.type,
-                    filename: file.name,
-                })
-                .then((data) => {
-                    data;
-                    setImage(data.url);
-                });
-        }
+        upload(file);
     };
 
     const onPostSuccess = () => {
-        ("success");
+        dispatch(setSuccessPopup(true));
+        dispatch(setMessage("Post Created Successfully"));
+        setTimeout(() => {
+            router.push("/");
+        }, 2000);
+        setImage(null);
+        setTitle(null);
+        setSelectedTags([]);
+        setContent("");
     };
-    const onPostError = () => {
-        ("error");
+    const onPostError = (err) => {
+        dispatch(setErrorPopup(true));
+        dispatch(setMessage(err.response.data.message));
     };
 
-    const { mutate: createUserPost } = useCreateUserPost(
-        onPostSuccess,
-        onPostError
-    );
-    const createPost = () => {
+    const { mutate: createPost } = useCreatePost(onPostSuccess, onPostError);
+    const postHandler = () => {
+        const summery = `${content
+            .replace(/(<([^>]+)>)/gi, "")
+            .slice(0, 300)}.......`;
+        const contentLength = content.replace(/(<([^>]+)>)/gi, "").length;
         const data = {
             title,
             type,
             content,
             image,
+            readTime: Math.ceil(contentLength / 1000),
+            summery,
             tags: selectedTags,
             category: categoryId,
-            userId: user._id,
+            author: user,
         };
-        createUserPost(data);
+        createPost(data);
     };
+
+    const assistenceRef = useRef();
+    const handleAssistenceToggle = () => {
+        if (assistenceRef.current.classList.contains("translate-x-[100%]")) {
+            assistenceRef.current.classList.remove("translate-x-[100%]");
+            if (typeof window !== "undefined") {
+                document.body.style.overflow = "hidden";
+                window.scroll(0, 0);
+            }
+        } else {
+            assistenceRef.current.classList.add("translate-x-[100%]");
+            if (typeof window !== "undefined") {
+                document.body.style.overflow = "scroll";
+            }
+        }
+    };
+
+    const onAssistenceSuccess = (data) => {
+        console.log(data);
+        setLoading(false);
+        setConversation([
+            ...conversation,
+            { query: data.data.bot, type: "bot" },
+        ]);
+    };
+    const onAssistenceError = () => {};
+
+    const { mutate: assist } = useAssistence(
+        onAssistenceSuccess,
+        onAssistenceError
+    );
+    const handleAssistence = (e) => {
+        e.preventDefault();
+        setQuery("");
+        setConversation([...conversation, { query, type: "user" }]);
+        assist(query);
+        setLoading(true);
+    };
+    console.log(conversation, query);
 
     return (
         <div className=" min-h-[90vh] flex-col relative mt-2">
             <Dialog open={showTagsDialog}>
                 <DialogTitle>Choose Tags (3)</DialogTitle>
-                <DialogContent sx={{ width: "500px", height: "300px" }}>
+                <DialogContent sx={{ maxWidth: "500px", height: "300px" }}>
                     <input
                         type="text"
                         placeholder="Search"
                         onChange={(e) => {
                             setSearch(e.target.value);
                         }}
-                        className="border-b border-black bg-white outline-none w-[70%] mb-4"
+                        className="border-b border-black bg-white outline-none w-[90%] mb-4"
                     />
                     <div className="flex gap-2">
                         <input
@@ -161,7 +218,7 @@ const Create = () => {
                             onChange={formik.handleChange}
                             onBlue={formik.handleBlur}
                             placeholder="Create A Tag"
-                            className="border-b border-black bg-white outline-none w-[70%]"
+                            className="border-b border-black bg-white outline-none w-[90%]"
                         />
                         <button
                             type="submit"
@@ -172,9 +229,10 @@ const Create = () => {
                             <AddIcon />
                         </button>
                     </div>
-                    <div className="flex overflow-y-scroll flex-wrap gap-2 pt-4">
+                    <div className="flex overflow-y-scroll flex-wrap gap-1 sm:gap-2 pt-4">
                         {filter?.map((tag, i) => (
                             <div
+                                key={i}
                                 onClick={() => {
                                     if (
                                         selectedTags.find(
@@ -195,14 +253,13 @@ const Create = () => {
                                         }
                                     }
                                 }}
-                                key={i}
                                 className={`${
                                     selectedTags.find(
                                         (item) => item._id === tag._id
                                     )
                                         ? "bg-white text-black"
                                         : "bg-black text-white"
-                                } border-2 px-2 rounded-full w-fit disabled:bg-gray-500  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                } border-2 px-2 rounded-full text-xs w-fit sm:text-base disabled:bg-gray-500  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
                             >
                                 {tag?.title}
                             </div>
@@ -215,6 +272,10 @@ const Create = () => {
                         onClick={() => {
                             setShowTagsDialog(false);
                             setImageDialog(true);
+                            if (selectedTags.length < 3) {
+                                dispatch(setErrorPopup(true));
+                                dispatch(setMessage("Please choose 3 tags"));
+                            }
                         }}
                         className=" sticky bottom-4 left-4 w-fit bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
                     >
@@ -273,7 +334,7 @@ const Create = () => {
                 <DialogActions>
                     <button
                         onClick={() => {
-                            createPost();
+                            postHandler();
                             setImageDialog(false);
                         }}
                         className=" absolute bottom-4 right-4 z-50 w-fit bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
@@ -282,21 +343,128 @@ const Create = () => {
                     </button>
                 </DialogActions>
             </Dialog>
-            <div className=" w-[100%] bg-white flex flex-col gap-10 items-center pt-10">
+            <div className=" w-[100%] bg-white flex flex-col gap-0 items-center relative">
+                <div
+                    className="fixed top-14 right-2 sm:top-20 sm:right-10 z-40"
+                    onClick={handleAssistenceToggle}
+                >
+                    <Tooltip title="Assistence">
+                        <button>
+                            <img
+                                src="/assistence.png"
+                                className="bg-black h-8 w-8 sm:h-10 sm:w-10 rounded-full p-1"
+                            />
+                        </button>
+                    </Tooltip>
+                </div>
+                <div
+                    ref={assistenceRef}
+                    className="bg-[#262626] h-[100vh] w-screen absolute top-0 left-0 translate-x-[100%] transition-all duration-300 z-30 text-white p-10 text-xs"
+                >
+                    <div
+                        ref={containerRef}
+                        className=" h-full w-ful flex flex-col gap-4 overflow-y-scroll pb-20 pr-20"
+                    >
+                        {conversation.map((item, i) =>
+                            item.type === "user" ? (
+                                <div
+                                    className="flex gap-10 items-center px-2"
+                                    key={i}
+                                >
+                                    <img
+                                        src="/user-2.png"
+                                        className="w-6 self-start"
+                                    />
+                                    <p>{item.query}</p>
+                                </div>
+                            ) : (
+                                <div
+                                    className="flex gap-10 items-center bg-gray-700 rounded-2xl px-2 pr-12 py-2 relative"
+                                    key={i}
+                                >
+                                    <img
+                                        src="/bot.png"
+                                        className="w-6 self-start"
+                                    />
+                                    <p>{item.query}</p>
+                                    {copy && copy.text === item.query ? (
+                                        <CopyToClipboard text={item.query}>
+                                            <button className=" text-green-500 active:scale-90 transition-all duration-200 absolute top-2 right-2">
+                                                <DoneIcon />
+                                            </button>
+                                        </CopyToClipboard>
+                                    ) : (
+                                        <CopyToClipboard text={item.query}>
+                                            <button
+                                                onClick={() => {
+                                                    setCopy({
+                                                        bool: true,
+                                                        text: item.query,
+                                                    });
+                                                    setTimeout(() => {
+                                                        setCopy(false);
+                                                    }, 2000);
+                                                }}
+                                                className=" absolute top-2 right-2 active:scale-90 transition-all duration-200"
+                                            >
+                                                <ContentCopyIcon />
+                                            </button>
+                                        </CopyToClipboard>
+                                    )}
+                                </div>
+                            )
+                        )}
+                        {loading && (
+                            <div className="flex gap-10 items-center bg-gray-700 rounded-2xl px-2 py-2">
+                                <img src="/bot.png" className="w-6" />
+                                <ThreeDots
+                                    height="10"
+                                    width="100"
+                                    radius="2"
+                                    color="#ffffff"
+                                    ariaLabel="three-dots-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClassName=""
+                                    visible={true}
+                                />
+                            </div>
+                        )}
+                        <form
+                            onSubmit={handleAssistence}
+                            className="flex gap-2 items-center bg-gray-500 px-4 rounded-full absolute bottom-20 w-[90%] py-1"
+                        >
+                            <input
+                                placeholder="Give more details to see better results"
+                                required
+                                value={query}
+                                type="text"
+                                className=" bg-gray-500 outline-none w-full h-fit"
+                                onChange={(e) => {
+                                    setQuery(e.target.value);
+                                }}
+                            />
+                            <button type="submit">
+                                <SendIcon className=" cursor-pointer active:scale-90 transition-all duration-300" />
+                            </button>
+                        </form>
+                    </div>
+                </div>
                 <input
                     value={title}
                     onChange={(e) => {
                         setTitle(e.target.value);
                     }}
-                    className="border-b border-black bg-white outline-none text-2xl w-[70%]"
+                    className="border-b font-bold  bg-white outline-none text-sm sm:text-xl md:text-2xl w-[85%] mt-14 pb-2 border-gray-200"
                     placeholder="Title"
                 />
-                <TextEditor content={content} setContent={setContent} />
+                <div className=" min-h-screen bg-white w-screen">
+                    <TextEditor content={content} setContent={setContent} />
+                </div>
                 <button
                     onClick={() => {
                         setShowTagsDialog(true);
                     }}
-                    className=" absolute bottom-20 right-10 bg-black text-white px-10 rounded-full hover:bg-white border-black hover:text-black border transition-all duration-300"
+                    className=" absolute bottom-2 right-4 bg-black text-white px-10 rounded-full hover:bg-white border-black hover:text-black border transition-all duration-300"
                 >
                     Save
                 </button>

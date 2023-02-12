@@ -25,6 +25,9 @@ export const useGetAllPosts = () => {
             return axios.get("http://localhost:8000/api/v1/posts?limit=1000");
         },
         {
+            refetchOnMount: true,
+            refetchOnWindowFocus: true,
+            staleTime: 0,
             onSuccess: (data) => {
                 dispatch(setPosts(data.data.data.docs));
             },
@@ -50,7 +53,7 @@ export const useGetPost = (postId) => {
 export const useCreatePost = (onSuccess, onError) => {
     return useMutation(
         "createPost",
-        () => {
+        (data) => {
             return axios.post("http://localhost:8000/api/v1/posts", data);
         },
         {
@@ -79,9 +82,8 @@ export const useHandleLike = (onSuccess, onError) => {
         },
         {
             onSuccess: (data) => {
-                queryClient.invalidateQueries(["likes"]);
-                queryClient.invalidateQueries(["userLikes"]);
-                queryClient.invalidateQueries(["post"]);
+                queryClient.invalidateQueries(["currentPost"]);
+                queryClient.invalidateQueries(["me"]);
                 onSuccess();
             },
             onError: onError,

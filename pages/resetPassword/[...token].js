@@ -8,26 +8,31 @@ import { Alert, Snackbar } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
 import Head from "next/head";
-import { useLogIn, useResetPassword } from "../../hooks/useAuth";
 import Login from "@mui/icons-material/Login";
 import { Layer } from "@sanity/ui";
-import Layout from "../../components/Layout";
-import { setErrorPopup, setSuccessPopup } from "../../redux/slices";
+import { setErrorPopup, setMessage, setSuccessPopup } from "../../redux/slices";
+import { useResetPassword } from "../../routers/useAuth";
 
 const ResetPassword = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     let { token } = router.query;
-    token = token[0];
+    if (token) {
+        token = token[0];
+    }
+    console.log(token);
     const mode = useSelector((state) => state.base.mode);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
     const onSuccess = () => {
         dispatch(setSuccessPopup(true));
         dispatch(setMessage("Password Reset Successfully"));
+        setTimeout(() => {
+            router.push("/");
+        }, 2000);
     };
     const onError = (err) => {
+        console.log(err)
         dispatch(setErrorPopup(true));
         dispatch(setMessage(err.response.data.message));
     };
@@ -41,7 +46,7 @@ const ResetPassword = () => {
     const { data: session } = useSession();
 
     return (
-        <Layout>
+        <div>
             <Head>
                 <title>TBFE - Sign In</title>
                 <link
@@ -136,7 +141,7 @@ const ResetPassword = () => {
                     </div>
                 </div>
             </Smooth>
-        </Layout>
+        </div>
     );
 };
 

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Smooth from "../utils/Smooth";
 import * as yup from "yup";
 import { Formik, Field, ErrorMessage, Form } from "formik";
@@ -10,10 +10,20 @@ import { useUpdateAccount } from "../hooks/content";
 import Alert from "@mui/material/Alert";
 import CircularProgress from "@mui/material/CircularProgress";
 import Head from "next/head";
+import { useUploadImage } from "../routers/useImage";
+import { useUpdateUser, useUserPosts } from "../routers/useUser";
+import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
+import Select from "react-select";
+import Post from "../components/Post";
+import { PodcastsRounded } from "@mui/icons-material";
 
 const Account = () => {
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
+    const { data: posts } = useUserPosts(user?._id);
+    console.log(posts);
+    const success = useSelector((state) => state.base.success);
+    const categories = useSelector((state) => state.base.categories);
     const [loading, setLoading] = useState(false);
     const [btnLoading, setBtnLoading] = useState(false);
     const [image, setImage] = useState("");
@@ -33,71 +43,58 @@ const Account = () => {
             .string()
             .min(3, "Education should be atleast 5 characters long"),
     });
+    const onImageSuccess = (data) => {
+        setImage(data.data);
+        setLoading(false);
+    };
+    const { mutate: upload } = useUploadImage(onImageSuccess);
     const uploadImage = (e) => {
-        setLoading(true);
         const file = e.target.files[0];
-        const allowedTypes = [
-            "image/png",
-            "image/jpeg",
-            "image/webp",
-            "image/jpg",
-        ];
-        if (allowedTypes.includes(file.type)) {
-            client.assets
-                .upload("file", file, {
-                    contentType: file.type,
-                    filename: file.name,
-                })
-                .then((data) => {
-                    setImage(data);
-                    setLoading(false);
-                });
-        }
+        setLoading(true);
+        upload(file);
     };
     let img = "";
     if (image) {
-        img = image.url;
-    } else if (user?.image?.length > 10) {
-        img = user?.image;
+        img = image;
+    } else if (user?.image) {
+        img = user.image;
     } else {
         img = "/person.webp";
     }
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
+
+    const [preferences, setPreferences] = useState(null);
+
+    const dispatch = useDispatch();
     const onSuccess = () => {
         setBtnLoading(false);
-        setSuccess(true);
+        dispatch(setSuccessPopup(true));
+        dispatch(setMessage("Account Updated Successfully"));
     };
-    const onError = () => {
-        setError(true);
+    const onError = (err) => {
+        dispatch(setErrorPopup(true));
+        dispatch(setMessage(err.response.data.message));
     };
-    const { mutate: updateAccount, error: err } = useUpdateAccount(
+    const { mutate: updateUser, error: err } = useUpdateUser(
         onSuccess,
         onError
     );
     const submitHandler = async (values) => {
         setBtnLoading(true);
-        let data;
-        if (image) {
-            data = {
-                values,
-                userId: user._id,
-                image: {
-                    _type: "file",
-                    asset: {
-                        _type: "reference",
-                        _ref: image?._id,
-                    },
-                },
-            };
-        } else {
-            data = {
-                values,
-                userId: user._id,
-            };
-        }
-        updateAccount(data);
+        const data = {
+            name: values.name,
+            email: values.email,
+            websiteURL: values.websiteURL,
+            location: values.location,
+            education: values.education,
+            preferences: preferences.map((preference) => preference.value),
+            work: values.work,
+            bio: values.bio,
+            bookmarks: values.bookmarks,
+            image,
+        };
+        updateUser({ data, userId: user._id });
     };
+    console.log(user);
     const initialValues = {
         name: user?.name,
         email: user?.email,
@@ -108,6 +105,8 @@ const Account = () => {
         bio: user?.bio,
         bookmarks: user.bookmarks,
     };
+    console.log(typeof image);
+    console.log(preferences);
     if (user) {
         return (
             <>
@@ -124,20 +123,6 @@ const Account = () => {
                         mode == "dark" ? "text-white" : "text-black bg-white"
                     }  p-10 flex flex-col items-center text-xs min-h-screen`}
                 >
-                    {error && (
-                        <div className=" absolute top-1/2 -translate-x-1/2 z-50">
-                            <Alert severity="error">
-                                {err.response.data.message}
-                            </Alert>
-                        </div>
-                    )}
-                    {success && (
-                        <div className="absolute top-1/2 -translate-y-1/2 z-50">
-                            <Alert severity="success">
-                                Account Updated SuccessFully
-                            </Alert>
-                        </div>
-                    )}
                     <div
                         className={`${
                             mode == "dark"
@@ -146,7 +131,7 @@ const Account = () => {
                         } shadow-lg  w-[90vw] md:w-fit h-fit rounded-sm p-4 sm:p-10 relative mt-10`}
                     >
                         <div className=" flex items-center justify-center w-20 h-20 overflow-hidden rounded-full absolute -top-10 shadow-md shadow-black left-1/2 -translate-x-1/2">
-                            <img src={`${img}`} alt="user profile image" />
+                            <img src={img} alt="user profile image" />
                         </div>
                         <Formik
                             initialValues={initialValues}
@@ -163,7 +148,7 @@ const Account = () => {
                                                 <p className=" w-[100px] hidden sm:flex">
                                                     User Name
                                                 </p>
-                                                <div className="w-[300px] md:w-[500px]">
+                                                <div className="w-[300px] md:w-[500px] relative">
                                                     <Field
                                                         type="text"
                                                         name="name"
@@ -179,7 +164,7 @@ const Account = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="flex gap-4 items-center">
+                                            <div className="flex gap-4 items-center relative">
                                                 <p className=" w-[100px] hidden sm:flex">
                                                     Email
                                                 </p>
@@ -192,7 +177,7 @@ const Account = () => {
                                                     className=" bg-gray-200 w-[300px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                             </div>
-                                            <div className="flex gap-4 items-center">
+                                            <div className="flex gap-4 items-center relative">
                                                 <p className=" w-[100px] hidden sm:flex">
                                                     Bio
                                                 </p>
@@ -211,7 +196,7 @@ const Account = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="flex gap-4 items-center">
+                                            <div className="flex gap-4 items-center relative">
                                                 <p className=" w-[100px] hidden sm:flex">
                                                     Website URL
                                                 </p>
@@ -230,7 +215,7 @@ const Account = () => {
                                             </div>
                                         </div>
                                         <div className="flex flex-col gap-8 items-center sm:items-stretch">
-                                            <div className="flex items-center">
+                                            <div className="flex items-center relative">
                                                 <p className=" w-[100px] hidden sm:flex">
                                                     Image
                                                 </p>
@@ -263,7 +248,7 @@ const Account = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="flex gap-4 items-center">
+                                            <div className="flex gap-4 items-center relative">
                                                 <p className=" w-[100px] hidden sm:flex">
                                                     Location
                                                 </p>
@@ -280,7 +265,7 @@ const Account = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="flex gap-4 items-center">
+                                            <div className="flex gap-4 items-center relative">
                                                 <p className=" w-[100px] hidden sm:flex">
                                                     Work
                                                 </p>
@@ -297,7 +282,7 @@ const Account = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="flex gap-4 item-center">
+                                            <div className="flex gap-4 items-center relative">
                                                 <p className="w-[100px] hidden sm:flex">
                                                     Education
                                                 </p>
@@ -313,6 +298,38 @@ const Account = () => {
                                                         component={Error}
                                                     />
                                                 </div>
+                                            </div>
+                                            <div className="flex gap-4 items-center relative">
+                                                <p className="w-[100px] hidden sm:flex">
+                                                    Preferences
+                                                </p>
+                                                <Select
+                                                    className="text-black"
+                                                    onChange={setPreferences}
+                                                    defaultValue={user?.preferences?.map(
+                                                        (preference) => {
+                                                            return {
+                                                                value: preference,
+                                                                label: preference.title,
+                                                            };
+                                                        }
+                                                    )}
+                                                    // className="w-[415px] h-10 px-4 text-black shadow-md outline-none"
+                                                    placeholder="Preferences"
+                                                    isMulti
+                                                    options={categories.map(
+                                                        (category, i) => {
+                                                            return {
+                                                                value: category,
+                                                                label: category.title,
+                                                            };
+                                                        }
+                                                    )}
+                                                ></Select>
+                                                <ErrorMessage
+                                                    name="education"
+                                                    component={Error}
+                                                />
                                             </div>
                                             <button
                                                 className={`${
@@ -345,6 +362,21 @@ const Account = () => {
                             }}
                         </Formik>
                     </div>
+                    <section className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">
+                        <div>
+                            <h3 className=" text-3xl text-center mb-10 bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent font-bold">
+                                MY POSTS
+                            </h3>
+                        </div>
+                        <div
+                            layout
+                            className="columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4"
+                        >
+                            {posts?.map((post, i) => (
+                                <Post post={post} key={i} />
+                            ))}
+                        </div>
+                    </section>
                 </Smooth>
             </>
         );

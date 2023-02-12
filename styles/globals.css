@@ -14,6 +14,10 @@
   font-family: "Inter";
   src: url("../public/Inter.ttf")
 }
+@font-face {
+  font-family: "Poppins";
+  src: url("../public/Poppins-Light.ttf")
+}
 
 html,
 body {
@@ -106,6 +110,10 @@ a {
   .profile-icon:hover .drop-down{
     display: flex;
   }
+  .ql-container, .ql-editor{
+    padding-left: 10%;
+          padding-right: 10%;
+  }
 }
 @media only screen and (min-width: 768px){
   .top-card{
@@ -115,6 +123,10 @@ a {
   }
   .top-card:hover~.top-card{
     transform: translateX(240px);
+  }
+  .ql-container, .ql-editor{
+    padding-left: 20%;
+          padding-right: 20%;
   }
 }
 
@@ -196,11 +208,13 @@ a {
         
         .ql-container, .ql-editor{
           overflow: hidden;
-          padding-left: 20%;
-          padding-right: 20%;
+          padding-left: 120px;
+          padding-right: 120px;
           border: none;
           font-size: larger;
           /* background-color: black; */
+          padding-bottom: 50px;
+          
         }
         .ql-container input{
           background-color: white;
@@ -217,6 +231,7 @@ a {
         }
         .ql-editor image{
           width: "20px";
+          
         }
       
         .ql-toolbar{
@@ -240,12 +255,14 @@ a {
           color: black;
         } */
         .ql-bubble .ql-tooltip{
-          width: "20px" !important;
+
+          flex-wrap: wrap;
+          width: 250px;
         }
         .quill > .ql-container > .ql-editor.ql-blank::before{
-          padding-left: 20%;
-          padding-right: 20%;
-          font-size: 20px;
+          padding-left: 120px;
+          padding-right: 120px;
+          font-size: 15px;
           content: "Select text to see formatting options";
-          transform: translateY(-2px);
+          color:gray;
       }

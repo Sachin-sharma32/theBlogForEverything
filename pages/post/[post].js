@@ -1,5 +1,5 @@
 import { Alert, Avatar, CircularProgress } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import RelatedPosts from "../../components/RelatedPosts";
 import Author from "../../components/Author";
 import Smooth from "../../utils/Smooth";
@@ -18,6 +18,21 @@ import Like from "../../utils/LikeIcon";
 import { useAddComment, useGetComments } from "../../routers/useComment";
 import EastIcon from "@mui/icons-material/East";
 import ErrorBoundry from "../../utils/ErrorBoundry";
+import {
+    FacebookShareButton,
+    FacebookShareCount,
+    FacebookIcon,
+    LinkedinShareButton,
+    RedditShareButton,
+    TelegramShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+    LinkedinIcon,
+    RedditIcon,
+    TwitterIcon,
+    WhatsappIcon,
+} from "react-share";
+import ShareIcon from "@mui/icons-material/Share";
 
 const Post = ({ post }) => {
     const { data: comments } = useGetComments(post._id);
@@ -107,27 +122,44 @@ const Post = ({ post }) => {
         }
     }, [bookmarkSuccess, likeSuccess]);
     const postCentent = post.content
-        .replaceAll("<h1>", '<h1 class="text-5xl font-bold mb-6">')
-        .replaceAll("<h2>", '<h2 class="text-4xl font-bold mb-6">')
-        .replaceAll("<h3>", '<h3 class="text-3xl font-bold mb-6">')
-        .replaceAll("<h4>", '<h4 class="text-2xl font-bold mb-6">')
-        .replaceAll("<h5>", '<h5 class="text-xl font-bold mb-6">')
-        .replaceAll("<h6>", '<h6 class="text-lg font-bold mb-6">')
-        .replaceAll("<ul>", '<ul class="list-disc font-normal">')
-        .replaceAll("<ol>", '<ol class="list-decimal font-normal">')
-        .replaceAll("<ul>", "<ul>")
-        .replaceAll("<li>", '<li class="mb-4">')
+        .replaceAll("<h1>", '<h1 class="text-2xl font-poppins font-bold mb-0">')
+        .replaceAll("<h2>", '<h2 class="text-xl font-poppins font-bold mb-0">')
+        .replaceAll("<h3>", '<h3 class="text-3xl font-poppins font-bold mb-0">')
+        .replaceAll("<h4>", '<h4 class="text-2xl font-poppins font-bold mb-0">')
+        .replaceAll("<h5>", '<h5 class="text-xl font-poppins font-bold mb-0">')
+        .replaceAll("<h6>", '<h6 class="text-lg font-poppins font-bold mb-0">')
+        .replaceAll("<ul>", '<ul class="list-disc font-poppins font-normal">')
+        .replaceAll(
+            "<ol>",
+            '<ol class="list-decimal font-poppins font-normal">'
+        )
+        .replaceAll("<ul>", "<ul font-poppins>")
+        .replaceAll("<li>", '<li class="mb-0 font-poppins">')
         .replaceAll(
             "<pre",
-            '<pre class="bg-gray-100 p-4 rounded-md text-black overflow-scroll max-w-[500px] max-h-[300;x] mb-4 m-auto'
+            '<pre class="bg-gray-100 p-4 rounded-md text-black overflow-scroll max-w-[500px] max-h-[300;x] mb-0 m-auto font-poppins'
         )
-        .replaceAll("<img", "<img class='h-[300px] m-auto w-[500px] mb-4'")
+        .replaceAll("<img", "<img class='h-[300px] m-auto w-[500px] mb-0'")
         .replaceAll(
-            "<blockquote>",
-            '<blockquote class="p-4 pl-2 h-fit border-l-4 border-orange-500 bg-orange-100 text-gray-500 rounded-lg font-bold mb-4 text-center quote">'
+            "<blockquote font-poppins>",
+            '<blockquote class="p-4 pl-2 h-fit border-l-4 border-orange-500 bg-orange-100 text-gray-500 rounded-lg font-bold mb-0 text-center quote font-poppins">'
         )
-        .replaceAll("<a", '<a class="text-blue-500 hover:border-b pb-1"')
-        .replaceAll("<p>", '<p class="mb-4 font-normal">');
+        .replaceAll(
+            "<a",
+            '<a class="text-blue-500 hover:border-b pb-1 font-poppins"'
+        )
+        .replaceAll("<p>", '<p class="mb-0 font-normal font-poppins">');
+
+    const linksRef = useRef();
+    const handleLinks = () => {
+        if (linksRef.current.classList.contains("hidden")) {
+            linksRef.current.classList.add("flex");
+            linksRef.current.classList.remove("hidden");
+        } else {
+            linksRef.current.classList.remove("flex");
+            linksRef.current.classList.add("hidden");
+        }
+    };
     if (post) {
         return (
             <div>
@@ -179,22 +211,98 @@ const Post = ({ post }) => {
                                 <h1 className=" mt-2 md:mt-8 text-3xl md:text-5xl font-bold bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
                                     {post.title}
                                 </h1>
-                                <div
-                                    className={`${
-                                        mode === "dark"
-                                            ? "text-white"
-                                            : "text-black"
-                                    } mt-4 flex gap-2 text-xs items-center`}
-                                >
-                                    <Avatar src={post.author.image} />
-                                    <figcaption>
-                                        {post.author.name} on{" "}
-                                        {moment(post.publishedAt).format("ll")}
-                                    </figcaption>
-                                    <BookmarkBtn
-                                        post={post}
-                                        setSuccess={setBookmarkSuccess}
-                                    />
+                                <div className="flex items-center gap-2">
+                                    <div
+                                        className={`${
+                                            mode === "dark"
+                                                ? "text-white"
+                                                : "text-black"
+                                        } mt-4 flex gap-2 sm:gap-2 text-xs items-center z-50`}
+                                    >
+                                        <Avatar src={post?.author?.image} />
+                                        <figcaption className=" sm:flex gap-6">
+                                            <p className=" relative w-fit">
+                                                {post?.author?.name}
+                                                {post.author?.isVerified ||
+                                                    (post.author?.isAdmin && (
+                                                        <img
+                                                            src="/verified.png"
+                                                            alt="verifie"
+                                                            className="w-4 absolute -top-1 -right-4"
+                                                        />
+                                                    ))}
+                                            </p>
+                                            <p>
+                                                on{" "}
+                                                {moment(
+                                                    post.publishedAt
+                                                ).format("ll")}
+                                            </p>
+                                        </figcaption>
+                                        <BookmarkBtn
+                                            post={post}
+                                            setSuccess={setBookmarkSuccess}
+                                        />
+                                        <button
+                                            className={`${
+                                                mode === "dark"
+                                                    ? "text-white"
+                                                    : "text-black"
+                                            } p-1 pr-2 h-8 w-8 flex justify-center items-center rounded-full`}
+                                            onClick={handleLinks}
+                                        >
+                                            <ShareIcon />
+                                        </button>
+                                    </div>
+                                    <div
+                                        ref={linksRef}
+                                        className={`${
+                                            mode === "dark"
+                                                ? "text-white"
+                                                : "text-black"
+                                        } mt-4 gap-1 text-xs items-center hidden flex-wrap`}
+                                    >
+                                        <FacebookShareButton
+                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                        >
+                                            <FacebookIcon
+                                                size={20}
+                                                round={true}
+                                            />
+                                        </FacebookShareButton>
+                                        <LinkedinShareButton
+                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                        >
+                                            <LinkedinIcon
+                                                size={20}
+                                                round={true}
+                                            />
+                                        </LinkedinShareButton>
+                                        <RedditShareButton
+                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                        >
+                                            <RedditIcon
+                                                size={20}
+                                                round={true}
+                                            />
+                                        </RedditShareButton>
+                                        <TwitterShareButton
+                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                        >
+                                            <TwitterIcon
+                                                size={20}
+                                                round={true}
+                                            />
+                                        </TwitterShareButton>
+                                        <WhatsappShareButton
+                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                        >
+                                            <WhatsappIcon
+                                                size={20}
+                                                round={true}
+                                            />
+                                        </WhatsappShareButton>
+                                    </div>
                                 </div>
                                 <main
                                     className={`${
@@ -205,6 +313,7 @@ const Post = ({ post }) => {
                                     style={{ fontFamily: "Inter" }}
                                 >
                                     <div
+                                        className="leading-[1.9]"
                                         dangerouslySetInnerHTML={{
                                             __html: postCentent,
                                         }}
@@ -531,7 +640,7 @@ export async function getServerSideProps(context) {
             post: post.data.data.doc,
             title: post.data.data.doc.title,
             image: post.data.data.doc.image,
-            summery: post.data.data.doc.summery,
+            // summery: post.data.data.doc.summery,
             keywords: post.data.data.doc.tags
                 .map((tag) => tag.title)
                 .toString(),

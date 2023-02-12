@@ -84,10 +84,12 @@ export const useForgotPassword = (onSuccess, onError) => {
 };
 export const useResetPassword = (onSuccess, onError) => {
     return useMutation(
-        "resetPassword,",
-        (resetToken) => {
+        "resetPassword",
+        (data) => {
+            console.log(data);
             return axios.post(
-                `http://localhost:8000/api/v1/auth/resetPassword/${resetToken}`
+                `http://localhost:8000/api/v1/auth/resetPassword/${data.token}`,
+                data.user
             );
         },
         {

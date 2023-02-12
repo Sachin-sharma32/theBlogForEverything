@@ -52,7 +52,7 @@ const Navbar = () => {
     const [title, setTitle] = useState("");
     const [showTitleDialog, setShowTitleDialog] = useState(false);
 
-    const options = ["post", "short", "experience", "story"];
+    const options = ["blog", "short", "experience", "information"];
 
     const dispatch = useDispatch();
     useGetMe();
@@ -82,7 +82,6 @@ const Navbar = () => {
     };
 
     const siteUser = useSelector((state) => state.base.user);
-    siteUser;
 
     const session = useSelector((state) => state.base.session);
     const posts = useSelector((state) => state.base.posts);
@@ -117,7 +116,7 @@ const Navbar = () => {
             });
             dispatch(setLiked(liked));
         }
-    }, [posts, siteUser]);
+    }, [posts]);
 
     useEffect(() => {
         const md = localStorage.getItem("mode");
@@ -141,9 +140,9 @@ const Navbar = () => {
 
     return (
         <nav
-            className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center sticky top-0 pt-2 text-xs md:text-base ${
+            className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center fixed w-full top-0 pt-2 text-xs md:text-base ${
                 mode == "light" ? "bg-white" : "bg-[#262626]"
-            } z-50 gap-2`}
+            } z-50 gap-2 h-12`}
         >
             <Snackbar
                 open={error}
@@ -183,7 +182,7 @@ const Navbar = () => {
             <Dialog open={showDialog}>
                 <DialogTitle>Choose A Type</DialogTitle>
                 <DialogContent>
-                    <DialogContentText className="flex gap-1 mb-10">
+                    <DialogContentText className="flex gap-1 mb-10 flex-wrap">
                         {options?.map((option, i) => (
                             <div
                                 onClick={() => {
@@ -206,11 +205,12 @@ const Navbar = () => {
                     </DialogContentText>
                     <DialogActions>
                         <button
+                            disabled={!selectedOption}
                             onClick={() => {
                                 setShowDialog(false);
                                 setShowCategoryDialog(true);
                             }}
-                            className=" mt-4 bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
+                            className=" bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
                         >
                             Next
                         </button>
@@ -251,6 +251,7 @@ const Navbar = () => {
                     </DialogContentText>
                     <DialogActions>
                         <button
+                            disabled={!selectedCategory}
                             onClick={handleCreate}
                             className=" absolute bottom-4 right-6 bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
                         >
@@ -319,7 +320,7 @@ const Navbar = () => {
                     <section
                         className={`${
                             mode == "dark" ? "text-white" : "text-black"
-                        } relative`}
+                        } relative hidden sm:flex`}
                     >
                         <a
                             className="flex items-center cursor-pointer"
@@ -397,19 +398,25 @@ const Navbar = () => {
                                             My Bookmarks
                                         </li>
                                     </Link>
+                                    <Link href="/myPosts" onClick={hideSideBar}>
+                                        <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
+                                            My Posts
+                                        </li>
+                                    </Link>
                                     <Link href="/like" onClick={hideSideBar}>
                                         <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
                                             Liked Posts
                                         </li>
                                     </Link>
                                     <Link href="/images" onClick={hideSideBar}>
-                                        <li className=" hidden sm:flex bg-[#ff7d69] hover:bg-gray-200 hover:text-black w-full p-4">
+                                        <li className=" bg-[#ff7d69] hover:bg-gray-200 hover:text-black w-full p-4">
                                             Image Library
                                         </li>
                                     </Link>
                                     {siteUser?.isAdmin && (
                                         <Link
-                                            href="http://localhost:3333"
+                                            href="https://the-blog-for-everything-cms.vercel.app/"
+                                            target="black"
                                             onClick={hideSideBar}
                                         >
                                             <li className=" hover:bg-gray-200 hover:text-black w-full p-4">
@@ -448,12 +455,16 @@ const Navbar = () => {
                         <button
                             className={` ${
                                 mode == "light" ? "text-black" : "text-white"
-                            } cursor-pointer hover:scale-125 transition-all duration-200 animation-effect`}
+                            } cursor-pointer hover:scale-125 transition-all duration-200 animation-effect flex items-center gap-1`}
                             onClick={() => {
                                 setShowDialog(true);
                             }}
                         >
-                            <CreateIcon />
+                            {mode === "dark" ? (
+                                <img src="/write-light.png" className=" w-6" />
+                            ) : (
+                                <img src="/write-dark.png" className=" w-6" />
+                            )}
                         </button>
                         <Link
                             href="/bookmark"
@@ -557,6 +568,11 @@ const Navbar = () => {
                                         My Bookmarks
                                     </li>
                                 </Link>
+                                <Link href="/myPosts">
+                                    <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
+                                        My Posts
+                                    </li>
+                                </Link>
                                 <Link href="/like">
                                     <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
                                         Liked Posts
@@ -568,7 +584,10 @@ const Navbar = () => {
                                     </li>
                                 </Link>
                                 {siteUser?.isAdmin && (
-                                    <Link href="https://theblogforeverything.sanity.studio">
+                                    <Link
+                                        href="https://the-blog-for-everything-cms.vercel.app/"
+                                        target="black"
+                                    >
                                         <li className=" hover:bg-gray-200 hover:text-black w-96 p-4">
                                             Dashboard
                                         </li>

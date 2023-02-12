@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Smooth from "../utils/Smooth";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { useForgotPassword, useOauth, useSignin } from "../hooks/content";
+// import { useForgotPassword, useOauth, useSignin } from "../hooks/content";
 import { signIn, useSession } from "next-auth/react";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
@@ -11,6 +11,7 @@ import Head from "next/head";
 import Login from "@mui/icons-material/Login";
 import { Alert, Snackbar } from "@mui/material";
 import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
+import { useForgotPassword } from "../routers/useAuth";
 
 const ForgotPassword = () => {
     const router = useRouter();
@@ -19,21 +20,18 @@ const ForgotPassword = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
-    const onSuccess = () => {
-        dispatch(setSuccessPopup(true));
-        dispatch(
-            setMessage("Check your email for a link to reset your password.")
-        );
-    };
+    const onSuccess = () => {};
     const onError = (err) => {
         dispatch(setErrorPopup(true));
-        dispatch(setMessage(err.message));
+        dispatch(setMessage(err.response.data.message));
     };
 
     const { mutate: forgotPassword } = useForgotPassword(onSuccess, onError);
     const submitHandler = async (e) => {
-        setSuccess(true);
-        setMessage("Check your email for a link to reset your password.");
+        dispatch(setSuccessPopup(true));
+        dispatch(
+            setMessage("Check your email for a link to reset your password.")
+        );
         e.preventDefault();
         const user = { email };
         forgotPassword(user);
@@ -41,40 +39,6 @@ const ForgotPassword = () => {
 
     return (
         <div>
-            <Snackbar
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                onClose={() => {
-                    setSuccess(false);
-                }}
-                open={success}
-                autoHideDuration={5000}
-            >
-                <Alert
-                    severity="success"
-                    onClose={() => {
-                        setSuccess(false);
-                    }}
-                >
-                    {message}
-                </Alert>
-            </Snackbar>
-            <Snackbar
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                onClose={() => {
-                    setError(false);
-                }}
-                open={error}
-                autoHideDuration={5000}
-            >
-                <Alert
-                    severity="error"
-                    onClose={() => {
-                        setError(false);
-                    }}
-                >
-                    {message}
-                </Alert>
-            </Snackbar>
             <Head>
                 <title>TBFE - Forgot Password</title>
                 <link
@@ -120,13 +84,9 @@ const ForgotPassword = () => {
                                                 setEmail(e.target.value);
                                             }}
                                         />
-                                        {formik.errors.title && (
-                                            <p>{formik.errors.title}</p>
-                                        )}
                                     </div>
                                     <button
                                         type="submit"
-                                        disabled={!formik.isValid}
                                         className={`${
                                             mode == "dark"
                                                 ? " border-white hover:border-black hover:bg-black hover:text-white"

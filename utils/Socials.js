@@ -37,7 +37,7 @@ export default function Social() {
     const mode = useSelector((state) => state.base.mode);
     return (
         <div
-            style={{ position: "sticky", bottom: 2, right: 20}}
+            style={{ position: "fixed", bottom: 2, left: 2}}
             className={`${
                 mode === "light" ? "" : ""
             } flex h-12 bg-transparent w-10`}

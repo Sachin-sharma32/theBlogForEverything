@@ -113,9 +113,19 @@ const Header = () => {
                                                             mode == "light"
                                                                 ? "text-black"
                                                                 : "text-white"
-                                                        }`}
+                                                        } relative`}
                                                     >
                                                         {post.author?.name}
+                                                        {post.author
+                                                            .isVerified ||
+                                                            (post.author
+                                                                .isAdmin && (
+                                                                <img
+                                                                    src="/verified.png"
+                                                                    alt="verified"
+                                                                    className="w-4 absolute top-0 -right-3"
+                                                                />
+                                                            ))}
                                                     </p>
                                                     <p className=" text-xs">
                                                         {post.author?.work}

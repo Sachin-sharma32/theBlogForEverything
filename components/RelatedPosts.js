@@ -52,12 +52,14 @@ const RelatedPosts = ({ post }) => {
                 {relatedPosts.map((post, i) => (
                     <Link href={`/post/${post._id}`} key={post._id}>
                         <div className=" border-b-2 pb-2">
-                            <div className="flex items-center gap-2 cursor-pointer">
-                                <Avatar src={`${post?.author?.image}`} />
-                                <p className=" text-xs font-semibold">
-                                    {post.author?.name}
-                                </p>
-                            </div>
+                            {post.author && (
+                                <div className="flex items-center gap-2 cursor-pointer">
+                                    <Avatar src={`${post?.author?.image}`} />
+                                    <p className=" text-xs font-semibold">
+                                        {post.author?.name}
+                                    </p>
+                                </div>
+                            )}
                             <div className="text-xs text-[#eb9586] flex gap-2 mt-2">
                                 {post.tags.map((item, i) => (
                                     <div key={i}>

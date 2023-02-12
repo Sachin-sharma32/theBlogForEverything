@@ -10,14 +10,27 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Error from "../utils/Error";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
-import { Alert } from "@mui/material";
+import {
+    Alert,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from "@mui/material";
 import Head from "next/head";
-import { useRegister } from "../routers/useAuth";
+import { useLogIn, useRegister } from "../routers/useAuth";
 import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
+import { useUpdateUser } from "../routers/useUser";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Register = () => {
     const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
+    const categories = useSelector((state) => state.base.categories);
+    const user = useSelector((state) => state.base.user);
+    const [preferences, setPreferences] = useState([]);
+    const [showDialog, setShowDialog] = useState(false);
 
     const PASSWORD_REGEX =
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -74,26 +87,51 @@ const Register = () => {
         register(user);
     };
 
+    const onLogInSuccess = (data) => {
+        dispatch(setSuccessPopup(true));
+        dispatch(setMessage("Signed In successfully"));
+        setTimeout(() => {
+            if (
+                !data.data.data.user.preferences ||
+                data.data.data.user.preferences.length === 0
+            ) {
+                setShowDialog(true);
+            } else {
+                router.push("/");
+            }
+        }, 2000);
+    };
+    const onLogInError = (err) => {
+        dispatch(setErrorPopup(true));
+        dispatch(setMessage(err.response.data.message));
+    };
+
     const { data: session } = useSession();
-    const { mutate: oAuthLogIn } = useOauth();
+    const { mutate: login } = useLogIn(onLogInSuccess, onLogInError);
     useEffect(() => {
         if (session) {
             const data = {
                 name: session.user.name,
                 email: session.user.email,
+                oAuth: true,
             };
-            oAuthLogIn(data);
-            router.push("/");
+            login(data);
         }
     }, [session]);
 
+    const onUpdateSuccess = () => {
+        router.push("/");
+    };
+    const { mutate: updateUser } = useUpdateUser(onUpdateSuccess);
+    const addPreferences = async () => {
+        const userData = { data: { ...user, preferences }, userId: user._id };
+        updateUser(userData);
+    };
+
     const oAuthSignIn = async (provider) => {
         if (provider === "twitter") {
-            setError(true);
-            setErrorMsg("TWITTER IS NOT FUNCTIONAL CURRENTLY");
-            setTimeout(() => {
-                setError(false);
-            }, 2000);
+            dispatch(setErrorPopup(true));
+            dispatch(setMessage("TWITTER IS NOT FUNCTIONAL CURRENTLY"));
         } else {
             await signIn(provider).then((session) => {});
         }
@@ -108,6 +146,64 @@ const Register = () => {
             text-xs
             min-h-screen`}
             >
+                <Dialog open={showDialog}>
+                    <DialogTitle>CHOOSE YOUR PREFERENCES</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText className="flex gap-1 mb-10 flex-wrap">
+                            {categories?.map((category, i) => (
+                                <div
+                                    onClick={() => {
+                                        if (
+                                            preferences.find(
+                                                (item) =>
+                                                    item._id === category._id
+                                            )
+                                        ) {
+                                            setPreferences(
+                                                preferences.filter(
+                                                    (item) =>
+                                                        item._id !==
+                                                        category._id
+                                                )
+                                            );
+                                        } else {
+                                            setPreferences([
+                                                ...preferences,
+                                                { ...category, _key: i },
+                                            ]);
+                                        }
+                                    }}
+                                    key={i}
+                                    className={`${
+                                        preferences.find(
+                                            (item) => item._id === category._id
+                                        )
+                                            ? "bg-white text-black"
+                                            : "bg-black text-white"
+                                    } border-2 px-4 rounded-full  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                >
+                                    {category?.title}
+                                </div>
+                            ))}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <button
+                            onClick={addPreferences}
+                            className=" absolute bottom-4 right-6 bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
+                        >
+                            Save
+                        </button>
+                        <button
+                            className=" absolute top-4 right-4"
+                            onClick={() => {
+                                setShowDialog(false);
+                            }}
+                        >
+                            <CloseIcon />
+                        </button>
+                    </DialogActions>
+                </Dialog>
                 <div
                     className={`${
                         mode == "dark" ? "signin-form" : "signin-form-light"

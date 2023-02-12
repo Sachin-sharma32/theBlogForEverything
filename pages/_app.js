@@ -65,26 +65,27 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     content={`${pageProps.summery}`}
                 />
                 <meta name="twitter:image" content={`${pageProps.image}`} />
-                <Script
-                    src="https://www.googletagmanager.com/gtag/js?id=G-PKPENVER0M"
-                    strategy="afterInteractive"
-                />
-                <Script id="google-analytics" strategy="afterInteractive">
-                    {`
+            </Head>
+            <Script
+                src="https://www.googletagmanager.com/gtag/js?id=G-PKPENVER0M"
+                strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-PKPENVER0M');
                 `}
-                </Script>
-            </Head>
-            <div>
+            </Script>
+            <div className=" font-poppins">
                 <QueryClientProvider client={queryClient}>
                     <Provider store={store}>
                         <SessionProvider session={session}>
                             <Navbar />
-                            <ReactQueryDevtools />
-                            <Component {...pageProps} />
+                            <div className="mt-12">
+                                <Component {...pageProps} />
+                            </div>
                             <Footer />
                             <Social />
                         </SessionProvider>

@@ -34,9 +34,7 @@ const SignIn = () => {
     const [showDialog, setShowDialog] = useState(false);
     const categories = useSelector((state) => state.base.categories);
     const user = useSelector((state) => state.base.user);
-    user;
     const [preferences, setPreferences] = useState([]);
-    categories;
 
     const onSuccess = (data) => {
         dispatch(setSuccessPopup(true));
@@ -69,7 +67,7 @@ const SignIn = () => {
 
     const { mutate: updateUser } = useUpdateUser(onUpdateSuccess);
     const addPreferences = async () => {
-        const userData = { preferences, userId: user._id };
+        const userData = { data: { ...user, preferences }, userId: user._id };
         updateUser(userData);
     };
 
@@ -82,24 +80,13 @@ const SignIn = () => {
                 oAuth: true,
             };
             login(data);
-            if (
-                !data.data.data.preferences ||
-                data.data.data.preferences.length === 0
-            ) {
-                setShowDialog(true);
-            } else {
-                router.push("/");
-            }
         }
     }, [session]);
 
     const oAuthSignIn = async (provider) => {
         if (provider === "twitter") {
-            setError(true);
-            setErrorMsg("TWITTER IS NOT FUNCTIONAL CURRENTLY");
-            setTimeout(() => {
-                setError(false);
-            }, 2000);
+            dispatch(setErrorPopup(true));
+            dispatch(setMessage("TWITTER IS NOT FUNCTIONAL CURRENTLY"));
         } else {
             await signIn(provider).then((session) => {});
         }
@@ -289,7 +276,7 @@ const SignIn = () => {
                                             } flex gap-2 hover:gap-4 justify-center items-center self-end transition-all duration-200`}
                                         >
                                             <p>FORGOT PASSWORD</p>
-                                            <EastIcon />
+                                            <EastIcon className="hidden sm:flex" />
                                         </Link>
                                         <Link
                                             href="/register"
@@ -300,7 +287,7 @@ const SignIn = () => {
                                             } flex gap-2 hover:gap-4 justify-center items-center self-end transition-all duration-200`}
                                         >
                                             <p>REGISTER</p>
-                                            <EastIcon />
+                                            <EastIcon className="hidden sm:flex" />
                                         </Link>
                                     </div>
                                 </div>

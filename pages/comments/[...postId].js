@@ -11,10 +11,8 @@ import App from "next/app";
 import { useGetComments } from "../../routers/useComment";
 
 const Comments = ({ postId }) => {
-    postId;
     const router = useRouter();
     const { data: comments } = useGetComments(postId);
-    comments;
     const mode = useSelector((state) => state.base.mode);
     if (comments) {
         return (
@@ -79,7 +77,10 @@ const Comments = ({ postId }) => {
                                     <div className="relative">
                                         <p>{item.message}</p>
                                         <div className=" absolute -bottom-4 -right-16 flex gap-6">
-                                            <LikeCommentIcon comment={item} />
+                                            <LikeCommentIcon
+                                                comments={comments}
+                                                comment={item}
+                                            />
                                         </div>
                                     </div>
                                 </div>

@@ -16,22 +16,36 @@ const Author = ({ author }) => {
         >
             <figure className="flex gap-2 items-center">
                 <Avatar src={author.image} alt="user profile" />
-                <figcaption className=" font-semibold">
+                <figcaption className=" font-semibold relative">
                     {author.name}
+                    {author.isVerified ||
+                        (author.isAdmin && (
+                            <img
+                                src="/verified.png"
+                                alt="verifie"
+                                className="w-4 absolute top-0 -right-4"
+                            />
+                        ))}
                 </figcaption>
             </figure>
             <p className=" text-xs mt-2">{author.bio}</p>
             <section className=" mt-4">
                 <h4 className=" font-semibold">LOCATION</h4>
-                <p className=" text-xs">{author.location}</p>
+                <p className=" text-xs">
+                    {author.location ? author.location : "----------------"}
+                </p>
             </section>
             <section className=" mt-4">
                 <h4 className=" font-semibold">EDUCATION</h4>
-                <p className=" text-xs">{author.education}</p>
+                <p className=" text-xs">
+                    {author.education ? author.education : "---------------"}
+                </p>
             </section>
             <section className=" mt-4">
                 <h4 className=" font-semibold">WORK</h4>
-                <p className=" text-xs">{author.work}</p>
+                <p className=" text-xs">
+                    {author.work ? author.work : "---------------"}
+                </p>
             </section>
             <section
                 className={`${

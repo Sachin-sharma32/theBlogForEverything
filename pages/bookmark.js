@@ -13,7 +13,7 @@ const Bookmark = () => {
     if (user && posts) {
         bookmarks = posts.filter((post) => {
             return user.bookmarks.find((bookmark) => {
-                return bookmark._ref == post._id;
+                return bookmark._id == post._id;
             });
         });
     }

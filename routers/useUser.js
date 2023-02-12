@@ -7,10 +7,10 @@ export const useUpdateUser = (onSuccess, onError) => {
     return useMutation(
         "updateUser",
         (data) => {
-            data;
+            console.log(data);
             return axios.patch(
                 `http://localhost:8000/api/v1/users/${data.userId}`,
-                data.preferences
+                data.data
             );
         },
         {
@@ -19,6 +19,26 @@ export const useUpdateUser = (onSuccess, onError) => {
         }
     );
 };
+
+export const useUserPosts = (userId) => {
+    return useQuery(
+        "userPosts",
+        () => {
+            return axios.get(
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/users/posts/${userId}`
+            );
+        },
+        {
+            enabled: !!userId,
+            select: (data) => {
+                console.log(data);
+                const posts = data.data.data.docs;
+                return posts;
+            },
+        }
+    );
+};
+
 export const useGetMe = (onSuccess, onError) => {
     const dispatch = useDispatch();
     return useQuery(
@@ -62,8 +82,8 @@ export const useHandleBookmark = (onSuccess, onError) => {
         },
         {
             onSuccess: (data) => {
-                queryClient.invalidateQueries(["bookmarks"]);
-                queryClient.invalidateQueries(["me"]);
+                // queryClient.invalidateQueries(["bookmarks"]);
+                // queryClient.invalidateQueries(["me"]);
                 onSuccess();
             },
             onError: onError,

@@ -26,15 +26,15 @@ const TextEditor = ({ content, setContent }) => {
     return (
         <Stack
             sx={{
-                backgroundColor: "black",
+                backgroundColor: "white",
                 paddingTop: "",
-                minHeight: "",
+                minHeight: "90vh",
                 height: "",
                 overflowX: "hidden",
                 width: "100%",
                 border: "20px solid white",
             }}
-            className="editor-container"
+            className="editor-container min-h-screen"
         >
             <ReactQuill
                 theme="bubble"
@@ -69,7 +69,7 @@ const TextEditor = ({ content, setContent }) => {
                 onChange={(e) => {
                     setContent(e);
                 }}
-                className="h-[90vh] border-none bg-black"
+                className="h-[90vh] border-none bg-white"
             />
         </Stack>
     );

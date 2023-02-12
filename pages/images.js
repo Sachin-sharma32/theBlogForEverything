@@ -12,10 +12,7 @@ import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import { useState } from "react";
 import { useMemo } from "react";
 import ErrorBoundry from "../utils/ErrorBoundry";
-
-const heights = [
-    150, 200, 130, 180, 210, 250, 230, 180, 150, 190, 100, 150, 130, 150, 180,
-];
+import { motion } from "framer-motion";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -28,10 +25,9 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function BasicMasonry() {
     const posts = useSelector((state) => state.base.posts);
     const [selectedImage, setSelectedImage] = React.useState(null);
-    const [col, setCol] = useState(4);
     const images = useMemo(() => {
         return posts.map((post) => {
-            return post.image;
+            return post?.image;
         });
     }, [posts]);
     const [open, setOpen] = React.useState(false);
@@ -41,49 +37,36 @@ export default function BasicMasonry() {
     const handleToggle = () => {
         setOpen(!open);
     };
-    if (typeof window !== "undefined") {
-        let width = screen.width;
-        if (width < 500) {
-            setCol(2);
-        } else if (width >= 500 && width <= 1000) {
-            setCol(3);
-        }
-    }
     const mode = useSelector((state) => state.base.mode);
     return (
-        <div>
-            <p
-                className={`${
-                    mode === "light" ? "text-black" : "text-white"
-                } sm:hidden w-[100%] mt-10 text-center`}
-            >
-                Not Avaiable on mobile phone
-            </p>
-            <Box className=" mt-2 max-h-screen overflow-y-scroll image-scrollbar min-h-screen opacity-0 sm:opacity-100">
-                <Masonry columns={col} spacing={2}>
-                    {images.map(
-                        (image, index) =>
-                            image?.asset && (
-                                <ErrorBoundry key={index}>
-                                    <Item
-                                        sx={{ height: heights[index] }}
-                                        className="rounded-2xl"
-                                    >
-                                        {image}
-                                        <img
-                                            src={imageBuilder(image)}
-                                            alt="post image"
-                                            className=" h-full w-full rounded-2xl"
-                                            onClick={() => {
-                                                setSelectedImage(image);
-                                                handleToggle();
-                                            }}
-                                        />
-                                    </Item>
-                                </ErrorBoundry>
-                            )
-                    )}
-                </Masonry>
+        <div className="p-4">
+            <div className=" mt-2 max-h-screen overflow-y-scroll image-scrollbar min-h-screen">
+                <motion.div
+                    layout
+                    className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-2"
+                >
+                    {images.map((image, index) => (
+                        <ErrorBoundry key={index}>
+                            <Item
+                                sx={{
+                                    width: "100%",
+                                    marginBottom: "10px",
+                                }}
+                                className="rounded-2xl"
+                            >
+                                <img
+                                    src={image}
+                                    alt="post image"
+                                    className=" h-full w-full rounded-2xl"
+                                    onClick={() => {
+                                        setSelectedImage(image);
+                                        handleToggle();
+                                    }}
+                                />
+                            </Item>
+                        </ErrorBoundry>
+                    ))}
+                </motion.div>
                 {images.length > 0 && selectedImage && (
                     <div>
                         <Backdrop
@@ -96,9 +79,9 @@ export default function BasicMasonry() {
                             className=""
                         >
                             <div className="w-[100%] h-[100%] flex justify-center items-center">
-                                <div className=" w-[90%] lg:w-[50%] relative bg-white -translate-y-3/4 border-8 rounded-3xl border-white">
+                                <div className=" w-[90%] lg:w-[50%] relative bg-white border-8 rounded-3xl border-white">
                                     <img
-                                        src={imageBuilder(selectedImage)}
+                                        src={selectedImage}
                                         alt=""
                                         className=" w-[100%] h-96 rounded-3xl"
                                     />
@@ -112,12 +95,7 @@ export default function BasicMasonry() {
                                     <CloudDownloadIcon
                                         className=" absolute bottom-2 right-2 text-5xl cursor-pointer text-white"
                                         onClick={() => {
-                                            saveAs(
-                                                `${imageBuilder(
-                                                    selectedImage
-                                                )}`,
-                                                "image.jpg"
-                                            );
+                                            saveAs(selectedImage, "image.jpg");
                                         }}
                                     />
                                 </div>
@@ -125,7 +103,7 @@ export default function BasicMasonry() {
                         </Backdrop>
                     </div>
                 )}
-            </Box>
+            </div>
         </div>
     );
 }

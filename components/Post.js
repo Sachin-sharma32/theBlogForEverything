@@ -25,8 +25,8 @@ const Post = ({ post }) => {
             }}
             className={`${
                 mode == "light"
-                    ? "bg-white shadow-2xl"
-                    : "bg-[#262626] shadow-black shadow-2xl"
+                    ? "bg-white shadow-2xl text-black"
+                    : "bg-[#262626] shadow-black shadow-2xl text-white"
             } h-fit  w-[350px] rounded-2xl overflow-hidden relative mb-4`}
         >
             {post.image && (
@@ -74,27 +74,37 @@ const Post = ({ post }) => {
                         >
                             {post.title}
                         </h5>
-                        <p className=" mb-4">{post.summery}</p>
+                        <p className=" mb-4 text-sm text-gray-500">
+                            {post.summery}
+                        </p>
                     </Link>
                     <section className="flex gap-2 items-start">
                         <div className="flex gap-2 cursor-pointer">
                             <Avatar src={post.author?.image} />
                             <div>
-                                <div className="flex gap-4 items-center">
+                                <div className="flex gap-6 items-center">
                                     <p
                                         className={`${
                                             mode == "dark"
                                                 ? "text-white"
                                                 : "text-black"
-                                        }`}
+                                        } relative`}
                                     >
                                         {post.author?.name}
+                                        {post.author?.isVerified ||
+                                            (post.author?.isAdmin && (
+                                                <img
+                                                    src="/verified.png"
+                                                    alt="verifie"
+                                                    className="w-4 absolute -top-1 -right-4"
+                                                />
+                                            ))}
                                     </p>
-                                    <div className="">
+                                    <div className=" text-gray-500">
                                         {moment(post.publishedAt).format("ll")}
                                     </div>
                                 </div>
-                                <p className=" text-xs">{post.author?.work}</p>
+                                <p className=" text-xs text-gray-500">{post.author?.work}</p>
                             </div>
                         </div>
                     </section>

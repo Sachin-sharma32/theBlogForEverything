@@ -12,7 +12,9 @@ const Search = () => {
     const router = useRouter();
     const { search } = router.query;
     const mode = useSelector((state) => state.base.mode);
-    const posts = useSelector((state) => state.base.posts);
+    let posts = useSelector((state) => state.base.posts);
+    posts = posts.filter((post) => post.type === "experience");
+    console.log(posts);
     const containerRef = useRef();
     let filterPosts = posts.filter((post) => {
         if (post.title && post.tags && post.category) {
@@ -58,12 +60,22 @@ const Search = () => {
 
     return (
         <>
-            <div className="text-white flex gap-2 px-10 pt-4 text-xs sticky top-[52px] z-40 bg-[#262626] pb-4">
+            <div
+                className={` flex gap-1 sm:gap-2 px-2 sm:px-1 pt-0 sm:py-10 text-xs sticky top-[52px] z-40 pb-4 ${
+                    mode === "dark" ? "bg-[#262626] text-white" : "bg-white"
+                }`}
+            >
                 <Link
                     href={`/search/${search}`}
                     className=" active:scale-90 transition-all duration-300 border-2 px-2 rounded-full hover:bg-black hover:text-white hover:border-black"
                 >
-                    POSTS
+                    ALL
+                </Link>
+                <Link
+                    href={`/search/blogs/${search}`}
+                    className=" active:scale-90 transition-all duration-300 border-2 px-2 rounded-full hover:bg-black hover:text-white hover:border-black"
+                >
+                    BLOGS
                 </Link>
                 <Link
                     href={`/search/shorts/${search}`}
@@ -78,16 +90,10 @@ const Search = () => {
                     EXPERIENCES
                 </Link>
                 <Link
-                    href={`/search/stories/${search}`}
+                    href={`/search/information/${search}`}
                     className=" active:scale-90 transition-all duration-300 border-2 px-2 rounded-full hover:bg-black hover:text-white hover:border-black"
                 >
-                    STORIES
-                </Link>
-                <Link
-                    href={`/search/books/${search}`}
-                    className=" active:scale-90 transition-all duration-300 border-2 px-2 rounded-full hover:bg-black hover:text-white hover:border-black"
-                >
-                    BOOKS
+                    INFORMATION
                 </Link>
             </div>
             <Head>
@@ -165,7 +171,7 @@ const Search = () => {
                             ref={containerRef}
                             className=" flex flex-col sm:flex-none text-xl sm:text-3xl text-center mb-10 font-bold"
                         >
-                            SHOWING POSTS FOR{" "}
+                            SHOWING EXPERIENCES FOR{" "}
                             <span className=" bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent">
                                 {search?.toUpperCase()}
                             </span>
@@ -181,7 +187,7 @@ const Search = () => {
                                         : "text-[#262626]"
                                 }  flex flex-col justify-center items-center text-3xl text-center mb-10 font-bold`}
                             >
-                                <span>NO RESULT FOUND FOR</span>
+                                <span>NO EXPERIENCES FOUND FOR</span>
                                 <span className=" text-red-500">
                                     {search?.toUpperCase()}
                                 </span>

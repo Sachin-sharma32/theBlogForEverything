@@ -48,15 +48,15 @@ const Posts = () => {
     const mode = useSelector((state) => state.base.mode);
 
     const [page, setPage] = useState(1);
-    const lastPost = page * 12;
-    const firstPost = lastPost - 11;
+    const lastPost = page * 20;
+    const firstPost = lastPost - 19;
     let pages = [];
     const pagePosts = useMemo(
         () => posts.slice(firstPost - 1, lastPost),
         [page, posts]
     );
 
-    for (let i = 1; i <= Math.ceil(posts.length / 12); i++) {
+    for (let i = 1; i <= Math.ceil(posts.length / 20); i++) {
         pages.push(i);
     }
 
@@ -101,8 +101,11 @@ const Posts = () => {
                               <Post post={post} />
                           </ErrorBoundry>
                       ))
-                    : [...Array(12)].map((item) => (
-                          <Skeleton className=" h-[200px] bg-gray-500 w-[350px] rounded-2xl" />
+                    : [...Array(12)].map((item, i) => (
+                          <Skeleton
+                              className=" h-[200px] bg-gray-500 w-[350px] rounded-2xl"
+                              key={i}
+                          />
                       ))}
             </motion.div>
             <div className="flex gap-2 mt-6 md:mt-0">

@@ -14,44 +14,58 @@ import { useGetPost } from "../routers/usePost";
 const Like = ({ post, setSuccess }) => {
     const router = useRouter();
     const [like, setLike] = useState(true);
-
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
-    const { data: currentPost } = useGetPost(post?._id);
-    currentPost;
-    user;
+    const likes = useSelector((state) => state.base.likes);
+    const [count, setCount] = useState(post.likes.length);
+    const dispatch = useDispatch();
+    console.log(likes);
+    console.log(post);
+    // const { data: currentPost } = useGetPost(post?._id);
     useEffect(() => {
-        if (user && currentPost) {
-            currentPost?.likes?.map((like) => {
-                if (like._id === user._id) {
-                    like, user._id;
+        if (user && post) {
+            likes?.map((like) => {
+                if (like._id === post._id) {
                     setLike(false);
                 }
             });
         }
-    }, [user, currentPost]);
+    }, [user, likes]);
 
     const onSuccess = () => {
-        setLike((current) => !current);
+        // setLike((current) => !current);
     };
     const onError = () => {};
     const { mutate: toggleLike } = useHandleLike(onSuccess, onError);
+    const handleLike = () => {
+        if (user) {
+            if (like) {
+                dispatch(setLiked([...likes, post]));
+                setCount(count + 1);
+                setLike(false);
+            } else {
+                console.log("hello");
+                dispatch(
+                    setLiked(likes.filter((like) => like._id !== post._id))
+                );
+                setCount(count - 1);
+                setLike(true);
+            }
+            toggleLike({
+                postId: post._id,
+                userId: user._id,
+            });
+        } else {
+            router.push("/signin");
+        }
+    };
     return (
         <div
             className={`${
                 mode == "dark" ? "text-white" : "text-black"
             } hover:scale-125 transition-all duration-200`}
         >
-            <div
-                onClick={() => {
-                    user
-                        ? toggleLike({
-                              postId: currentPost._id,
-                              userId: user._id,
-                          })
-                        : router.push("/signin");
-                }}
-            >
+            <div onClick={handleLike}>
                 <Tooltip title="Like" placement="bottom">
                     {like ? (
                         <a className="cursor-pointer">
@@ -63,7 +77,7 @@ const Like = ({ post, setSuccess }) => {
                         </div>
                     )}
                 </Tooltip>
-                {currentPost?.likes ? (
+                {post?.likes ? (
                     <p
                         className={`${
                             mode === "dark"
@@ -71,7 +85,7 @@ const Like = ({ post, setSuccess }) => {
                                 : "bg-black text-white"
                         } absolute top-0 -right-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full text-xs flex items-center justify-center`}
                     >
-                        {post.likes.length}
+                        {count}
                     </p>
                 ) : (
                     ""

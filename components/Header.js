@@ -153,8 +153,8 @@ const Header = () => {
                 ) : (
                     <Skeleton
                         variant="rectangular"
-                        // width={210}
-                        // height={118}
+                        width={210}
+                        height={118}
                         className={` w-[80vw] h-[60vh] sm:h-[80vh] bg-gray-500 flex justify-end items-center shadow-2xl cursor-pointer rounded-[40px] overflow-hidden`}
                     />
                 )}

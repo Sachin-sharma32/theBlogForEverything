@@ -61,7 +61,7 @@ const Search = () => {
     return (
         <>
             <div
-                className={` flex gap-1 sm:gap-2 px-2 sm:px-1 pt-0 sm:py-10 text-xs sticky top-[52px] z-40 pb-4 ${
+                className={` flex gap-1 sm:gap-2 px-2 sm:px-1 text-xs fixed top-[48px] w-full sm:pt-2 h-fit z-40 pb-2 ${
                     mode === "dark" ? "bg-[#262626] text-white" : "bg-white"
                 }`}
             >

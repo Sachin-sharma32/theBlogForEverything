@@ -11,6 +11,7 @@ import Script from "next/script";
 import Head from "next/head";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import { StyledEngineProvider } from "@mui/material";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     pageProps;
@@ -79,18 +80,20 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 `}
             </Script>
             <div className=" font-poppins">
-                <QueryClientProvider client={queryClient}>
-                    <Provider store={store}>
-                        <SessionProvider session={session}>
-                            <Navbar />
-                            <div className="mt-12">
-                                <Component {...pageProps} />
-                            </div>
-                            <Footer />
-                            <Social />
-                        </SessionProvider>
-                    </Provider>
-                </QueryClientProvider>
+                <StyledEngineProvider injectFirst>
+                    <QueryClientProvider client={queryClient}>
+                        <Provider store={store}>
+                            <SessionProvider session={session}>
+                                <Navbar />
+                                <div className="mt-12">
+                                    <Component {...pageProps} />
+                                </div>
+                                <Footer />
+                                <Social />
+                            </SessionProvider>
+                        </Provider>
+                    </QueryClientProvider>
+                </StyledEngineProvider>
             </div>
         </div>
     );

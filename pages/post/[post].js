@@ -628,7 +628,7 @@ export default Post;
 
 export async function getServerSideProps(context) {
     const post = await axios.get(
-        `http://localhost:8000/api/v1/posts/${context.params.post}`
+        `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/${context.params.post}`
     );
     console.log(post.data.data.doc);
     return {

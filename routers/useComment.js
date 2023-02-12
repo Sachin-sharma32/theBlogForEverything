@@ -5,7 +5,9 @@ export const useGetComments = (postId) => {
     return useQuery(
         "comments",
         () => {
-            return axios.get(`http://localhost:8000/api/v1/comments/${postId}`);
+            return axios.get(
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/comments/${postId}`
+            );
         },
         {
             enabled: !!postId,
@@ -23,7 +25,7 @@ export const useDeleteComment = (onSuccess, onError) => {
         "deleteComment",
         (commentId) => {
             return axios.delete(
-                `http://localhost:8000/api/v1/comments/${commentId}`
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/comments/${commentId}`
             );
         },
         {
@@ -43,7 +45,7 @@ export const useAddComment = (onSuccess, onError) => {
         (data) => {
             data;
             return axios.post(
-                `http://localhost:8000/api/v1/comments/${data.postId}`,
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/comments/${data.postId}`,
                 data.data
             );
         },
@@ -63,7 +65,7 @@ export const useUpdateComment = (onSuccess, onError) => {
         "updateComment",
         (data) => {
             return axios.patch(
-                `http://localhost:8000/api/v1/comments/${data.commentId}`,
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/comments/${data.commentId}`,
                 data.data
             );
         },
@@ -83,7 +85,7 @@ export const useHandleCommentLike = () => {
         "handleCommentLike",
         (data) => {
             return axios.patch(
-                `http://localhost:8000/api/v1/comments/${data.commentsId}/comment/${data.commentId}`,
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/comments/${data.commentsId}/comment/${data.commentId}`,
                 {
                     userId: data.userId,
                 }
@@ -107,7 +109,7 @@ export const useGetComment = (commentsId, commentId) => {
         "comment",
         () => {
             return axios.get(
-                `http://localhost:8000/api/v1/comments/${commentsId}/comment/${commentId}`
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/comments/${commentsId}/comment/${commentId}`
             );
         },
         {

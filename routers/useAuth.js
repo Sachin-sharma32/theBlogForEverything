@@ -9,7 +9,7 @@ export const useRegister = (onSuccess, onError) => {
         "register",
         (data) => {
             return axios.post(
-                "http://localhost:8000/api/v1/auth/verifyEmail",
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/auth/verifyEmail",
                 data
             );
         },
@@ -26,7 +26,10 @@ export const useLogIn = (onSuccess, onError) => {
     return useMutation(
         "login",
         (data) => {
-            return axios.post("http://localhost:8000/api/v1/auth/login", data);
+            return axios.post(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/auth/login",
+                data
+            );
         },
         {
             onSuccess: (data) => {
@@ -47,7 +50,9 @@ export const useLogOut = (onSuccess, onError) => {
     return useMutation(
         "logout",
         (data) => {
-            return axios.post("http://localhost:8000/api/v1/auth/logout");
+            return axios.post(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/auth/logout"
+            );
         },
         {
             onSuccess: onSuccess,
@@ -59,7 +64,9 @@ export const useRefresh = (onSuccess, onError) => {
     return useQuery(
         "refresh",
         () => {
-            return axios.get("http://localhost:8000/api/v1/auth/refresh");
+            return axios.get(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/auth/refresh"
+            );
         },
         {
             onSuccess: onSuccess,
@@ -72,7 +79,7 @@ export const useForgotPassword = (onSuccess, onError) => {
         "forgotPassword",
         (data) => {
             return axios.post(
-                "http://localhost:8000/api/v1/auth/forgotPassword",
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/auth/forgotPassword",
                 data
             );
         },
@@ -88,7 +95,7 @@ export const useResetPassword = (onSuccess, onError) => {
         (data) => {
             console.log(data);
             return axios.post(
-                `http://localhost:8000/api/v1/auth/resetPassword/${data.token}`,
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/auth/resetPassword/${data.token}`,
                 data.user
             );
         },

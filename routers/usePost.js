@@ -7,7 +7,9 @@ export const useGetBestPost = () => {
     return useQuery(
         "bestPost",
         () => {
-            return axios.get("http://localhost:8000/api/v1/posts/bestPost");
+            return axios.get(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/bestPost"
+            );
         },
         {
             select: (data) => {
@@ -22,7 +24,9 @@ export const useGetAllPosts = () => {
     return useQuery(
         "allPosts",
         () => {
-            return axios.get("http://localhost:8000/api/v1/posts?limit=1000");
+            return axios.get(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts?limit=1000"
+            );
         },
         {
             refetchOnMount: true,
@@ -39,7 +43,9 @@ export const useGetPost = (postId) => {
     return useQuery(
         "getPost",
         () => {
-            return axios.get(`http://localhost:8000/api/v1/posts/${postId}`);
+            return axios.get(
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/${postId}`
+            );
         },
         {
             select: (data) => {
@@ -54,7 +60,10 @@ export const useCreatePost = (onSuccess, onError) => {
     return useMutation(
         "createPost",
         (data) => {
-            return axios.post("http://localhost:8000/api/v1/posts", data);
+            return axios.post(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts",
+                data
+            );
         },
         {
             onSuccess,
@@ -65,7 +74,7 @@ export const useCreatePost = (onSuccess, onError) => {
 export const useHandlePostLike = (onSuccess, onError) => {
     return useMutation("likePost", (postId) => {
         return axios.patch(
-            `http://localhost:8000/api/v1/posts/likes/${postId}`
+            `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/likes/${postId}`
         );
     });
 };
@@ -76,7 +85,7 @@ export const useHandleLike = (onSuccess, onError) => {
         "addLike",
         (data) => {
             return axios.patch(
-                `http://localhost:8000/api/v1/posts/likes/${data.postId}`,
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/likes/${data.postId}`,
                 { userId: data.userId }
             );
         },
@@ -95,7 +104,9 @@ export const useTotalPosts = () => {
     return useQuery(
         "totalPosts",
         () => {
-            return axios.get("http://localhost:8000/api/v1/posts/total");
+            return axios.get(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/total"
+            );
         },
         {
             select: (data) => {

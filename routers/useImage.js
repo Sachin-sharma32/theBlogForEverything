@@ -8,7 +8,7 @@ export const useUploadImage = (onSuccess, onError) => {
             const formData = new FormData();
             formData.append("image", image);
             return axios.post(
-                `http://localhost:8000/api/v1/uploads`,
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/uploads`,
                 formData,
                 {
                     headers: {

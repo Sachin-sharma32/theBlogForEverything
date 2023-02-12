@@ -9,7 +9,7 @@ export const useUpdateUser = (onSuccess, onError) => {
         (data) => {
             console.log(data);
             return axios.patch(
-                `http://localhost:8000/api/v1/users/${data.userId}`,
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/users/${data.userId}`,
                 data.data
             );
         },
@@ -44,7 +44,9 @@ export const useGetMe = (onSuccess, onError) => {
     return useQuery(
         "me",
         () => {
-            return axios.get(`http://localhost:8000/getMe`);
+            return axios.get(
+                `https://theblogforeverything-backend-h8fa.vercel.app/getMe`
+            );
         },
         {
             onSuccess: (data) => {
@@ -58,14 +60,14 @@ export const useGetMe = (onSuccess, onError) => {
 export const useGetAllBookmarks = () => {
     return useQuery("allBookmarks", () => {
         return axios.get(
-            `http://localhost:8000/api/v1/users/bookmarks/${userId}`
+            `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/users/bookmarks/${userId}`
         );
     });
 };
 export const useGetUserLikes = (userId) => {
     return useQuery("userLikes", () => {
         return axios.get(
-            `http://localhost:8000/api/v1/users/userLikes/${userId}`
+            `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/users/userLikes/${userId}`
         );
     });
 };
@@ -76,7 +78,7 @@ export const useHandleBookmark = (onSuccess, onError) => {
         "handleBookmark",
         (data) => {
             return axios.patch(
-                `http://localhost:8000/api/v1/users/bookmarks/${data.userId}`,
+                `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/users/bookmarks/${data.userId}`,
                 { postId: data.postId }
             );
         },

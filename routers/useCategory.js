@@ -8,7 +8,9 @@ export const useAllCategories = (onSuccess, onError) => {
     return useQuery(
         "categories",
         () => {
-            return axios.get("http://localhost:8000/api/v1/categories");
+            return axios.get(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/categories"
+            );
         },
         {
             onSuccess: (data) => {

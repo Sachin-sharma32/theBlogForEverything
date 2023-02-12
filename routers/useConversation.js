@@ -6,7 +6,10 @@ export const useAssistence = (onSuccess, onError) => {
         "assistence",
         (prompt) => {
             console.log(prompt);
-            return axios.post("http://localhost:8000/assistence", { prompt });
+            return axios.post(
+                "https://theblogforeverything-backend-h8fa.vercel.app/assistence",
+                { prompt }
+            );
         },
         {
             onSuccess: (data) => {

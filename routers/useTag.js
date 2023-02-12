@@ -7,7 +7,9 @@ export const useCreateTag = (onSuccess, onError) => {
     return useMutation(
         "createTag",
         () => {
-            return axios.post("http://localhost:8000/api/v1/tags");
+            return axios.post(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/tags"
+            );
         },
         {
             onSuccess,
@@ -21,7 +23,9 @@ export const useGetAllTags = () => {
     return useQuery(
         "tags",
         () => {
-            return axios.get("http://localhost:8000/api/v1/tags");
+            return axios.get(
+                "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/tags"
+            );
         },
         {
             onSuccess: (data) => {

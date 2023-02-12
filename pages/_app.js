@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     axios.defaults.headers.common["authorization"] = `Bearer ${cookie.jwt}`;
 
     return (
-        <div className=" overflow-y-scroll overflow-x-hidden">
+        <div className="">
             <Head>
                 <title>TBFE - {pageProps.title}</title>
                 <link

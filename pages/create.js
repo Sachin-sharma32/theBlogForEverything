@@ -198,7 +198,7 @@ const Create = () => {
     console.log(conversation, query);
 
     return (
-        <div className=" min-h-[90vh] flex-col relative mt-2">
+        <div className=" min-h-[90vh] flex-col relative mt-2 overflow-x-hidden">
             <Dialog open={showTagsDialog}>
                 <DialogTitle>Choose Tags (3)</DialogTitle>
                 <DialogContent sx={{ maxWidth: "500px", height: "300px" }}>

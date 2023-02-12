@@ -6,10 +6,8 @@ import Smooth from "../utils/Smooth";
 import Head from "next/head";
 import ErrorBoundry from "../utils/ErrorBoundry";
 
-
 export default function Home() {
     const mode = useSelector((state) => state.base.mode);
-
 
     return (
         <>
@@ -88,7 +86,7 @@ export default function Home() {
             <Smooth
                 className={` text-gray-500 text-sm ${
                     mode == "light" ? "bg-white" : "bg-[#262626]"
-                }`}
+                } overflow-x-hidden max-w-screen`}
             >
                 <ErrorBoundry>
                     <Header />

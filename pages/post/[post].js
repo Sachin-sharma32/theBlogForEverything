@@ -628,19 +628,15 @@ export default Post;
 
 export async function getServerSideProps(context) {
     const post = await axios.get(
-        `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/${context.params.post}`,
-        {
-            headers: {
-                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDQwMTAxYzk0MGUxZWVkMTlmMmVmMiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTA3ODYyMSwiZXhwIjoxNjc1NjgzNDIxfQ.m78XjAVnusQbvTUnbowBRNQOt88iGd6YmfIxFYKAZts`,
-            },
-        }
+        `http://localhost:8000/api/v1/posts/${context.params.post}`
     );
+    console.log(post.data.data.doc);
     return {
         props: {
             post: post.data.data.doc,
             title: post.data.data.doc.title,
             image: post.data.data.doc.image,
-            // summery: post.data.data.doc.summery,
+            summery: post.data.data.doc.summery,
             keywords: post.data.data.doc.tags
                 .map((tag) => tag.title)
                 .toString(),

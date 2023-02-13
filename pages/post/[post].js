@@ -263,7 +263,7 @@ const Post = ({ post }) => {
                                         } mt-4 gap-1 text-xs items-center hidden flex-wrap`}
                                     >
                                         <FacebookShareButton
-                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                            url={`https://theblogforeverything.com/post/${post._id}`}
                                         >
                                             <FacebookIcon
                                                 size={20}
@@ -271,7 +271,7 @@ const Post = ({ post }) => {
                                             />
                                         </FacebookShareButton>
                                         <LinkedinShareButton
-                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                            url={`https://theblogforeverything.com/post/${post._id}`}
                                         >
                                             <LinkedinIcon
                                                 size={20}
@@ -279,7 +279,7 @@ const Post = ({ post }) => {
                                             />
                                         </LinkedinShareButton>
                                         <RedditShareButton
-                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                            url={`https://theblogforeverything.com/post/${post._id}`}
                                         >
                                             <RedditIcon
                                                 size={20}
@@ -287,7 +287,7 @@ const Post = ({ post }) => {
                                             />
                                         </RedditShareButton>
                                         <TwitterShareButton
-                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                            url={`https://theblogforeverything.com/post/${post._id}`}
                                         >
                                             <TwitterIcon
                                                 size={20}
@@ -295,7 +295,7 @@ const Post = ({ post }) => {
                                             />
                                         </TwitterShareButton>
                                         <WhatsappShareButton
-                                            url={`https://theblogforeverything.com/post/2d8d2674-3b1e-400f-8d6f-33824ed29390`}
+                                            url={`https://theblogforeverything.com/post/${post._id}`}
                                         >
                                             <WhatsappIcon
                                                 size={20}

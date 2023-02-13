@@ -208,17 +208,21 @@ a {
         
         .ql-container, .ql-editor{
           overflow: hidden;
-          padding-left: 120px;
-          padding-right: 120px;
+          padding-left: 20px;
+          padding-right: 20px;
           border: none;
           font-size: larger;
           /* background-color: black; */
           padding-bottom: 50px;
-          
         }
         .ql-container input{
-          background-color: white;
-          outline: none;
+          background-color: #262626 !important;
+          outline: none !important;
+          width: -webkit-fit-content !important;
+          width: -moz-fit-content !important;
+          width: fit-content !important;
+          transform: translateX(-200px);
+          width: 400px !important;
         }
         .ql-editor::-webkit-scrollbar{
           width: 0px;
@@ -233,36 +237,30 @@ a {
           width: "20px";
           
         }
-      
-        .ql-toolbar{
-          /* background-color: black;
-          border: none;
-          color:white */
-          position: static;
-          top: 0;
-        }
-        /* .ql-toolbar .ql-stroke-label{
-          color: white;
-          background-color: white;
-        }
-        .ql-toolbar .ql-fill-label{
-          color: white;
-        }
-        .ql-toolbar .ql-picker-label{
-          color: white;
-        }
-        .ql-toolbar .ql-picker-label:hover{
-          color: black;
-        } */
-        .ql-bubble .ql-tooltip{
-
-          flex-wrap: wrap;
-          width: 250px;
-        }
         .quill > .ql-container > .ql-editor.ql-blank::before{
-          padding-left: 120px;
-          padding-right: 120px;
+          padding-left: 20px;
+          padding-right: 20px;
           font-size: 15px;
           content: "Select text to see formatting options";
           color:gray;
+      }
+      .ql-tooltip{
+        min-width: 400px;
+        margin: auto;
+        background-color: white;
+        position: fixed !important;
+        /* top: 100px !important; */
+        left: 50% !important;
+        transform: translateX(-50%) translateY(16px) !important;
+        border-radius: 0 !important;
+        background-color: #262626 !important;
+        color: black !important;
+        border-bottom-right-radius: 20px !important;
+        border-bottom-left-radius: 20px !important;
+        overflow: hidden !important;
+        transition: all !important;
+        -webkit-animation-duration: 1s !important;
+                animation-duration: 1s !important;
+        top: 31px !important;
+        display: flex !important;
       }

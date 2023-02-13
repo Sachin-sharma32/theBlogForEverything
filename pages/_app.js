@@ -12,6 +12,7 @@ import Head from "next/head";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { StyledEngineProvider } from "@mui/material";
+import Link from "next/link";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     pageProps;
@@ -66,6 +67,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     content={`${pageProps.summery}`}
                 />
                 <meta name="twitter:image" content={`${pageProps.image}`} />
+               
             </Head>
             <Script
                 src="https://www.googletagmanager.com/gtag/js?id=G-PKPENVER0M"
@@ -79,6 +81,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         gtag('config', 'G-PKPENVER0M');
                 `}
             </Script>
+
             <div className=" font-poppins">
                 <StyledEngineProvider injectFirst>
                     <QueryClientProvider client={queryClient}>

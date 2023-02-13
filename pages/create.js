@@ -345,7 +345,9 @@ const Create = () => {
             </Dialog>
             <div className=" w-[100%] bg-white flex flex-col gap-0 items-center relative">
                 <div
-                    className="fixed top-14 right-2 sm:top-20 sm:right-10 z-40"
+                    className={` ${
+                        handleAssistenceToggle ? "top-20" : "top-40"
+                    } fixed right-2 !top-40 sm:right-10 z-40`}
                     onClick={handleAssistenceToggle}
                 >
                     <Tooltip title="Assistence">
@@ -359,11 +361,11 @@ const Create = () => {
                 </div>
                 <div
                     ref={assistenceRef}
-                    className="bg-[#262626] h-[100vh] w-screen absolute top-0 left-0 translate-x-[100%] transition-all duration-300 z-30 text-white p-10 text-xs"
+                    className="bg-[#262626] h-[100vh] w-screen absolute top-0 left-0 translate-x-[100%] transition-all duration-300 z-30 text-white flex justify-center text-xs p-10"
                 >
                     <div
                         ref={containerRef}
-                        className=" h-full w-ful flex flex-col gap-4 overflow-y-scroll pb-20 pr-20"
+                        className=" h-full w-full flex flex-col gap-4 overflow-y-scroll pb-20 pr-4 sm:pr-20"
                     >
                         {conversation.map((item, i) =>
                             item.type === "user" ? (
@@ -431,14 +433,14 @@ const Create = () => {
                         )}
                         <form
                             onSubmit={handleAssistence}
-                            className="flex gap-2 items-center bg-gray-500 px-4 rounded-full absolute bottom-20 w-[90%] py-1"
+                            className="flex gap-2 items-center bg-gray-500 px-4  rounded-full justify-center absolute bottom-20 w-[90%] py-1 -translate-x-4 sm:translate-x-0"
                         >
                             <input
                                 placeholder="Give more details to see better results"
                                 required
                                 value={query}
                                 type="text"
-                                className=" bg-gray-500 outline-none w-full h-fit"
+                                className=" bg-gray-500 outline-none w-[100%] h-fit"
                                 onChange={(e) => {
                                     setQuery(e.target.value);
                                 }}
@@ -454,7 +456,7 @@ const Create = () => {
                     onChange={(e) => {
                         setTitle(e.target.value);
                     }}
-                    className="border-b font-bold  bg-white outline-none text-sm sm:text-xl md:text-2xl w-[85%] mt-14 pb-2 border-gray-200"
+                    className="border-b font-bold  bg-white outline-none text-sm sm:text-xl md:text-2xl w-[90%] mt-14 pb-2 border-gray-200"
                     placeholder="Title"
                 />
                 <div className=" min-h-screen bg-white w-screen">

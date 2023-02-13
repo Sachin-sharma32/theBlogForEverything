@@ -221,7 +221,7 @@ a {
           width: -webkit-fit-content !important;
           width: -moz-fit-content !important;
           width: fit-content !important;
-          transform: translateX(-200px);
+          /* transform: translateX(-200px); */
           width: 400px !important;
         }
         .ql-editor::-webkit-scrollbar{

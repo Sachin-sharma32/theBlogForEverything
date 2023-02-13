@@ -55,8 +55,16 @@ const RelatedPosts = ({ post }) => {
                             {post.author && (
                                 <div className="flex items-center gap-2 cursor-pointer">
                                     <Avatar src={`${post?.author?.image}`} />
-                                    <p className=" text-xs font-semibold">
+                                    <p className=" text-xs font-semibold relative">
                                         {post.author?.name}
+                                        {post.author.isVerified ||
+                                            (post.author.isAdmin && (
+                                                <img
+                                                    src="/verified.png"
+                                                    alt="verifie"
+                                                    className="w-4 absolute -top-2 -right-4"
+                                                />
+                                            ))}
                                     </p>
                                 </div>
                             )}

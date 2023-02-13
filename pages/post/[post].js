@@ -313,7 +313,7 @@ const Post = ({ post }) => {
                                     style={{ fontFamily: "Inter" }}
                                 >
                                     <div
-                                        className="leading-[1.9]"
+                                        className="leading-[1.9] p-4 sm:p-0"
                                         dangerouslySetInnerHTML={{
                                             __html: postCentent,
                                         }}

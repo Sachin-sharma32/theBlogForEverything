@@ -433,7 +433,7 @@ const Create = () => {
                         )}
                         <form
                             onSubmit={handleAssistence}
-                            className="flex gap-2 items-center bg-gray-500 px-4  rounded-full justify-center absolute bottom-20 w-[90%] py-1 -translate-x-4 sm:translate-x-0"
+                            className="flex gap-2 items-center bg-gray-500 px-4  rounded-full justify-center absolute bottom-40 sm:bottom-20 w-[90%] py-1 -translate-x-4 sm:translate-x-0"
                         >
                             <input
                                 placeholder="Give more details to see better results"

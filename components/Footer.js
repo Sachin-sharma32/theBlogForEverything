@@ -27,8 +27,8 @@ const Footer = () => {
     return (
         <footer
             className={`${
-                mode == "light" ? "text-gray-800 bg-white" : "text-gray-300"
-            } p-10 text-xs border-t grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8`}
+                mode == "light" ? "text-gray-800 bg-[#f8f8f8]" : "text-gray-300"
+            }  px-10 text-xs border-t-4 border-dotted flex justify-between pb-14 pt-4`}
         >
             <section className=" flex flex-col gap-4 h-full border200 text-center items-center col-span-2 sm:col-span-3 lg:col-span-2">
                 <Link
@@ -51,94 +51,36 @@ const Footer = () => {
                         />
                     )}
                 </Link>
-                <p>
-                    A comprehensive content platform that provides readers with
-                    a wide range of information on a variety of topics. From the
-                    latest news and current events, to lifestyle and personal
-                    development, the platform aims to be a one-stop-shop for all
-                    things related to blogging. Whether you&apos;re looking to
-                    stay informed, learn something new, or simply be
-                    entertained, &quot;The Blog for Everything&quot; has
-                    something for everyone.
-                </p>
-                <section className=" cursor-pointer flex gap-2">
+                <section className=" cursor-pointer flex gap-2"></section>
+            </section>
+            <section className="flex gap-2 ">
+                <p className="font-bold">Connect:</p>
+                <div className="flex gap-2">
                     <a
                         href="https://www.facebook.com/profile.php?id=100089863353239&mibextid=LQQJ4d"
-                        className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                        className="hover:text-gray-400 transition-all duration-200 cursor-pointer animation-effect"
                     >
-                        <FacebookIcon />
+                        <p>Facebook</p>
                     </a>
                     <a
                         href="https://twitter.com/parallelquotes/status/1059298596196114433?s=12&t=Qx1DqWgqxc1LNBztel4doA"
-                        className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                        className="hover:text-gray-400 transition-all duration-200 cursor-pointer animation-effect"
                     >
-                        <TwitterIcon />
+                        <p>Twitter</p>
                     </a>
                     <a
                         href="https://instagram.com/the.blogforeverything?igshid=YmMyMTA2M2Y="
-                        className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                        className="hover:text-gray-400 transition-all duration-200 cursor-pointer animation-effect"
                     >
-                        <InstagramIcon />
+                        <p>Instagram</p>
                     </a>
                     <a
                         href="https://t.me/+PFpcobYVHjU4NjZl"
-                        className="hover:scale-125 transition-all duration-200 cursor-pointer animation-effect"
+                        className="hover:text-gray-400 transition-all duration-200 cursor-pointer animation-effect"
                     >
-                        <TelegramIcon />
+                        <p>Telegram</p>
                     </a>
-                </section>
-            </section>
-            <section className="flex flex-col w-full gap-2">
-                {footerCategories?.map((category, i) => (
-                    <Link
-                        key={i}
-                        href={`/search/${category.title}`}
-                        className=" hover:scale-125 transition-all duration-200 w-full text-center"
-                    >
-                        {category?.title?.toUpperCase()}
-                    </Link>
-                ))}
-            </section>
-            <section className="flex flex-col gap-2 text-center">
-                {footerTags?.map((tag, i) => (
-                    <Link
-                        key={i}
-                        href={`/search/${tag.title}`}
-                        className=" hover:scale-125 transition-all duration-200 w-full"
-                    >
-                        {tag.title}
-                    </Link>
-                ))}
-            </section>
-            <section className="flex flex-col gap-2 col-span-2 sm:col-span-1">
-                <a
-                    href="tel: +91 95210 85310"
-                    className=" justify-center flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
-                >
-                    <PhoneIcon />
-                    <p>91+ 95210 85310</p>
-                </a>
-                <a
-                    href="tel: +916367212438"
-                    className="justify-center flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
-                >
-                    <PhoneIcon />
-                    <p>91+ 6367212438</p>
-                </a>
-                <a
-                    href="mailto: Rahul.noble95@gmail.com"
-                    className="justify-center flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
-                >
-                    <MailIcon />
-                    <p>Rahul.noble95@gmail.com</p>
-                </a>
-                <a
-                    href="mailto: sachin2sharma001@gmail.com"
-                    className="justify-center flex gap-2 sm:w-full hover:scale-105 transition-all duration-200 cursor-pointer animation-effect"
-                >
-                    <MailIcon />
-                    <p>sachin2sharma001@gmail</p>
-                </a>
+                </div>
             </section>
         </footer>
     );

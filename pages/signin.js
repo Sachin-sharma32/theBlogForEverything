@@ -24,6 +24,10 @@ import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
 import CloseIcon from "@mui/icons-material/Close";
 import { useLogIn } from "../routers/useAuth";
 import { useUpdateUser } from "../routers/useUser";
+import GoogleIcon from "@mui/icons-material/Google";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 const SignIn = () => {
     const router = useRouter();
@@ -124,9 +128,9 @@ const SignIn = () => {
                                     preferences.find(
                                         (item) => item._id === category._id
                                     )
-                                        ? "bg-white text-black"
+                                        ? "bg-[#f8f8f8] text-black"
                                         : "bg-black text-white"
-                                } border-2 px-4 rounded-full  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                } border-2 px-4 rounded-full  py-1 hover:bg-[#f8f8f8] border-black hover:text-black cursor-pointer transition-all duration-300`}
                             >
                                 {category?.title}
                             </div>
@@ -150,58 +154,6 @@ const SignIn = () => {
                     </button>
                 </DialogActions>
             </Dialog>
-            {/* {showDialog && (
-                <div className=" fixed left-0 top-0 h-screen z-50 w-screen backdrop-blur-sm flex justify-center items-center">
-                    <div className="flex flex-col p-10 bg-white w-[500px] gap-4 rounded-3xl relative">
-                        <h3 className="text-2xl font-bold">
-                            CHOOSE YOUR PREFERENCES
-                        </h3>
-                        <div className="flex flex-wrap text-sm gap-2">
-                            {categories?.map((category, i) => (
-                                <div
-                                    onClick={() => {
-                                        if (
-                                            preferences.find(
-                                                (item) =>
-                                                    item._id === category._id
-                                            )
-                                        ) {
-                                            setPreferences(
-                                                preferences.filter(
-                                                    (item) =>
-                                                        item._id !==
-                                                        category._id
-                                                )
-                                            );
-                                        } else {
-                                            setPreferences([
-                                                ...preferences,
-                                                { ...category, _key: i },
-                                            ]);
-                                        }
-                                    }}
-                                    key={i}
-                                    className={`${
-                                        preferences.find(
-                                            (item) => item._id === category._id
-                                        )
-                                            ? "bg-white text-black"
-                                            : "bg-black text-white"
-                                    } border-2 px-4 rounded-full  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
-                                >
-                                    {category?.title}
-                                </div>
-                            ))}
-                        </div>
-                        <button
-                            onClick={addPreferences}
-                            className=" absolute bottom-4 right-6 bg-gradient-to-r text-white from-[#ff7d69] to-blue-700 px-6 rounded-full active:scale-90 transition-all duration-300"
-                        >
-                            Save
-                        </button>
-                    </div>
-                </div>
-            )} */}
             <Head>
                 <title>TBFE - Sign In</title>
                 <link
@@ -211,150 +163,115 @@ const SignIn = () => {
                 />
             </Head>
             <Smooth
-                className={`${mode == "light" ? "bg-white" : ""}   flex
+                className={`${mode == "light" ? "bg-[#f8f8f8]" : ""}   flex
             justify-center
             items-center
             text-xs
-            min-h-screen relative`}
+            min-h-screen relative pt-10`}
             >
                 <div
-                    className={`${
-                        mode == "dark"
-                            ? "signin-form bg-[#262626]"
-                            : "signin-form-light"
-                    } -translate-y-6 bg-white w-[80%] p-10 shadow-2xl px-10 text-white flex items-center justify-center`}
+                    className={` -translate-y-6 h-fit w-full mx-10 shadow-2xl text-white flex flex-col md:flex-row items-center justify-center rounded-lg md:rounded-3xl overflow-hidden`}
                 >
-                    <div className=" w-[100 flex-col gap-4 mt-4 items-center">
-                        <div className="flex flex-col w-fit items-center">
-                            <div className=" mb-6">
-                                <h1 className=" text-3xl font-bold bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
-                                    WELCOME TO TBFE
-                                </h1>
-                            </div>
-                            <form
-                                onSubmit={submitHandler}
-                                className=" w-[100%]"
-                            >
-                                <div className="flex flex-col gap-2 items-center">
-                                    <input
-                                        type="email"
-                                        name=""
-                                        id=""
-                                        placeholder="Email"
-                                        className=" bg-white w-[100%] md:w-[500px] h-10 rounded-2xl px-4 border-b-4 text-black border-white shadow-md outline-none focus-within:border-green-500 focus:invalid:border-red-500"
-                                        onChange={(e) => {
-                                            setEmail(e.target.value);
-                                        }}
-                                    />
-                                    <input
-                                        type="password"
-                                        name=""
-                                        id=""
-                                        placeholder="Password"
-                                        className=" bg-white w-[100%] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
-                                        onChange={(e) => {
-                                            setPassword(e.target.value);
-                                        }}
-                                    />
-                                    <button
-                                        type="submit"
-                                        className={`${
-                                            mode == "dark"
-                                                ? " border-white hover:border-black hover:bg-black hover:text-white"
-                                                : " border-black text-black hover:bg-black hover:text-white"
-                                        } border w-[100%] md:w-[500px] px-4 py-2 rounded-2xl  transition-all duration-200 active:scale-90`}
-                                    >
-                                        SIGN IN
-                                    </button>
-                                    <div className="flex justify-between w-full">
-                                        <Link
-                                            href="/forgotPassword"
-                                            className={`${
-                                                mode == "dark"
-                                                    ? "text-white"
-                                                    : "text-black"
-                                            } flex gap-2 hover:gap-4 justify-center items-center self-end transition-all duration-200`}
-                                        >
-                                            <p>FORGOT PASSWORD</p>
-                                            <EastIcon className="hidden sm:flex" />
-                                        </Link>
-                                        <Link
-                                            href="/register"
-                                            className={`${
-                                                mode == "dark"
-                                                    ? "text-white"
-                                                    : "text-black"
-                                            } flex gap-2 hover:gap-4 justify-center items-center self-end transition-all duration-200`}
-                                        >
-                                            <p>REGISTER</p>
-                                            <EastIcon className="hidden sm:flex" />
-                                        </Link>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div
-                            className={`${
-                                mode == "dark" ? "text-white" : "text-black"
-                            } mt-5 text-center`}
+                    <div className="bg-[#e9e9e9] w-full md:w-[40%] h-[20vh] md:h-[100vh] p-4 flex justify-center items-center md:relative">
+                        <h1 className="text-[#262626] text-lg font-bold absolute top-2 left-2 sm:top-4 sm:left-4 hidden sm:flex">
+                            Welcome!
+                        </h1>
+                        <h1 className="text-5xl">TBFE</h1>
+                        <Link
+                            href="/register"
+                            className={`text-[#262626] flex gap-1 hover:gap-2 justify-center items-center self-end transition-all duration-200 absolute bottom-4 left-4`}
                         >
-                            OR
-                        </div>
-                        <div className=" mt-6 items-center grid grid-cols-1 justify-center justify-items-center gap-4">
+                            <p>
+                                Not registered yet ?{" "}
+                                <span className="font-bold">Register</span>
+                            </p>
+                            <EastIcon className="text-xs" />
+                        </Link>
+                    </div>
+                    <div className="flex-col gap-4 items-center justify-center bg-[#f8f8f8] px-4 w-[100%] md:w-[60%] md:h-[100vh] md:mb-0 pb-20">
+                        <form
+                            onSubmit={submitHandler}
+                            className="flex flex-col  gap-4 items-center justify-center md:px-10 mt-4 md:mt-20"
+                        >
+                            <h1 className=" w-full text-3xl text-left b font-bold bg-gradient-to-r text-[#262626]">
+                                Sign in
+                            </h1>
+                            <div className="flex flex-col gap-4 items-center w-full">
+                                <input
+                                    type="email"
+                                    name=""
+                                    id=""
+                                    placeholder="Email"
+                                    className=" bg-[#f8f8f8] w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                    onChange={(e) => {
+                                        setEmail(e.target.value);
+                                    }}
+                                />
+                                <input
+                                    type="password"
+                                    name=""
+                                    id=""
+                                    placeholder="Password"
+                                    className=" bg-[#f8f8f8] w-full  h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                    }}
+                                />
+                                <button
+                                    type="submit"
+                                    className={`
+                                                         border-black text-black hover:bg-black hover:text-white
+                                                 border w-full px-4 py-2 rounded-2xl  transition-all duration-200 h-14 text-xl valid:active:scale-90 disabled:bg-[#e8e8e8] disabled:text-white disabled:border-[#e8e8e8]`}
+                                >
+                                    SIGN IN
+                                </button>
+                                <div className="flex justify-between w-full">
+                                    <Link
+                                        href="/forgotPassword"
+                                        className={`text-[#262626] flex gap-1 hover:gap-2 justify-center items-center self-end transition-all duration-200`}
+                                    >
+                                        <p>FORGOT PASSWORD</p>
+                                        <EastIcon className="text-xs" />
+                                    </Link>
+                                </div>
+                            </div>
+                        </form>
+                        <div className={`text-black mt-5 text-center`}>OR</div>2
+                        <div className=" mt-6 items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 justify-center px-10 w-[100%]">
                             <div
-                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] md:w-[500px] items-center bg-white text-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                                 onClick={() => {
                                     oAuthSignIn("google");
                                 }}
+                                className="flex px-4 border border-[#262626] hover:bg-black hover:text-white py-1 gap-2 rounded-2xl  justify-center items-center bg-[#f8f8f8] text-black cursor-pointer active:scale-95 transition-all duration-200"
                             >
-                                <Image
-                                    src="/google.png"
-                                    width="30"
-                                    height="50"
-                                    alt="google icon"
-                                />
+                                <GoogleIcon />
                                 <p>GOOGLE</p>
                             </div>
                             <div
-                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center  w-[100%] md:w-[500px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                                 onClick={() => {
                                     oAuthSignIn("facebook");
                                 }}
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center items-center text-black border border-[#262626]  cursor-pointer hover:bg-[#262626] hover:text-white active:scale-95 transition-all duration-200"
                             >
-                                <Image
-                                    src="/facebook.png"
-                                    width="30"
-                                    height="50"
-                                    alt="facebook icon"
-                                />
+                                <FacebookIcon />
                                 <p>FACEBOOK</p>
                             </div>
                             <div
-                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center  w-[100%] md:w-[500px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                                 onClick={() => {
                                     oAuthSignIn("github");
                                 }}
+                                className=" flex px-4 py-1 gap-2 rounded-2xl justify-center items-center text-black border border-[#262626]  hover:bg-[#262626] hover:text-white cursor-pointer active:scale-95 transition-all duration-200"
                             >
-                                <Image
-                                    src="/github-dark.png"
-                                    width="30"
-                                    height="50"
-                                    alt="github icon"
-                                />
+                                <GitHubIcon />
                                 <p>GITHUB</p>
                             </div>
                             <div
-                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center  w-[100%] md:w-[500px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
                                 onClick={() => {
                                     oAuthSignIn("twitter");
                                 }}
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center items-center text-black border border-[#262626]  cursor-pointer hover:bg-[#262626] hover:text-white  active:scale-95 transition-all duration-200"
                             >
-                                <Image
-                                    src="/twitter.png"
-                                    width="30"
-                                    height="50"
-                                    alt="twitter icon"
-                                />
+                                <TwitterIcon />
                                 <p>TWITTER</p>
                             </div>
                         </div>

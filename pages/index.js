@@ -66,17 +66,13 @@ export default function Home() {
                 />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:site" content="@TBFEpage" />
-                <meta name="twitter:title" content="The Blog For Everything" />
+                <meta
+                    name="twitter:title"
+                    content="The Blog for Everything| All your Doubts Answered| Explore Now"
+                />
                 <meta
                     name="twitter:description"
-                    content="A comprehensive blogging platform that provides readers with
-                    a wide range of information on a variety of topics. From the
-                    latest news and current events, to lifestyle and personal
-                    development, the platform aims to be a one-stop-shop for all
-                    things related to blogging. Whether you're looking to
-                    stay informed, learn something new, or simply be
-                    entertained, 'The Blog for Everything' has
-                    something for everyone."
+                    content="The Blog for Everything is a comprehensive blogging platform with answers to all your questions! Be a part of The Blog Universe with Us!"
                 />
                 <meta
                     name="twitter:image"
@@ -85,8 +81,8 @@ export default function Home() {
             </Head>
             <Smooth
                 className={` text-gray-500 text-sm ${
-                    mode == "light" ? "bg-white" : "bg-[#262626]"
-                } overflow-x-hidden max-w-screen`}
+                    mode == "light" ? "bg-[#f8f8f8]" : "bg-[#262626]"
+                } overflow-x-hidden max-w-screen pb-32`}
             >
                 <ErrorBoundry>
                     <Header />

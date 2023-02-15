@@ -120,14 +120,16 @@ const Account = () => {
                 </Head>
                 <Smooth
                     className={`${
-                        mode == "dark" ? "text-white" : "text-black bg-white"
+                        mode == "dark"
+                            ? "text-white"
+                            : "text-black bg-[#f8f8f8]"
                     }  p-10 flex flex-col items-center text-xs min-h-screen`}
                 >
                     <div
                         className={`${
                             mode == "dark"
                                 ? "bg-[#262626] shadow-black"
-                                : "bg-white"
+                                : "bg-[#f8f8f8]"
                         } shadow-lg  w-[90vw] md:w-fit h-fit rounded-sm p-4 sm:p-10 relative mt-10`}
                     >
                         <div className=" flex items-center justify-center w-20 h-20 overflow-hidden rounded-full absolute -top-10 shadow-md shadow-black left-1/2 -translate-x-1/2">
@@ -156,7 +158,7 @@ const Account = () => {
                                                             props.values.name
                                                         }
                                                         placeholder="User Name"
-                                                        className=" border-b bg-white w-full  h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                        className=" border-b bg-[#f8f8f8] w-full  h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="name"
@@ -187,7 +189,7 @@ const Account = () => {
                                                         name="bio"
                                                         cols="30"
                                                         rows="5"
-                                                        className=" bg-white w-full text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
+                                                        className=" bg-[#f8f8f8] w-full text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
                                                         placeholder="Tell us about yourself"
                                                     ></Field>
                                                     <ErrorMessage
@@ -205,7 +207,7 @@ const Account = () => {
                                                         type="text"
                                                         name="websiteURL"
                                                         placeholder="https://www.google.com"
-                                                        className=" bg-white w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                        className=" bg-[#f8f8f8] w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="websiteURL"
@@ -257,7 +259,7 @@ const Account = () => {
                                                         type="text"
                                                         name="location"
                                                         placeholder="London,England"
-                                                        className=" bg-white w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                        className=" bg-[#f8f8f8] w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="location"
@@ -274,7 +276,7 @@ const Account = () => {
                                                         type="text"
                                                         name="work"
                                                         placeholder="Senior Software Developer @Google"
-                                                        className=" bg-white w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                        className=" bg-[#f8f8f8] w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="work"
@@ -291,7 +293,7 @@ const Account = () => {
                                                         type="text"
                                                         name="education"
                                                         placeholder="Bachlors In Computer Science"
-                                                        className=" bg-white w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                        className=" bg-[#f8f8f8] w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                     />
                                                     <ErrorMessage
                                                         name="education"

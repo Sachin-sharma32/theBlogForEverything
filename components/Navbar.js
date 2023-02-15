@@ -141,7 +141,7 @@ const Navbar = () => {
     return (
         <nav
             className={` px-2 sm:px-5 py-1 flex text-black justify-between items-center fixed w-full top-0 pt-2 text-xs md:text-base ${
-                mode == "light" ? "bg-white" : "bg-[#262626]"
+                mode == "light" ? "bg-[#f8f8f8]" : "bg-[#262626]"
             } z-50 gap-2 h-12`}
         >
             <Snackbar
@@ -195,9 +195,9 @@ const Navbar = () => {
                                 key={i}
                                 className={`${
                                     selectedOption == option
-                                        ? "bg-white text-black"
+                                        ? "bg-[#f8f8f8] text-black"
                                         : "bg-black text-white"
-                                } border-2 px-4 rounded-full  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                } border-2 px-4 rounded-full  py-1 hover:bg-[#f8f8f8] border-black hover:text-black cursor-pointer transition-all duration-300`}
                             >
                                 {option}
                             </div>
@@ -241,9 +241,9 @@ const Navbar = () => {
                                 key={i}
                                 className={`${
                                     selectedCategory?._id == category._id
-                                        ? "bg-white text-black"
+                                        ? "bg-[#f8f8f8] text-black"
                                         : "bg-black text-white"
-                                } border-2 px-4 text-xs rounded-full w-fit  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                } border-2 px-4 text-xs rounded-full w-fit  py-1 hover:bg-[#f8f8f8] border-black hover:text-black cursor-pointer transition-all duration-300`}
                             >
                                 {category?.title}
                             </div>
@@ -291,8 +291,8 @@ const Navbar = () => {
                         onSubmit={submitHandler}
                         className={`${
                             mode == "dark"
-                                ? "bg-gray-500 focus-within:bg-white focus-within:shadow-gray-900"
-                                : "bg-white border focus-within:bg-gray-200"
+                                ? "bg-gray-500 focus-within:bg-[#f8f8f8] focus-within:shadow-gray-900"
+                                : "bg-[#f8f8f8] border focus-within:bg-gray-200"
                         } rounded-2xl pl-3 flex justify-between items-center h-7 px-1 md:pl-4 w-52 sm:w-60 md:w-80 md:focus-within:w-96 transition-scale duration-200 focus-within:shadow-lg text-xs`}
                     >
                         <input
@@ -379,7 +379,7 @@ const Navbar = () => {
                                     className={`${
                                         mode == "dark"
                                             ? "bg-[#262626] text-white"
-                                            : " bg-white text-black"
+                                            : " bg-[#f8f8f8] text-black"
                                     } shadow-2xl shadow-black flex-col text-sm user-links font-normal z-50`}
                                 >
                                     <li className="bg-gradient-to-r from-[#ff7d69] to-blue-700 p-4">
@@ -482,7 +482,7 @@ const Navbar = () => {
                             <p
                                 className={`${
                                     mode == "dark"
-                                        ? "bg-white text-black"
+                                        ? "bg-[#f8f8f8] text-black"
                                         : "bg-black text-white"
                                 } rounded-full p-2 flex justify-center items-center w-5 h-5 absolute -top-2 -right-2`}
                             >
@@ -502,7 +502,7 @@ const Navbar = () => {
                             <p
                                 className={`${
                                     mode == "dark"
-                                        ? "bg-white text-black"
+                                        ? "bg-[#f8f8f8] text-black"
                                         : "bg-black text-white"
                                 } absolute -top-2 -right-2 w-5 h-5 rounded-full flex justify-center items-center`}
                             >
@@ -552,7 +552,7 @@ const Navbar = () => {
                                 className={`${
                                     mode === "dark"
                                         ? "bg-[#262626] text-white"
-                                        : "bg-white text-black"
+                                        : "bg-[#f8f8f8] text-black"
                                 } absolute top-10 -left-36 -translate-x-1/2 shadow-2xl shadow-black flex-col text-sm rounded-2xl overflow-hidden user-links font-normal z-0 hidden drop-down`}
                             >
                                 <li className="bg-gradient-to-r from-[#ff7d69] to-blue-700 p-4">
@@ -640,7 +640,7 @@ const Navbar = () => {
                             className={`${
                                 mode == "light"
                                     ? "hover:bg-black hover:text-white hover:border-black"
-                                    : "hover:bg-white hover:text-black"
+                                    : "hover:bg-[#f8f8f8] hover:text-black"
                             }  font-bold border-2 px-2 flex items-center w-20 justify-center py-1 rounded-2xl text- active:scale-90 transition-all duration-200`}
                         >
                             SIGN IN
@@ -649,8 +649,8 @@ const Navbar = () => {
                             href="/register"
                             className={`${
                                 mode == "light"
-                                    ? "bg-black text-white hover:bg-white hover:text-black border-black"
-                                    : "bg-white text-black hover:bg-[#262626] hover:text-white"
+                                    ? "bg-black text-white hover:bg-[#f8f8f8] hover:text-black border-black"
+                                    : "bg-[#f8f8f8] text-black hover:bg-[#262626] hover:text-white"
                             } border-2  flex items-center px-2 py-1 rounded-2xl active:scale-90 transition-all duration-200`}
                         >
                             REGISTER

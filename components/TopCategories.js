@@ -26,7 +26,7 @@
 //             className={`${
 //                 mode == "dark"
 //                     ? "bg-[#262626] shadow-2xl shadow-black"
-//                     : "bg-white shadow-2xl"
+//                     : "bg-[#f8f8f8] shadow-2xl"
 //             } top-categories-box duration-500 gap-4 md:w-[50%] lg:w-[30%] mb-20  mt-28 justify-center items-center flex h-fit mx-6 flex-col p-10 md:p-4 rounded-2xl md:sticky top-16`}
 //         >
 //             <h4 className="font-bold text-xl bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
@@ -69,13 +69,18 @@ import Skeleton from "@mui/material/Skeleton";
 
 const TopCategories = () => {
     const categories = useSelector((state) => state.base.categories);
+    const mode = useSelector((state) => state.base.mode);
     return (
         <div className=" mt-10 flex justify-center flex-col p-2 md:p-10 md:gap-4 relative">
             <h2 className=" bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent text-xl font-bold text-center md:hidden">
                 TOP CATEGORIES
             </h2>
             {categories.length > 0 ? (
-                <section className="flex overflow-x-scroll p-2 gap-4 h-96 items-center">
+                <section
+                    className={` ${
+                        mode === "light" && "hor-scroll-light"
+                    } flex overflow-x-scroll p-2 gap-4 h-96 items-center`}
+                >
                     <section className="card flex-col justify-center font-extrabold p-10 rounded-2xl text-white min-w-[200px] md:min-w-[300px] h-80 hidden md:flex">
                         <div className="bg-gradient-to-b card__side card__side--front rounded-2xl flex justify-center items-center from-[#ff7d69] to-blue-700 h-full w-full">
                             <h3 className="text-2xl ">TOP CATEGORIES</h3>
@@ -102,7 +107,7 @@ const TopCategories = () => {
                     </section>
                 </section>
             ) : (
-                <Skeleton className="flex-col justify-center font-extrabold rounded-2xl min-w-[200px] md:min-w-[300px] h-96 md:flex bg-gray-500" />
+                <Skeleton className="flex-col justify-center font-extrabold rounded-2xl min-w-[200px] md:min-w-[300px] h-96 md:flex bg-[#f8f8f8] shadow-2xl" />
             )}
         </div>
     );

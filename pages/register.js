@@ -10,6 +10,11 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import Error from "../utils/Error";
 import EastIcon from "@mui/icons-material/East";
 import Link from "next/link";
+import GoogleIcon from "@mui/icons-material/Google";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GitHubIcon from "@mui/icons-material/GitHub";
+
 import {
     Alert,
     Dialog,
@@ -39,19 +44,19 @@ const Register = () => {
     const validationObject = yup.object({
         name: yup
             .string()
-            .required("REQUIRED")
+            .required("Required")
             .min(3, "Name should be atleast 3 characters long"),
         email: yup
             .string()
             .matches(EMAIL_REGEX, "INVALID EMAIL")
-            .required("REQUIRED"),
+            .required("Required"),
         password: yup
             .string()
             .matches(PASSWORD_REGEX, "PROVIDE STRONGER PASSWORD")
-            .required("REQUIRED"),
+            .required("Required"),
         passwordConfirm: yup
             .string()
-            .required("REQUIRED")
+            .required("Required")
             .when("password", {
                 is: (val) => (val && val.length > 0 ? true : false),
                 then: yup
@@ -140,11 +145,11 @@ const Register = () => {
     return (
         <>
             <Smooth
-                className={`${mode == "light" ? "bg-white" : ""}   flex
+                className={`${mode == "light" ? "bg-[#f8f8f8]" : ""}   flex
             justify-center
             items-center
             text-xs
-            min-h-screen`}
+            min-h-screen pt-10`}
             >
                 <Dialog open={showDialog}>
                     <DialogTitle>CHOOSE YOUR PREFERENCES</DialogTitle>
@@ -178,9 +183,9 @@ const Register = () => {
                                         preferences.find(
                                             (item) => item._id === category._id
                                         )
-                                            ? "bg-white text-black"
+                                            ? "bg-[#f8f8f8] text-black"
                                             : "bg-black text-white"
-                                    } border-2 px-4 rounded-full  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                    } border-2 px-4 rounded-full  py-1 hover:bg-[#f8f8f8] border-black hover:text-black cursor-pointer transition-all duration-300`}
                                 >
                                     {category?.title}
                                 </div>
@@ -205,17 +210,28 @@ const Register = () => {
                     </DialogActions>
                 </Dialog>
                 <div
-                    className={`${
-                        mode == "dark" ? "signin-form" : "signin-form-light"
-                    } -translate-y-6 bg-white w-[80%] min-h-[80vh] py-4 shadow-2xl px-10 text-white flex items-center justify-center`}
+                    className={` -translate-y-6 h-fit w-full mx-10 shadow-2xl text-white flex flex-col md:flex-row items-center justify-center rounded-lg md:rounded-3xl overflow-hidden`}
                 >
-                    <div className="flex-col gap-4 mt-4 items-center justify-center">
-                        <div className="flex flex-col items-center">
-                            <div className=" mb-6">
-                                <h1 className=" text-center text-3xl font-bold bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
-                                    WELCOME TO TBFE
-                                </h1>
-                            </div>
+                    <div className="bg-[#e9e9e9] w-full md:w-[40%] h-[20vh] md:h-[100vh] p-4 flex justify-center items-center md:relative">
+                        <h1 className="text-[#262626] text-lg font-bold absolute top-2 left-2 sm:top-4 sm:left-4 hidden sm:flex">
+                            Welcome!
+                        </h1>
+                        <h1 className="text-5xl">TBFE</h1>
+                        <Link
+                            href="/signin"
+                            className={`text-black
+                             flex gap-1 hover:gap-2 justify-center items-center self-end duration-200 transition-all absolute bottom-4 left-4`}
+                        >
+                            <p>
+                                Already a memeber ?{" "}
+                                <span className="font-bold ml-2">Sign in</span>
+                            </p>
+                            <EastIcon className="text-xs" />
+                        </Link>
+                    </div>
+                    <div className="flex-col gap-4 items-center justify-center bg-[#f8f8f8] w-[90%] md:w-[60%] md:h-[100vh] md:mb-0 pb-20">
+                        <div className="flex flex-col">
+                            <div className="mb-2"></div>
                             <Formik
                                 onSubmit={submitHandler}
                                 initialValues={initialValues}
@@ -226,49 +242,55 @@ const Register = () => {
                             >
                                 {(props) => {
                                     return (
-                                        <Form className="flex flex-col gap-2 items-center w-[100%]">
-                                            <div className="relative h-12  w-[100%]">
+                                        <Form
+                                            className="flex flex-col gap-4 items-center justify-center mt-4 md:px-10"
+                                            autocomplete="off"
+                                        >
+                                            <h3 className=" text-left w-full text-2xl bg-gradient-to-r text-[#262626] font-extrabold">
+                                                Register
+                                            </h3>
+                                            <div className="relative h-12 w-full">
                                                 <Field
                                                     type="text"
                                                     name="name"
                                                     placeholder="Name"
-                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                    className=" bg-[#f8f8f8] w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                                 <ErrorMessage
                                                     name="name"
                                                     component={Error}
                                                 />
                                             </div>
-                                            <div className="relative h-12  w-[100%]">
+                                            <div className="relative h-12 w-full">
                                                 <Field
                                                     type="text"
                                                     name="email"
                                                     placeholder="Email"
-                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                    className=" bg-[#f8f8f8]  w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                                 <ErrorMessage
                                                     name="email"
                                                     component={Error}
                                                 />
                                             </div>
-                                            <div className="relative h-12  w-[100%]">
+                                            <div className="relative h-12 w-full">
                                                 <Field
-                                                    type="text"
+                                                    type="password"
                                                     name="password"
                                                     placeholder="Password"
-                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                    className=" bg-[#f8f8f8]  w-full h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                                 <ErrorMessage
                                                     name="password"
                                                     component={Error}
                                                 />
                                             </div>
-                                            <div className="relative h-12  w-[100%]">
+                                            <div className="relative h-12 w-full">
                                                 <Field
-                                                    type="text"
+                                                    type="password"
                                                     name="passwordConfirm"
                                                     placeholder="passwordConfirm"
-                                                    className=" bg-white  w-[100%] md:w-[400px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                    className=" bg-[#f8f8f8] w-[100%] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                 />
                                                 <ErrorMessage
                                                     name="passwordConfirm"
@@ -278,92 +300,53 @@ const Register = () => {
                                             <button
                                                 disabled={!props.isValid}
                                                 type="submit"
-                                                className={`${
-                                                    mode == "dark"
-                                                        ? " border-white valid:hover:border-black valid:hover:bg-black hover:text-white"
-                                                        : " border-black text-black hover:bg-black hover:text-white"
-                                                }  border w-[100%] md:w-[400px] px-4 py-2 rounded-2xl  transition-all duration-200 valid:active:scale-90 disabled:bg-gray-500`}
+                                                className={`
+                                                         border-black text-black hover:bg-black hover:text-white
+                                                 border w-[100%] px-4 py-2 rounded-2xl  transition-all duration-200 h-14 text-xl valid:active:scale-90 disabled:bg-[#e8e8e8] disabled:text-white disabled:border-[#e8e8e8]`}
                                             >
                                                 REGISTER
                                             </button>
-                                            <Link
-                                                href="/signin"
-                                                className={`${
-                                                    mode == "dark"
-                                                        ? "text-white"
-                                                        : "text-black"
-                                                } flex gap-2 hover:gap-4 justify-center items-center self-end duration-200 transition-all`}
-                                            >
-                                                <p>SIGN IN</p>
-                                                <EastIcon />
-                                            </Link>
                                         </Form>
                                     );
                                 }}
                             </Formik>
                         </div>
-                        <div
-                            className={`${
-                                mode == "dark" ? "text-white" : "text-black"
-                            } mt-5 text-center`}
-                        >
-                            OR
-                        </div>
-                        <div className=" mt-6 items-center grid grid-cols-1 sm:grid-cols-2 justify-center justify-items-center gap-4 w-[100%]">
+                        <div className={`text-black mt-5 text-center`}>OR</div>2
+                        <div className=" mt-6 items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 justify-center px-10 w-[100%]">
                             <div
                                 onClick={() => {
                                     oAuthSignIn("google");
                                 }}
-                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] sm:w-[150px] items-center bg-white text-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 border border-[#262626] hover:bg-black hover:text-white py-1 gap-2 rounded-2xl  justify-center items-center bg-[#f8f8f8] text-black cursor-pointer active:scale-95 transition-all duration-200"
                             >
-                                <Image
-                                    src="/google.png"
-                                    width="30"
-                                    height="50"
-                                    alt="google icon"
-                                />
+                                <GoogleIcon />
                                 <p>GOOGLE</p>
                             </div>
                             <div
                                 onClick={() => {
                                     oAuthSignIn("facebook");
                                 }}
-                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] sm:w-[150px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center items-center text-black border border-[#262626]  cursor-pointer hover:bg-[#262626] hover:text-white active:scale-95 transition-all duration-200"
                             >
-                                <Image
-                                    src="/facebook.png"
-                                    width="30"
-                                    height="50"
-                                    alt="facebook icon"
-                                />
+                                <FacebookIcon />
                                 <p>FACEBOOK</p>
                             </div>
                             <div
                                 onClick={() => {
                                     oAuthSignIn("github");
                                 }}
-                                className=" border-2 border-gray-500 flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] sm:w-[150px] items-center bg-black cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className=" flex px-4 py-1 gap-2 rounded-2xl justify-center items-center text-black border border-[#262626]  hover:bg-[#262626] hover:text-white cursor-pointer active:scale-95 transition-all duration-200"
                             >
-                                <Image
-                                    src="/github-dark.png"
-                                    width="30"
-                                    height="50"
-                                    alt="github icon"
-                                />
+                                <GitHubIcon />
                                 <p>GITHUB</p>
                             </div>
                             <div
                                 onClick={() => {
                                     oAuthSignIn("twitter");
                                 }}
-                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center w-[100%] sm:w-[150px] items-center bg-blue-500 cursor-pointer hover:scale-105 active:scale-95 transition-all duration-200"
+                                className="flex px-4 py-1 gap-2 rounded-2xl justify-center items-center text-black border border-[#262626]  cursor-pointer hover:bg-[#262626] hover:text-white  active:scale-95 transition-all duration-200"
                             >
-                                <Image
-                                    src="/twitter.png"
-                                    width="30"
-                                    height="50"
-                                    alt="twitter icon"
-                                />
+                                <TwitterIcon />
                                 <p>TWITTER</p>
                             </div>
                         </div>

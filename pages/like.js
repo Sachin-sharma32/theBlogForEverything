@@ -20,7 +20,7 @@ const Like = () => {
             </Head>
             <Smooth
                 className={`${
-                    mode == "light" ? "bg-white" : ""
+                    mode == "light" ? "bg-[#f8f8f8]" : ""
                 } p-10 flex flex-col items-center text-sm text-gray-500 min-h-screen relative`}
             >
                 <div>

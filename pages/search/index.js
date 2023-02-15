@@ -50,7 +50,7 @@ const Search = () => {
             </Head>
             <Smooth
                 className={`${
-                    mode == "light" ? "bg-white" : ""
+                    mode == "light" ? "bg-[#f8f8f8]" : ""
                 } p-10 flex flex-col justify-center items-center text-sm text-gray-500 min-h-screen`}
             >
                 <div>
@@ -125,7 +125,7 @@ const Search = () => {
                                 key={i}
                                 className={`${
                                     page == item && mode == "dark"
-                                        ? "bg-white text-black"
+                                        ? "bg-[#f8f8f8] text-black"
                                         : ""
                                 } ${
                                     page == item && mode == "light"

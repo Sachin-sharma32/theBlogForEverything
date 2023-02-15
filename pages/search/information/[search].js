@@ -60,9 +60,9 @@ const Search = () => {
 
     return (
         <>
-               <div
+            <div
                 className={` flex gap-1 sm:gap-2 px-2 sm:px-10 text-xs fixed top-[48px] w-full sm:pt-2 h-fit z-40 pb-2 ${
-                    mode === "dark" ? "bg-[#262626] text-white" : "bg-white"
+                    mode === "dark" ? "bg-[#262626] text-white" : "bg-[#f8f8f8]"
                 }`}
             >
                 <Link
@@ -162,7 +162,7 @@ const Search = () => {
             </Head>
             <Smooth
                 className={`${
-                    mode == "light" ? "bg-white" : ""
+                    mode == "light" ? "bg-[#f8f8f8]" : ""
                 } p-10 flex flex-col justify-center items-center text-sm text-gray-500 min-h-screen`}
             >
                 <div>
@@ -250,7 +250,7 @@ const Search = () => {
                                 key={i}
                                 className={`${
                                     page == item && mode == "dark"
-                                        ? "bg-white text-black"
+                                        ? "bg-[#f8f8f8] text-black"
                                         : ""
                                 } ${
                                     page == item && mode == "light"

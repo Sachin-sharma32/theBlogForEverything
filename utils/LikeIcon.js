@@ -81,7 +81,7 @@ const Like = ({ post, setSuccess }) => {
                     <p
                         className={`${
                             mode === "dark"
-                                ? "bg-white text-black"
+                                ? "bg-[#f8f8f8] text-black"
                                 : "bg-black text-white"
                         } absolute top-0 -right-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full text-xs flex items-center justify-center`}
                     >

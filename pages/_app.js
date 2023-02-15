@@ -13,13 +13,16 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { StyledEngineProvider } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-    pageProps;
     const queryClient = new QueryClient();
 
     const [cookie, setCookie, removeCookie] = useCookies(["jwt"]);
     axios.defaults.headers.common["authorization"] = `Bearer ${cookie.jwt}`;
+
+    const router = useRouter();
+    console.log(router.pathname);
 
     return (
         <div className="">
@@ -67,7 +70,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                     content={`${pageProps.summery}`}
                 />
                 <meta name="twitter:image" content={`${pageProps.image}`} />
-               
             </Head>
             <Script
                 src="https://www.googletagmanager.com/gtag/js?id=G-PKPENVER0M"
@@ -91,8 +93,15 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                                 <div className="mt-12">
                                     <Component {...pageProps} />
                                 </div>
-                                <Footer />
-                                <Social />
+                                {!(
+                                    router.pathname === "/register" ||
+                                    router.pathname === "/signin"
+                                ) && (
+                                    <>
+                                        <Footer />
+                                        <Social />
+                                    </>
+                                )}
                             </SessionProvider>
                         </Provider>
                     </QueryClientProvider>

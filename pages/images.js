@@ -79,7 +79,7 @@ export default function BasicMasonry() {
                             className=""
                         >
                             <div className="w-[100%] h-[100%] flex justify-center items-center">
-                                <div className=" w-[90%] lg:w-[50%] relative bg-white border-8 rounded-3xl border-white">
+                                <div className=" w-[90%] lg:w-[50%] relative bg-[#f8f8f8] border-8 rounded-3xl border-white">
                                     <img
                                         src={selectedImage}
                                         alt=""

@@ -12,7 +12,7 @@
 //         <section
 //             className={` relative p-4 md:hover:rotate-[5deg] flex justify-center items-start w-[250px] md:min-w-[300px] h-80 shadow-xl rounded-2xl border-gray-500 border md:border-transparent top-card ${
 //                 num != 0 && " md:-ml-[100px]"
-//             } ${mode == "light" ? " bg-white" : "bg-[#262626] shadow-black"}`}
+//             } ${mode == "light" ? " bg-[#f8f8f8]" : "bg-[#262626] shadow-black"}`}
 //         >
 //             <Link
 //                 href={`/post/${post._id}`}

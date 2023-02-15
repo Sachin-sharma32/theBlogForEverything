@@ -75,7 +75,7 @@ const TextEditor = ({ content, setContent }) => {
                         onChange={(e) => {
                             setContent(e);
                         }}
-                        className="h-[90vh] border-none bg-white"
+                        className="h-[90vh] border-none bg-[#f8f8f8]"
                     />
                 ) : (
                     <ReactQuill
@@ -114,7 +114,7 @@ const TextEditor = ({ content, setContent }) => {
                         onChange={(e) => {
                             setContent(e);
                         }}
-                        className="h-[90vh] border-none bg-white"
+                        className="h-[90vh] border-none bg-[#f8f8f8]"
                     />
                 )}
             </Stack>

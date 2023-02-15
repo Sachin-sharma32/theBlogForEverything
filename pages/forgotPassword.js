@@ -48,7 +48,7 @@ const ForgotPassword = () => {
                 />
             </Head>
             <Smooth
-                className={`${mode == "light" ? "bg-white" : ""}   flex
+                className={`${mode == "light" ? "bg-[#f8f8f8]" : ""}   flex
             justify-center
             items-center
             text-xs
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
                         mode == "dark"
                             ? "signin-form bg-[#262626]"
                             : "signin-form-light"
-                    } -translate-y-6 bg-white w-[80%] h-[80vh] shadow-2xl px-10 text-white flex items-center justify-center`}
+                    } -translate-y-6 bg-[#f8f8f8] w-[80%] h-[80vh] shadow-2xl px-10 text-white flex items-center justify-center`}
                 >
                     <div className=" w-[100 flex-col gap-4 mt-4 items-center">
                         <div className="flex flex-col w-fit items-center">
@@ -79,7 +79,7 @@ const ForgotPassword = () => {
                                             name=""
                                             id=""
                                             placeholder="Email"
-                                            className=" bg-white w-[100%] md:w-[500px] h-10 rounded-2xl px-4 border-b-4 text-black border-white shadow-md outline-none focus-within:border-green-500 focus:invalid:border-red-500"
+                                            className=" bg-[#f8f8f8] w-[100%] md:w-[500px] h-10 rounded-2xl px-4 border-b-4 text-black border-white shadow-md outline-none focus-within:border-green-500 focus:invalid:border-red-500"
                                             onChange={(e) => {
                                                 setEmail(e.target.value);
                                             }}

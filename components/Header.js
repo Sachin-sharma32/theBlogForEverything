@@ -85,10 +85,10 @@ const Header = () => {
                         <StyledContainer mode={mode}>
                             {post && (
                                 <section>
-                                    <article className=" sm:w-80 p-4 sm:p-0 w-50 flex flex-col gap-4 sm:gap-10 mr-0 sm:mr-10 cursor-pointer">
+                                    <article className=" sm:w-80 p-4 sm:p-0 w-50 flex flex-col gap-4 sm:gap-10 mr-0 sm:mr-10 cursor-pointer justify-center relative">
                                         <Link
                                             href={`/post/${post._id}`}
-                                            className="flex flex-col gap-4 sm:gap-10"
+                                            className="flex flex-col gap-4 sm:gap-10 "
                                         >
                                             <h1 className=" text-3xl font-bold bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">
                                                 {post.title}
@@ -138,7 +138,7 @@ const Header = () => {
                                                 mode == "light"
                                                     ? "text-black"
                                                     : "text-white"
-                                            } flex justify-end gap-4 text-lg h-7`}
+                                            } flex justify-end gap-4 text-lg h-7 absolute bottom-4 right-4`}
                                         >
                                             <BookmarkBtn
                                                 post={post}
@@ -155,7 +155,7 @@ const Header = () => {
                         variant="rectangular"
                         // width={210}
                         // height={118}
-                        className={` w-[80vw] h-[60vh] sm:h-[80vh] bg-gray-500 flex justify-end items-center shadow-2xl cursor-pointer rounded-[40px] overflow-hidden`}
+                        className={` w-[80vw] h-[60vh] sm:h-[80vh] bg-[#f8f8f8] flex justify-end items-center shadow-2xl cursor-pointer rounded-[40px] overflow-hidden`}
                     />
                 )}
             </header>

@@ -38,7 +38,7 @@ const RelatedPosts = ({ post }) => {
             className={`${
                 mode == "dark"
                     ? "bg-[#262626] text-white"
-                    : " bg-white text-gray-800"
+                    : " bg-[#f8f8f8] text-gray-800"
             }  p-8
             flex
             flex-col

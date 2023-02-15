@@ -208,7 +208,7 @@ const Create = () => {
                         onChange={(e) => {
                             setSearch(e.target.value);
                         }}
-                        className="border-b border-black bg-white outline-none w-[90%] mb-4"
+                        className="border-b border-black bg-[#f8f8f8] outline-none w-[90%] mb-4"
                     />
                     <div className="flex gap-2">
                         <input
@@ -218,7 +218,7 @@ const Create = () => {
                             onChange={formik.handleChange}
                             onBlue={formik.handleBlur}
                             placeholder="Create A Tag"
-                            className="border-b border-black bg-white outline-none w-[90%]"
+                            className="border-b border-black bg-[#f8f8f8] outline-none w-[90%]"
                         />
                         <button
                             type="submit"
@@ -257,9 +257,9 @@ const Create = () => {
                                     selectedTags.find(
                                         (item) => item._id === tag._id
                                     )
-                                        ? "bg-white text-black"
+                                        ? "bg-[#f8f8f8] text-black"
                                         : "bg-black text-white"
-                                } border-2 px-2 rounded-full text-xs w-fit sm:text-base disabled:bg-gray-500  py-1 hover:bg-white border-black hover:text-black cursor-pointer transition-all duration-300`}
+                                } border-2 px-2 rounded-full text-xs w-fit sm:text-base disabled:bg-gray-500  py-1 hover:bg-[#f8f8f8] border-black hover:text-black cursor-pointer transition-all duration-300`}
                             >
                                 {tag?.title}
                             </div>
@@ -343,7 +343,7 @@ const Create = () => {
                     </button>
                 </DialogActions>
             </Dialog>
-            <div className=" w-[100%] bg-white flex flex-col gap-0 items-center relative">
+            <div className=" w-[100%] bg-[#f8f8f8] flex flex-col gap-0 items-center relative">
                 <div
                     className={` ${
                         handleAssistenceToggle ? "top-20" : "top-40"
@@ -456,17 +456,17 @@ const Create = () => {
                     onChange={(e) => {
                         setTitle(e.target.value);
                     }}
-                    className="border-b font-bold  bg-white outline-none text-sm sm:text-xl md:text-2xl w-[90%] mt-14 pb-2 border-gray-200"
+                    className="border-b font-bold  bg-[#f8f8f8] outline-none text-sm sm:text-xl md:text-2xl w-[90%] mt-14 pb-2 border-gray-200"
                     placeholder="Title"
                 />
-                <div className=" min-h-screen bg-white w-screen">
+                <div className=" min-h-screen bg-[#f8f8f8] w-screen">
                     <TextEditor content={content} setContent={setContent} />
                 </div>
                 <button
                     onClick={() => {
                         setShowTagsDialog(true);
                     }}
-                    className=" absolute bottom-2 right-4 bg-black text-white px-10 rounded-full hover:bg-white border-black hover:text-black border transition-all duration-300"
+                    className=" absolute bottom-2 right-4 bg-black text-white px-10 rounded-full hover:bg-[#f8f8f8] border-black hover:text-black border transition-all duration-300"
                 >
                     Save
                 </button>

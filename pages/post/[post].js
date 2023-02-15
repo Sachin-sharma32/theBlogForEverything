@@ -166,7 +166,7 @@ const Post = ({ post }) => {
                 <Smooth
                     className={`${
                         mode == "light" ? "text-black" : "text-white"
-                    }h-[100%] bg-no-repeat bg-fixed bg-center`}
+                    }h-[100%] bg-no-repeat bg-fixed bg-center pb-20`}
                     style={{
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",
@@ -308,7 +308,7 @@ const Post = ({ post }) => {
                                     className={`${
                                         mode == "dark"
                                             ? "bg-[#262626] text-white"
-                                            : "bg-white text-[#262626]"
+                                            : "bg-[#f8f8f8] text-[#262626]"
                                     } mt-4 md:mt-10  p-4 sm:p-10 shadow-xl text-xs sm:text-base relative py-4 rounded-2xl`}
                                     style={{ fontFamily: "Inter" }}
                                 >
@@ -390,7 +390,7 @@ const Post = ({ post }) => {
                                                                 }
                                                                 cols="30"
                                                                 rows="5"
-                                                                className=" bg-white  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
+                                                                className=" bg-[#f8f8f8]  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
                                                                 placeholder="Write a comment..."
                                                             ></Field>
                                                             <ErrorMessage
@@ -411,7 +411,7 @@ const Post = ({ post }) => {
                                                                     }
                                                                     name="name"
                                                                     placeholder="Name"
-                                                                    className=" bg-white w-[350px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                                    className=" bg-[#f8f8f8] w-[350px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                                 />
                                                                 <ErrorMessage
                                                                     name="name"
@@ -430,7 +430,7 @@ const Post = ({ post }) => {
                                                                     }
                                                                     name="email"
                                                                     placeholder="Email"
-                                                                    className=" bg-white w-[350px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
+                                                                    className=" bg-[#f8f8f8] w-[350px] md:w-[500px] h-10 rounded-2xl px-4 text-black shadow-md outline-none"
                                                                 />
                                                                 <ErrorMessage
                                                                     name="email"
@@ -488,7 +488,7 @@ const Post = ({ post }) => {
                                                 id=""
                                                 cols="30"
                                                 value={comment}
-                                                className=" bg-white  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
+                                                className=" bg-[#f8f8f8]  w-[350px] md:w-[500px] text-black p-4 mt-4 border-b-2 shadow-sm rounded-2xl outline-none"
                                                 rows="10"
                                                 onChange={(e) => {
                                                     setComment(e.target.value);
@@ -552,7 +552,7 @@ const Post = ({ post }) => {
                                                                     )}
                                                                 </p>
                                                             </div>
-                                                            <div className=" mt-2 bg-white p-4 pr-20 rounded-2xl text-black">
+                                                            <div className=" mt-2 bg-[#f8f8f8] p-4 pr-20 rounded-2xl text-black">
                                                                 <div className="relative">
                                                                     <p>
                                                                         {
@@ -594,8 +594,8 @@ const Post = ({ post }) => {
                                         className={`${
                                             mode === "dark"
                                                 ? "bg-black"
-                                                : "bg-white"
-                                        } bg-white rounded-2xl overflow-hidden shadow-xl w-fit h-fit`}
+                                                : "bg-[#f8f8f8]"
+                                        } bg-[#f8f8f8] rounded-2xl overflow-hidden shadow-xl w-fit h-fit`}
                                     >
                                         <ErrorBoundry>
                                             <Author author={post.author} />
@@ -606,7 +606,7 @@ const Post = ({ post }) => {
                                     className={`${
                                         mode === "dark"
                                             ? "bg-black"
-                                            : "bg-white"
+                                            : "bg-[#f8f8f8]"
                                     } rounded-2xl overflow-hidden sticky top-20 shadow-xl w-fit`}
                                 >
                                     <ErrorBoundry>

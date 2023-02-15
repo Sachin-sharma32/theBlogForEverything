@@ -29,7 +29,7 @@ const Comments = ({ postId }) => {
                 <Smooth
                     className={`${
                         mode === "light"
-                            ? "bg-white text-black"
+                            ? "bg-[#f8f8f8] text-black"
                             : "bg-[#262626] text-gray-400"
                     } min-h-screen flex justify-center p-10 text-xs sm:text-base`}
                 >
@@ -70,7 +70,7 @@ const Comments = ({ postId }) => {
                                 <div
                                     className={`${
                                         mode == "dark"
-                                            ? " text-black bg-white"
+                                            ? " text-black bg-[#f8f8f8]"
                                             : " text-white bg-gray-300"
                                     } mt-2  p-4 pr-20 rounded-2xl `}
                                 >

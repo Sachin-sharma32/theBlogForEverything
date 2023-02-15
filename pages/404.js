@@ -20,7 +20,7 @@ const PageNotFound = () => {
             </Head>
             <div
                 className={`${
-                    mode == "dark" ? "bg-[#262626] text-white" : "bg-white"
+                    mode == "dark" ? "bg-[#262626] text-white" : "bg-[#f8f8f8]"
                 } flex justify-center items-center min-h-screen`}
             >
                 <div className="-translate-y-10 flex flex-col items-center gap-4">

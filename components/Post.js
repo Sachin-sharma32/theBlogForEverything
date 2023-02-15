@@ -25,7 +25,7 @@ const Post = ({ post }) => {
             }}
             className={`${
                 mode == "light"
-                    ? "bg-white shadow-2xl text-black"
+                    ? "bg-[#f8f8f8] shadow-2xl text-black"
                     : "bg-[#262626] shadow-black shadow-2xl text-white"
             } h-fit  w-[350px] rounded-2xl overflow-hidden relative mb-4`}
         >
@@ -69,7 +69,7 @@ const Post = ({ post }) => {
                     >
                         <h5
                             className={`${
-                                mode == "dark" ? "text-white" : "text-black"
+                                mode == "dark" ? "text-[#f8f8f8]" : "text-black"
                             } mt-4 text-2xl font-bold mb-2`}
                         >
                             {post.title}

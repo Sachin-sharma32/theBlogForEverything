@@ -103,7 +103,7 @@ const Posts = () => {
                       ))
                     : [...Array(12)].map((item, i) => (
                           <Skeleton
-                              className=" h-[200px] bg-gray-500 w-[350px] rounded-2xl"
+                              className=" h-[200px] bg-[#f2f2f2] w-[350px] rounded-2xl shadow-2xl"
                               key={i}
                           />
                       ))}
@@ -128,7 +128,7 @@ const Posts = () => {
                         key={i}
                         className={`${
                             page == item && mode == "dark"
-                                ? "bg-white text-black"
+                                ? "bg-[#f8f8f8] text-black"
                                 : ""
                         } ${
                             page == item && mode == "light"

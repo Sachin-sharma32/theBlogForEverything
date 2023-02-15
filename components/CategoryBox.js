@@ -14,7 +14,9 @@ const CategoryBox = ({ setToggleCategories, toggleCategories }) => {
     return (
         <motion.div
             className={`${
-                mode == "light" ? "bg-white text-black" : "bg-black text-white"
+                mode == "light"
+                    ? "bg-[#f8f8f8] text-black"
+                    : "bg-black text-white"
             } overflow-hidden  text-xs absolute top-8 -right-2  p-2 w-52 flex flex-col items-center justify-center gap-0 rounded-2xl z-50 shadow-2xl bg-gradient-to-r from-[#ff7d69] to-blue-700`}
         >
             {headerCategories.map((item, index) => {
@@ -29,7 +31,7 @@ const CategoryBox = ({ setToggleCategories, toggleCategories }) => {
                         <p
                             className={`${
                                 mode == "light"
-                                    ? "text-white hover:bg-white hover:text-black"
+                                    ? "text-white hover:bg-[#f8f8f8] hover:text-black"
                                     : "text-black hover:bg-black hover:text-white"
                             } w-48 transition-all duration-150 p-2 text-center rounded-2xl backdrop-opacity-50 font-semibold`}
                         >

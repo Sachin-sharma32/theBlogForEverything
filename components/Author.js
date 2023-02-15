@@ -11,7 +11,7 @@ const Author = ({ author }) => {
             className={`${
                 mode == "dark"
                     ? "text-white bg-[#262626]"
-                    : "text-gray-800 bg-white"
+                    : "text-gray-800 bg-[#f8f8f8]"
             } p-4 shadow-2xl`}
         >
             <figure className="flex gap-2 items-center">
@@ -50,7 +50,7 @@ const Author = ({ author }) => {
             <section
                 className={`${
                     mode == "dark"
-                        ? "bg-white text-black"
+                        ? "bg-[#f8f8f8] text-black"
                         : "bg-black text-white"
                 }   active:scale-95
                 transition-all

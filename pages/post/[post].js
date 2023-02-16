@@ -35,12 +35,13 @@ import {
 import ShareIcon from "@mui/icons-material/Share";
 
 const Post = ({ post }) => {
+    const router = useRouter();
+    console.log(router);
     const { data: comments } = useGetComments(post._id);
     comments;
     const [loading, setLoading] = useState(false);
     const [editor, setEditor] = useState(null);
     const mode = useSelector((state) => state.base.mode);
-    const router = useRouter();
     const user = useSelector((state) => state.base.user);
     const [comment, setComment] = useState("");
     const [copy, setCopy] = useState(false);

@@ -55,7 +55,7 @@ const Search = () => {
     return (
         <>
             <div
-                className={` flex gap-1 sm:gap-2 px-2 sm:px-10 text-xs fixed top-[48px] w-full sm:pt-2 h-fit z-40 pb-2 ${
+                className={` flex gap-1 sm:gap-2 px-2 justify-center sm:px-10 text-xs fixed top-[48px] pt-2 w-full sm:pt-2 h-fit z-40 pb-2 ${
                     mode === "dark" ? "bg-[#262626] text-white" : "bg-[#f8f8f8]"
                 }`}
             >
@@ -67,7 +67,7 @@ const Search = () => {
                 </Link>
                 <Link
                     href={`/search/blogs/${search}`}
-                    className=" active:scale-90 transition-all duration-300 border-2 px-2 rounded-full hover:bg-black hover:text-white hover:border-black"
+                    className=" active:scale-90 transition-all  duration-300 border-2 px-2 rounded-full hover:bg-black hover:text-white hover:border-black"
                 >
                     BLOGS
                 </Link>

@@ -10,7 +10,7 @@ import { imageBuilder } from "../sanity";
 import { useEffect } from "react";
 
 const Post = ({ post }) => {
-    post;
+    console.log(post);
     const mode = useSelector((state) => state.base.mode);
     const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
     const [likeSuccess, setLikeSuccess] = useState(false);
@@ -64,7 +64,10 @@ const Post = ({ post }) => {
                         )}
                     </div>
                     <Link
-                        href={`/post/${post._id}`}
+                        href={{
+                            pathname: `/post/${post._id}`,
+                            query: { post: post.readTime, title: post.title },
+                        }}
                         className=" cursor-pointer"
                     >
                         <h5
@@ -101,10 +104,12 @@ const Post = ({ post }) => {
                                             ))}
                                     </p>
                                     <div className=" text-gray-500">
-                                        {moment(post.publishedAt).format("ll")}
+                                        {moment(post.updatedAt).format("ll")}
                                     </div>
                                 </div>
-                                <p className=" text-xs text-gray-500">{post.author?.work}</p>
+                                <p className=" text-xs text-gray-500">
+                                    {post.author?.work}
+                                </p>
                             </div>
                         </div>
                     </section>

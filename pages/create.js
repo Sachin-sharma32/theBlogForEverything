@@ -144,6 +144,15 @@ const Create = () => {
             .replace(/(<([^>]+)>)/gi, "")
             .slice(0, 300)}.......`;
         const contentLength = content.replace(/(<([^>]+)>)/gi, "").length;
+        if (type == "short" && contentLength > 1000) {
+            setErrorPopup(true);
+            setMessage("Short should be less than 1000 characters");
+            return;
+        } else if (contentLength > 10000) {
+            setErrorPopup(true);
+            setMessage("Content should be less than 10000 characters long");
+            return;
+        }
         const data = {
             title,
             type,
@@ -199,9 +208,14 @@ const Create = () => {
 
     return (
         <div className=" min-h-[90vh] flex-col relative mt-2 overflow-x-hidden">
-            <Dialog open={showTagsDialog}>
-                <DialogTitle>Choose Tags (3)</DialogTitle>
-                <DialogContent sx={{ maxWidth: "500px", height: "300px" }}>
+            <Dialog open={showTagsDialog} className=" bg-[#f8f8f8]">
+                <DialogTitle className="bg-[#f8f8f8]">
+                    Choose Tags (3)
+                </DialogTitle>
+                <DialogContent
+                    sx={{ maxWidth: "500px", height: "300px" }}
+                    className="bg-[#f8f8f8]"
+                >
                     <input
                         type="text"
                         placeholder="Search"

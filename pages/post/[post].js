@@ -18,21 +18,24 @@ import Like from "../../utils/LikeIcon";
 import { useAddComment, useGetComments } from "../../routers/useComment";
 import EastIcon from "@mui/icons-material/East";
 import ErrorBoundry from "../../utils/ErrorBoundry";
+import { motion } from "framer-motion";
 import {
     FacebookShareButton,
     FacebookShareCount,
-    FacebookIcon,
     LinkedinShareButton,
     RedditShareButton,
     TelegramShareButton,
     TwitterShareButton,
     WhatsappShareButton,
-    LinkedinIcon,
-    RedditIcon,
-    TwitterIcon,
     WhatsappIcon,
 } from "react-share";
 import ShareIcon from "@mui/icons-material/Share";
+
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import RedditIcon from "@mui/icons-material/Reddit";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const Post = ({ post }) => {
     const router = useRouter();
@@ -122,8 +125,11 @@ const Post = ({ post }) => {
             }, 5000);
         }
     }, [bookmarkSuccess, likeSuccess]);
-    const postCentent = post.content
-        .replaceAll("<h1>", '<h1 class="text-2xl font-poppins font-bold mb-0">')
+    const postCentent = post?.content
+        ?.replaceAll(
+            "<h1>",
+            '<h1 class="text-2xl font-poppins font-bold mb-0">'
+        )
         .replaceAll("<h2>", '<h2 class="text-xl font-poppins font-bold mb-0">')
         .replaceAll("<h3>", '<h3 class="text-3xl font-poppins font-bold mb-0">')
         .replaceAll("<h4>", '<h4 class="text-2xl font-poppins font-bold mb-0">')
@@ -198,7 +204,7 @@ const Post = ({ post }) => {
                                             : "text-black"
                                     } flex gap-4 text-xs`}
                                 >
-                                    {post.tags.map((item, i) => (
+                                    {post?.tags?.map((item, i) => (
                                         <Link
                                             href={`/search/${item.title}`}
                                             key={i}
@@ -249,19 +255,22 @@ const Post = ({ post }) => {
                                                 mode === "dark"
                                                     ? "text-white"
                                                     : "text-black"
-                                            } p-1 pr-2 h-8 w-8 flex justify-center items-center rounded-full`}
+                                            } p-1 pr-2 h-8 w-8 flex justify-center items-center rounded-full share-button`}
                                             onClick={handleLinks}
                                         >
                                             <ShareIcon />
                                         </button>
                                     </div>
-                                    <div
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 1 }}
                                         ref={linksRef}
                                         className={`${
                                             mode === "dark"
-                                                ? "text-white"
-                                                : "text-black"
-                                        } mt-4 gap-1 text-xs items-center hidden flex-wrap`}
+                                                ? "text-white bg-[#f8f8f8]"
+                                                : "text-black bg-[#262626]"
+                                        } mt-4 gap-1 text-xs items-center hidden flex-wrap px-2 py-1 rounded-full share-icons`}
                                     >
                                         <FacebookShareButton
                                             url={`https://theblogforeverything.com/post/${post._id}`}
@@ -269,14 +278,24 @@ const Post = ({ post }) => {
                                             <FacebookIcon
                                                 size={20}
                                                 round={true}
+                                                className={`${
+                                                    mode === "dark"
+                                                        ? "text-black"
+                                                        : "text-white"
+                                                }`}
                                             />
                                         </FacebookShareButton>
                                         <LinkedinShareButton
                                             url={`https://theblogforeverything.com/post/${post._id}`}
                                         >
-                                            <LinkedinIcon
+                                            <LinkedInIcon
                                                 size={20}
                                                 round={true}
+                                                className={`${
+                                                    mode === "dark"
+                                                        ? "text-black"
+                                                        : "text-white"
+                                                }`}
                                             />
                                         </LinkedinShareButton>
                                         <RedditShareButton
@@ -285,6 +304,11 @@ const Post = ({ post }) => {
                                             <RedditIcon
                                                 size={20}
                                                 round={true}
+                                                className={`${
+                                                    mode === "dark"
+                                                        ? "text-black"
+                                                        : "text-white"
+                                                }`}
                                             />
                                         </RedditShareButton>
                                         <TwitterShareButton
@@ -293,17 +317,31 @@ const Post = ({ post }) => {
                                             <TwitterIcon
                                                 size={20}
                                                 round={true}
+                                                className={`${
+                                                    mode === "dark"
+                                                        ? "text-black"
+                                                        : "text-white"
+                                                }`}
                                             />
                                         </TwitterShareButton>
                                         <WhatsappShareButton
                                             url={`https://theblogforeverything.com/post/${post._id}`}
                                         >
-                                            <WhatsappIcon
-                                                size={20}
-                                                round={true}
-                                            />
+                                            {mode === "dark" ? (
+                                                <img
+                                                    src="/watsapp-black.png"
+                                                    className="w-6"
+                                                    round={true}
+                                                />
+                                            ) : (
+                                                <img
+                                                    src="/watsapp-white.png"
+                                                    className="w-6"
+                                                    round={true}
+                                                />
+                                            )}
                                         </WhatsappShareButton>
-                                    </div>
+                                    </motion.div>
                                 </div>
                                 <main
                                     className={`${
@@ -320,10 +358,10 @@ const Post = ({ post }) => {
                                         }}
                                     />
                                     <div className="flex justify-end gap-3 relative mt-4">
-                                        <Like
+                                        {/* <Like
                                             post={post}
                                             setSuccess={setLikeSuccess}
-                                        />
+                                        /> */}
                                         {likeSuccess && (
                                             <Alert
                                                 security="success"
@@ -608,7 +646,7 @@ const Post = ({ post }) => {
                                         mode === "dark"
                                             ? "bg-black"
                                             : "bg-[#f8f8f8]"
-                                    } rounded-2xl overflow-hidden sticky top-20 shadow-xl w-fit`}
+                                    } rounded-2xl overflow-hidden sticky top-16 shadow-xl w-fit`}
                                 >
                                     <ErrorBoundry>
                                         <RelatedPosts post={post} />

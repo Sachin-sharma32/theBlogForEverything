@@ -280,3 +280,7 @@ a {
       .light-shadow{
     box-shadow: -1rem 0 3rem -1rem #e8e8e8;
       }
+
+      .share-button:hover .share-icons{
+        display: flex;
+      }

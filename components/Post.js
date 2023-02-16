@@ -64,10 +64,7 @@ const Post = ({ post }) => {
                         )}
                     </div>
                     <Link
-                        href={{
-                            pathname: `/post/${post._id}`,
-                            query: { post: post.readTime, title: post.title },
-                        }}
+                        href={`/post/${post._id}`}
                         className=" cursor-pointer"
                     >
                         <h5

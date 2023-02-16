@@ -48,14 +48,16 @@ const TextEditor = ({ content, setContent }) => {
                         placeholder="hello"
                         value={content}
                         modules={{
-                            toolbar: [
-                                [{ header: "1" }, { header: "2" }],
-                                ["bold", "italic", "blockquote"],
-                                [{ list: "ordered" }, { list: "bullet" }],
-                                ["video", "image", "link"],
-                                ["clean"],
-                                ["code-block"],
-                            ],
+                            toolbar: {
+                                container: [
+                                    [{ header: "1" }, { header: "2" }],
+                                    ["bold", "italic", "blockquote"],
+                                    [{ list: "ordered" }, { list: "bullet" }],
+                                    ["video", "image", "link"],
+                                    ["clean"],
+                                    ["code-block"],
+                                ],
+                            },
                         }}
                         formats={[
                             "header",

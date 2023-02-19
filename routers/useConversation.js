@@ -5,7 +5,7 @@ export const useAssistence = (onSuccess, onError) => {
     return useMutation(
         "assistence",
         (prompt) => {
-            console.log(prompt);
+            prompt;
             return axios.post(
                 "https://theblogforeverything-backend-h8fa.vercel.app/assistence",
                 { prompt }
@@ -13,11 +13,11 @@ export const useAssistence = (onSuccess, onError) => {
         },
         {
             onSuccess: (data) => {
-                console.log(data);
+                data;
                 onSuccess(data);
             },
             onError: (error) => {
-                console.log(error);
+                error;
             },
         }
     );

@@ -6,7 +6,7 @@ export const getServerSideProps = async (context) => {
         "https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts"
     );
 
-    console.log(data);
+    data;
 
     const fields = data.data.data.docs.map((post) => ({
         loc: `https://www.theblogforeverything.com/post/${post._id}`,

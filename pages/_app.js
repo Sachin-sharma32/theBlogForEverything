@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     axios.defaults.headers.common["authorization"] = `Bearer ${cookie.jwt}`;
 
     const router = useRouter();
-    console.log(router.pathname);
+    router.pathname;
 
     return (
         <div className="">

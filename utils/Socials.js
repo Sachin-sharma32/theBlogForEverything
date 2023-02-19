@@ -2,6 +2,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import TelegramIcon from "@mui/icons-material/Telegram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -11,6 +12,11 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import { useSelector } from "react-redux";
 
 const actions = [
+    {
+        icon: <YouTubeIcon className=" text-red-500" />,
+        name: "Youtube",
+        url: "https://www.youtube.com/@TheVidoesForEverything",
+    },
     {
         icon: <InstagramIcon className=" text-black" />,
         name: "Instagram",
@@ -37,7 +43,7 @@ export default function Social() {
     const mode = useSelector((state) => state.base.mode);
     return (
         <div
-            style={{ position: "fixed", bottom: 2, left: 2}}
+            style={{ position: "fixed", bottom: 2, left: 2 }}
             className={`${
                 mode === "light" ? "" : ""
             } flex h-12 bg-transparent w-10`}
@@ -66,7 +72,7 @@ export default function Social() {
                     },
                 }}
             >
-                {actions.map((action) => (
+                {actions.map((action, i) => (
                     <SpeedDialAction
                         key={action.name}
                         icon={action.icon}
@@ -75,10 +81,14 @@ export default function Social() {
                         sx={{
                             width: 50,
                             height: 50,
-                            backgroundColor: "white",
                         }}
                         FabProps={{
                             sx: {
+                                "&": {
+                                    bgcolor: `${
+                                        i === 0 ? "" : "white"
+                                    }`,
+                                },
                                 "&:hover": {
                                     bgcolor: "white",
                                     color: "black",

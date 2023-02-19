@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import { useSelector } from "react-redux";
+import Layout from "../components/Layout";
 import Post from "../components/Post";
 import ErrorBoundry from "../utils/ErrorBoundry";
 import Smooth from "../utils/Smooth";
@@ -9,7 +10,7 @@ const Like = () => {
     const mode = useSelector((state) => state.base.mode);
     const liked = useSelector((state) => state.base.likes);
     return (
-        <>
+        <Layout>
             <Head>
                 <title>TBFE - Liked Posts</title>
                 <link
@@ -42,7 +43,7 @@ const Like = () => {
                     </div>
                 )}
             </Smooth>
-        </>
+        </Layout>
     );
 };
 

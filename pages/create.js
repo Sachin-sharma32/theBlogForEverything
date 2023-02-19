@@ -29,6 +29,7 @@ import { ThreeDots } from "react-loader-spinner";
 import CopyToClipboard from "react-copy-to-clipboard";
 import DoneIcon from "@mui/icons-material/Done";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import Layout from "../components/Layout";
 
 const Create = () => {
     const router = useRouter();
@@ -53,6 +54,16 @@ const Create = () => {
     const [conversation, setConversation] = useState([]);
     const [copy, setCopy] = useState(false);
 
+    if (content.includes("<iframe")) {
+        ("hello");
+        // content
+        // ?.replaceAll(
+        //     "<h1>",
+        //     '<h1 class="text-2xl font-poppins font-bold mb-0">'
+        // )
+    }
+    content;
+
     const validationObject = yup.object({
         title: yup.string().min(1).max(10),
     });
@@ -68,7 +79,7 @@ const Create = () => {
     };
     const { mutate: createTag } = useCreateTag(onSuccess, onError);
     const tagHandler = (values) => {
-        console.log(values);
+        values;
         if (
             tags?.find((tag) =>
                 tag.title.toLowerCase().includes(values.title.toLowerCase())
@@ -113,7 +124,7 @@ const Create = () => {
     };
 
     const onImageError = () => {
-        console.log("something went wrong");
+        ("something went wrong");
     };
 
     const { mutate: upload } = useUploadImage(onImageSuccess, onImageError);
@@ -184,7 +195,7 @@ const Create = () => {
     };
 
     const onAssistenceSuccess = (data) => {
-        console.log(data);
+        data;
         setLoading(false);
         setConversation([
             ...conversation,
@@ -204,10 +215,10 @@ const Create = () => {
         assist(query);
         setLoading(true);
     };
-    console.log(conversation, query);
+    conversation, query;
 
     return (
-        <div className=" min-h-[90vh] flex-col relative mt-2 overflow-x-hidden">
+        <Layout className=" min-h-[90vh] flex-col relative mt-2 overflow-x-hidden">
             <Dialog open={showTagsDialog} className=" bg-[#f8f8f8]">
                 <DialogTitle className="bg-[#f8f8f8]">
                     Choose Tags (3)
@@ -485,7 +496,7 @@ const Create = () => {
                     Save
                 </button>
             </div>
-        </div>
+        </Layout>
     );
 };
 export default Create;

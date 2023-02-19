@@ -1,20 +1,23 @@
-import { useQuery, useMutation, useQueryClient } from "react-query";
 import axios from "axios";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../redux/slices";
 
 export const useUpdateUser = (onSuccess, onError) => {
+    const queryClient = useQueryClient();
     return useMutation(
         "updateUser",
         (data) => {
-            console.log(data);
             return axios.patch(
                 `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/users/${data.userId}`,
                 data.data
             );
         },
         {
-            onSuccess,
+            onSuccess: () => {
+                queryClient.invalidateQueries("me");
+                onSuccess();
+            },
             onError,
         }
     );
@@ -31,7 +34,7 @@ export const useUserPosts = (userId) => {
         {
             enabled: !!userId,
             select: (data) => {
-                console.log(data);
+                data;
                 const posts = data.data.data.docs;
                 return posts;
             },

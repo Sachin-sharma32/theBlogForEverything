@@ -21,7 +21,7 @@ class ExtendBubbleTheme extends BubbleTheme {
 }
 Quill.register("themes/bubble", ExtendBubbleTheme);
 
-console.log(window.innerWidth);
+window.innerWidth;
 
 const TextEditor = ({ content, setContent }) => {
     return (
@@ -70,6 +70,7 @@ const TextEditor = ({ content, setContent }) => {
                             "list",
                             "bullet",
                             "indent",
+                            "video",
                             "link",
                             "image",
                             "code-block",
@@ -114,6 +115,7 @@ const TextEditor = ({ content, setContent }) => {
                             "code-block",
                         ]}
                         onChange={(e) => {
+                            ("hello");
                             setContent(e);
                         }}
                         className="h-[90vh] border-none bg-[#f8f8f8]"

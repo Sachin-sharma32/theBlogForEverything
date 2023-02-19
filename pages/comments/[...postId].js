@@ -9,6 +9,7 @@ import WestIcon from "@mui/icons-material/West";
 import Head from "next/head";
 import App from "next/app";
 import { useGetComments } from "../../routers/useComment";
+import Layout from "../../components/Layout";
 
 const Comments = ({ postId }) => {
     const router = useRouter();
@@ -16,7 +17,7 @@ const Comments = ({ postId }) => {
     const mode = useSelector((state) => state.base.mode);
     if (comments) {
         return (
-            <div>
+            <Layout>
                 <Head>
                     <title>TBFE - {comments.postId?.title}</title>
                     <link
@@ -88,7 +89,7 @@ const Comments = ({ postId }) => {
                         ))}
                     </div>
                 </Smooth>
-            </div>
+            </Layout>
         );
     }
 };

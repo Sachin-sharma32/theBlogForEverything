@@ -4,6 +4,7 @@ import Post from "../components/Post";
 import { useUserPosts } from "../routers/useUser";
 import { motion } from "framer-motion";
 import ErrorBoundry from "../utils/ErrorBoundry";
+import Layout from "../components/Layout";
 
 const MyPosts = () => {
     const user = useSelector((state) => state.base.user);
@@ -16,7 +17,7 @@ const MyPosts = () => {
         );
     }
     return (
-        <section className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">
+        <Layout className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">
             <div>
                 <h3 className=" text-3xl text-center mb-10 bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent font-bold">
                     MY POSTS
@@ -32,7 +33,7 @@ const MyPosts = () => {
                     </ErrorBoundry>
                 ))}
             </motion.div>
-        </section>
+        </Layout>
     );
 };
 

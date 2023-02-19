@@ -10,7 +10,7 @@ import { imageBuilder } from "../sanity";
 import { useEffect } from "react";
 
 const Post = ({ post }) => {
-    console.log(post);
+    post;
     const mode = useSelector((state) => state.base.mode);
     const [bookmarkSuccess, setBookmarkSuccess] = useState(false);
     const [likeSuccess, setLikeSuccess] = useState(false);
@@ -19,7 +19,7 @@ const Post = ({ post }) => {
         <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            layout
+            // layout
             transition={{
                 delay: 0.1,
             }}
@@ -64,7 +64,10 @@ const Post = ({ post }) => {
                         )}
                     </div>
                     <Link
-                        href={`/post/${post._id}`}
+                        href={{
+                            pathname: `/post/${post._id}`,
+                            query: { object: JSON.stringify(post) },
+                        }}
                         className=" cursor-pointer"
                     >
                         <h5

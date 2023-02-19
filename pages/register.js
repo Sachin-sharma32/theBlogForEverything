@@ -28,6 +28,7 @@ import { useLogIn, useRegister } from "../routers/useAuth";
 import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
 import { useUpdateUser } from "../routers/useUser";
 import CloseIcon from "@mui/icons-material/Close";
+import Layout from "../components/Layout";
 
 const Register = () => {
     const router = useRouter();
@@ -143,8 +144,8 @@ const Register = () => {
     };
 
     return (
-        <>
-            <Smooth
+        <Layout>
+            <div
                 className={`${mode == "light" ? "bg-[#f8f8f8]" : ""}   flex
             justify-center
             items-center
@@ -352,8 +353,8 @@ const Register = () => {
                         </div>
                     </div>
                 </div>
-            </Smooth>
-        </>
+            </div>
+        </Layout>
     );
 };
 

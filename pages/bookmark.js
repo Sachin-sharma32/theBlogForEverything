@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import Layout from "../components/Layout";
 import Post from "../components/Post";
 import ErrorBoundry from "../utils/ErrorBoundry";
 import Smooth from "../utils/Smooth";
@@ -18,7 +19,7 @@ const Bookmark = () => {
         });
     }
     return (
-        <>
+        <Layout>
             <Head>
                 <title>TBFE - Bookmarks</title>
                 <link
@@ -50,7 +51,7 @@ const Bookmark = () => {
                     </div>
                 )}
             </Smooth>
-        </>
+        </Layout>
     );
 };
 

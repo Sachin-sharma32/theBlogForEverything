@@ -19,8 +19,6 @@ const Like = ({ post, setSuccess }) => {
     const likes = useSelector((state) => state.base.likes);
     const [count, setCount] = useState(post.likes.length);
     const dispatch = useDispatch();
-    console.log(likes);
-    console.log(post);
     // const { data: currentPost } = useGetPost(post?._id);
     useEffect(() => {
         if (user && post) {
@@ -44,7 +42,7 @@ const Like = ({ post, setSuccess }) => {
                 setCount(count + 1);
                 setLike(false);
             } else {
-                console.log("hello");
+                ("hello");
                 dispatch(
                     setLiked(likes.filter((like) => like._id !== post._id))
                 );

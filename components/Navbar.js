@@ -62,6 +62,7 @@ const Navbar = () => {
         document.body.style.backgroundColor = `${
             mode === "light" ? "white" : "#262626"
         }`;
+        document.body.style.scrollbarTrackColor = "white";
     }
 
     const [toggleCategories, setToggleCategories] = useState(false);

@@ -93,7 +93,7 @@ export const useResetPassword = (onSuccess, onError) => {
     return useMutation(
         "resetPassword",
         (data) => {
-            console.log(data);
+            data;
             return axios.post(
                 `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/auth/resetPassword/${data.token}`,
                 data.user

@@ -9,7 +9,7 @@ import { useHandleCommentLike } from "../routers/useComment";
 import { useGetComment } from "../routers/useComment";
 
 const LikeCommentIcon = ({ comments, comment }) => {
-    console.log(comments, comment);
+    comments, comment;
     const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);

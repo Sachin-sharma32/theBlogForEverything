@@ -36,10 +36,11 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import RedditIcon from "@mui/icons-material/Reddit";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import Layout from "../../components/Layout";
 
-const Post = ({ post }) => {
+const Post = () => {
     const router = useRouter();
-    console.log(router);
+    const post = JSON.parse(router.query.object);
     const { data: comments } = useGetComments(post._id);
     comments;
     const [loading, setLoading] = useState(false);
@@ -169,11 +170,11 @@ const Post = ({ post }) => {
     };
     if (post) {
         return (
-            <div>
+            <Layout>
                 <Smooth
                     className={`${
                         mode == "light" ? "text-black" : "text-white"
-                    }h-[100%] bg-no-repeat bg-fixed bg-center pb-20`}
+                    }h-[100%] bg-no-repeat bg-fixed bg-center pb-32`}
                     style={{
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",
@@ -358,10 +359,10 @@ const Post = ({ post }) => {
                                         }}
                                     />
                                     <div className="flex justify-end gap-3 relative mt-4">
-                                        {/* <Like
+                                        <Like
                                             post={post}
                                             setSuccess={setLikeSuccess}
-                                        /> */}
+                                        />
                                         {likeSuccess && (
                                             <Alert
                                                 security="success"
@@ -656,7 +657,7 @@ const Post = ({ post }) => {
                         </article>
                     )}
                 </Smooth>
-            </div>
+            </Layout>
         );
     } else {
         return <div className="min-h-screen"></div>;
@@ -665,23 +666,16 @@ const Post = ({ post }) => {
 
 export default Post;
 
-export async function getServerSideProps(context) {
-    const post = await axios.get(
-        `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/${context.params.post}`
-    );
-    console.log(post.data.data.doc);
+
+Post.getInitialProps = async (context) => {
+    const post = JSON.parse(context.query.object);
     return {
-        props: {
-            post: post.data.data.doc,
-            title: post.data.data.doc.title,
-            image: post.data.data.doc.image,
-            summery: post.data.data.doc.summery,
-            keywords: post.data.data.doc.tags
-                .map((tag) => tag.title)
-                .toString(),
-            type: "website",
-            imageAlt: post.data.data.doc.title,
-            id: post.data.data.doc._id,
-        },
+        title: post.title,
+        image: post.image,
+        summery: post.summery,
+        keywords: post.tags.map((tag) => tag.title).toString(),
+        type: "article",
+        imageAlt: post.title,
+        parameter: `post/${post._id}`,
     };
-}
+};

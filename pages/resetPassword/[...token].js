@@ -12,6 +12,7 @@ import Login from "@mui/icons-material/Login";
 import { Layer } from "@sanity/ui";
 import { setErrorPopup, setMessage, setSuccessPopup } from "../../redux/slices";
 import { useResetPassword } from "../../routers/useAuth";
+import Layout from "../../components/Layout";
 
 const ResetPassword = () => {
     const router = useRouter();
@@ -20,7 +21,7 @@ const ResetPassword = () => {
     if (token) {
         token = token[0];
     }
-    console.log(token);
+    token;
     const mode = useSelector((state) => state.base.mode);
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ const ResetPassword = () => {
         }, 2000);
     };
     const onError = (err) => {
-        console.log(err);
+        err;
         dispatch(setErrorPopup(true));
         dispatch(setMessage(err.response.data.message));
     };
@@ -46,7 +47,7 @@ const ResetPassword = () => {
     const { data: session } = useSession();
 
     return (
-        <div>
+        <Layout>
             <Head>
                 <title>TBFE - Sign In</title>
                 <link
@@ -141,7 +142,7 @@ const ResetPassword = () => {
                     </div>
                 </div>
             </Smooth>
-        </div>
+        </Layout>
     );
 };
 

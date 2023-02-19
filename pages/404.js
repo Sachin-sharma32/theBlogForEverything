@@ -4,12 +4,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import WestIcon from "@mui/icons-material/West";
 import Head from "next/head";
+import Layout from "../components/Layout";
 
 const PageNotFound = () => {
     const router = useRouter();
     const mode = useSelector((state) => state.base.mode);
     return (
-        <>
+        <Layout>
             <Head>
                 <title>TBFE - 404</title>
                 <link
@@ -40,7 +41,7 @@ const PageNotFound = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     );
 };
 

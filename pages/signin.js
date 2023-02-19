@@ -28,6 +28,7 @@ import GoogleIcon from "@mui/icons-material/Google";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import Layout from "../components/Layout";
 
 const SignIn = () => {
     const router = useRouter();
@@ -97,7 +98,7 @@ const SignIn = () => {
     };
 
     return (
-        <div className="relative">
+        <Layout className="relative">
             <Dialog open={showDialog}>
                 <DialogTitle>CHOOSE YOUR PREFERENCES</DialogTitle>
                 <DialogContent>
@@ -278,7 +279,7 @@ const SignIn = () => {
                     </div>
                 </div>
             </Smooth>
-        </div>
+        </Layout>
     );
 };
 

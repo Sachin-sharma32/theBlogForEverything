@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useMemo } from "react";
 import ErrorBoundry from "../utils/ErrorBoundry";
 import { motion } from "framer-motion";
+import Layout from "../components/Layout";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -39,7 +40,7 @@ export default function BasicMasonry() {
     };
     const mode = useSelector((state) => state.base.mode);
     return (
-        <div className="p-4">
+        <Layout className="p-4">
             <div className=" mt-2 max-h-screen overflow-y-scroll image-scrollbar min-h-screen">
                 <motion.div
                     layout
@@ -104,7 +105,7 @@ export default function BasicMasonry() {
                     </div>
                 )}
             </div>
-        </div>
+        </Layout>
     );
 }
 

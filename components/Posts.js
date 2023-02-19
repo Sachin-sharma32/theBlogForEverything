@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "./Post";
 import WestIcon from "@mui/icons-material/West";
@@ -8,57 +8,55 @@ import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { Skeleton } from "@mui/material";
 import { useTotalPosts } from "../routers/usePost";
-import { useQuery } from "react-query";
+import { useInfiniteQuery, useQuery } from "react-query";
+import axios from "axios";
 
-const Posts = () => {
-    let posts = useSelector((state) => state.base.posts);
+// {exact: true}
+// setQueryData
+
+const Posts = ({ values }) => {
+    values;
     let user = useSelector((state) => state.base.user);
-    console.log(posts);
-    let postsCopy = [...posts];
     const containerRef = useRef(null);
 
-    const [filter, setFilter] = useState("Newest");
-    let filters;
-    if (user?.preferences) {
-        filters = ["Preferred", "Newest", "Oldest"];
+    const [filter, setFilter] = useState("-updatedAt");
+    let filterOptions;
+    if (values.title === "FEATURED POSTS" && user?.preferences) {
+        filterOptions = [
+            { title: "Preferred", value: "" },
+            { title: "Newest", value: "-updatedAt" },
+            { title: "Oldest", value: "updatedAt" },
+        ];
     } else {
-        filters = ["Newest", "Oldest"];
+        filterOptions = [
+            { title: "Newest", value: "-updatedAt" },
+            { title: "Oldest", value: "updatedAt" },
+        ];
     }
-    if (filter == "Newest") {
-        postsCopy.sort(
-            (a, b) =>
-                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime() -
-                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime()
-        );
-    } else if (filter == "Oldest") {
-        postsCopy.sort(
-            (a, b) =>
-                new Date(a.updatedAt ? a.updatedAt : a.publishedAt).getTime() -
-                new Date(b.updatedAt ? b.updatedAt : b.publishedAt).getTime()
-        );
-    } else {
-        postsCopy.filter((post) => {
-            return user?.preferences?.find(
-                (pref) => pref._id == post?.category?._id
-            );
-        });
-    }
-    posts = postsCopy;
-
     const mode = useSelector((state) => state.base.mode);
 
-    const [page, setPage] = useState(1);
-    const lastPost = page * 20;
-    const firstPost = lastPost - 19;
-    let pages = [];
-    const pagePosts = useMemo(
-        () => posts.slice(firstPost - 1, lastPost),
-        [page, posts]
-    );
-
-    for (let i = 1; i <= Math.ceil(posts.length / 20); i++) {
-        pages.push(i);
-    }
+    const { data, isFetchingNextPage, hasNextPage, fetchNextPage, isLoading } =
+        useInfiniteQuery(
+            ["posts", "infinite", filter, values],
+            ({ pageParam = 1 }) => {
+                return axios.get(
+                    `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts?page=${pageParam}&limit=12&sort=${filter}&filter=${values.filter}&type=${values.type}`
+                );
+            },
+            {
+                getNextPageParam: (_lastPage, pages) => {
+                    pages;
+                    if (
+                        pages.length < Math.ceil(pages[0].data.data.total / 12)
+                    ) {
+                        return pages.length + 1;
+                    } else {
+                        return undefined;
+                    }
+                },
+            }
+        );
+    data;
 
     return (
         <section className=" p-10 md:w-[100%] flex flex-col justify-center items-center gap-2 md:gap-10">
@@ -67,14 +65,14 @@ const Posts = () => {
                     ref={containerRef}
                     className=" text-3xl text-center mb-10 bg-gradient-to-r from-[#ff7d69] to-blue-700 bg-clip-text text-transparent font-bold"
                 >
-                    FEATURED POSTS
+                    {values.title}
                 </h3>
                 <div className="flex gap-4 mb-4 justify-center">
-                    {filters.map((item, i) => (
+                    {filterOptions.map((item, i) => (
                         <p
                             key={i}
                             className={`${
-                                filter == item
+                                filter == item.value
                                     ? "border-b border-orange-500"
                                     : ""
                             }   cursor-pointer ${
@@ -83,32 +81,50 @@ const Posts = () => {
                                     : "text-gray-800"
                             }`}
                             onClick={() => {
-                                setFilter(item);
+                                setFilter(item.value);
                             }}
                         >
-                            {item}
+                            {item.title}
                         </p>
                     ))}
                 </div>
             </div>
             <motion.div
-                layout
+                // layout
                 className="columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4"
             >
-                {pagePosts.length > 0
-                    ? pagePosts.map((post, i) => (
-                          <ErrorBoundry key={i}>
-                              <Post post={post} />
-                          </ErrorBoundry>
-                      ))
-                    : [...Array(12)].map((item, i) => (
-                          <Skeleton
-                              className=" h-[200px] bg-[#f2f2f2] w-[350px] rounded-2xl shadow-2xl"
-                              key={i}
-                          />
-                      ))}
+                {data?.pages.map((group, i) => (
+                    <Fragment key={i}>
+                        {group.data.data.docs.map((post, index) => (
+                            <ErrorBoundry key={index}>
+                                <Post post={post} />
+                            </ErrorBoundry>
+                        ))}
+                    </Fragment>
+                ))}
             </motion.div>
-            <div className="flex gap-2 mt-6 md:mt-0">
+            {(isFetchingNextPage || isLoading) && (
+                <div className="columns-1 md:columns-2 lg:columns-3 2xl:columns-4 gap-4">
+                    {[...Array(12)].map((item, i) => (
+                        <Skeleton
+                            className=" h-[200px] bg-[#f2f2f2] w-[350px] rounded-2xl shadow-2xl"
+                            key={i}
+                        />
+                    ))}
+                </div>
+            )}
+            <div>
+                <button
+                    className={`${
+                        mode == "light" ? "text-white" : "text-black"
+                    }  transition-all duration-200 min-w-[120px] bg-gradient-to-r disabled:opacity-60 disabled:hover:scale-100 disabled:active:scale-100 from-[#ff7d69] to-blue-700 w-fit self-end rounded-2xl p-2 hover:scale-110 active:scale-100 font-semibold`}
+                    onClick={fetchNextPage}
+                    disabled={!hasNextPage}
+                >
+                    Load More
+                </button>
+            </div>
+            {/* <div className="flex gap-2 mt-6 md:mt-0">
                 <a className=" cursor-pointer hover:-translate-x-2 transition-all duration-200">
                     <WestIcon
                         onClick={() => {
@@ -163,7 +179,7 @@ const Posts = () => {
                         }}
                     />
                 </a>
-            </div>
+            </div> */}
         </section>
     );
 };

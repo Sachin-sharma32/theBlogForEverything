@@ -12,6 +12,7 @@ import Login from "@mui/icons-material/Login";
 import { Alert, Snackbar } from "@mui/material";
 import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
 import { useForgotPassword } from "../routers/useAuth";
+import Layout from "../components/Layout";
 
 const ForgotPassword = () => {
     const router = useRouter();
@@ -38,7 +39,7 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div>
+        <Layout>
             <Head>
                 <title>TBFE - Forgot Password</title>
                 <link
@@ -125,7 +126,7 @@ const ForgotPassword = () => {
                     </div>
                 </div>
             </Smooth>
-        </div>
+        </Layout>
     );
 };
 

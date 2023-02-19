@@ -7,7 +7,7 @@ import { Formik, Field, ErrorMessage, Form } from "formik";
 import Error from "../utils/Error";
 import { client } from "../sanity";
 import { useUpdateAccount } from "../hooks/content";
-import Alert from "@mui/material/Alert";
+import { Alert, Checkbox } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Head from "next/head";
 import { useUploadImage } from "../routers/useImage";
@@ -16,12 +16,14 @@ import { setErrorPopup, setMessage, setSuccessPopup } from "../redux/slices";
 import Select from "react-select";
 import Post from "../components/Post";
 import { PodcastsRounded } from "@mui/icons-material";
+import Layout from "../components/Layout";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 
 const Account = () => {
     const mode = useSelector((state) => state.base.mode);
     const user = useSelector((state) => state.base.user);
     const { data: posts } = useUserPosts(user?._id);
-    console.log(posts);
     const success = useSelector((state) => state.base.success);
     const categories = useSelector((state) => state.base.categories);
     const [loading, setLoading] = useState(false);
@@ -42,6 +44,7 @@ const Account = () => {
         education: yup
             .string()
             .min(3, "Education should be atleast 5 characters long"),
+        newsletter: yup.boolean(),
     });
     const onImageSuccess = (data) => {
         setImage(data.data);
@@ -74,10 +77,7 @@ const Account = () => {
         dispatch(setErrorPopup(true));
         dispatch(setMessage(err.response.data.message));
     };
-    const { mutate: updateUser, error: err } = useUpdateUser(
-        onSuccess,
-        onError
-    );
+    const { mutate: updateUser } = useUpdateUser(onSuccess, onError);
     const submitHandler = async (values) => {
         setBtnLoading(true);
         const data = {
@@ -86,7 +86,8 @@ const Account = () => {
             websiteURL: values.websiteURL,
             location: values.location,
             education: values.education,
-            preferences: preferences.map((preference) => preference.value),
+            preferences: preferences?.map((preference) => preference.value),
+            newsletter: values.newsletter,
             work: values.work,
             bio: values.bio,
             bookmarks: values.bookmarks,
@@ -94,7 +95,7 @@ const Account = () => {
         };
         updateUser({ data, userId: user._id });
     };
-    console.log(user);
+    user;
     const initialValues = {
         name: user?.name,
         email: user?.email,
@@ -104,12 +105,11 @@ const Account = () => {
         work: user?.work,
         bio: user?.bio,
         bookmarks: user.bookmarks,
+        newsletter: user?.newsletter ? user.newsletter : false,
     };
-    console.log(typeof image);
-    console.log(preferences);
     if (user) {
         return (
-            <>
+            <Layout>
                 <Head>
                     <title>TBFE - {user?.name}</title>
                     <link
@@ -333,6 +333,31 @@ const Account = () => {
                                                     component={Error}
                                                 />
                                             </div>
+                                            <div className="flex gap-4 items-center relative">
+                                                {props}
+                                                <p className="w-[100px] hidden sm:flex">
+                                                    Newsletter
+                                                </p>
+                                                <Checkbox
+                                                    name="newsletter"
+                                                    icon={
+                                                        <CheckBoxOutlineBlankIcon />
+                                                    }
+                                                    checkedIcon={
+                                                        <CheckBoxIcon />
+                                                    }
+                                                    checked={
+                                                        props.values.newsletter
+                                                    }
+                                                    value={
+                                                        props.values.newsletter
+                                                    }
+                                                    onClick={props.handleChange}
+                                                    sx={{
+                                                        width: "fit-content",
+                                                    }}
+                                                />
+                                            </div>
                                             <button
                                                 className={`${
                                                     mode == "light"
@@ -380,7 +405,7 @@ const Account = () => {
                         </div>
                     </section>
                 </Smooth>
-            </>
+            </Layout>
         );
     } else {
         return <div className="min-h-screen"></div>;

@@ -334,7 +334,6 @@ const Account = () => {
                                                 />
                                             </div>
                                             <div className="flex gap-4 items-center relative">
-                                                {props}
                                                 <p className="w-[100px] hidden sm:flex">
                                                     Newsletter
                                                 </p>

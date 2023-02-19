@@ -93,6 +93,7 @@ const Footer = () => {
                                     <a
                                         href="https://www.youtube.com/@TheVidoesForEverything"
                                         target="_blank"
+                                        rel="noreferrer"
                                     >
                                         <img
                                             src="/youtube.png"

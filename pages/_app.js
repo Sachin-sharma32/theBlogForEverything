@@ -16,13 +16,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+    console.log(pageProps);
     const queryClient = new QueryClient();
 
     const [cookie, setCookie, removeCookie] = useCookies(["jwt"]);
     axios.defaults.headers.common["authorization"] = `Bearer ${cookie.jwt}`;
 
     const router = useRouter();
-    router.pathname;
 
     return (
         <div className="">

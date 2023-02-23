@@ -87,14 +87,7 @@ const Header = () => {
                                 <section>
                                     <article className=" sm:w-80 p-4 sm:p-0 w-50 flex flex-col gap-4 sm:gap-10 mr-0 sm:mr-10 cursor-pointer justify-center relative">
                                         <Link
-                                            href={{
-                                                pathname: `/post/${post._id}`,
-                                                query: {
-                                                    object: JSON.stringify(
-                                                        post
-                                                    ),
-                                                },
-                                            }}
+                                            href={`/post/${post._id}`}
                                             className="flex flex-col gap-4 sm:gap-10 "
                                         >
                                             <h1 className=" text-3xl font-bold bg-gradient-to-r from-[#ff7d69] to-blue-700 text-transparent bg-clip-text">

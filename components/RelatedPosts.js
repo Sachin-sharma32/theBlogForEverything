@@ -50,13 +50,7 @@ const RelatedPosts = ({ post }) => {
             </h4>
             <div className=" mt-4 flex flex-col gap-4">
                 {relatedPosts.map((post, i) => (
-                    <Link
-                        href={{
-                            pathname: `/post/${post._id}`,
-                            query: { object: JSON.stringify(post) },
-                        }}
-                        key={post._id}
-                    >
+                    <Link href={`/post/${post._id}`} key={post._id}>
                         <div className=" border-b-2 pb-2">
                             {post.author && (
                                 <div className="flex items-center gap-2 cursor-pointer">

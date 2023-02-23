@@ -38,9 +38,8 @@ import RedditIcon from "@mui/icons-material/Reddit";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import Layout from "../../components/Layout";
 
-const Post = () => {
+const Post = ({ post }) => {
     const router = useRouter();
-    const post = JSON.parse(router.query.object);
     const { data: comments } = useGetComments(post._id);
     const [loading, setLoading] = useState(false);
     const [editor, setEditor] = useState(null);
@@ -665,17 +664,36 @@ const Post = () => {
 
 export default Post;
 
+// Post.getInitialProps = async (context) => {
+//     const post = JSON.parse(context.query.object);
+//     console.log(post)
+//     return {
+//         title: post.title,
+//         image: post.image,
+//         summery: post.summery,
+//         keywords: post.tags.map((tag) => tag.title).toString(),
+//         type: "article",
+//         imageAlt: post.title,
+//         parameter: `post/${post._id}`,
+//     };
+// };
 
-Post.getInitialProps = async (context) => {
-    const post = JSON.parse(context.query.object);
-    console.log(post)
+export async function getServerSideProps(context) {
+    const post = await axios.get(
+        `https://theblogforeverything-backend-h8fa.vercel.app/api/v1/posts/${context.params.post}`
+    );
     return {
-        title: post.title,
-        image: post.image,
-        summery: post.summery,
-        keywords: post.tags.map((tag) => tag.title).toString(),
-        type: "article",
-        imageAlt: post.title,
-        parameter: `post/${post._id}`,
+        props: {
+            post: post.data.data.doc,
+            title: post.data.data.doc.title,
+            image: post.data.data.doc.image,
+            summery: post.data.data.doc.summery,
+            keywords: post.data.data.doc.tags
+                .map((tag) => tag.title)
+                .toString(),
+            type: "website",
+            imageAlt: post.data.data.doc.title,
+            id: post.data.data.doc._id,
+        },
     };
-};
+}

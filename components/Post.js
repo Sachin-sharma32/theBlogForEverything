@@ -67,6 +67,7 @@ const Post = ({ post }) => {
                         href={{
                             pathname: `/post/${post._id}`,
                             query: { object: JSON.stringify(post) },
+                            as: `/post/${post._id}`,
                         }}
                         className=" cursor-pointer"
                     >

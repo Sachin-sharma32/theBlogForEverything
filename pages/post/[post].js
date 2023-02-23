@@ -42,7 +42,6 @@ const Post = () => {
     const router = useRouter();
     const post = JSON.parse(router.query.object);
     const { data: comments } = useGetComments(post._id);
-    comments;
     const [loading, setLoading] = useState(false);
     const [editor, setEditor] = useState(null);
     const mode = useSelector((state) => state.base.mode);
@@ -669,6 +668,7 @@ export default Post;
 
 Post.getInitialProps = async (context) => {
     const post = JSON.parse(context.query.object);
+    console.log(post)
     return {
         title: post.title,
         image: post.image,

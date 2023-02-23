@@ -300,7 +300,7 @@ const Register = () => {
                                             </div>
                                             <button
                                                 disabled={!props.isValid}
-                                                type="submit"
+                                                type="submit"d
                                                 className={`
                                                          border-black text-black hover:bg-black hover:text-white
                                                  border w-[100%] px-4 py-2 rounded-2xl  transition-all duration-200 h-14 text-xl valid:active:scale-90 disabled:bg-[#e8e8e8] disabled:text-white disabled:border-[#e8e8e8]`}

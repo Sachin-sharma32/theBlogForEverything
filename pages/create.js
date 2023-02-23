@@ -54,16 +54,6 @@ const Create = () => {
     const [conversation, setConversation] = useState([]);
     const [copy, setCopy] = useState(false);
 
-    if (content.includes("<iframe")) {
-        ("hello");
-        // content
-        // ?.replaceAll(
-        //     "<h1>",
-        //     '<h1 class="text-2xl font-poppins font-bold mb-0">'
-        // )
-    }
-    content;
-
     const validationObject = yup.object({
         title: yup.string().min(1).max(10),
     });
@@ -368,7 +358,7 @@ const Create = () => {
                     </button>
                 </DialogActions>
             </Dialog>
-            <div className=" w-[100%] bg-[#f8f8f8] flex flex-col gap-0 items-center relative">
+            <div className=" w-[100%] bg-[#f8f8f8] flex flex-col gap-0 items-center relative overflow-x-hidden">
                 <div
                     className={` ${
                         handleAssistenceToggle ? "top-20" : "top-40"
